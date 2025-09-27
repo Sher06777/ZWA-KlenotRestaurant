@@ -11,6 +11,7 @@ html, body {
   height: 100%;
   width: 100%;
 }
+/* Настройка Главного меню */
 
 #dropped-menu { 
   position: fixed;
@@ -28,20 +29,45 @@ html, body {
   padding: 0 150px;
   color: #fff;
   background-color: transparent;
+  
+}
+
+.hero{
+  position: relative; /* контейнер для фоновой декорации */
+  width: 100%;
+  height: 120px; /* или больше, если нужно */
+  background-image: url('img/gold-decor.png');    /* или background-position:'left center' */
+  background-repeat: no-repeat;
+  background-size: 230px auto;               /* размер декорации */
+  background-position: left -20px center;
+  z-index: 1;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 230px; /* совпадает с background-size */
+  height: 100%;
+  background-image: url('img/gold-decor.png');
+  background-repeat: no-repeat;
+  background-size: 230px auto;
+  background-position: right 20px top -75px;
+  transform: scaleX(-1); /* зеркалим */
 }
 
 #dropped-menu.scrolled {
   background-color: rgba(0,0,0,0.7); /* НЕ РАБОТАЕТ полупрозрачный черный при скролле */
 }
 
-.dropdown {
+.menu-dropdown {
   display: flex;
   align-items: center;
   width: 100%;
   justify-content: space-between;
 }
 
-/* Главное меню */
 .main-menu {
   display: flex;
   align-items: center;
@@ -49,6 +75,59 @@ html, body {
   gap: 50px;
   list-style: none;
 }
+
+.main-menu-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px 30px;
+  color: #0e0e0e;
+  position: relative;
+}
+
+.main-menu-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0e0e0e;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+
+.main-menu-button:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* Логотип подстраиваем под высоту меню */
+.main-menu .logo img,
+.main-menu img {
+  height: 114px;
+  width: auto;
+  display: block;
+}
+
+.main-menu .logo img {
+  height: 114px;
+  width: auto;
+}
+
+.main-menu-right {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.main-menu-right .separator {
+  color: #ccc;
+}
+
 
 .login-btn, .cart-btn {
   display: flex;
@@ -82,42 +161,74 @@ html, body {
   color: #000000;
 }
 
-.menu-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px 30px;
-  color: #0e0e0e;
-}
-
-/* Логотип подстраиваем под высоту меню */
-.main-menu .logo img,
-.main-menu img {
-  height: 114px;
-  width: auto;
-  display: block;
-}
-
-.main-menu .logo img {
-  height: 114px;
-  width: auto;
-}
-
-.menu-right {
-  display: flex;
-  align-items: center;
-  gap: 50px;
-}
-
-.menu-right .separator {
-  color: #ccc;
-}
-
-.hero {
-  width: 100vw;
-  height: 1320px;
-  background: url('main.jpg') no-repeat center center;
+/* Настройка изображения-бэкграунда */
+.main-backgroung-img {
+  background: url('img/main.jpg') no-repeat center center;
   background-size: cover;
-  margin-top: 120px;
+}
+
+.background-img {
+  height: 1000px;
+  width: 100%;
+}
+
+/* Настройка основной части */
+.body-history {
+  display: flex;
+  height: 600px;
+  background-color: #404040;
+  margin-top: 30px;
+}
+
+.body-history-img {
+  height: 600px;
+  width: 900px;
+}
+
+.body-history-left-text{
+  display: flex;
+}
+
+.body-history-left-text h1,
+.body-history-left-text h2,
+.body-history-left-text p,
+.body-history-menu-button {
+  font-family: "Oswald", sans-serif !important;
+  color: #ffffff;
+}
+
+.body-history-left-text h1 {
+  font-weight: 450;
+  margin-bottom: 25px;
+  font-size: 35px;
+}
+
+.body-history-left-text h2 {
+  font-weight: 400;
+  font-size: 25px;
+  margin-bottom: 50px;
+}
+
+.body-history-left-text p {
+  font-weight: 300;
+  font-size: 25px;
+  margin-bottom: 75px;
+}
+
+.body-history-all-text {
+  padding: 50px;
+  text-align: left;
+}
+
+.body-history-menu-button {
+  position: relative;
+  width: 150px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0); 
+  border: 2px solid; 
+  border-color: #ffffff;
+  font-size: 20px;
+  color: #ffffff;
+  outline: none;
+  cursor: pointer;
 }
