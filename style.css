@@ -1,3 +1,177 @@
+/* Itim: CSS class
+
+.itim-regular {
+  font-family: "Itim", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+Oswald: CSS class for a variable style
+
+// <weight>: Use a value from 200 to 700
+// <uniquifier>: Use a unique and descriptive class name
+
+.oswald-<uniquifier> {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+Raleway: CSS class for a variable style
+
+// <weight>: Use a value from 100 to 900
+// <uniquifier>: Use a unique and descriptive class name
+
+.raleway-<uniquifier> {
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+Merriweather: CSS class for a variable style
+
+// <weight>: Use a value from 300 to 900
+// <uniquifier>: Use a unique and descriptive class name
+
+.merriweather-<uniquifier> {
+  font-family: "Merriweather", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+Cormorant Garamond: CSS class for a variable style
+
+// <weight>: Use a value from 300 to 700
+// <uniquifier>: Use a unique and descriptive class name
+
+.cormorant-garamond-<uniquifier> {
+  font-family: "Cormorant Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+Montserrat Alternates: CSS classes
+
+.montserrat-alternates-thin {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.montserrat-alternates-extralight {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.montserrat-alternates-light {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.montserrat-alternates-regular {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.montserrat-alternates-medium {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.montserrat-alternates-semibold {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.montserrat-alternates-bold {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.montserrat-alternates-extrabold {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.montserrat-alternates-black {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.montserrat-alternates-thin-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.montserrat-alternates-extralight-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.montserrat-alternates-light-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.montserrat-alternates-regular-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.montserrat-alternates-medium-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.montserrat-alternates-semibold-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.montserrat-alternates-bold-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.montserrat-alternates-extrabold-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.montserrat-alternates-black-italic {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+Quicksand: CSS class for a variable style
+
+// <weight>: Use a value from 300 to 700
+// <uniquifier>: Use a unique and descriptive class name
+
+.quicksand-<uniquifier> {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+} */
+
 * {
   margin: 0;
   padding: 0;
@@ -32,7 +206,7 @@ html, body {
   
 }
 
-.hero{
+.golden-decorations{
   position: relative; /* контейнер для фоновой декорации */
   width: 100%;
   height: 120px; /* или больше, если нужно */
@@ -43,7 +217,7 @@ html, body {
   z-index: 1;
 }
 
-.hero::after {
+.golden-decorations::after {
   content: "";
   position: absolute;
   top: 0;
@@ -178,6 +352,7 @@ html, body {
   height: 600px;
   background-color: #404040;
   margin-top: 30px;
+  margin-bottom: 100px;
 }
 
 .body-history-img {
@@ -231,4 +406,113 @@ html, body {
   color: #ffffff;
   outline: none;
   cursor: pointer;
+}
+
+
+
+/* Часть страницы с колонками */
+
+.columns-section {
+  position: relative;
+  width: 100%;
+}
+
+.body-columns-background-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+
+.body-all-columns {
+  position: absolute;
+  top: 50px;          /* отступ сверху + регулировка высоты без изменения с 100% */
+  bottom: 50px;       /* отступ снизу + регулировка высоты без изменения с 100%*/
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: calc(100% - 400px); /* 275px слева + 275px справа */
+  display: flex;
+  justify-content: space-between;
+  gap: 75px;
+  z-index: 2;
+  box-sizing: border-box;
+}
+
+/*фиксированная ширина, высота подгоняется по body-all-columns */
+.body-first-column,
+.body-second-column,
+.body-third-column {
+  width: 500px;
+  height: 100%;
+  padding: 40px;
+  box-sizing: border-box;
+  background-color: rgba(255,255,255);
+}
+
+
+.body-first-text,
+.body-second-text,
+.body-third-text {
+  margin: 0;
+}
+
+.columns-wrapper {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+
+.body-first-img,
+.body-second-img,
+.body-third-img {
+  width: 275px;
+  height: 250px;
+  object-fit: cover; /* чтобы не растягивало */
+  display: block;
+  margin: 0 auto 40px;
+  margin-bottom: 15px;
+}
+
+.body-first-title,
+.body-second-title,
+.body-third-title {
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-size: 40px;
+  font-style: medium;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.body-first-text,
+.body-second-text,
+.body-third-text {
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 20px;
+  margin-bottom: 45px;
+}
+
+
+.body-first-button,
+.body-second-button,
+.body-third-button {
+  position: relative;
+  font-size: 25px;
+  display: block;       /* делаем кнопки блочными, чтобы margin auto сработал */
+  margin: 0 auto;       /* центрируем по горизонтали */
+  padding: 10px 25px;
+  border: 2px solid;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0);
+  color: #000000;
+  text-align: center;
+  outline: none;
 }
