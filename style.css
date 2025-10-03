@@ -447,10 +447,8 @@ html, body {
 }
 
 /*фиксированная ширина, высота подгоняется по body-all-columns */
-.body-first-column,
-.body-second-column,
-.body-third-column {
-  width: 400px;               /* фиксированная ширина, не едет */
+.body-column {
+  width: 400px;
   min-height: 650px;
   padding: 40px;
   background-color: #ffffff;
@@ -458,13 +456,6 @@ html, body {
   flex-direction: column;
   box-sizing: border-box;
   flex-shrink: 0;             /* не сжимается при масштабировании */
-}
-
-
-.body-first-text,
-.body-second-text,
-.body-third-text {
-  margin: 0;
 }
 
 .columns-wrapper {
@@ -475,9 +466,7 @@ html, body {
 }
 
 
-.body-first-img,
-.body-second-img,
-.body-third-img {
+.body-img {
   width: 275px;
   height: 250px;
   object-fit: cover; /* чтобы не растягивало */
@@ -486,9 +475,7 @@ html, body {
   flex-shrink: 0;
 }
 
-.body-first-title,
-.body-second-title,
-.body-third-title {
+.body-title {
   font-family: "Quicksand", sans-serif;
   font-weight: 500;
   font-size: 40px;
@@ -497,20 +484,17 @@ html, body {
   margin-bottom: 15px;
 }
 
-.body-first-text,
-.body-second-text,
-.body-third-text {
+.body-text {
   font-family: "Montserrat Alternates", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 20px;
-  margin-bottom: 45px;
+  /* margin-bottom: 45px; */
+  margin: 0 0 45px 0;
 }
 
 
-.body-first-button,
-.body-second-button,
-.body-third-button {
+.body-button {
   margin: auto auto 0 auto; /* прижимаем вниз + по центру */
   padding: 12px 28px;
   font-size: 22px;
