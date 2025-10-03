@@ -193,6 +193,11 @@ Quicksand: CSS class for a variable style
 html, body {
   overflow-x: hidden;
 }
+/* для плавности перехода по ссылкам */
+html {
+  scroll-behavior: smooth;
+}
+
 /* Настройка Главного меню */
 
 header {
@@ -214,9 +219,15 @@ header {
   align-items: center;
   padding: 0 150px;
   color: #fff;
-  background-color: transparent;
-  
+  background: linear-gradient(
+    to bottom, 
+    rgb(255 255 255 / 75%), /* верх — плотнее */ 
+    rgb(255 255 255 / 0%) /* низ — почти прозрачно */);
+  backdrop-filter: blur(6px);
+  transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
 }
+/* Эффект блюра для хэдера */
+
 
 .golden-decorations{
   position: relative; /* контейнер для фоновой декорации */
@@ -284,7 +295,11 @@ header {
   transform-origin: left;
   transition: transform 0.5s ease;
 }
-
+ .main-menu-button a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
 
 .main-menu-button:hover::after {
   transform: scaleX(1);
@@ -665,4 +680,153 @@ header {
   color: #000;
   cursor: pointer;
   text-align: center;
+  position: relative;
+  transition: padding 0.2s linear;
+}
+
+.body-button::after,
+.body-button::after,
+.body-button::after {
+  content: "ᐯ"; /* Unicode для ↓ */
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+  font-size: 18px;
+  position: absolute;
+  bottom: 13px;
+  right: 15px;
+  opacity: 0;
+  transform: scaleX(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.body-button:hover,
+.body-button:hover,
+.body-button:hover {
+  padding: 12px 40px;
+  color: #ff9d00;
+}
+
+.body-button:hover::after,
+.body-button:hover::after,
+.body-button:hover::after {
+  opacity: 1;
+  transform: scaleX(1.2);
+}
+
+/* About us */
+.about-us-section {
+  margin: 0 auto;
+  padding: 80px 20px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.7;
+  color: #333;
+  position: relative;
+  background-image: url('./img/about-bg.png'); 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; 
+  color: #fff;
+}
+
+.about-us-background {
+  background: rgba(0, 0, 0, 0.55);
+  padding: 50px;
+  border-radius: 8px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.about-us-section h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 32px;
+  color: #ffcc00;
+}
+
+.about-us-section p {
+  line-height: 1.7;
+  font-size: 18px;
+}
+
+/* ===== Footer ===== */
+.footer {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 60px 20px 20px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.footer-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.footer-about-us,
+.footer-links,
+.footer-contact,
+.footer-media-links {
+  width: 23%;
+  min-width: 200px;
+  margin-bottom: 30px;
+}
+
+.footer h3,
+.footer h4 {
+  margin-bottom: 15px;
+  color: #ffcc00;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #ffcc00;
+}
+
+.footer-contact p {
+  margin: 8px 0;
+}
+.media-icons {
+  display: flex;
+  flex-direction: row; /* горизонтально */
+  column-gap: 10px;    /* расстояние между иконками */
+}
+
+.media-icons a {
+  display: inline-block;
+}
+
+.media-icons img {
+  width: 24px;
+  height: 24px;
+  filter: invert(90%);
+  transition: filter 0.3s;
+}
+
+.media-icons a:hover img {
+  filter: invert(10%);
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  margin-top: 20px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 14px;
 }
