@@ -496,8 +496,6 @@ header {
   cursor: pointer;
 }
 
-
-
 /* Часть страницы с колонками */
 
 .columns-section {
@@ -553,7 +551,6 @@ header {
   overflow: visible;
 }
 
-
 .body-img {
   width: 275px;
   height: 250px;
@@ -577,7 +574,6 @@ header {
   font-weight: 400;
   font-style: normal;
   font-size: 20px;
-  /* margin-bottom: 45px; */
   margin: 0 0 45px 0;
 }
 
@@ -596,8 +592,6 @@ header {
   transition: padding 0.2s linear;
 }
 
-.body-button::after,
-.body-button::after,
 .body-button::after {
   content: "ᐯ"; /* Unicode для ↓ */
   font-family: "Montserrat Alternates", sans-serif;
@@ -612,15 +606,11 @@ header {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.body-button:hover,
-.body-button:hover,
 .body-button:hover {
   padding: 12px 40px;
   color: #ff9d00;
 }
 
-.body-button:hover::after,
-.body-button:hover::after,
 .body-button:hover::after {
   opacity: 1;
   transform: scaleX(1.2);
