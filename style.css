@@ -527,8 +527,6 @@ header {
   display: flex;
   height: 600px;
   background-color: #404040;
-  margin-top: 30px;
-  margin-bottom: 40px;
 }
 
 .body-history-img {
@@ -829,4 +827,24 @@ header {
   padding-top: 20px;
   text-align: center;
   font-size: 14px;
+}
+
+.divider {
+  padding: 3px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #000;
+}
+
+.line {
+  flex: 1;
+  height: 2px;
+  background-color: #a66f2e;
+  margin: 0 20px;
+}
+
+.logo-line img {
+  height: 60px; /* высота логотипа */
 }
