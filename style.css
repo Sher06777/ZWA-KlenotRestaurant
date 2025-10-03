@@ -1,56 +1,4 @@
-/* Itim: CSS class
-
-.itim-regular {
-  font-family: "Itim", cursive;
-  font-weight: 400;
-  font-style: normal;
-}
-Oswald: CSS class for a variable style
-
-// <weight>: Use a value from 200 to 700
-// <uniquifier>: Use a unique and descriptive class name
-
-.oswald-<uniquifier> {
-  font-family: "Oswald", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-Raleway: CSS class for a variable style
-
-// <weight>: Use a value from 100 to 900
-// <uniquifier>: Use a unique and descriptive class name
-
-.raleway-<uniquifier> {
-  font-family: "Raleway", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
-Merriweather: CSS class for a variable style
-
-// <weight>: Use a value from 300 to 900
-// <uniquifier>: Use a unique and descriptive class name
-
-.merriweather-<uniquifier> {
-  font-family: "Merriweather", serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
-}
-Cormorant Garamond: CSS class for a variable style
-
-// <weight>: Use a value from 300 to 700
-// <uniquifier>: Use a unique and descriptive class name
-
-.cormorant-garamond-<uniquifier> {
-  font-family: "Cormorant Garamond", serif;
-  font-optical-sizing: auto;
-  font-weight: <weight>;
-  font-style: normal;
-}
+/* 
 Montserrat Alternates: CSS classes
 
 .montserrat-alternates-thin {
@@ -205,7 +153,7 @@ header {
   left: 0;
   width: 100%;
   height: 120px;
-  font-family: "Oswald", serif !important;
+  font-family: "Montserrat Alternates", serif !important;
   font-size: 20px;
   font-weight: bold;
   z-index: 9999;
@@ -216,31 +164,6 @@ header {
   color: #fff;
   background-color: transparent;
   
-}
-
-.golden-decorations{
-  position: relative; /* контейнер для фоновой декорации */
-  width: 100%;
-  height: 120px; /* или больше, если нужно */
-  background-image: url('img/gold-decor.png');    /* или background-position:'left center' */
-  background-repeat: no-repeat;
-  background-size: 230px auto;               /* размер декорации */
-  background-position: left -20px center;
-  z-index: 1;
-}
-
-.golden-decorations::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 230px; /* совпадает с background-size */
-  height: 100%;
-  background-image: url('img/gold-decor.png');
-  background-repeat: no-repeat;
-  background-size: 230px auto;
-  background-position: right 20px top -75px;
-  transform: scaleX(-1); /* зеркалим */
 }
 
 #dropped-menu.scrolled {
@@ -318,18 +241,7 @@ header {
 .login-btn, .cart-btn {
   display: flex;
   align-items: center;
-  gap: 8px; /* расстояние между иконкой и текстом */
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.login-btn, .cart-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* расстояние между иконкой и текстом */
+  gap: 8px;
   border: none;
   padding: 10px 15px;
   border-radius: 6px;
@@ -409,7 +321,7 @@ header {
 }
 
 .slider-image-item.active img {
-  transform: scale(1.05); /* Увеличиваем на 10% */
+  transform: scale(1.05); /* Увеличиваем на 5% */
 }
 
 /* скрываем радио-кнопки */
@@ -490,7 +402,7 @@ header {
   bottom: 0;
   left: 0;
   border-radius: 3px;
-  transform-origin: bottom; /* важен для "растяжения" снизу */
+  transform-origin: bottom; /* для "растяжения" снизу */
   transform: scaleY(var(--progress, 0));
   transition: transform 1s ease;
 }
@@ -529,7 +441,7 @@ header {
 .body-history-left-text h2,
 .body-history-left-text p,
 .body-history-menu-button {
-  font-family: "Oswald", sans-serif !important;
+  font-family: "Montserrat Alternates", sans-serif !important;
   color: #ffffff;
 }
 
@@ -637,10 +549,10 @@ header {
 }
 
 .body-title {
-  font-family: "Quicksand", sans-serif;
+  font-family: "Montserrat Alternates", sans-serif;
   font-weight: 500;
   font-size: 40px;
-  font-style: medium;
+  font-style: normal;
   text-align: center;
   margin-bottom: 15px;
 }
