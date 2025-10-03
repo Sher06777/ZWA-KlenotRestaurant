@@ -8,12 +8,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Itim&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Itim&family=Lora:ital,wght@0,400..700;1,400..700&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
 
 </head>
 <body>
-  <div class="golden-decorations">
-  </div>
 
   <!-- Верхнее главное меню -->
 
@@ -24,7 +22,7 @@
           <li class="main-menu-button">О нас</li>
         </div>
           <li class="main-menu-button">Меню</li>
-          <li class="logo"><img src="img/logo.png" alt="logo"></li>
+          <li class="logo"><img src="img/logo-restorant-without-background.png" alt="logo"></li>
           <li class="main-menu-button">Галерея</li>
           <li class="main-menu-button">Резервация</li>
       </ul>
@@ -41,6 +39,44 @@
       </div>
     </div>
   </header>
+
+    <!-- Слайдер -->
+
+  <div class="slider-wrapper">
+    <div class="slider">
+      <!-- Радиокнопки -->
+      <input type="radio" name="slider" id="slider-switch-1" class="slider-radio" checked>
+      <input type="radio" name="slider" id="slider-switch-2" class="slider-radio">
+      <input type="radio" name="slider" id="slider-switch-3" class="slider-radio">
+
+      <!-- Слайды -->
+      <div class="slider-slides">
+        <div class="slider-images">
+          <article class="slider-image-item">
+            <img src="img/slider-img-1.jpg">
+          </article>
+          <article class="slider-image-item">
+            <img src="img/slider-img-15.jpg">
+          </article>
+          <article class="slider-image-item">
+            <img src="img/slider-img-17.jpg">
+          </article>
+        </div>
+      </div>
+
+      <!-- Кнопки переключения + scaleBar -->
+      <div class="slider-pagination-wrapper">
+        <div class="slider-pagination">
+          <label for="slider-switch-1" class="slider-number">1</label>
+          <label for="slider-switch-2" class="slider-number">2</label>
+          <label for="slider-switch-3" class="slider-number">3</label>
+        </div>
+        <div class="slider-progress">
+          <div class="slider-progress-fill"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
     <!-- Первый блок с текстом -->
@@ -61,52 +97,53 @@
 
   <!-- Второй блок с текстом -->
 
-<section class="columns-section">
-  <div class="columns-wrapper">
-    <img src="img/EmperorHomelay.png" alt="" class="body-columns-background-img">
-    <div class="body-all-columns">
-      <div class="body-column">
-        <img src="img/food-bar2.jpg" alt="" class="body-img">
-        <h3 class="body-title">Magic of Cocktails</h3>
-        <p class="body-text">
-          Discover exquisite cocktails crafted from rare recipes and the freshest ingredients.
-          Every sip offers a harmony of flavors that delights the senses.
-          Delicate aromas and vibrant colors make each drink a little masterpiece.
-          Perfect for evenings with friends, romantic dates, or special moments.
-        </p>
-        <button class="body-button">
-          Gallery
-        </button>        
-      </div>
-      <div class="body-column">
-        <img src="img/food2.jpg" alt="" class="body-img">
-        <h3 class="body-title">Treasure of the Menu</h3>
-        <p class="body-text">
-          Each dish perfectly blends flavors and textures into a truly culinary adventure. 
-          From classics to unexpected delights, our menu is full of treasures. 
-          Fresh ingredients and presentation make every bite memorable. 
-          Experience premium taste and attention in our kitchen.
-        </p>
-        <button class="body-button">
-          View Menu
-        </button>
-      </div>
-      <div class="body-column">
-        <img src="img/food3.jpg" alt="" class="body-img">
-        <h3 class="body-title">Taste of Adventure</h3>
-        <p class="body-text">
-          Embark on a journey through exotic spices, rare ingredients, and bold flavor combinations.
-          Every dish awakens curiosity and creates unforgettable experiences.
-          Unique presentation turns each plate into a visual delight.
-          Dare to explore flavors that surprise and inspire.
-        </p>
-        <button class="body-button">
-          About Us
-        </button>
+  <section class="columns-section">
+    <div class="columns-wrapper">
+      <img src="img/EmperorHomelay.png" alt="" class="body-columns-background-img">
+      <div class="body-all-columns">
+        <div class="body-column">
+          <img src="img/food-bar2.jpg" alt="" class="body-img">
+          <h3 class="body-title">Magic of Cocktails</h3>
+          <p class="body-text">
+            Discover exquisite cocktails crafted from rare recipes and the freshest ingredients.
+            Every sip offers a harmony of flavors that delights the senses.
+            Delicate aromas and vibrant colors make each drink a little masterpiece.
+            Perfect for evenings with friends, romantic dates, or special moments.
+          </p>
+          <button class="body-button">
+            Gallery
+          </button>        
+        </div>
+        <div class="body-column">
+          <img src="img/food2.jpg" alt="" class="body-img">
+          <h3 class="body-title">Treasure of the Menu</h3>
+          <p class="body-text">
+            Each dish perfectly blends flavors and textures into a truly culinary adventure. 
+            From classics to unexpected delights, our menu is full of treasures. 
+            Fresh ingredients and presentation make every bite memorable. 
+            Experience premium taste and attention in our kitchen.
+          </p>
+          <button class="body-button">
+            View Menu
+          </button>
+        </div>
+        <div class="body-column">
+          <img src="img/food3.jpg" alt="" class="body-img">
+          <h3 class="body-title">Taste of Adventure</h3>
+          <p class="body-text">
+            Embark on a journey through exotic spices, rare ingredients, and bold flavor combinations.
+            Every dish awakens curiosity and creates unforgettable experiences.
+            Unique presentation turns each plate into a visual delight.
+            Dare to explore flavors that surprise and inspire.
+          </p>
+          <button class="body-button">
+            About Us
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+  <script src="js/animations.js"></script>
 
 </body>
 </html>
