@@ -14,7 +14,6 @@
 <body>
 
   <!-- Верхнее главное меню -->
-
   <header id="dropped-menu">
     <div class="menu-dropdown">
       <ul class="main-menu">
@@ -39,131 +38,153 @@
   </header>
 
     <!-- Слайдер -->
+  <main id="main" class="visible">
+    <div class="slider-wrapper">
+      <div class="slider">
+        <!-- Радиокнопки -->
+        <input type="radio" name="slider" id="slider-switch-1" class="slider-radio" checked>
+        <input type="radio" name="slider" id="slider-switch-2" class="slider-radio">
+        <input type="radio" name="slider" id="slider-switch-3" class="slider-radio">
 
-  <div class="slider-wrapper">
-    <div class="slider">
-      <!-- Радиокнопки -->
-      <input type="radio" name="slider" id="slider-switch-1" class="slider-radio" checked>
-      <input type="radio" name="slider" id="slider-switch-2" class="slider-radio">
-      <input type="radio" name="slider" id="slider-switch-3" class="slider-radio">
-
-      <!-- Слайды -->
-      <div class="slider-slides">
-        <div class="slider-images">
-          <article class="slider-image-item">
-            <img src="img/slider-img-1.jpg">
-          </article>
-          <article class="slider-image-item">
-            <img src="img/slider-img-15.jpg">
-          </article>
-          <article class="slider-image-item">
-            <img src="img/slider-img-17.jpg">
-          </article>
+        <!-- Слайды -->
+        <div class="slider-slides">
+          <div class="slider-images">
+            <article class="slider-image-item">
+              <img src="img/slider-img-1.jpg">
+            </article>
+            <article class="slider-image-item">
+              <img src="img/slider-img-15.jpg">
+            </article>
+            <article class="slider-image-item">
+              <img src="img/slider-img-17.jpg">
+            </article>
+          </div>
         </div>
-      </div>
 
-      <!-- Кнопки переключения + scaleBar -->
-      <div class="slider-pagination-wrapper">
-        <div class="slider-pagination">
-          <label for="slider-switch-1" class="slider-number">1</label>
-          <label for="slider-switch-2" class="slider-number">2</label>
-          <label for="slider-switch-3" class="slider-number">3</label>
-        </div>
-        <div class="slider-progress">
-          <div class="slider-progress-fill"></div>
+        <!-- Кнопки переключения + scaleBar -->
+        <div class="slider-pagination-wrapper">
+          <div class="slider-pagination">
+            <label for="slider-switch-1" class="slider-number">1</label>
+            <label for="slider-switch-2" class="slider-number">2</label>
+            <label for="slider-switch-3" class="slider-number">3</label>
+          </div>
+          <div class="slider-progress">
+            <div class="slider-progress-fill"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
 
-    <!-- Первый блок с текстом -->
+      <!-- Первый блок с текстом -->
 
-  <section class="body-history">
-    <div class="body-history-left-text">
-      <div class="body-history-all-text">
-        <h1>Agave restaurant: Mexiko v srdci Prahy</h1>
-        <h2>Fine dining restaurant in the heart of Prague</h2>
-        <p>Uncover hidden secrets of Prague´s Lesser town and explore culinary art inspired by Augustinian monks. Augustine restaurant located in 13th century monastery will definitely delight you, not only with its rich history and calm atmosphere, but also with top service and culinary experience created by mastermind chef Jan Horak and his team.</p>
-        <button class="body-history-menu-button">
-          <span>View menus</span>
-        </button>
-      </div>
-    </div>
-    <div class="body-history-right-text">
-      <img src="img/summer-menu-3.jpg" class="body-history-img">
-    </div>
-  </section>
-
-  <!-- Второй блок с текстом -->
-
-  <section class="columns-section">
-    <div class="columns-wrapper">
-      <img src="img/EmperorHomelay.png" alt="" class="body-columns-background-img">
-      <div class="body-all-columns">
-        <div class="body-column">
-          <img src="img/food-bar2.jpg" alt="" class="body-img">
-          <h3 class="body-title">Magic of Cocktails</h3>
-          <p class="body-text">
-            Je představitelem významné gastronomické rodiny, která se tomuto řemeslu věnuje již několik generací. 
-            Jeho kuchařský rukopis vychází z české tradice, kterou citlivě obohacuje o lehkost Itálie 
-            Spojování chutí a vytváření okamžiku se tak pod jeho taktovkou mění v nezapomenutelný zážitek.
-          </p>
-          <button class="body-button">
-            Gallery
-          </button>        
-        </div>
-        <div class="body-column">
-          <img src="img/food2.jpg" alt="" class="body-img">
-          <h3 class="body-title">Treasure of the Menu</h3>
-          <p class="body-text">
-            Each dish perfectly blends flavors and textures into a truly culinary adventure. 
-            From classics to unexpected delights, our menu is full of treasures. 
-            Fresh ingredients and presentation make every bite memorable. 
-            Experience premium taste and attention in our kitchen.
-          </p>
-          <button class="body-button">
-            View Menu
-          </button>
-        </div>
-        <div class="body-column">
-          <img src="img/food3.jpg" alt="" class="body-img">
-          <h3 class="body-title">Taste of Adventure</h3>
-          <p class="body-text">
-            Embark on a journey through exotic spices, rare ingredients, and bold flavor combinations.
-            Every dish awakens curiosity and creates unforgettable experiences.
-            Unique presentation turns each plate into a visual delight.
-            Dare to explore flavors that surprise and inspire.
-          </p>
-          <button class="body-button">
-            About Us
+    <section class="body-history">
+      <div class="body-history-left-text">
+        <div class="body-history-all-text">
+          <h1>Agave restaurant: Mexiko v srdci Prahy</h1>
+          <h2>Fine dining restaurant in the heart of Prague</h2>
+          <p>Uncover hidden secrets of Prague´s Lesser town and explore culinary art inspired by Augustinian monks. Augustine restaurant located in 13th century monastery will definitely delight you, not only with its rich history and calm atmosphere, but also with top service and culinary experience created by mastermind chef Jan Horak and his team.</p>
+          <button class="body-history-menu-button">
+            <span>View menus</span>
           </button>
         </div>
       </div>
+      <div class="body-history-right-text">
+        <img src="img/summer-menu-3.jpg" class="body-history-img">
+      </div>
+    </section>
+
+    <!-- Второй блок с текстом -->
+
+    <section class="columns-section">
+      <div class="columns-wrapper">
+        <img src="img/EmperorHomelay.png" alt="" class="body-columns-background-img">
+        <div class="body-all-columns">
+          <div class="body-column">
+            <img src="img/food-bar2.jpg" alt="" class="body-img">
+            <h3 class="body-title">Magic of Cocktails</h3>
+            <p class="body-text">
+              Je představitelem významné gastronomické rodiny, která se tomuto řemeslu věnuje již několik generací. 
+              Jeho kuchařský rukopis vychází z české tradice, kterou citlivě obohacuje o lehkost Itálie 
+              Spojování chutí a vytváření okamžiku se tak pod jeho taktovkou mění v nezapomenutelný zážitek.
+            </p>
+            <button class="body-button">
+              Gallery
+            </button>        
+          </div>
+          <div class="body-column">
+            <img src="img/food2.jpg" alt="" class="body-img">
+            <h3 class="body-title">Treasure of the Menu</h3>
+            <p class="body-text">
+              Each dish perfectly blends flavors and textures into a truly culinary adventure. 
+              From classics to unexpected delights, our menu is full of treasures. 
+              Fresh ingredients and presentation make every bite memorable. 
+              Experience premium taste and attention in our kitchen.
+            </p>
+            <button class="body-button">
+              View Menu
+            </button>
+          </div>
+          <div class="body-column">
+            <img src="img/food3.jpg" alt="" class="body-img">
+            <h3 class="body-title">Taste of Adventure</h3>
+            <p class="body-text">
+              Embark on a journey through exotic spices, rare ingredients, and bold flavor combinations.
+              Every dish awakens curiosity and creates unforgettable experiences.
+              Unique presentation turns each plate into a visual delight.
+              Dare to explore flavors that surprise and inspire.
+            </p>
+            <button class="body-button">
+              About Us
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about-us" class="about-us-section">
+      <div class="about-us-background">
+        <h2>About Klenot Restaurant</h2>
+        <p>
+          Located in the heart of Prague, <strong>Klenot Restaurant</strong> is a place where
+          tradition meets elegance. We specialize in authentic Czech and European cuisine,
+          prepared with fresh local ingredients and a touch of modern presentation.
+        </p>
+        <p>
+          Our philosophy is simple: quality, hospitality, and unforgettable atmosphere.
+          Whether you're visiting for a romantic dinner, a business meeting, or a family
+          celebration, we aim to provide an experience that goes beyond just food.
+        </p>
+        <p>
+          Our chefs combine classic recipes with contemporary techniques,
+          offering seasonal dishes, signature specialties, and a curated wine selection.
+          At Klenot Restaurant, every detail — from the interior design to the plating —
+          is created to make you feel special.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <section class="form-main invisible">
+    <div class="form-all">
+      <form action="" method="post" class="form">
+        <div class="form-inside">
+          <fieldset class="form-fieldset">
+            <legend class="form-legend">Введите логин и пароль</legend>
+            <label class="form-login">Логин
+              <input type="email" placeholder="example@gmail.com" autocomplete required>
+            </label>
+            <label class="form-password">Пароль
+              <input type="password" required>
+            </label>
+              <div class="form-submit-wrap">
+                <input class="form-submit-input" type="submit" value="Отправить">
+              </div>
+          </fieldset>
+        </div>
+      </form>
     </div>
   </section>
-
-  <section id="about-us" class="about-us-section">
-    <div class="about-us-background">
-      <h2>About Klenot Restaurant</h2>
-      <p>
-        Located in the heart of Prague, <strong>Klenot Restaurant</strong> is a place where
-        tradition meets elegance. We specialize in authentic Czech and European cuisine,
-        prepared with fresh local ingredients and a touch of modern presentation.
-      </p>
-      <p>
-        Our philosophy is simple: quality, hospitality, and unforgettable atmosphere.
-        Whether you're visiting for a romantic dinner, a business meeting, or a family
-        celebration, we aim to provide an experience that goes beyond just food.
-      </p>
-      <p>
-        Our chefs combine classic recipes with contemporary techniques,
-        offering seasonal dishes, signature specialties, and a curated wine selection.
-        At Klenot Restaurant, every detail — from the interior design to the plating —
-        is created to make you feel special.
-      </p>
-  </div>
-</section>
 
   <footer class="footer">
     <div class="footer-box">
@@ -212,6 +233,7 @@
 
 
   <script src="js/animations.js"></script>
+  <script src="js/menu-link.js"></script>
 
 </body>
 </html>
