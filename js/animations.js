@@ -90,7 +90,7 @@ btn.addEventListener('mouseenter', () => {
   // Первый requestAnimationFrame даёт браузеру время зарегистрировать предыдущие изменения (strokeDasharray и strokeDashoffset).
   // Второй requestAnimationFrame запускает реальную анимацию, устанавливая transition и уменьшая strokeDashoffset до 0.
   // Это создаёт эффект пошаговой анимации, а не мгновенной отрисовки.
-  // Без двойного requestAnimationFrame браузер может «объединить» изменения и показать линию сразу полностью.
+  // Без двойного requestAnimationFrame браузер может «объединить» изменения и показать линию сразу полностью
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       path.style.transition = 'stroke-dashoffset 1s ease';
