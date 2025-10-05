@@ -181,6 +181,15 @@ main.invisible {
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
+.invisible-account-button {
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
 /* Настройка Главного меню */
 
 header {
@@ -316,6 +325,26 @@ header {
 
 .login-btn:hover .border-path {
   stroke-dashoffset: 0;
+}
+
+.logo-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.logo-wrap img {
+  display: block;
+  width: 120px;  /* нужная ширина логотипа */
+  height: auto;
+}
+
+.logo-wrap svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* чтобы svg не мешал клику по лого */
 }
 
 /* Слайдер */
@@ -759,6 +788,7 @@ header {
   visibility: hidden;
   transition: opacity 0.5s ease, visibility 0.5s ease;
   flex-direction: column;
+  z-index: 9998;
   /* убираем абсолютное позиционирование */
 }
 
@@ -829,7 +859,7 @@ label input:focus {
   display: block;
 }
 
-.form-submit-input {
+.form-submit-button {
   width: 100%;
   padding: 15px 20px;
   font-family: "Montserrat Alternates", sans-serif;
@@ -883,12 +913,115 @@ label input:focus {
   visibility: visible;
 }
 
+/* ==================== Личный кабинет ==================== */
+
+.main-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: auto;
+  box-sizing: border-box;
+  padding: 0; /* padding убран по умолчанию */
+}
+
+.main-content-wrapper.active-padding {
+  padding-top: 150px;  /* высота меню */
+  padding-bottom: 40px; /* от футера */
+}
+
+/* Центрируем контейнер на экране */
+.personal-account {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 800px;
+  max-width: 90%;
+  height: 700px;
+  background: rgba(144, 238, 144, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+
+
+/* Заголовок */
+.personal-account-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2f4f2f;
+  text-align: center;
+}
+
+/* Контейнер с кнопками и контентом */
+.personal-account-wrap {
+  display: flex;
+  width: 100%;
+  flex: 1; /* чтобы занимать всё доступное пространство */
+}
+
+.personal-account-left {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 15px;
+  justify-content: start;
+  padding: 0 20px;
+}
+
+.personal-account-btn {
+  padding: 12px;
+  border: none;
+  background: rgba(46, 139, 87, 0.1);
+  color: #2f4f2f;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.personal-account-btn:hover {
+  background: rgba(46, 139, 87, 0.3);
+}
+
+.personal-account-divider {
+  width: 4px;
+  background: #2e8b57;
+  border-radius: 2px;
+}
+
+.personal-account-right {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.personal-account-content h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #2f4f2f;
+}
+
+.personal-account-content p {
+  font-size: 16px;
+  color: #333;
+}
+
+
+
 /* ===== Footer ===== */
 .footer {
   background-color: #1a1a1a;
   color: #f0f0f0;
   padding: 60px 20px 20px;
   font-family: 'Segoe UI', Tahoma, sans-serif;
+  flex-shrink: 0; /* не сжимается */
 }
 
 .footer-box {
