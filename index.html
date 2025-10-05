@@ -220,6 +220,19 @@
     </section>
   </div>
 
+<section id="gallery-section" class="gallery-section">
+  <h2>Our Gallery</h2>
+  <p class="gallery-subtitle">A glimpse into the atmosphere of Klenot Restaurant</p>
+  <div class="gallery-images">
+    <img src="./img/about-bg.png" alt="Soft lighting and intimate ambience for unforgettable evenings." onclick="zoom(this)">
+    <img src="./img/klenot balcony.png" alt="Open-air terrace perfect for warm evenings and city views." onclick="zoom(this)">
+    <img src="./img/food-bar1.jpg" alt="Elegant bar with crafted cocktails and a curated wine selection." onclick="zoom(this)">
+    <img src="./img/klenot interier.png" alt="Classic dining space with refined elegance and comfortable seating." onclick="zoom(this)">
+    <img src="./img/klenot kitchen.png" alt="Behind the scenes of our culinary artistry – where every dish begins." onclick="zoom(this)">
+    <img src="./img/klenot party.png" alt="Spacious hall designed for celebrations, receptions and special occasions." onclick="zoom(this)">
+  </div>
+</section>
+
   <footer class="footer">
     <div class="footer-box">
 
@@ -264,8 +277,17 @@
       <p>© 2025 Klenot Restaurant. All rights reserved.</p>
     </div>
   </footer>
+  <div id="zoom" onclick="normalSize()">
+  <div id="zoom-picture">
+    <img id="zoom-img" src="" alt="">
+    <p id="zoom-description"></p>
+  </div>
+</div>
 
 
+<div id="loader">
+  <div class="spinner"></div>
+</div>
   <script src="js/animations.js"></script>
   <script src="js/switch-visibility.js"></script>
   <script src="js/account.js"></script>

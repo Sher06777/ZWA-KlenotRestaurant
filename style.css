@@ -205,7 +205,7 @@ header {
   font-family: "Montserrat Alternates", serif !important;
   font-size: 18px;
   font-weight: bold;
-  z-index: 9999;
+  z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1120,4 +1120,158 @@ label input:focus {
 
 .logo-line img {
   height: 60px; 
+}
+
+
+/* === ГАЛЕРЕЯ === */
+.gallery-section {
+  padding: 60px 20px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: linear-gradient(135deg, #375E97, #FB6542, #FFBB00);
+  padding-top: 120px;
+}
+
+.gallery-section h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.gallery-subtitle {
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 30px;
+}
+
+.gallery-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.gallery-images img {
+  width: 100%;
+  height: 290px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.gallery-images img:hover {
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+#gallery-section {
+  opacity: 0;
+  visibility: hidden;
+  display: none;
+  transition: opacity 0.6s ease;
+  position: relative;
+  z-index: 100;
+}
+
+#gallery-section.active {
+  opacity: 1;
+  visibility: visible;
+  display: block;
+}
+
+section, .divider, .slider-wrapper {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  display: none !important;
+  position: absolute !important;
+  z-index: -1 !important;
+}
+
+
+/* Zoom */
+#zoom {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#zoom.active {
+  display: flex;
+  opacity: 1;
+  pointer-events: all;
+}
+
+#zoom-picture {
+  position: relative;
+}
+
+#zoom img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+#zoom-description {
+  position: absolute;
+  width: 90%;
+  margin: 0 auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-align: center;
+  border-radius: 0 0 8px 8px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+/* Loader */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: url("./img/main.jpg") no-repeat center/cover;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#loader.active {
+  display: flex;
+  opacity: 1;
+}
+
+/* Spinner */
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 6px solid #e0e0e0;
+  border-top: 6px solid #c7a64a; 
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
