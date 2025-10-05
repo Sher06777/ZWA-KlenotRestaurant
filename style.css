@@ -425,6 +425,8 @@ header {
   transform: translateY(-50%);
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+  align-items: center;
   gap: 20px;
 }
 
@@ -456,7 +458,7 @@ header {
   color: rgb(0, 0, 0);
   font-family: "Roboto Slab", serif; 
   font-optical-sizing: auto; 
-  font-weight: medium 500; 
+  font-weight: 500; 
   font-style: normal; 
   font-size: 30px;
   cursor: pointer;
@@ -479,6 +481,9 @@ header {
   position: relative;
   border-radius: 3px;
   overflow: hidden;
+  margin-left: auto;      /* отталкиваем полоску вправо */
+  display: flex;
+  align-items: center;
 }
 
 .slider-progress-fill {
@@ -825,7 +830,7 @@ legend.form-legend {
   padding: 0 15px;
 }
 
-label {
+fieldset > label {
   display: block;
   font-size: 22px;
   font-weight: 500;
