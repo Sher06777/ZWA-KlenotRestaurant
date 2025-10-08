@@ -156,12 +156,17 @@ html {
 
 main {
   flex: 1;        /* занимает всё пространство между header и footer */
+  overflow: hidden;          /* чтобы при сворачивании не появлялся лишний контент */
+  transition: opacity 0.45s ease, max-height 0.45s ease, visibility 0s linear 0.45s;
 }
 
 main.invisible {
-  display: none; /* полностью убираем из потока */
-  flex: 0;       /* сброс flex, на всякий случай */
+  opacity: 0;
+  visibility: hidden;   /* скрывается после окончания opacity-transition */
+  pointer-events: none; /* не мешает кликам */
 }
+
+
 
 .invisible {
   opacity: 0;
@@ -205,7 +210,7 @@ header {
   font-family: "Montserrat Alternates", serif !important;
   font-size: 18px;
   font-weight: bold;
-  z-index: 999;
+  z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -243,6 +248,7 @@ header {
   padding: 20px 30px;
   color: #0e0e0e;
   position: relative;
+  cursor: pointer;
 }
 
 .main-menu-button::after {
@@ -394,7 +400,7 @@ header {
   transition: opacity 1.5s ease;
 }
 
-.slider-image-item.active {
+.slider-image-item.visible {
   opacity: 1;
 }
 
@@ -405,9 +411,10 @@ header {
   object-fit: cover;
   transform: scale(1);
   transition: transform 3s ease, opacity 0.5s ease;
+  will-change: transform;
 }
 
-.slider-image-item.active img {
+.slider-image-item.visible img {
   transform: scale(1.05); /* Увеличиваем на 5% */
 }
 
@@ -786,12 +793,14 @@ header {
   justify-content: center;
   align-items: center;
   padding: 120px 0 60px; /* отступ сверху для header */
-  background: none;
+  background: transparent;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.45s ease, visibility 0s linear 0.45s; 
   flex-direction: column;
-  z-index: 9998;
+  z-index: 5000;
+  inset: 0;
+  pointer-events: auto;
   /* убираем абсолютное позиционирование */
 }
 
@@ -896,6 +905,9 @@ label input:focus {
 .form-main.visible {
   opacity: 1;
   visibility: visible;
+  z-index: 7000;
+  pointer-events: auto;
+  transition-delay: 0s;
 }
 
 .main, .form-main {
@@ -910,10 +922,17 @@ label input:focus {
 }
 
 /* Форма видна */
-.form-main.visible,
-#main.visible {
+.form-main.visible {
   opacity: 1;
   visibility: visible;
+}
+
+.form-main.invisible {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.45s ease, visibility 0s linear 0s;
 }
 
 /* ==================== Личный кабинет ==================== */
@@ -928,7 +947,7 @@ label input:focus {
   padding: 0; /* padding убран по умолчанию */
 }
 
-.main-content-wrapper.active-padding {
+.main-content-wrapper.visible-padding {
   padding-top: 150px;  /* высота меню */
   padding-bottom: 40px; /* от футера */
 }
@@ -947,6 +966,8 @@ label input:focus {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   font-family: "Montserrat Alternates", sans-serif;
+  margin-top: 0;
+  will-change: auto;
 }
 
 
@@ -1130,6 +1151,63 @@ label input:focus {
   font-family: 'Segoe UI', Tahoma, sans-serif;
   background: linear-gradient(135deg, #375E97, #FB6542, #FFBB00);
   padding-top: 120px;
+  z-index: 6000;
+  position: relative;
+  transition: opacity 0.45s ease, max-height 0.45s ease, padding-top 0.45s ease, padding-bottom 0.45s ease;
+  overflow: hidden;
+  opacity: 1;
+}
+
+/* видимая версия */
+.gallery-section {
+  /* убираем паддинги из базового селектора */
+  padding-top: 0;
+  padding-bottom: 0;
+
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: linear-gradient(135deg, #375E97, #FB6542, #FFBB00);
+  z-index: 6000;
+  position: relative;
+  overflow: hidden;
+
+  /* оставляем только простую плавность для opacity; остальные переходы задаёт JS inline */
+  transition: opacity 0.25s ease;
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+}
+
+/* Видимая версия: padding и видимость только тут */
+.gallery-section.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  /* padding только в visible — теперь не будет конфликтов */
+  padding-top: 120px;
+  padding-bottom: 60px;
+  max-height: 2000px; /* запас для содержимого (JS будет убирать inline maxHeight после анимации) */
+}
+
+/* Скрытая версия (класс, который мы используем для "скрыто, но готов") */
+.gallery-section.invisible,
+.gallery-section.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-height: 0;
+}
+
+.gallery-section.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  max-height: 0 !important;
 }
 
 .gallery-section h2 {
@@ -1164,36 +1242,12 @@ label input:focus {
   transform: scale(1.03);
   opacity: 0.9;
 }
-#gallery-section {
-  opacity: 0;
-  visibility: hidden;
-  display: none;
-  transition: opacity 0.6s ease;
-  position: relative;
-  z-index: 100;
-}
-
-#gallery-section.active {
-  opacity: 1;
-  visibility: visible;
-  display: block;
-}
 
 section, .divider, .slider-wrapper {
   opacity: 1;
   visibility: visible;
   transition: opacity 0.6s ease;
 }
-
-.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  display: none !important;
-  position: absolute !important;
-  z-index: -1 !important;
-}
-
 
 /* Zoom */
 #zoom {
@@ -1209,7 +1263,7 @@ section, .divider, .slider-wrapper {
   transition: opacity 0.4s ease;
 }
 
-#zoom.active {
+#zoom.visible {
   display: flex;
   opacity: 1;
   pointer-events: all;
@@ -1256,13 +1310,13 @@ section, .divider, .slider-wrapper {
   transition: opacity 0.3s ease;
 }
 
-#loader.active {
+#loader.visible {
   display: flex;
   opacity: 1;
 }
 
 /* Spinner */
-.spinner {
+/* .spinner {
   width: 70px;
   height: 70px;
   border: 6px solid #e0e0e0;
@@ -1274,4 +1328,4 @@ section, .divider, .slider-wrapper {
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-}
+} */

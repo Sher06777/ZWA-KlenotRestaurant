@@ -15,10 +15,10 @@ const showSlide = (index) => {
 
     slides.forEach((slide, i) => {
         if (i === index) {
-            slide.classList.add('active');
+            slide.classList.add('visible');
             radios[i].checked = true;
         } else {
-            slide.classList.remove('active');
+            slide.classList.remove('visible');
             radios[i].checked = false;
         }
     });
@@ -115,47 +115,54 @@ addBorderAnimation('.logo-wrap', '.logo-border-path');
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    const galleryLink = document.querySelector(".main-menu-button:nth-child(4)");
-    const aboutLink = document.querySelector('.main-menu-button a[href="#about-us"]');
-    const logoLink = document.querySelector(".logo img");
-    const gallerySection = document.getElementById("gallery-section");
-    const allSections = document.querySelectorAll("section, .divider, .slider-wrapper");
+    // const galleryLink = document.querySelector(".main-menu-button:nth-child(4)");
+    // const aboutLink = document.querySelector('.main-menu-button a[href="#about-us"]');
+    // const logoLink = document.querySelector(".logo img");
+    // const gallerySection = document.getElementById("gallery-section");
+    // const allSections = document.querySelectorAll("section, .divider, .slider-wrapper");
 
-    //  Переход в галерею 
-    galleryLink.addEventListener('click', (e) => {
-        e.preventDefault();
+    // //  Переход в галерею 
+    // galleryLink.addEventListener('click', (e) => {
+    //     e.preventDefault();
 
-        startLoader(() => {
-            // скрытие секций
-            allSections.forEach(section => section.classList.add('hidden'));
+    //     startLoader(() => {
+    //         // скрытие секций
+    //         allSections.forEach(section => section.classList.add('hidden'));
 
-            // отображение галереи
-            setTimeout(() => {
-                gallerySection.classList.add('active');
-                gallerySection.classList.remove('hidden');
-            }, 600);
-        });
-    });
+    //         // отображение галереи
+    //         setTimeout(() => {
+    //             gallerySection.classList.add('active');
+    //             gallerySection.classList.remove('hidden');
+    //         }, 600);
+    //     });
+    // });
 
-    //  Возврат на главную по клику на логотип 
-    const logo = document.querySelector('.logo img');
+    // //  Возврат на главную по клику на логотип 
+    // const logo = document.querySelector('.logo img');
 
-    logo.addEventListener('click', (e) => {
-        e.preventDefault();
+    // logo.addEventListener('click', (e) => {
+    //     e.preventDefault();
 
-        startLoader(() => {    // скрываем галерею и показываем всё обратно
-            document.getElementById('gallery-section').classList.remove('active');
-            allSections.forEach(section => section.classList.remove('hidden'));
-        });
-    });
+    //     startLoader(() => {    // скрываем галерею и показываем всё обратно
+    //         document.getElementById('gallery-section').classList.remove('active');
+    //         allSections.forEach(section => section.classList.remove('hidden'));
+    //     });
+    // });
 
     //  Переход в "О нас" (если галерея открыта) 
     aboutLink.addEventListener("click", (e) => {
         e.preventDefault();
         startLoader(() => {
-            if (gallerySection.classList.contains("active")) {
-                gallerySection.classList.remove("active");
-                gallerySection.classList.add("hidden");
+            if (gallerySection.classList.contains("visible")) {
+                // используем hideGallery, если предпочитаете — но минимум:
+                gallerySection.classList.remove("visible");
+                gallerySection.classList.add("invisible", "hidden");
+                // и обязательно сброс inline-стилей
+                gallerySection.style.opacity = '';
+                gallerySection.style.paddingTop = '';
+                gallerySection.style.paddingBottom = '';
+                gallerySection.style.maxHeight = '';
+                gallerySection.style.display = 'none';
 
                 setTimeout(() => {
                     allSections.forEach((section) => section.classList.remove("hidden"));
@@ -177,13 +184,13 @@ const zoom = (img) => {
 
     zoomImg.src = img.src;
     zoomDesc.textContent = description;
-    zoomContainer.classList.add('active');
+    zoomContainer.classList.add('visible');
     zoomContainer.style.display = 'flex';
 };
 
 const normalSize = () => {
     const zoomContainer = document.getElementById('zoom');
-    zoomContainer.classList.remove('active');
+    zoomContainer.classList.remove('visible');
     setTimeout(() => {
         zoomContainer.style.display = 'none';
     }, 400);
@@ -191,13 +198,13 @@ const normalSize = () => {
 
 const showLoader = () => {
     const loader = document.getElementById('loader');
-    loader.classList.add('active');
+    loader.classList.add('visible');
     loader.style.display = 'flex';
 }
 
 const hideLoader = () => {
     const loader = document.getElementById('loader');
-    loader.classList.remove('active');
+    loader.classList.remove('visible');
     setTimeout(() => {
         loader.style.display = 'none';
     }, 300); // ждём пока opacity спадёт
