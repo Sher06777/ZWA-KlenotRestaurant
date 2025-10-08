@@ -156,12 +156,17 @@ html {
 
 main {
   flex: 1;        /* занимает всё пространство между header и footer */
+  overflow: hidden;          /* чтобы при сворачивании не появлялся лишний контент */
+  transition: opacity 0.45s ease, max-height 0.45s ease, visibility 0s linear 0.45s;
 }
 
 main.invisible {
-  display: none; /* полностью убираем из потока */
-  flex: 0;       /* сброс flex, на всякий случай */
+  opacity: 0;
+  visibility: hidden;   /* скрывается после окончания opacity-transition */
+  pointer-events: none; /* не мешает кликам */
 }
+
+
 
 .invisible {
   opacity: 0;
@@ -243,6 +248,7 @@ header {
   padding: 20px 30px;
   color: #0e0e0e;
   position: relative;
+  cursor: pointer;
 }
 
 .main-menu-button::after {
@@ -394,7 +400,7 @@ header {
   transition: opacity 1.5s ease;
 }
 
-.slider-image-item.active {
+.slider-image-item.visible {
   opacity: 1;
 }
 
@@ -405,9 +411,10 @@ header {
   object-fit: cover;
   transform: scale(1);
   transition: transform 3s ease, opacity 0.5s ease;
+  will-change: transform;
 }
 
-.slider-image-item.active img {
+.slider-image-item.visible img {
   transform: scale(1.05); /* Увеличиваем на 5% */
 }
 
@@ -516,8 +523,6 @@ header {
   display: flex;
   height: 600px;
   background-color: #404040;
-  margin-top: 30px;
-  margin-bottom: 40px;
 }
 
 .body-history-img {
@@ -788,12 +793,14 @@ header {
   justify-content: center;
   align-items: center;
   padding: 120px 0 60px; /* отступ сверху для header */
-  background: none;
+  background: transparent;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  transition: opacity 0.45s ease, visibility 0s linear 0.45s; 
   flex-direction: column;
-  z-index: 9998;
+  z-index: 5000;
+  inset: 0;
+  pointer-events: auto;
   /* убираем абсолютное позиционирование */
 }
 
@@ -898,6 +905,9 @@ label input:focus {
 .form-main.visible {
   opacity: 1;
   visibility: visible;
+  z-index: 7000;
+  pointer-events: auto;
+  transition-delay: 0s;
 }
 
 .main, .form-main {
@@ -912,10 +922,17 @@ label input:focus {
 }
 
 /* Форма видна */
-.form-main.visible,
-#main.visible {
+.form-main.visible {
   opacity: 1;
   visibility: visible;
+}
+
+.form-main.invisible {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.45s ease, visibility 0s linear 0s;
 }
 
 /* ==================== Личный кабинет ==================== */
@@ -930,7 +947,7 @@ label input:focus {
   padding: 0; /* padding убран по умолчанию */
 }
 
-.main-content-wrapper.active-padding {
+.main-content-wrapper.visible-padding {
   padding-top: 150px;  /* высота меню */
   padding-bottom: 40px; /* от футера */
 }
@@ -949,6 +966,8 @@ label input:focus {
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   font-family: "Montserrat Alternates", sans-serif;
+  margin-top: 0;
+  will-change: auto;
 }
 
 
@@ -1103,3 +1122,210 @@ label input:focus {
   text-align: center;
   font-size: 14px;
 }
+
+.divider {
+  padding: 3px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #1a1a1a;
+}
+
+.line {
+  flex: 1;
+  height: 2px;
+  background-color: #a66f2e;
+  margin: 0 20px;
+}
+
+.logo-line img {
+  height: 60px; 
+}
+
+
+/* === ГАЛЕРЕЯ === */
+.gallery-section {
+  padding: 60px 20px;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: linear-gradient(135deg, #375E97, #FB6542, #FFBB00);
+  padding-top: 120px;
+  z-index: 6000;
+  position: relative;
+  transition: opacity 0.45s ease, max-height 0.45s ease, padding-top 0.45s ease, padding-bottom 0.45s ease;
+  overflow: hidden;
+  opacity: 1;
+}
+
+/* видимая версия */
+.gallery-section {
+  /* убираем паддинги из базового селектора */
+  padding-top: 0;
+  padding-bottom: 0;
+
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: linear-gradient(135deg, #375E97, #FB6542, #FFBB00);
+  z-index: 6000;
+  position: relative;
+  overflow: hidden;
+
+  /* оставляем только простую плавность для opacity; остальные переходы задаёт JS inline */
+  transition: opacity 0.25s ease;
+  opacity: 0;
+  visibility: hidden;
+  max-height: 0;
+}
+
+/* Видимая версия: padding и видимость только тут */
+.gallery-section.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  /* padding только в visible — теперь не будет конфликтов */
+  padding-top: 120px;
+  padding-bottom: 60px;
+  max-height: 2000px; /* запас для содержимого (JS будет убирать inline maxHeight после анимации) */
+}
+
+/* Скрытая версия (класс, который мы используем для "скрыто, но готов") */
+.gallery-section.invisible,
+.gallery-section.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  padding-top: 0;
+  padding-bottom: 0;
+  max-height: 0;
+}
+
+.gallery-section.hidden {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  max-height: 0 !important;
+}
+
+.gallery-section h2 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.gallery-subtitle {
+  font-size: 16px;
+  color: #000000;
+  margin-bottom: 30px;
+}
+
+.gallery-images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.gallery-images img {
+  width: 100%;
+  height: 290px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.gallery-images img:hover {
+  transform: scale(1.03);
+  opacity: 0.9;
+}
+
+section, .divider, .slider-wrapper {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.6s ease;
+}
+
+/* Zoom */
+#zoom {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(6px);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#zoom.visible {
+  display: flex;
+  opacity: 1;
+  pointer-events: all;
+}
+
+#zoom-picture {
+  position: relative;
+}
+
+#zoom img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+#zoom-description {
+  position: absolute;
+  width: 90%;
+  margin: 0 auto;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 10px 15px;
+  font-size: 22px;
+  text-align: center;
+  border-radius: 0 0 8px 8px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+/* Loader */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: url("./img/main.jpg") no-repeat center/cover;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+#loader.visible {
+  display: flex;
+  opacity: 1;
+}
+
+/* Spinner */
+/* .spinner {
+  width: 70px;
+  height: 70px;
+  border: 6px solid #e0e0e0;
+  border-top: 6px solid #c7a64a; 
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+} */
