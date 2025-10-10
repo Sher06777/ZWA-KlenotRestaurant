@@ -1143,13 +1143,9 @@ label input:focus {
   align-items: center;
   min-height: auto;
   box-sizing: border-box;
-  padding: 0; /* padding убран по умолчанию */
+  padding: 150px 0 40px; /* padding убран по умолчанию */
 }
 
-.main-content-wrapper.visible-padding {
-  padding-top: 150px;  /* высота меню */
-  padding-bottom: 40px; /* от футера */
-}
 
 /* Центрируем контейнер на экране */
 .personal-account {
