@@ -1,0 +1,775 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+/* Для прилипания footer-a к низу сайта всегда */
+body {
+  display: flex;
+  flex-direction: column; /* Вертикальная структура */
+  min-height: 100vh; /* Минимальная высота = экран */
+  margin: 0;      
+}
+
+/* для плавности перехода по ссылкам */
+html {
+  scroll-behavior: smooth;
+}
+
+main {
+  flex: 1;        /* занимает всё пространство между header и footer */
+  overflow: hidden;          /* чтобы при сворачивании не появлялся лишний контент */
+  transition: opacity 0.45s ease, max-height 0.45s ease, visibility 0s linear 0.45s;
+}
+
+main.invisible {
+  opacity: 0;
+  visibility: hidden;   /* скрывается после окончания opacity-transition */
+  pointer-events: none; /* не мешает кликам */
+}
+
+
+
+.invisible {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute; /* элемент убирается с потока */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+  position: relative; /* возвращаем на место */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.invisible-account-button {
+  visibility: hidden;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Настройка Главного меню */
+
+header {
+  z-index: 10;
+}
+
+#dropped-menu { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  font-family: "Montserrat Alternates", serif !important;
+  font-size: 18px;
+  font-weight: bold;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 150px;
+  color: #fff;
+  background: linear-gradient(
+    to bottom, 
+    rgb(255 255 255 / 75%), /* верх — плотнее */ 
+    rgb(255 255 255 / 0%) /* низ — почти прозрачно */);
+  backdrop-filter: blur(6px);
+  transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+}
+/* Эффект блюра для хэдера */
+
+.menu-dropdown {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+}
+
+.main-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  list-style: none;
+}
+
+.main-menu-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px 30px;
+  color: #0e0e0e;
+  position: relative;
+  cursor: pointer;
+}
+
+.main-menu-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2.5px;
+  background-color: #0e0e0e;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease;
+}
+
+.main-menu-button a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.main-menu-button:hover::after {
+  transform: scaleX(1);
+}
+
+
+/* Логотип подстраиваем под высоту меню */
+.main-menu .logo img,
+.main-menu img {
+  height: 114px;
+  width: auto;
+  display: block;
+}
+
+.main-menu .logo img {
+  height: 114px;
+  width: auto;
+  cursor: pointer;
+}
+
+.main-menu-right {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.main-menu-right .separator {
+  color: #ccc;
+}
+
+
+.login-btn {
+  position: relative;
+  padding: 10px 30px;
+  font-family: "Montserrat Alternates", serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: visible;
+  left: 105px;
+}
+
+.login-btn svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.border-path {
+  stroke-dasharray: 0;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1s ease;
+}
+
+.login-btn:hover .border-path {
+  stroke-dashoffset: 0;
+}
+
+.logo-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.logo-wrap img {
+  display: block;
+  width: 120px;  /* нужная ширина логотипа */
+  height: auto;
+}
+
+.logo-wrap svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* чтобы svg не мешал клику по лого */
+}
+/* ===== Form ===== */
+
+.form-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 0 60px; /* отступ сверху для header */
+  background: transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease, visibility 0s linear 0.45s; 
+  flex-direction: column;
+  z-index: 5000;
+  inset: 0;
+  pointer-events: auto;
+  /* убираем абсолютное позиционирование */
+}
+
+.form {
+  width: 1000px;
+  max-width: 90%; /* чтобы на маленьких экранах не вылезало */
+  background: #fff;
+  border: 3px solid #28a745;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* для полей */
+}
+
+.form-all {
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+.form-fieldset {
+  border: 3px solid #9f712e;
+  border-radius: 10px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+legend.form-legend {
+  font-size: 28px;
+  font-weight: 600;
+  color: #9f712e;
+  padding: 0 15px;
+}
+
+fieldset > label {
+  display: block;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 25px;
+  color: #333;
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+label input {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 20px;
+  border: 2px solid #9f712e;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+label input:focus {
+  border-color: #9f712e;
+  box-shadow: 0 0 12px rgba(147, 117, 21, 0.6);
+}
+
+.form-submit-wrap {
+  width: 50%;
+  margin: 20px auto 0;
+  position: relative;
+  display: block;
+}
+
+.form-submit-button {
+  width: 100%;
+  padding: 15px 20px;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  border: 2px solid #9f712e;
+  border-radius: 8px;
+  background: #fff;
+  color: #9f712e;
+  cursor: pointer;
+  display: block;
+}
+
+/* полоска на обёртке */
+.form-submit-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  width: 0;
+  height: 2.3px;
+  background: #000000;
+  transform: translateX(-50%);
+  transition: width 0.5s cubic-bezier(.3,.7,.2,1);
+}
+
+.form-submit-wrap:hover::after {
+  width: 60%;
+}
+
+.form-main.visible {
+  opacity: 1;
+  visibility: visible;
+  z-index: 7000;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.form-main {
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+/* Форма скрыта */
+.form-main.invisible {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Форма видна */
+.form-main.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.form-main.invisible {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.45s ease, visibility 0s linear 0s;
+}
+
+.form-regestration-link {
+  text-decoration: none;
+  color: #000000;
+}
+
+.form-reg-wrap {
+  display: flex;
+  justify-content: flex-end; /* Прижимаем вправо */
+  width: 100%;
+}
+
+.form-regestration-div {
+  position: relative;
+  display: inline-flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 0 0 0 auto;
+}
+
+.form-regestration-div .form-regestration-border {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* чтобы клик шел по ссылке */
+}
+
+.form-regestration-btn {
+  background-color: #ffffff;
+  border-style: none;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* ===== Login Form (та же стилистика, что у form-main) ===== */
+
+.login-form-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 0 60px; /* отступ сверху для header */
+  background: transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
+  flex-direction: column;
+  z-index: 5000;
+  inset: 0;
+  pointer-events: auto;
+}
+
+/* Вся форма целиком */
+.login-form {
+  width: 1000px;
+  max-width: 90%;
+  background: #fff;
+  border: 3px solid #28a745;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.login-form-all {
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+/* Внутренняя рамка */
+.login-form-fieldset {
+  border: 3px solid #9f712e;
+  border-radius: 10px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+legend.login-form-legend {
+  font-size: 28px;
+  font-weight: 600;
+  color: #9f712e;
+  padding: 0 15px;
+}
+
+fieldset > label {
+  display: block;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 25px;
+  color: #333;
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+label input {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  margin-top: 10px;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 20px;
+  border: 2px solid #9f712e;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+label input:focus {
+  border-color: #9f712e;
+  box-shadow: 0 0 12px rgba(147, 117, 21, 0.6);
+}
+
+/* Кнопка отправки */
+.login-form-submit-wrap {
+  width: 50%;
+  margin: 20px auto 0;
+  position: relative;
+  display: block;
+}
+
+.login-form-submit-button {
+  width: 100%;
+  padding: 15px 20px;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  border: 2px solid #9f712e;
+  border-radius: 8px;
+  background: #fff;
+  color: #9f712e;
+  cursor: pointer;
+  display: block;
+}
+
+/* Полоска при наведении */
+.login-form-submit-wrap::after {
+  content: "";
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  width: 0;
+  height: 2.3px;
+  background: #000000;
+  transform: translateX(-50%);
+  transition: width 0.5s cubic-bezier(.3,.7,.2,1);
+}
+
+.login-form-submit-wrap:hover::after {
+  width: 60%;
+}
+
+/* Появление / скрытие */
+.login-form-section.visible {
+  opacity: 1;
+  visibility: visible;
+  z-index: 7000;
+  pointer-events: auto;
+  transition-delay: 0s;
+}
+
+.login-form-section.invisible {
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.45s ease, visibility 0s linear 0s;
+}
+
+.login-form label {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 18px;
+  color: #333;
+  font-family: "Montserrat Alternates", sans-serif;
+}
+
+.login-form input {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-top: 8px;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-size: 18px;
+  border: 2px solid #9f712e;
+  border-radius: 8px;
+  outline: none;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.login-form input:focus {
+  border-color: #9f712e;
+  box-shadow: 0 0 12px rgba(147, 117, 21, 0.35);
+}
+
+/* ==================== Личный кабинет ==================== */
+
+.main-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: auto;
+  box-sizing: border-box;
+  padding: 0; /* padding убран по умолчанию */
+}
+
+.main-content-wrapper.visible-padding {
+  padding-top: 150px;  /* высота меню */
+  padding-bottom: 40px; /* от футера */
+}
+
+/* Центрируем контейнер на экране */
+.personal-account {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 800px;
+  max-width: 90%;
+  height: 700px;
+  background: rgba(144, 238, 144, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  font-family: "Montserrat Alternates", sans-serif;
+  margin-top: 0;
+  will-change: auto;
+}
+
+
+
+/* Заголовок */
+.personal-account-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2f4f2f;
+  text-align: center;
+}
+
+/* Контейнер с кнопками и контентом */
+.personal-account-wrap {
+  display: flex;
+  width: 100%;
+  flex: 1; /* чтобы занимать всё доступное пространство */
+}
+
+.personal-account-left {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  gap: 15px;
+  justify-content: start;
+  padding: 0 20px;
+}
+
+.personal-account-btn {
+  padding: 12px;
+  border: none;
+  background: rgba(46, 139, 87, 0.1);
+  color: #2f4f2f;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.personal-account-btn:hover {
+  background: rgba(46, 139, 87, 0.3);
+}
+
+.personal-account-divider {
+  width: 4px;
+  background: #2e8b57;
+  border-radius: 2px;
+}
+
+.personal-account-right {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.personal-account-content h3 {
+  margin-bottom: 10px;
+  font-size: 20px;
+  color: #2f4f2f;
+}
+
+.personal-account-content p {
+  font-size: 16px;
+  color: #333;
+}
+
+
+
+/* ===== Footer ===== */
+.footer {
+  background-color: #1a1a1a;
+  color: #f0f0f0;
+  padding: 60px 20px 20px;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  flex-shrink: 0; /* не сжимается */
+}
+
+.footer-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.footer-about-us,
+.footer-links,
+.footer-contact,
+.footer-media-links {
+  width: 23%;
+  min-width: 200px;
+  margin-bottom: 30px;
+  font-family: "Montserrat Alternates", sans-serif !important;
+}
+
+.footer h3,
+.footer h4 {
+  margin-bottom: 15px;
+  color: #ffcc00;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: #f0f0f0;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links ul li a:hover {
+  color: #ffcc00;
+}
+
+.footer-contact p {
+  margin: 8px 0;
+}
+.media-icons {
+  display: flex;
+  flex-direction: row; /* горизонтально */
+  column-gap: 10px;    /* расстояние между иконками */
+}
+
+.media-icons a {
+  display: inline-block;
+}
+
+.media-icons img {
+  width: 24px;
+  height: 24px;
+  filter: invert(90%);
+  transition: filter 0.3s;
+}
+
+.media-icons a:hover img {
+  filter: invert(10%);
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  margin-top: 20px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.divider {
+  padding: 3px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: #1a1a1a;
+}
+
+.line {
+  flex: 1;
+  height: 2px;
+  background-color: #a66f2e;
+  margin: 0 20px;
+}
+
+.logo-line img {
+  height: 60px; 
+}

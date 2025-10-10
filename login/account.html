@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="account.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto+Slab:wght@100..900&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- ===== HEADER ===== -->
+    <header id="dropped-menu">
+        <div class="menu-dropdown">
+            <ul class="main-menu">
+                <li class="main-menu-button main-menu-button-decoration">
+                    <a href="../index.html#about-us">О нас</a>
+                </li>
+
+                <li class="main-menu-button">Меню</li>
+
+                <li class="logo">
+                    <div class="logo-wrap">
+                        <a href="../index.html" aria-label="Klenot logo">
+                            <img src="../img/logo-restorant-without-background.png" alt="logo">
+                        </a>
+                        <svg class="logo-border" width="100%" height="100%" viewBox="0 0 200 200"
+                            preserveAspectRatio="none">
+                            <path class="logo-border-path" d="" stroke="#000" stroke-width="4" fill="transparent" />
+                        </svg>
+                    </div>
+                </li>
+
+                <li class="main-menu-button gallery-btn">Галерея</li>
+                <li class="main-menu-button">Резервация</li>
+            </ul>
+
+            <div class="main-menu-right">
+                <button class="login-btn" type="button" aria-haspopup="true" aria-controls="login-section">
+                    <span class="login-icon">👤</span>
+                    <span class="login-text">Войти</span>
+                    <svg class="btn-border" width="100%" height="100%" viewBox="0 0 200 60" preserveAspectRatio="none">
+                        <path class="border-path" d="" stroke="#000" stroke-width="3" fill="transparent" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== FORM MAIN (signin) ===== -->
+    <section class="form-main visible" id="signin-section">
+        <div class="form-all">
+            <form action="" method="post" class="form" novalidate>
+                <div class="form-inside">
+                    <fieldset class="form-fieldset">
+                        <legend class="form-legend">Введите email и пароль</legend>
+
+                        <label class="form-signin">Email
+                            <input type="email" placeholder="example@gmail.com" id="main-email" name="main-email"
+                                autocomplete="email" required>
+                        </label>
+
+                        <label class="form-password">Пароль
+                            <input type="password" id="main-password" name="main-password"
+                                autocomplete="current-password" required>
+                        </label>
+
+                        <div class="form-reg-wrap">
+                            <div class="form-regestration-div">
+                                <button class="form-regestration-btn" type="button">Don't have an account?</button>
+                                <svg class="form-regestration-border" width="100%" height="100%" viewBox="0 0 200 200" preserveAspectRatio="none">
+                                    <path class="form-regestration-border-path" d="" stroke="#000" stroke-width="2.5" fill="transparent" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="form-submit-wrap">
+                            <!-- кнопка "Войти" (signin) -->
+                            <button class="form-submit-button form-submit-button--signin" type="submit">Войти</button>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== LOGIN / REGISTER SECTION ===== -->
+    <section class="login-form-section invisible" id="login-section">
+        <div class="login-form-all">
+            <form action="" method="post" class="login-form" novalidate>
+                <div class="login-form-inside">
+                    <fieldset class="login-form-fieldset">
+                        <legend class="login-form-legend">Создать аккаунт / Войти</legend>
+
+                        <label class="login-form-username">Логин
+                            <input type="text" placeholder="username123" id="login-username" name="username"
+                                autocomplete="username" required>
+                        </label>
+
+                        <label class="login-form-email">Email
+                            <input type="email" placeholder="example@gmail.com" id="login-email" name="email"
+                                autocomplete="email" required>
+                        </label>
+
+                        <label class="login-form-password">Пароль
+                            <input type="password" id="login-password" name="password" autocomplete="new-password"
+                                required>
+                        </label>
+
+                        <div class="login-form-submit-wrap">
+                            <button class="form-submit-button form-submit-button--register" type="submit" name="action"
+                                value="create-account">Создать аккаунт</button>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== PERSONAL ACCOUNT (placeholder) ===== -->
+    <div class="main-content-wrapper" id="account-wrapper">
+        <section class="personal-account invisible" id="personal-account">
+            <div class="personal-account-title">Личный кабинет</div>
+            <div class="personal-account-wrap">
+                <div class="personal-account-left">
+                    <button class="personal-account-btn personal-account-dates">Личные данные</button>
+                    <button class="personal-account-btn personal-account-reservation">Резервация</button>
+                    <button class="personal-account-btn personal-account-admin-panel">Админская панель</button>
+                </div>
+
+                <div class="personal-account-divider"></div>
+
+                <div class="personal-account-right personal-account-content dates visible">
+                    <h3>Добро пожаловать!</h3>
+                    <p>Здесь будет информация о вашем аккаунте, резервации и доступ к админ-панели.</p>
+                </div>
+
+                <div class="personal-account-right personal-account-content reservation invisible-account-button">
+                    <h3>Резервация</h3>
+                    <p>Здесь будет информация о вашем аккаунте, резервации и доступ к админ-панели.</p>
+                </div>
+
+                <div class="personal-account-right personal-account-content admin invisible-account-button">
+                    <h3>Админская панель</h3>
+                    <p>Здесь будет информация о вашем аккаунте, резервации и доступ к админ-панели.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-box">
+
+            <div class="footer-about-us">
+                <h3>About Us</h3>
+                <p>
+                    Klenot Restaurant offers a unique blend of Czech tradition and modern
+                    culinary artistry. Our mission is to deliver exceptional food, a cozy
+                    atmosphere, and memorable service in the center of Prague.
+                </p>
+            </div>
+
+            <div class="footer-links">
+                <h4>Explore</h4>
+                <ul>
+                    <li><a href="../index.html#about-us">About</a></li>
+                    <li><a href="../index.html#menu">Menu</a></li>
+                    <li><a href="../index.html#gallery">Gallery</a></li>
+                    <li><a href="../index.html#reservations">Reservations</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <p>📍 Václavské náměstní, Prague, Czechia</p>
+                <p>📞 +420 123 456 789</p>
+                <p>✉️ info@klenotrestaurant.cz</p>
+            </div>
+
+            <div class="footer-media-links">
+                <h4>Follow Us</h4>
+                <div class="media-icons">
+                    <a href="#"><img src="../img/facebook-logo.svg" alt="Facebook"></a>
+                    <a href="#"><img src="../img/insta-logo.svg" alt="Instagram"></a>
+                    <a href="#"><img src="../img/tripadvisor-logo.svg" alt="TripAdvisor"></a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Klenot Restaurant. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    <script src="../js/animation-account.js"></script>
+    <script src="../js/switch-visibility.js"></script>
+    <script src="../js/account.js"></script>
+
+</body>
+
+</html>
