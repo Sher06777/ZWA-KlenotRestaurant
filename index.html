@@ -34,7 +34,7 @@
           </div>
         </li>
         <li class="main-menu-button gallery-btn">Галерея</li>
-        <li class="main-menu-button">Резервация</li>
+        <li class="main-menu-button reservation-btn">Резервация</li>
       </ul>
       <div class="main-menu-right">
         <button class="login-btn">
@@ -300,6 +300,57 @@
       </div>
     </section>
   </div>
+
+  <section id="reservation-section" class="reservation-section invisible">
+    <div class="reservation-container">
+      <h2 class="reservation-title">Резервация столика</h2>
+      <form class="reservation-form" novalidate>
+        <div class="form-group">
+          <label>Ваше имя
+            <input type="text" name="name" placeholder="Имя и фамилия"
+              required>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Телефон
+            <input type="tel" name="phone" placeholder="+420 123 456 789"
+              required>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Email
+            <input type="email" name="email" placeholder="example@gmail.com"
+              required>
+          </label>
+        </div>
+        <div class="form-two-cols">
+          <label>Дата
+            <input type="date" name="date" required>
+          </label>
+          <label>Время
+            <input type="time" name="time" required>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Количество человек
+            <input type="number" name="people" min="1" max="20" value="2"
+              required>
+          </label>
+        </div>
+        <div class="form-group">
+          <label>Комментарий (необязательно)
+            <textarea name="message"
+              placeholder="Пожелания или особые требования"></textarea>
+          </label>
+        </div>
+        <div class="reservation-submit-wrap">
+          <button class="reservation-submit-btn"
+            type="submit">Забронировать</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
 
   <footer class="footer">
     <div class="footer-box">

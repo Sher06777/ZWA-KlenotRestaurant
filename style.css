@@ -1146,10 +1146,10 @@ label input:focus {
   padding: 0; /* padding убран по умолчанию */
 }
 
-.main-content-wrapper.visible-padding {
-  padding-top: 150px;  /* высота меню */
-  padding-bottom: 40px; /* от футера */
-}
+/* .main-content-wrapper.visible-padding { */
+  /* padding-top: 150px;  высота меню */
+  /* padding-bottom: 40px; от футера */
+/* } */
 
 /* Центрируем контейнер на экране */
 .personal-account {
@@ -1167,6 +1167,7 @@ label input:focus {
   font-family: "Montserrat Alternates", sans-serif;
   margin-top: 0;
   will-change: auto;
+  margin-top: 150px;
 }
 
 
@@ -1528,3 +1529,90 @@ section, .divider, .slider-wrapper {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 } */
+
+
+/* Reservation Section */
+
+.reservation-section {
+  padding: 120px 20px;
+  background: #f9f9f9;
+  font-family: "Montserrat Alternates", sans-serif;
+  color: #333;
+}
+
+.reservation-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.reservation-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 40px;
+  color: #9f712e;
+}
+
+.reservation-form .form-group {
+  margin-bottom: 25px;
+}
+
+.reservation-form label {
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.reservation-form input,
+.reservation-form textarea {
+  width: 100%;
+  padding: 14px;
+  border: 2px solid #9f712e;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+.reservation-form input:focus,
+.reservation-form textarea:focus {
+  box-shadow: 0 0 10px rgba(159, 113, 46, 0.4);
+}
+
+.reservation-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.form-two-cols {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.reservation-submit-wrap {
+  text-align: center;
+}
+
+.reservation-submit-btn {
+  padding: 15px 35px;
+  font-size: 20px;
+  border: 2px solid #9f712e;
+  color: #9f712e;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.reservation-submit-btn:hover {
+  background: #9f712e;
+  color: #fff;
+}

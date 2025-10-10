@@ -16,6 +16,9 @@ const regestrationButton = document.querySelector('.form-regestration-btn');
 const submitSigninButton = document.querySelector('.form-submit-button--signin');
 const submitRegisterButton = document.querySelector('.form-submit-button--register');
 const loginText = document.querySelector('.login-text');
+const reservationSection = document.getElementById('reservation-section');
+const reservationBtn = document.querySelector('.reservation-btn');
+
 
 // Проверка наличия элементов
 if (!mainContent || !gallerySection || !formMain || !loginFormSection || !personalAccount) {
@@ -64,7 +67,7 @@ function isLoggedIn() {
 
 // --------- Функция показа секции ---------
 function showSection(section) {
-  const allSections = [mainContent, gallerySection, formMain, loginFormSection, personalAccount];
+  const allSections = [mainContent, gallerySection, formMain, loginFormSection, personalAccount, reservationSection];
 
   allSections.forEach(el => {
     if (el === section) {
@@ -82,7 +85,7 @@ function showSection(section) {
 document.addEventListener('DOMContentLoaded', () => {
   // Начальное состояние: главная страница
   fadeIn(mainContent);
-  [gallerySection, formMain, loginFormSection, personalAccount].forEach(makeInvisible);
+  [gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(makeInvisible);
 
   // ---------- Кнопки ----------
   galleryBtn?.addEventListener('click', e => { 
@@ -107,6 +110,13 @@ document.addEventListener('DOMContentLoaded', () => {
       showSection(formMain);
     }
   });
+  
+  reservationBtn?.addEventListener('click', e => {
+    e.preventDefault();
+    showSection(reservationSection);
+    mainContentWrapper?.classList.add('visible-padding');
+  });
+
 
   regestrationButton?.addEventListener('click', e => { e.preventDefault(); showSection(loginFormSection); });
 
