@@ -801,7 +801,7 @@ header {
   z-index: 5000;
   inset: 0;
   pointer-events: auto;
-  /* убираем абсолютное позиционирование */
+  margin: 0 auto auto auto;
 }
 
 .form {
