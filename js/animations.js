@@ -46,8 +46,11 @@ setInterval(nextSlide, 7000);
 
 const addBorderAnimation = (containerSelector, pathSelector) => {
   const container = document.querySelector(containerSelector);
+  if(!container) return; // элемент отсутствует — выходим
   const path = container.querySelector(pathSelector);
+  if(!path) return; // путь отсутствует — выходим
   const svg = container.querySelector('svg');
+  if(!svg) return;
 
   container.addEventListener('mouseenter', () => {
     const width = container.offsetWidth;
@@ -106,11 +109,16 @@ const addBorderAnimation = (containerSelector, pathSelector) => {
   });
 }
 
-// Инициализация для кнопки "Войти"
-addBorderAnimation('.login-btn', '.border-path');
+document.addEventListener('DOMContentLoaded', () => {
+  const loginBtn = document.querySelector('.login-btn');
+  if(loginBtn) addBorderAnimation('.login-btn', '.border-path');
 
-// Инициализация для логотипа
-addBorderAnimation('.logo-wrap', '.logo-border-path');
+  const logoWrap = document.querySelector('.logo-wrap');
+  if(logoWrap) addBorderAnimation('.logo-wrap', '.logo-border-path');
+
+  const regDiv = document.querySelector('.form-regestration-div');
+  if(regDiv) addBorderAnimation('.form-regestration-div', '.form-regestration-border-path');
+});
 
 
 
