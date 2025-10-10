@@ -578,7 +578,7 @@ label input:focus {
   padding: 0; /* padding убран по умолчанию */
 }
 
-.main-content-wrapper.visible-padding {
+.main-content-wrapper {
   padding-top: 150px;  /* высота меню */
   padding-bottom: 40px; /* от футера */
 }
