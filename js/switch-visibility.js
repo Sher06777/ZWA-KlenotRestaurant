@@ -12,9 +12,7 @@ const footer = document.querySelector('footer');
 const logo = document.querySelector('.logo');
 const loginButton = document.querySelector('.login-btn');
 const galleryBtn = document.querySelector('.gallery-btn');
-const regestrationButton = document.querySelector('.form-regestration-btn');
-const submitSigninButton = document.querySelector('.form-submit-button--signin');
-const submitRegisterButton = document.querySelector('.form-submit-button--register');
+const regestrationButton = document.querySelector('.form-regestration-div');
 const loginText = document.querySelector('.login-text');
 const reservationSection = document.getElementById('reservation-section');
 const reservationBtn = document.querySelector('.reservation-btn');
@@ -91,21 +89,18 @@ document.addEventListener('DOMContentLoaded', () => {
   galleryBtn?.addEventListener('click', e => { 
     e.preventDefault(); 
     showSection(gallerySection); 
-    mainContentWrapper?.classList.remove('visible-padding');
   });
 
   logo?.addEventListener('click', e => {
     e.preventDefault();
     showSection(mainContent);
-    mainContentWrapper?.classList.remove('visible-padding');
   });
 
   loginButton?.addEventListener('click', e => {
     e.preventDefault();
     if (isLoggedIn()) {
       showSection(personalAccount);
-      loginText.textContent = 'Личный кабинет';
-      mainContentWrapper?.classList.add('visible-padding');
+      loginText.textContent = 'My Account';
     } else {
       showSection(formMain);
     }
@@ -114,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
   reservationBtn?.addEventListener('click', e => {
     e.preventDefault();
     showSection(reservationSection);
-    mainContentWrapper?.classList.add('visible-padding');
   });
 
 
@@ -123,13 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------- Вход / регистрация ----------
   const onLoginOrRegister = () => {
     showSection(personalAccount);
-    loginText.textContent = 'Личный кабинет';
-    mainContentWrapper?.classList.add('visible-padding');
+    loginText.textContent = 'My Account';
     setLoggedIn(true); // сохраняем состояние входа в рамках SPA
   };
-
-  submitRegisterButton?.addEventListener('click', e => { e.preventDefault(); onLoginOrRegister(); });
-  submitSigninButton?.addEventListener('click', e => { e.preventDefault(); onLoginOrRegister(); });
 });
 
 // --------- Вспомогательные функции ---------
