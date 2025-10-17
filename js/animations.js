@@ -123,39 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    // const galleryLink = document.querySelector(".main-menu-button:nth-child(4)");
-    // const aboutLink = document.querySelector('.main-menu-button a[href="#about-us"]');
-    // const logoLink = document.querySelector(".logo img");
-    // const gallerySection = document.getElementById("gallery-section");
-    // const allSections = document.querySelectorAll("section, .divider, .slider-wrapper");
-
-    // //  Переход в галерею 
-    // galleryLink.addEventListener('click', (e) => {
-    //     e.preventDefault();
-
-    //     startLoader(() => {
-    //         // скрытие секций
-    //         allSections.forEach(section => section.classList.add('hidden'));
-
-    //         // отображение галереи
-    //         setTimeout(() => {
-    //             gallerySection.classList.add('active');
-    //             gallerySection.classList.remove('hidden');
-    //         }, 600);
-    //     });
-    // });
-
-    // //  Возврат на главную по клику на логотип 
-    // const logo = document.querySelector('.logo img');
-
-    // logo.addEventListener('click', (e) => {
-    //     e.preventDefault();
-
-    //     startLoader(() => {    // скрываем галерею и показываем всё обратно
-    //         document.getElementById('gallery-section').classList.remove('active');
-    //         allSections.forEach(section => section.classList.remove('hidden'));
-    //     });
-    // });
 
     //  Переход в "О нас" (если галерея открыта) 
     aboutLink.addEventListener("click", (e) => {
