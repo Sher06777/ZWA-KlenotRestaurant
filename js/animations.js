@@ -197,3 +197,13 @@ const startLoader = (callback) => {
     });
 }
 
+const dateInput = document.getElementById('dateInput');
+const timeInput = document.getElementById('timeInput');
+
+dateInput.addEventListener('click', () => {
+    if (dateInput.showPicker) dateInput.showPicker();
+});
+
+timeInput.addEventListener('click', () => {
+    if (timeInput.showPicker) timeInput.showPicker();
+});
