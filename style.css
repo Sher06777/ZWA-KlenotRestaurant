@@ -133,7 +133,6 @@ Quicksand: CSS class for a variable style
 */
 
 * {
-  margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
@@ -146,7 +145,8 @@ body {
   display: flex;
   flex-direction: column; /* Вертикальная структура */
   min-height: 100vh; /* Минимальная высота = экран */
-  margin: 0;      
+  margin: 0;
+  font-family: "Montserrat Alternates", sans-serif;      
 }
 
 /* для плавности перехода по ссылкам */
@@ -160,13 +160,6 @@ main {
   transition: opacity 0.45s ease, max-height 0.45s ease, visibility 0s linear 0.45s;
 }
 
-main.invisible {
-  opacity: 0;
-  visibility: hidden;   /* скрывается после окончания opacity-transition */
-  pointer-events: none; /* не мешает кликам */
-}
-
-
 
 .invisible {
   opacity: 0;
@@ -174,9 +167,13 @@ main.invisible {
   position: absolute; /* элемент убирается с потока */
   left: 0;
   top: 0;
+  max-width: 0;
+  max-height: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
   transition: opacity 0.5s ease, visibility 0.5s ease;
+  pointer-events: none;
 }
 
 .visible {
@@ -186,22 +183,13 @@ main.invisible {
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-.invisible-account-button {
-  visibility: hidden;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
 /* Настройка Главного меню */
 
 header {
   z-index: 10;
 }
 
-#dropped-menu { 
+#dropped-menu {
   position: fixed;
   top: 0;
   left: 0;
@@ -212,24 +200,27 @@ header {
   font-weight: bold;
   z-index: 9999;
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 0 150px;
   color: #fff;
   background: linear-gradient(
-    to bottom, 
-    rgb(255 255 255 / 75%), /* верх — плотнее */ 
-    rgb(255 255 255 / 0%) /* низ — почти прозрачно */);
+    to bottom,
+    rgb(255 255 255 / 75%),
+    rgb(255 255 255 / 0%)
+  );
   backdrop-filter: blur(6px);
   transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+  padding: 0;           /* <- важно: убрали padding от хедера */
+  box-sizing: border-box;
 }
 /* Эффект блюра для хэдера */
 
 .menu-dropdown {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto; /* left | center (растёт) | right */
   align-items: center;
   width: 100%;
-  justify-content: center;
+  box-sizing: border-box;
+  gap: 0;
 }
 
 .main-menu {
@@ -238,6 +229,85 @@ header {
   justify-content: center;
   gap: 50px;
   list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Левый блок: логотип */
+.menu-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 20px; /* отступ от края экрана; меняй по вкусу */
+  box-sizing: border-box;
+  min-width: 160px;
+  --logo-offset: 100px;
+  transform: translateX(var(--logo-offset));
+  transition: transform .15s ease;
+  transform-origin: left center; /* полезно для анимации */
+}
+
+/* Центр: навигация */
+.menu-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;               /* важно для корр. сжатия flex-элементов */
+  padding: 0 150px;           /* <- здесь можно держать визуальное выравнивание центра */
+  box-sizing: border-box;
+}
+
+/* Правый блок: кнопка входа */
+.menu-right {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Точный центр внутри блока */
+  padding-right: 20px;     /* от края */
+  min-width: 210px;        /* резерв под кнопку, можно подкорректировать */
+  box-sizing: border-box;
+  position: relative;      /* на будущее, если потребуется абсолютное позиционирование */
+  transform: none;
+  --logo-offset: -85px;
+  transform: translateX(var(--logo-offset));
+  transition: transform .15s ease;
+  transform-origin: left center; /* полезно для анимации */     
+}
+
+.main-menu-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* центрирует кнопку внутри этой области */
+  gap: 12px;
+  width: 100%;             /* пусть занимает всю ширину .menu-right */
+  box-sizing: border-box;
+}
+
+
+.main-menu-right .separator {
+  color: #ccc;
+}
+
+.menu-center .main-menu {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;     /* твой существующий gap, можно оставить */
+  list-style: none;
+}
+
+/* Адаптация: на узких экранах центр уступает, элементы растягиваются */
+@media (max-width: 1024px) {
+  #dropped-menu .menu-dropdown.layout-left-logo {
+    padding: 0 20px;
+  }
+  .menu-left, .menu-right {
+    min-width: 120px;
+  }
+  .main-menu {
+    gap: 18px;
+  }
 }
 
 .main-menu-button {
@@ -245,10 +315,12 @@ header {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 20px 30px;
+  padding: 12px 16px; /* уменьшил — меньше шансов на перенос */
   color: #0e0e0e;
   position: relative;
   cursor: pointer;
+  white-space: nowrap; /* Ключ: запрет переноса */
+  box-sizing: border-box;
 }
 
 .main-menu-button::after {
@@ -276,6 +348,41 @@ header {
 
 
 /* Логотип подстраиваем под высоту меню */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* логотип будет в правом краю menu-left, поэтому никаких margin-left */
+}
+
+
+.logo-wrap {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.logo-wrap img {
+  display: block;
+  width: 120px;
+  height: auto;
+}
+
+@media (max-width: 1024px) {
+  #dropped-menu .menu-dropdown.layout-left-logo {
+    padding: 0 20px;
+  }
+  .menu-left, .menu-right {
+    min-width: 120px;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .menu-center .main-menu {
+    gap: 18px;
+  }
+}
+
 .main-menu .logo img,
 .main-menu img {
   height: 114px;
@@ -289,14 +396,120 @@ header {
   cursor: pointer;
 }
 
-.main-menu-right {
-  display: flex;
+
+
+
+.language-btn {
+  position: relative;
+  display: inline-flex;
   align-items: center;
-  gap: 50px;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
 }
 
-.main-menu-right .separator {
-  color: #ccc;
+/* Явная метка внутри кнопки — если будет, то используем её */
+.language-btn .lang-label {
+  pointer-events: none; /* клики проходят дальше на li */
+}
+
+.language-btn.active .language-options {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(5px); /* плавное появление справа */
+}
+
+.language-options span {
+  display: inline-block;
+  padding: 4px 6px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #0e0e0e;
+  position: relative;
+}
+
+.language-options span::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #0e0e0e;
+  transition: width 0.2s ease;
+}
+
+
+.language-options span:hover::after {
+  width: 100%;
+}
+
+.language-btn .language-options {
+  display: flex;
+  gap: 10px;
+  position: absolute;
+  top: 50%;
+  left: 100%; /* справа от кнопки */
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+
+/* Выпадающий список */
+.language-dropdown {
+  position: absolute;
+  top: calc(100% + 8px); /* чуть ниже ссылки */
+  left: 0;
+  min-width: 170px;
+  background: #ffffff;
+  border: 2px solid #9f712e;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  list-style: none;
+  padding: 6px 0;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 220ms ease, transform 220ms ease, visibility 220ms;
+  z-index: 10000;
+  /* чтобы не захватывало фокус/клики вне элемента */
+  pointer-events: none;
+}
+
+/* Видимое состояние */
+.language-btn.active .language-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Элементы в списке */
+.language-dropdown li {
+  padding: 10px 18px;
+  font-size: 15px;
+  color: #222;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.language-dropdown li:hover,
+.language-dropdown li:focus {
+  background: rgba(159,113,46,0.08);
+  color: #000;
+  outline: none;
+}
+
+/* Адаптация: на маленьких экранах подправить позиционирование */
+@media (max-width: 800px) {
+  .language-dropdown {
+    left: auto;
+    right: 0;
+  }
 }
 
 
@@ -311,7 +524,6 @@ header {
   border: none;
   cursor: pointer;
   overflow: visible;
-  left: 105px;
 }
 
 .login-btn svg {
@@ -333,17 +545,6 @@ header {
   stroke-dashoffset: 0;
 }
 
-.logo-wrap {
-  position: relative;
-  display: inline-block;
-}
-
-.logo-wrap img {
-  display: block;
-  width: 120px;  /* нужная ширина логотипа */
-  height: auto;
-}
-
 .logo-wrap svg {
   position: absolute;
   top: 0;
@@ -353,7 +554,7 @@ header {
   pointer-events: none; /* чтобы svg не мешал клику по лого */
 }
 
-/* Слайдер */
+/* ======================= Слайдер ===========================*/
 
 /* Центральный блок */
 .slider-wrapper {
@@ -418,11 +619,6 @@ header {
   transform: scale(1.05); /* Увеличиваем на 5% */
 }
 
-/* скрываем радио-кнопки */
-.slider-radio {
-  display: none;
-}
-
 /* пагинация: внизу, по центру */
 
 .slider-pagination-wrapper {
@@ -463,8 +659,7 @@ header {
   height: 45px;
   border: 2px solid rgb(0, 0, 0);
   color: rgb(0, 0, 0);
-  font-family: "Roboto Slab", serif; 
-  font-optical-sizing: auto; 
+  font-family: "Roboto Slab", serif;
   font-weight: 500; 
   font-style: normal; 
   font-size: 30px;
@@ -538,7 +733,6 @@ header {
 .body-history-left-text h2,
 .body-history-left-text p,
 .body-history-menu-button {
-  font-family: "Montserrat Alternates", sans-serif !important;
   color: #ffffff;
 }
 
@@ -573,7 +767,6 @@ header {
   background: transparent;
   border: none;
   border-radius: 6px;
-  font-family: "Montserrat Alternates", sans-serif !important;
   font-size: 26px;
   color: #fff;
   cursor: pointer;
@@ -581,6 +774,7 @@ header {
   z-index: 0;
   transition: color 0.5s ease;
 }
+
 
 /* Общие стили для before/after */
 .body-history-menu-button::before,
@@ -693,7 +887,6 @@ header {
 }
 
 .body-title {
-  font-family: "Montserrat Alternates", sans-serif;
   font-weight: 500;
   font-size: 40px;
   font-style: normal;
@@ -702,7 +895,6 @@ header {
 }
 
 .body-text {
-  font-family: "Montserrat Alternates", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 20px;
@@ -718,7 +910,6 @@ header {
   border: 2px solid #000;
   border-radius: 6px;
   background: transparent;
-  font-family: "Montserrat Alternates", sans-serif !important;
   color: #000;
   cursor: pointer;
   text-align: center;
@@ -728,7 +919,6 @@ header {
 
 .body-button::after {
   content: "ᐯ"; /* Unicode для ↓ */
-  font-family: "Montserrat Alternates", sans-serif;
   font-weight: 200;
   font-style: normal;
   font-size: 18px;
@@ -771,7 +961,6 @@ header {
   border-radius: 8px;
   max-width: 1000px;
   margin: 0 auto;
-  font-family: "Montserrat Alternates", sans-serif !important;
 }
 
 .about-us-section h2 {
@@ -795,8 +984,7 @@ header {
   padding: 120px 0 60px; /* отступ сверху для header */
   background: transparent;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.45s ease, visibility 0s linear 0.45s; 
+  transition: opacity 0.45s ease, visibility 0.45s linear 0.45s; 
   flex-direction: column;
   z-index: 5000;
   inset: 0;
@@ -806,20 +994,14 @@ header {
 
 .form {
   width: 1000px;
-  max-width: 90%; /* чтобы на маленьких экранах не вылезало */
-  background: #fff;
-  border: 3px solid #28a745;
   border-radius: 12px;
+  background: #fff;
   box-shadow: 0 8px 20px rgba(0,0,0,0.25);
   padding: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column; /* для полей */
-}
-
-.form-all {
-  font-family: "Montserrat Alternates", sans-serif;
 }
 
 .form-fieldset {
@@ -843,7 +1025,6 @@ fieldset > label {
   font-weight: 500;
   margin-bottom: 25px;
   color: #333;
-  font-family: "Montserrat Alternates", sans-serif;
 }
 
 label input {
@@ -851,7 +1032,6 @@ label input {
   width: 100%;
   padding: 15px;
   margin-top: 10px;
-  font-family: "Montserrat Alternates", sans-serif;
   font-size: 20px;
   border: 2px solid #9f712e;
   border-radius: 8px;
@@ -871,10 +1051,10 @@ label input:focus {
   display: block;
 }
 
-.form-submit-button {
+.form-submit-button,
+.login-form-submit-button {
   width: 100%;
   padding: 15px 20px;
-  font-family: "Montserrat Alternates", sans-serif;
   font-size: 20px;
   font-weight: 600;
   border: 2px solid #9f712e;
@@ -902,36 +1082,8 @@ label input:focus {
   width: 60%;
 }
 
-.form-main.visible {
-  opacity: 1;
-  visibility: visible;
-  z-index: 7000;
-  pointer-events: auto;
-  transition-delay: 0s;
-}
-
 .form-main {
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-}
-
-/* Форма скрыта */
-.form-main.invisible {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Форма видна */
-.form-main.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.form-main.invisible {
-  opacity: 0;
-  visibility: hidden;
-  z-index: 1000;
-  pointer-events: none;
-  transition: opacity 0.45s ease, visibility 0s linear 0s;
+  transition: opacity 0.45s ease, visibility 0.45s ease;
 }
 
 .form-regestration-link {
@@ -951,7 +1103,7 @@ label input:focus {
   justify-content: flex-end;
   padding: 10px 20px;
   cursor: pointer;
-  margin: 0 0 0 auto;
+  margin: 0 auto;
 }
 
 .form-regestration-div .form-regestration-border {
@@ -966,10 +1118,10 @@ label input:focus {
 .form-regestration-btn {
   background-color: #ffffff;
   border-style: none;
-  font-family: "Montserrat Alternates", sans-serif;
   font-size: 15px;
   font-weight: 500;
   cursor: pointer;
+  font-family: "Montserrat Alternates", sans-serif;
 }
 
 /* ===== Login Form (та же стилистика, что у form-main) ===== */
@@ -978,10 +1130,9 @@ label input:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 120px 0 60px; /* отступ сверху для header */
+  padding: 120px 0 120px; /* отступ сверху для header */
   background: transparent;
   opacity: 0;
-  visibility: hidden;
   transition: opacity 0.45s ease, visibility 0s linear 0.45s;
   flex-direction: column;
   z-index: 5000;
@@ -1005,7 +1156,8 @@ label input:focus {
 }
 
 .login-form-all {
-  font-family: "Montserrat Alternates", sans-serif;
+  display: flex;
+  justify-content: center;
 }
 
 /* Внутренняя рамка */
@@ -1024,33 +1176,6 @@ legend.login-form-legend {
   padding: 0 15px;
 }
 
-fieldset > label {
-  display: block;
-  font-size: 22px;
-  font-weight: 500;
-  margin-bottom: 25px;
-  color: #333;
-  font-family: "Montserrat Alternates", sans-serif;
-}
-
-label input {
-  display: block;
-  width: 100%;
-  padding: 15px;
-  margin-top: 10px;
-  font-family: "Montserrat Alternates", sans-serif;
-  font-size: 20px;
-  border: 2px solid #9f712e;
-  border-radius: 8px;
-  outline: none;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-}
-
-label input:focus {
-  border-color: #9f712e;
-  box-shadow: 0 0 12px rgba(147, 117, 21, 0.6);
-}
-
 /* Кнопка отправки */
 .login-form-submit-wrap {
   width: 50%;
@@ -1058,21 +1183,6 @@ label input:focus {
   position: relative;
   display: block;
 }
-
-.login-form-submit-button {
-  width: 100%;
-  padding: 15px 20px;
-  font-family: "Montserrat Alternates", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  border: 2px solid #9f712e;
-  border-radius: 8px;
-  background: #fff;
-  color: #9f712e;
-  cursor: pointer;
-  display: block;
-}
-
 /* Полоска при наведении */
 .login-form-submit-wrap::after {
   content: "";
@@ -1090,22 +1200,6 @@ label input:focus {
   width: 60%;
 }
 
-/* Появление / скрытие */
-.login-form-section.visible {
-  opacity: 1;
-  visibility: visible;
-  z-index: 7000;
-  pointer-events: auto;
-  transition-delay: 0s;
-}
-
-.login-form-section.invisible {
-  opacity: 0;
-  visibility: hidden;
-  z-index: 1000;
-  pointer-events: none;
-  transition: opacity 0.45s ease, visibility 0s linear 0s;
-}
 
 .login-form label {
   display: block;
@@ -1113,7 +1207,6 @@ label input:focus {
   font-weight: 500;
   margin-bottom: 18px;
   color: #333;
-  font-family: "Montserrat Alternates", sans-serif;
 }
 
 .login-form input {
@@ -1121,7 +1214,6 @@ label input:focus {
   width: 100%;
   padding: 12px;
   margin-top: 8px;
-  font-family: "Montserrat Alternates", sans-serif;
   font-size: 18px;
   border: 2px solid #9f712e;
   border-radius: 8px;
@@ -1146,11 +1238,6 @@ label input:focus {
   padding: 0; /* padding убран по умолчанию */
 }
 
-/* .main-content-wrapper.visible-padding { */
-  /* padding-top: 150px;  высота меню */
-  /* padding-bottom: 40px; от футера */
-/* } */
-
 /* Центрируем контейнер на экране */
 .personal-account {
   display: flex;
@@ -1164,7 +1251,6 @@ label input:focus {
   backdrop-filter: blur(8px);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  font-family: "Montserrat Alternates", sans-serif;
   margin-top: 0;
   will-change: auto;
   margin-top: 150px;
@@ -1202,7 +1288,6 @@ label input:focus {
   border: none;
   background: rgba(46, 139, 87, 0.1);
   color: #2f4f2f;
-  font-family: "Montserrat Alternates", sans-serif;
   font-weight: 500;
   font-size: 16px;
   border-radius: 6px;
@@ -1263,7 +1348,6 @@ label input:focus {
   width: 23%;
   min-width: 200px;
   margin-bottom: 30px;
-  font-family: "Montserrat Alternates", sans-serif !important;
 }
 
 .footer h3,
@@ -1346,69 +1430,24 @@ label input:focus {
 
 /* === ГАЛЕРЕЯ === */
 .gallery-section {
-  padding: 60px 20px;
-  text-align: center;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  background: linear-gradient(135deg, #375E97, #FB6542, #FFBB00);
-  padding-top: 120px;
-  z-index: 6000;
-  position: relative;
-  transition: opacity 0.45s ease, max-height 0.45s ease, padding-top 0.45s ease, padding-bottom 0.45s ease;
-  overflow: hidden;
-  opacity: 1;
-}
-
-/* видимая версия */
-.gallery-section {
-  /* убираем паддинги из базового селектора */
-  padding-top: 0;
-  padding-bottom: 0;
-
   text-align: center;
   font-family: 'Segoe UI', Tahoma, sans-serif;
   background: linear-gradient(135deg, #375E97, #FB6542, #FFBB00);
   z-index: 6000;
   position: relative;
+  transition: max-height 0.45s ease, opacity 0.45s ease, visibility 0.45s linear 0.45s; 
   overflow: hidden;
-
-  /* оставляем только простую плавность для opacity; остальные переходы задаёт JS inline */
-  transition: opacity 0.25s ease;
   opacity: 0;
-  visibility: hidden;
-  max-height: 0;
-}
-
-/* Видимая версия: padding и видимость только тут */
-.gallery-section.visible {
-  opacity: 1;
-  visibility: visible;
+  flex-direction: column;
   pointer-events: auto;
-  /* padding только в visible — теперь не будет конфликтов */
-  padding-top: 120px;
-  padding-bottom: 60px;
-  max-height: 2000px; /* запас для содержимого (JS будет убирать inline maxHeight после анимации) */
 }
 
-/* Скрытая версия (класс, который мы используем для "скрыто, но готов") */
-.gallery-section.invisible,
-.gallery-section.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  padding-top: 0;
-  padding-bottom: 0;
-  max-height: 0;
+.gallery-section.visible {
+  max-height: 2000px; /* или любое большое значение */
+  opacity: 1;
+  padding: 120px 30px 60px 30px;
 }
 
-.gallery-section.hidden {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
-  max-height: 0 !important;
-}
 
 .gallery-section h2 {
   font-size: 32px;
@@ -1435,7 +1474,7 @@ label input:focus {
   object-fit: cover;
   border-radius: 8px;
   cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.45s ease, opacity 0.45s ease;
 }
 
 .gallery-images img:hover {
@@ -1461,12 +1500,6 @@ section, .divider, .slider-wrapper {
   z-index: 9999;
   opacity: 0;
   transition: opacity 0.4s ease;
-}
-
-#zoom.visible {
-  display: flex;
-  opacity: 1;
-  pointer-events: all;
 }
 
 #zoom-picture {
@@ -1510,33 +1543,11 @@ section, .divider, .slider-wrapper {
   transition: opacity 0.3s ease;
 }
 
-#loader.visible {
-  display: flex;
-  opacity: 1;
-}
-
-/* Spinner */
-/* .spinner {
-  width: 70px;
-  height: 70px;
-  border: 6px solid #e0e0e0;
-  border-top: 6px solid #c7a64a; 
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-} */
-
-
 /* Reservation Section */
 
 .reservation-section {
   padding: 120px 20px;
   background: #f9f9f9;
-  font-family: "Montserrat Alternates", sans-serif;
   color: #333;
 }
 
@@ -1615,4 +1626,24 @@ section, .divider, .slider-wrapper {
 .reservation-submit-btn:hover {
   background: #9f712e;
   color: #fff;
+}
+
+
+/* Подсветка полей с ошибкой */
+.input-error {
+  border: 2px solid red;
+  background-color: #ffe6e6;
+}
+
+/* Сообщение об ошибке под полем */
+.error-message {
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 4px;
+  display: none; /* скрыто по умолчанию */
+}
+
+/* Если ошибка есть — показываем */
+.error-message.active {
+  display: block;
 }
