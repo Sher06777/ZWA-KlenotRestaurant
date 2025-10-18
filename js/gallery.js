@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
     const ring = document.querySelector(".gallery-ring");
     const items = document.querySelectorAll(".gallery-item");
-    let radius = 400; // исходный радиус
+    let radius = 450; // исходный радиус
 
     // Обновление радиуса под ширину экрана
     const updateRadius = () => {
         const w = window.innerWidth;
-        if (w <= 480) radius = 180;
-        else if (w <= 768) radius = 250;
-        else if (w <= 1024) radius = 350;
-        else radius = 450;
+        if (w <= 480) radius = 230;
+        else if (w <= 768) radius = 300;
+        else if (w <= 1024) radius = 400;
+        else radius = 500;
     };
     updateRadius();
     window.addEventListener("resize", updateRadius);
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     let currentRotation = 0;
-    let autoRotateSpeed = 0.1;
+    let autoRotateSpeed = 0.05;
     let isDragging = false;
     let lastX = 0;
     let autoRotate = true;
@@ -40,10 +40,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const angle = parseFloat(item.dataset.angle);
             const totalAngle = angle + currentRotation;
             const rad = (totalAngle * Math.PI) / 180;
-            const x = radius * Math.sin(rad);
-            const z = radius * Math.cos(rad);
+            const roundTo = v => Math.round(v * 2) / 2; // округление до 0.5px
+            const xRaw = radius * Math.sin(rad);
+            const zRaw = radius * Math.cos(rad);
+            const x = roundTo(xRaw);
+            const z = roundTo(zRaw);
 
-            item.style.transform = `translateX(${x}px) translateZ(${z}px) rotateY(${-currentRotation}deg)`;
+            // используем translate3d — немного лучше на некоторых браузерах
+            item.style.transform = `translate3d(${x}px, 0, ${z}px) rotateY(${-currentRotation}deg)`;
         });
 
         requestAnimationFrame(animate);

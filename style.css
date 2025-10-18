@@ -1431,8 +1431,9 @@ legend.login-form-legend {
 /* === ГАЛЕРЕЯ === */
 .gallery-section {
   padding: 4rem 2rem;
-  background: radial-gradient(circle at center, #111 0%, #000 100%);
+  background-image: url(img/sinie-linii-streal-oboi-fon.jpg);
   color: white;
+  background-size: cover;
   text-align: center;
   overflow: hidden;
   perspective: 1200px;
@@ -1458,6 +1459,8 @@ legend.login-form-legend {
   margin: 0 auto;
   transform-style: preserve-3d;
   cursor: grab;
+  will-change: transform;
+  transform-style: preserve-3d;
 }
 
 .gallery-ring:active {
@@ -1468,7 +1471,7 @@ legend.login-form-legend {
   position: absolute;
   width: 330px;
   top: 110px;
-  left: calc(50% - 140px);
+  left: calc(50% - 165px);
   transform-style: preserve-3d;
   transition: transform 0.2s ease-out;
   will-change: transform;
@@ -1481,6 +1484,13 @@ legend.login-form-legend {
   object-fit: cover;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  image-rendering: crisp-edges;
+  -webkit-font-smoothing: none;
+  will-change: transform;
+  filter: none;
+  opacity: 1;
 }
 
 .gallery-item:hover {
