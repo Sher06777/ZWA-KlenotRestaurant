@@ -19,31 +19,47 @@
 
   <!-- Верхнее главное меню -->
   <header id="dropped-menu">
-    <div class="menu-dropdown">
-      <ul class="main-menu">
-        <div class="main-menu-button-decoration">
-          <li class="main-menu-button"><a href="#about-us">О нас</a></li>
-        </div>
-        <li class="main-menu-button">Меню</li>
-        <li class="logo">
+    <div class="menu-dropdown layout-left-logo">
+      <!-- левый блок: логотип -->
+      <div class="menu-left">
+        <div class="logo" role="button" aria-label="Home">
           <div class="logo-wrap">
             <img src="img/logo-restorant-without-background.png" alt="logo">
-            <svg class="logo-border" width="100%" height="100%" viewBox="0, 0, 200, 200" preserveAspectRatio="none">
-              <path class="logo-border-path" d="" stroke="#000" stroke-width="4" fill="transparent" />
+            <svg class="logo-border" width="100%" height="100%" viewBox="0 0 200 200" preserveAspectRatio="none">
+              <path class="logo-border-path" d="" stroke="#000" stroke-width="3" fill="transparent" />
             </svg>
           </div>
-        </li>
-        <li class="main-menu-button gallery-btn">Галерея</li>
-        <li class="main-menu-button reservation-btn">Резервация</li>
-      </ul>
-      <div class="main-menu-right">
-        <button class="login-btn">
-          <span class="login-icon">👤</span>
-          <span class="login-text">Войти</span>
-          <svg class="btn-border" width="100%" height="100%" viewBox="0, 0, 200, 60" preserveAspectRatio="none">
-            <path class="border-path" d="" stroke="#000" stroke-width="3" fill="transparent" />
-          </svg>
-        </button>
+        </div>
+      </div>
+
+      <!-- центр: навигация -->
+      <nav class="menu-center" aria-label="Main navigation">
+        <ul class="main-menu">
+          <li class="main-menu-button"><a href="#about-us">About Us</a></li>
+          <li class="main-menu-button menu-btn">Menu</li>
+          <li class="main-menu-button gallery-btn">Gallary</li>
+          <li class="main-menu-button reservation-btn">Reservation</li>
+          <li class="main-menu-button language-btn">
+            <span class="lang-label">Language</span>
+            <div class="language-options">
+              <span data-lang="CZ">CZ</span>
+              <span data-lang="ENG">ENG</span>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- правый блок: кнопка Войти -->
+      <div class="menu-right">
+        <div class="main-menu-right">
+          <button class="login-btn">
+            <span class="login-icon">👤</span>
+            <span class="login-text">Sign in</span>
+            <svg class="btn-border" width="100%" height="100%" viewBox="0 0 200 60" preserveAspectRatio="none">
+              <path class="border-path" d="" stroke="#000" stroke-width="3" fill="transparent" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -61,13 +77,13 @@
         <div class="slider-slides">
           <div class="slider-images">
             <article class="slider-image-item">
-              <img src="img/slider-img-1.jpg">
+              <img src="img/slider-img-1.jpg" alt="slider-img-1">
             </article>
             <article class="slider-image-item">
-              <img src="img/slider-img-15.jpg">
+              <img src="img/slider-img-15.jpg" alt="slider-img-15">
             </article>
             <article class="slider-image-item">
-              <img src="img/slider-img-17.jpg">
+              <img src="img/slider-img-17.jpg" alt="slider-img-17">
             </article>
           </div>
         </div>
@@ -104,7 +120,7 @@
         </div>
       </div>
       <div class="body-history-right-text">
-        <img src="img/summer-menu-3.jpg" class="body-history-img">
+        <img src="img/summer-menu-3.jpg" class="body-history-img" alt="summer-menu">
       </div>
     </section>
 
@@ -112,10 +128,10 @@
 
     <section class="columns-section">
       <div class="columns-wrapper">
-        <img src="img/EmperorHomelay.png" alt="" class="body-columns-background-img">
+        <img src="img/EmperorHomelay.png" class="body-columns-background-img" alt="EmperorHomelay">
         <div class="body-all-columns">
           <div class="body-column">
-            <img src="img/food-bar2.jpg" alt="" class="body-img">
+            <img src="img/food-bar2.jpg" class="body-img" alt="food-bar">
             <h3 class="body-title">Magic of Cocktails</h3>
             <p class="body-text">
               Je představitelem významné gastronomické rodiny, která se tomuto řemeslu věnuje již několik generací.
@@ -127,7 +143,7 @@
             </button>
           </div>
           <div class="body-column">
-            <img src="img/food2.jpg" alt="" class="body-img">
+            <img src="img/food2.jpg" class="body-img" alt="food2">
             <h3 class="body-title">Treasure of the Menu</h3>
             <p class="body-text">
               Each dish perfectly blends flavors and textures into a truly culinary adventure.
@@ -140,7 +156,7 @@
             </button>
           </div>
           <div class="body-column">
-            <img src="img/food3.jpg" alt="" class="body-img">
+            <img src="img/food3.jpg" class="body-img" alt="food3">
             <h3 class="body-title">Taste of Adventure</h3>
             <p class="body-text">
               Embark on a journey through exotic spices, rare ingredients, and bold flavor combinations.
@@ -179,6 +195,8 @@
     </section>
   </main>
 
+
+  <!-- ================= Onclick НЕ должен быть здесь ============ -->
   <section id="gallery-section" class="gallery-section invisible">
     <h2>Our Gallery</h2>
     <p class="gallery-subtitle">A glimpse into the atmosphere of Klenot Restaurant</p>
@@ -200,62 +218,66 @@
 
   <!-- ===== FORM MAIN (signin) ===== -->
   <section class="form-main invisible" id="signin-section">
-    <div class="form-all">
-      <form action="" method="post" class="form" novalidate>
-        <div class="form-inside">
-          <fieldset class="form-fieldset">
-            <legend class="form-legend">Введите email и пароль</legend>
+    <form id="signin-form" method="post" class="form" novalidate>
+      <div class="form-inside">
+        <fieldset class="form-fieldset">
+          <legend class="form-legend">Введите email и пароль</legend>
 
-            <label class="form-signin">Email
-              <input type="email" placeholder="example@gmail.com" id="main-email" name="main-email" autocomplete="email"
-                required>
-            </label>
+          <label for="main-name" class="form-name">Login
+            <input type="text" id="main-name" name="login" autocomplete="on" required>
+            <p class="error-message"></p>
+          </label>
 
-            <label class="form-password">Пароль
-              <input type="password" id="main-password" name="main-password" autocomplete="current-password" required>
-            </label>
+          <label for="main-email" class="form-signin">Email
+            <input type="email" placeholder="example@gmail.com" id="main-email" name="email" autocomplete="email" required>
+            <p class="error-message"></p>
+          </label>
 
-            <div class="form-reg-wrap">
-              <div class="form-regestration-div">
-                <button class="form-regestration-btn" type="button">Don't have an account?</button>
-                <svg class="form-regestration-border" width="100%" height="100%" viewBox="0 0 200 200"
-                  preserveAspectRatio="none">
-                  <path class="form-regestration-border-path" d="" stroke="#000" stroke-width="2.5"
-                    fill="transparent" />
-                </svg>
-              </div>
+          <label for="main-password" class="form-password">Password
+            <input type="password" id="main-password" name="password" autocomplete="current-password" required>
+            <p class="error-message"></p>
+          </label>
+
+          <div class="form-reg-wrap">
+            <div class="form-regestration-div">
+              <button class="form-regestration-btn" type="button">Don't have an account?</button>
+              <svg class="form-regestration-border" width="100%" height="100%" viewBox="0 0 200 200"
+                preserveAspectRatio="none">
+                <path class="form-regestration-border-path" d="" stroke="#000" stroke-width="2.5"
+                  fill="transparent" />
+              </svg>
             </div>
+          </div>
 
-            <div class="form-submit-wrap">
-              <!-- кнопка "Войти" (signin) -->
-              <button class="form-submit-button form-submit-button--signin" type="submit">Войти</button>
-            </div>
+          <div class="form-submit-wrap">
+            <!-- кнопка "Войти" (signin) -->
+            <button class="form-submit-button form-submit-button--signin" type="submit" name="action" value="account">Войти</button>
+          </div>
 
-          </fieldset>
-        </div>
-      </form>
-    </div>
+        </fieldset>
+      </div>
+    </form>
   </section>
 
   <!-- ===== LOGIN / REGISTER SECTION ===== -->
   <section class="login-form-section invisible" id="login-section">
     <div class="login-form-all">
-      <form action="" method="post" class="login-form" novalidate>
+      <form class="login-form" method="post" id="register-form" novalidate>
         <div class="login-form-inside">
           <fieldset class="login-form-fieldset">
             <legend class="login-form-legend">Создать аккаунт / Войти</legend>
 
-            <label class="login-form-username">Логин
-              <input type="text" placeholder="username123" id="login-username" name="username" autocomplete="username"
+            <label for="login-username" class="login-form-username">Логин
+              <input type="text" placeholder="username123" id="login-username" name="login" autocomplete="username"
                 required>
             </label>
 
-            <label class="login-form-email">Email
+            <label for="login-email" class="login-form-email">Email
               <input type="email" placeholder="example@gmail.com" id="login-email" name="email" autocomplete="email"
                 required>
             </label>
 
-            <label class="login-form-password">Пароль
+            <label for="login-password" class="login-form-password">Пароль
               <input type="password" id="login-password" name="password" autocomplete="new-password" required>
             </label>
 
@@ -306,42 +328,55 @@
       <h2 class="reservation-title">Резервация столика</h2>
       <form class="reservation-form" action="https://zwa.toad.cz/~xklima/vypisform.php" method="post" target="_blank">
         <div class="form-group">
-          <label>Ваше имя
+          
+          <label for="reservation-name">Ваше имя
             <input type="text" name="name" placeholder="Имя и фамилия"
               required>
           </label>
+
         </div>
         <div class="form-group">
-          <label>Телефон
+
+          <label for="reservation-phone">Телефон
             <input type="tel" name="phone" placeholder="+420 123 456 789"
               required>
           </label>
+
         </div>
         <div class="form-group">
-          <label>Email
+
+          <label for="reservation-email">Email
             <input type="email" name="email" placeholder="example@gmail.com"
               required>
           </label>
+
         </div>
         <div class="form-two-cols">
-          <label>Дата
+
+          <label for="dateInput">Дата
             <input type="date" id="dateInput" name="date" required>
           </label>
-          <label>Время
+
+          <label for="timeInput">Время
             <input type="time" id="timeInput" name="time" required>
           </label>
+
         </div>
         <div class="form-group">
-          <label>Количество человек
+
+          <label for="peopleInput">Количество человек
             <input type="number" name="people" min="1" max="20" value="2"
               required>
           </label>
+
         </div>
         <div class="form-group">
-          <label>Комментарий (необязательно)
+
+          <label for="messageInput">Комментарий (необязательно)
             <textarea name="message"
               placeholder="Пожелания или особые требования"></textarea>
           </label>
+          
         </div>
         <div class="reservation-submit-wrap">
           <button class="reservation-submit-btn"
@@ -350,6 +385,77 @@
       </form>
     </div>
   </section>
+
+
+
+  <!-- =========================== MENU =========================== -->
+
+  <section class="menu-all" id="menu-all">
+
+    <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
+    <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false" data-bg="img/menu-hero.jpg">
+      <div class="menu-3d-container" id="menu-3d-container">
+        <!-- задний фон -->
+        <div class="menu-layer layer-1" style="background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');"></div>
+        <!-- средние слои (могут быть PNG с прозрачностью) -->
+        <div class="menu-layer layer-3">
+          <div class="menu-3d-center">
+            <h1 class="menu-3d-title">Menu</h1>
+            <p class="menu-3d-sub">Taste our seasonal selection — inspired by tradition, crafted with love</p>
+          </div>
+        </div>
+      </div>
+      <div class="menu-smoke" aria-hidden="true" style="background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')"></div>
+      <div class="menu-sun" aria-hidden="true" style="background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')"></div>
+    </div>
+
+    <!-- Кнопки-фильтры -->
+    <div class="menu-all-btn" role="tablist" aria-label="Menu categories">
+      <button class="menu-button active" data-filter="all" aria-pressed="true">All</button>
+      <button class="menu-button" data-filter="starters">Appetizers &amp; Salads</button>
+      <button class="menu-button" data-filter="sides">Side Dishes</button>
+      <button class="menu-button" data-filter="soups">Soups</button>
+      <button class="menu-button" data-filter="mains">Main Courses</button>
+      <button class="menu-button" data-filter="fish">Fish &amp; Seafood</button>
+      <button class="menu-button" data-filter="desserts">Desserts</button>
+      <button class="menu-button" data-filter="drinks">Drinks</button>
+      <button class="menu-button" data-filter="alcohol">Alcoholic Beverages</button>
+    </div>
+
+    <template id="menu-item-template">
+      <article class="menu-first-position menu-item" data-category="">
+        <img src="" alt="" class="menu-first-food-img">
+        <div class="menu-first-info">
+          <h3 class="menu-first-text"></h3>
+          <p class="menu-first-desc"></p>
+        </div>
+        <div class="menu-first-meta">
+          <div class="menu-first-price"></div>
+          <p class="menu-order-weight"></p>
+        </div>
+      </article>
+    </template>
+
+    <!-- Список блюд — каждая карточка это item -->
+    <div class="menu-items">
+
+      <!-- <article class="menu-first-position menu-item" data-category="starters">
+        <img src="img/menu-img/Закуски и салаты/1 шпигачки.png" alt="Fresh garden salad" class="menu-first-food-img">
+        <div class="menu-first-info">
+          <h3 class="menu-first-text">Klenot Garden Salad</h3>
+          <p class="menu-first-desc">Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette. Light, fresh and bright.</p>
+        </div>
+        <div class="menu-first-meta">
+          <div class="menu-first-price">120 CZK</div>
+          <p class="menu-order-weight">(250g)</p>
+        </div>
+      </article> -->
+
+      <!-- Добавьте другие блюда по образцу -->
+    </div>
+
+  </section>
+
 
 
   <footer class="footer">
@@ -396,17 +502,25 @@
       <p>© 2025 Klenot Restaurant. All rights reserved.</p>
     </div>
   </footer>
+
+  <!-- ======================== Переписать ================== -->
   <div id="zoom" onclick="normalSize()">
     <div id="zoom-picture">
-      <img id="zoom-img" src="" alt="">
+      <img id="zoom-img" src="" alt="zoom">
       <p id="zoom-description"></p>
     </div>
   </div>
+  <!-- ======================== Переписать ================== -->
 
 
   <script src="js/animations.js"></script>
   <script src="js/switch-visibility.js"></script>
-  <script src="js/account.js"></script>
+	<script src="js/registration.js"></script>
+	<script src="js/signin.js"></script>
+  <script src="js/switch-language.js"></script>
+  <script src="js/form-validation.js"></script>
+  <script src="js/menu.js"></script>
+	<script src="js/account.js"></script>
 
 </body>
 

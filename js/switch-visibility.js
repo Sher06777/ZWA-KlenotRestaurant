@@ -12,18 +12,23 @@ const footer = document.querySelector('footer');
 const logo = document.querySelector('.logo');
 const loginButton = document.querySelector('.login-btn');
 const galleryBtn = document.querySelector('.gallery-btn');
-const regestrationButton = document.querySelector('.form-regestration-btn');
-const submitSigninButton = document.querySelector('.form-submit-button--signin');
-const submitRegisterButton = document.querySelector('.form-submit-button--register');
+const regestrationButton = document.querySelector('.form-regestration-div');
 const loginText = document.querySelector('.login-text');
 const reservationSection = document.getElementById('reservation-section');
 const reservationBtn = document.querySelector('.reservation-btn');
+const menuBtn = document.querySelector('.menu-btn');
+const menuSection = document.querySelector('.menu-all');
+const menuImg3D = document.querySelector('.menu-3d-hero');
 
 
 // Проверка наличия элементов
-if (!mainContent || !gallerySection || !formMain || !loginFormSection || !personalAccount) {
+if (!mainContent || !gallerySection || !formMain || !loginFormSection || !personalAccount || !reservationSection || !menuSection || !menuImg3D) {
   console.warn('Не все элементы SPA найдены на странице.');
 }
+
+window.onLoginOrRegister = function() {
+  console.warn('onLoginOrRegister called but SPA not initialized yet.');
+};
 
 // --------- Функции анимации ---------
 const fadeOut = (el, callback) => {
@@ -67,7 +72,7 @@ function isLoggedIn() {
 
 // --------- Функция показа секции ---------
 function showSection(section) {
-  const allSections = [mainContent, gallerySection, formMain, loginFormSection, personalAccount, reservationSection];
+  const allSections = [mainContent, gallerySection, formMain, loginFormSection, personalAccount, reservationSection, menuSection];
 
   allSections.forEach(el => {
     if (el === section) {
@@ -81,57 +86,85 @@ function showSection(section) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+
+// --------- Видимость 3D-меню ---------
+function set3DMenuInvisible(value) {
+  if (!menuImg3D) return;
+  if (value) menuImg3D.classList.add('invisible');
+  else menuImg3D.classList.remove('invisible');
+}
+
 // --------- Инициализация SPA ---------
 document.addEventListener('DOMContentLoaded', () => {
   // Начальное состояние: главная страница
   fadeIn(mainContent);
-  [gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(makeInvisible);
+  [menuSection, gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(makeInvisible);
 
   // ---------- Кнопки ----------
   galleryBtn?.addEventListener('click', e => { 
     e.preventDefault(); 
     showSection(gallerySection); 
-    mainContentWrapper?.classList.remove('visible-padding');
+    set3DMenuInvisible(true);
   });
 
   logo?.addEventListener('click', e => {
     e.preventDefault();
     showSection(mainContent);
-    mainContentWrapper?.classList.remove('visible-padding');
+    set3DMenuInvisible(true);
   });
 
   loginButton?.addEventListener('click', e => {
     e.preventDefault();
     if (isLoggedIn()) {
       showSection(personalAccount);
-      loginText.textContent = 'Личный кабинет';
-      mainContentWrapper?.classList.add('visible-padding');
+      loginText.textContent = 'My Account';
     } else {
       showSection(formMain);
     }
+    set3DMenuInvisible(true);
   });
   
   reservationBtn?.addEventListener('click', e => {
     e.preventDefault();
     showSection(reservationSection);
-    mainContentWrapper?.classList.add('visible-padding');
+    set3DMenuInvisible(true);
   });
 
+  menuBtn?.addEventListener('click', e => {
+    e.preventDefault();
+    showSection(menuSection);
+    set3DMenuInvisible(false);
+  })
 
-  regestrationButton?.addEventListener('click', e => { e.preventDefault(); showSection(loginFormSection); });
+
+  regestrationButton?.addEventListener('click', e => { 
+    e.preventDefault(); 
+    showSection(loginFormSection);
+    set3DMenuInvisible(true); 
+  });
 
   // ---------- Вход / регистрация ----------
-  const onLoginOrRegister = () => {
+  window.onLoginOrRegister = () => {
     showSection(personalAccount);
-    loginText.textContent = 'Личный кабинет';
-    mainContentWrapper?.classList.add('visible-padding');
-    setLoggedIn(true); // сохраняем состояние входа в рамках SPA
+    loginText.textContent = 'My Account';
+    setLoggedIn(true);
+    set3DMenuInvisible(true);
   };
 
-  submitRegisterButton?.addEventListener('click', e => { e.preventDefault(); onLoginOrRegister(); });
-  submitSigninButton?.addEventListener('click', e => { e.preventDefault(); onLoginOrRegister(); });
+  [mainContent, gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(el => {
+    el?.addEventListener('click', () => set3DMenuInvisible(true));
+  });
 });
 
 // --------- Вспомогательные функции ---------
-function makeVisible(el) { if(!el) return; el.classList.remove('invisible'); el.classList.add('visible'); }
-function makeInvisible(el) { if(!el) return; el.classList.remove('visible'); el.classList.add('invisible'); }
+function makeVisible(el) { 
+  if(!el) return; 
+  el.classList.remove('invisible'); 
+  el.classList.add('visible'); 
+}
+
+function makeInvisible(el) { 
+  if(!el) return; 
+  el.classList.remove('visible'); 
+  el.classList.add('invisible'); 
+}

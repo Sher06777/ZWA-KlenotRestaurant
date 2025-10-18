@@ -120,69 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if(regDiv) addBorderAnimation('.form-regestration-div', '.form-regestration-border-path');
 });
 
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    // const galleryLink = document.querySelector(".main-menu-button:nth-child(4)");
-    // const aboutLink = document.querySelector('.main-menu-button a[href="#about-us"]');
-    // const logoLink = document.querySelector(".logo img");
-    // const gallerySection = document.getElementById("gallery-section");
-    // const allSections = document.querySelectorAll("section, .divider, .slider-wrapper");
-
-    // //  Переход в галерею 
-    // galleryLink.addEventListener('click', (e) => {
-    //     e.preventDefault();
-
-    //     startLoader(() => {
-    //         // скрытие секций
-    //         allSections.forEach(section => section.classList.add('hidden'));
-
-    //         // отображение галереи
-    //         setTimeout(() => {
-    //             gallerySection.classList.add('active');
-    //             gallerySection.classList.remove('hidden');
-    //         }, 600);
-    //     });
-    // });
-
-    // //  Возврат на главную по клику на логотип 
-    // const logo = document.querySelector('.logo img');
-
-    // logo.addEventListener('click', (e) => {
-    //     e.preventDefault();
-
-    //     startLoader(() => {    // скрываем галерею и показываем всё обратно
-    //         document.getElementById('gallery-section').classList.remove('active');
-    //         allSections.forEach(section => section.classList.remove('hidden'));
-    //     });
-    // });
-
-    //  Переход в "О нас" (если галерея открыта) 
-    aboutLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        startLoader(() => {
-            if (gallerySection.classList.contains("visible")) {
-                // используем hideGallery, если предпочитаете — но минимум:
-                gallerySection.classList.remove("visible");
-                gallerySection.classList.add("invisible", "hidden");
-                // и обязательно сброс inline-стилей
-                gallerySection.style.opacity = '';
-                gallerySection.style.paddingTop = '';
-                gallerySection.style.paddingBottom = '';
-                gallerySection.style.maxHeight = '';
-                gallerySection.style.display = 'none';
-
-                setTimeout(() => {
-                    allSections.forEach((section) => section.classList.remove("hidden"));
-                    document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
-                }, 400);
-            } else {
-                document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
-            }
-        });
-    });
-});
-
 //  Функции Zoom 
 const zoom = (img) => {
     const description = img.alt || '';
