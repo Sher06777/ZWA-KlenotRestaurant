@@ -120,26 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if(regDiv) addBorderAnimation('.form-regestration-div', '.form-regestration-border-path');
 });
 
-//  Функции Zoom 
-const zoom = (img) => {
-    const description = img.alt || '';
-    const zoomContainer = document.getElementById('zoom');
-    const zoomImg = document.getElementById('zoom-img');
-    const zoomDesc = document.getElementById('zoom-description');
-
-    zoomImg.src = img.src;
-    zoomDesc.textContent = description;
-    zoomContainer.classList.add('visible');
-    zoomContainer.style.display = 'flex';
-};
-
-const normalSize = () => {
-    const zoomContainer = document.getElementById('zoom');
-    zoomContainer.classList.remove('visible');
-    setTimeout(() => {
-        zoomContainer.style.display = 'none';
-    }, 400);
-};
 
 const showLoader = () => {
     const loader = document.getElementById('loader');
