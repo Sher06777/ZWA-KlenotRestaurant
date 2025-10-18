@@ -1647,3 +1647,418 @@ section, .divider, .slider-wrapper {
 .error-message.active {
   display: block;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ============================ Menu ======================== */
+
+.menu-3d-hero {
+  position: relative;      /* поверх всего */
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;     /* фон пока заглушка, можно градиент */
+  transition: opacity .6s ease, visibility .6s ease, transform .6s ease;
+  opacity: 1;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  visibility: visible;
+  pointer-events: all;
+}
+
+.menu-3d-container {
+  position: relative; /* плавная GPU-анимация */
+  inset: 0;           /* занимает весь hero */
+  width: 100%;
+  height: 100%;
+  perspective: 1200px;
+  z-index: 100;
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(.05,.5,0,1);
+  will-change: transform;
+}
+
+.menu-3d-container, .menu-layer {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.menu-3d-container {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 0.9s cubic-bezier(.05,.5,0,1);
+  transform: translate3d(0,0,0); /* GPU ускорение */
+}
+
+/* базовые стили слоя */
+.menu-layer {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Z-offsets: чем больше translateZ, тем ближе к зрителю */
+.layer-1 { transform: translateZ(-60px) scale(1.06); }
+.layer-2 { transform: translateZ(60px) scale(.92); background-blend-mode: screen; opacity: .95; }
+.layer-3 { transform: translateZ(160px) scale(.88); pointer-events: none; }
+.layer-canvas { transform: translateZ(190px) scale(.95); pointer-events: none; }
+.layer-4 { transform: translateZ(260px) scale(.9); pointer-events: none; }
+.layer-5 { transform: translateZ(340px) scale(.88); pointer-events: none; }
+
+/* центральный текст */
+.menu-3d-center {
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  color: #fff;
+  z-index: 3;
+  padding: 20px;
+  max-width: 1080px;
+}
+
+.menu-3d-title {
+  font-size: clamp(36px, 4.5vw, 72px);
+  color: #f7f1ff;
+  text-shadow: 0 2px 8px rgba(255,255,255,0.3);
+  letter-spacing: .04em;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+
+.menu-3d-sub {
+  font-size: clamp(14px, 1.6vw, 20px);
+  color: #f7f1ff;
+  text-shadow: 0 1px 4px rgba(255,255,255,0.2);
+  margin-bottom: 18px;
+  max-width: 820px;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 22px;
+  font-weight: 400;
+}
+
+/* enter button */
+.menu-3d-enter {
+  padding: 12px 22px;
+  border-radius: 8px;
+  background: linear-gradient(90deg,#f7e7c0,#ffd36a);
+  border: 2px solid #9f712e;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.menu-3d-enter,
+.menu-3d-skip {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.menu-3d-enter.fade-out,
+.menu-3d-skip.fade-out {
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+}
+
+/* skip button (top-right) */
+.menu-3d-skip {
+  position: fixed;
+  top: 22px;
+  right: 22px;
+  z-index: 10100;
+  background: rgba(0,0,0,.45);
+  border: 1px solid rgba(255,255,255,.12);
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.menu-3d-hero .layer-6 {
+  /* Отменяем inset: 0 у .menu-layer */
+  inset: auto;           /* убираем растяжение по всей области */
+  top: 200px;            /* отступ от верхнего края контейнера */
+  left: 200px;           /* отступ от левого края контейнера */
+  right: auto;
+  bottom: auto;
+
+  /* Размер "пятна дыма" — можно подправить */
+  width: 420px;          /* пример: 420px ширина */
+  height: 280px;         /* пример: 280px высота */
+
+  /* Чтобы картинка не растягивалась во всю область, а подстраивалась внутрь */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left top;
+
+  /* Сохранить 3D-слой (значение можно подрегулировать) */
+  transform: translateZ(380px) scale(.98);
+  transform-origin: left top; /* вращение/масштаб от верхнего левого края */
+
+  pointer-events: none;  /* чтобы дымка не мешала кликам */
+  opacity: 0.95;         /* по желанию: чуть прозрачно */
+}
+
+.menu-smoke {
+  position: absolute;
+  right: 200px;
+  top: 0;
+  width: 420px;
+  height: 280px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: 2000;
+  mix-blend-mode: screen;
+  filter: blur(2px);
+}
+
+.menu-sun {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 420px;
+  height: 280px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0.9;
+  z-index: 2000;
+  mix-blend-mode: screen;
+  filter: blur(2px);
+}
+
+/* mobile adjustments */
+@media (max-width: 900px) {
+  .menu-3d-container { transform-origin: center; }
+  .menu-3d-title { font-size: 34px; }
+}
+
+/* Увеличим hero, уберём background-attachment fixed */
+.menu-first-img {
+  position: relative;
+  width: 100%;
+  height: 62vh;
+  min-height: 380px;
+  overflow: hidden;
+  background-color: #111; /* запасной фон */
+}
+
+.menu-tiles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  /* grid-template-columns назначаем из JS (колонки зависят от ширины) */
+}
+
+/* каждая плитка */
+.menu-tile {
+  background-size: 100% 100%; /* затем переопределится в JS */
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(0.9) translateY(8px);
+  transition: transform 550ms cubic-bezier(.2,.8,.25,1), opacity 400ms ease;
+  will-change: transform, opacity;
+}
+
+/* видимое состояние плитки (после "сборки") */
+.menu-tile.revealed {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+/* при наведении на плитку — локально немного подъём и лёгкий рельеф */
+.menu-tile:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+  z-index: 5;
+}
+
+/* уменьшить анимации для предпочитающих reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .menu-tile { transition: none; transform: none; opacity: 1; }
+}
+
+/* Заголовок — чуть больше */
+.menu-hero-title {
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 10px;
+  font-weight: 800;
+  color: #ffcc00;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 8px 30px rgba(0,0,0,0.45);
+}
+
+/* Подзаголовок */
+.menu-hero-sub {
+  font-size: 18px;
+  color: #fff;
+  opacity: 0.95;
+  margin: 0 auto;
+  max-width: 820px;
+}
+
+/* ============= Квадратные кнопки (без прыжков) ============= */
+.menu-all-btn {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin: 18px auto;
+  padding: 0 8px;           /* уменьшил lateral padding */
+  max-width: 1400px;
+  z-index: 4;
+}
+
+.menu-button {
+  background: #fff; /* светлый фон для акцента */
+  border: 2px solid rgba(159,113,46,0.12);
+  padding: 0;
+  width: 140px;    /* квадратные кнопки */
+  height: 56px;
+  border-radius: 8px; /* почти квадрат */
+  cursor: pointer;
+  font-weight: 700;
+  transition: box-shadow 200ms ease, background 200ms ease;
+  color: #000000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+  border-color: #000000;
+}
+
+/* Уберём translate при hover — только тень */
+.menu-button:hover {
+  box-shadow: 0 14px 36px rgba(0,0,0,0.12);
+  background: linear-gradient(180deg,#fff,#fffef8);
+  transform: none; /* гарантируем отсутствие смещения */
+}
+
+/* Активная кнопка — акцентный градиент, без масштаба */
+.menu-button.active,
+.menu-button[aria-pressed="true"] {
+  background: linear-gradient(90deg,#fff4d6,#ffefc2);
+  border-color: #9f712e;
+  color: #2a2a2a;
+  box-shadow: 0 12px 30px rgba(159,113,46,0.08);
+}
+
+/* ============= Карточка блюда: увеличена на ~30% ============= */
+/* Уменьшаем боковые отступы контейнера (чтобы блок был шире) */
+.menu-items {
+  max-width: 1400px;   /* увеличил контейнер (меньше отступов слева/справа) */
+  margin: 22px auto 80px;
+  padding: 0 12px;     /* уменьшены lateral paddings */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 22px;
+}
+
+/* Увеличим карточку примерно на 30% */
+.menu-first-position {
+  display: grid;
+  grid-template-columns: 210px 1fr 180px; /* раньше 160 / 1fr / 140 — увеличено */
+  gap: 20px;
+  align-items: center;
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px; /* чуть больше внутреннего отступа */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.03);
+  transition: box-shadow 260ms ease; /* убрал transform hover */
+}
+
+/* hover: без смещения, только мягкая тень */
+.menu-first-position:hover {
+  box-shadow: 0 22px 60px rgba(0,0,0,0.10);
+}
+
+/* Изображение блюда — стало крупнее */
+.menu-first-food-img {
+  width: 210px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  flex-shrink: 0;
+}
+
+/* Инфо в середине */
+.menu-first-info { padding: 8px 0; }
+.menu-first-text { font-size: 22px; font-weight: 800; margin-bottom: 8px; color: #2f4f2f; }
+.menu-first-desc { font-size: 15px; color: #444; line-height: 1.45; }
+
+/* Правый столбец: цена и кнопка */
+.menu-first-meta { display:flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.menu-first-price { font-weight: 900; font-size: 22px; color: #9f712e; }
+
+/* кнопка заказа — без вертикального сдвига, только изменение цвета */
+.menu-order-weight {
+  padding: 10px 16px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+/* ===== Ken Burns / subtle motion для hero (чтобы не прыгало при scroll) ===== */
+.menu-first-img .kb-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  transform-origin: center;
+  will-change: transform;
+  transition: transform 8s linear;
+  /* начальное чуть увеличенное состояние */
+  transform: scale(1.08) translateY(0);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* overlay content выше kb-image */
+.menu-first-img .menu-first-img-overlay { z-index: 3; }
+
+/* responsive */
+@media (max-width: 1000px) {
+  .menu-first-img { height: 60vh; min-height: 360px; }
+  .menu-hero-title { font-size: 44px; }
+  .menu-first-food-img { width: 160px; height: 120px; }
+  .menu-first-position { grid-template-columns: 160px 1fr 140px; padding: 18px; border-radius: 12px; }
+  .menu-button { width: 110px; height: 44px; }
+  .menu-items { padding: 0 10px; }
+}
+
+@media (max-width: 600px) {
+  .menu-first-img { height: 46vh; min-height: 260px; }
+  .menu-first-position { grid-template-columns: 1fr; gap: 12px; padding: 14px; }
+  .menu-first-food-img { width: 100%; height: 160px; border-radius: 8px; }
+  .menu-first-meta { align-items: flex-start; }
+  .menu-button { width: 46%; min-width: 140px; }
+  .menu-hero-title { font-size: 28px; }
+}

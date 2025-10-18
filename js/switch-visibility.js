@@ -16,12 +16,19 @@ const regestrationButton = document.querySelector('.form-regestration-div');
 const loginText = document.querySelector('.login-text');
 const reservationSection = document.getElementById('reservation-section');
 const reservationBtn = document.querySelector('.reservation-btn');
+const menuBtn = document.querySelector('.menu-btn');
+const menuSection = document.querySelector('.menu-all');
+const menuImg3D = document.querySelector('.menu-3d-hero');
 
 
 // Проверка наличия элементов
-if (!mainContent || !gallerySection || !formMain || !loginFormSection || !personalAccount) {
+if (!mainContent || !gallerySection || !formMain || !loginFormSection || !personalAccount || !reservationSection || !menuSection || !menuImg3D) {
   console.warn('Не все элементы SPA найдены на странице.');
 }
+
+window.onLoginOrRegister = function() {
+  console.warn('onLoginOrRegister called but SPA not initialized yet.');
+};
 
 // --------- Функции анимации ---------
 const fadeOut = (el, callback) => {
@@ -65,7 +72,7 @@ function isLoggedIn() {
 
 // --------- Функция показа секции ---------
 function showSection(section) {
-  const allSections = [mainContent, gallerySection, formMain, loginFormSection, personalAccount, reservationSection];
+  const allSections = [mainContent, gallerySection, formMain, loginFormSection, personalAccount, reservationSection, menuSection];
 
   allSections.forEach(el => {
     if (el === section) {
@@ -79,21 +86,31 @@ function showSection(section) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+
+// --------- Видимость 3D-меню ---------
+function set3DMenuInvisible(value) {
+  if (!menuImg3D) return;
+  if (value) menuImg3D.classList.add('invisible');
+  else menuImg3D.classList.remove('invisible');
+}
+
 // --------- Инициализация SPA ---------
 document.addEventListener('DOMContentLoaded', () => {
   // Начальное состояние: главная страница
   fadeIn(mainContent);
-  [gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(makeInvisible);
+  [menuSection, gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(makeInvisible);
 
   // ---------- Кнопки ----------
   galleryBtn?.addEventListener('click', e => { 
     e.preventDefault(); 
     showSection(gallerySection); 
+    set3DMenuInvisible(true);
   });
 
   logo?.addEventListener('click', e => {
     e.preventDefault();
     showSection(mainContent);
+    set3DMenuInvisible(true);
   });
 
   loginButton?.addEventListener('click', e => {
@@ -104,24 +121,50 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       showSection(formMain);
     }
+    set3DMenuInvisible(true);
   });
   
   reservationBtn?.addEventListener('click', e => {
     e.preventDefault();
     showSection(reservationSection);
+    set3DMenuInvisible(true);
   });
 
+  menuBtn?.addEventListener('click', e => {
+    e.preventDefault();
+    showSection(menuSection);
+    set3DMenuInvisible(false);
+  })
 
-  regestrationButton?.addEventListener('click', e => { e.preventDefault(); showSection(loginFormSection); });
+
+  regestrationButton?.addEventListener('click', e => { 
+    e.preventDefault(); 
+    showSection(loginFormSection);
+    set3DMenuInvisible(true); 
+  });
 
   // ---------- Вход / регистрация ----------
-  const onLoginOrRegister = () => {
+  window.onLoginOrRegister = () => {
     showSection(personalAccount);
     loginText.textContent = 'My Account';
-    setLoggedIn(true); // сохраняем состояние входа в рамках SPA
+    setLoggedIn(true);
+    set3DMenuInvisible(true);
   };
+
+  [mainContent, gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(el => {
+    el?.addEventListener('click', () => set3DMenuInvisible(true));
+  });
 });
 
 // --------- Вспомогательные функции ---------
-function makeVisible(el) { if(!el) return; el.classList.remove('invisible'); el.classList.add('visible'); }
-function makeInvisible(el) { if(!el) return; el.classList.remove('visible'); el.classList.add('invisible'); }
+function makeVisible(el) { 
+  if(!el) return; 
+  el.classList.remove('invisible'); 
+  el.classList.add('visible'); 
+}
+
+function makeInvisible(el) { 
+  if(!el) return; 
+  el.classList.remove('visible'); 
+  el.classList.add('invisible'); 
+}
