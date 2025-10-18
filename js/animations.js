@@ -120,36 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if(regDiv) addBorderAnimation('.form-regestration-div', '.form-regestration-border-path');
 });
 
-
-
-document.addEventListener("DOMContentLoaded", () => {
-
-    //  Переход в "О нас" (если галерея открыта) 
-    aboutLink.addEventListener("click", (e) => {
-        e.preventDefault();
-        startLoader(() => {
-            if (gallerySection.classList.contains("visible")) {
-                // используем hideGallery, если предпочитаете — но минимум:
-                gallerySection.classList.remove("visible");
-                gallerySection.classList.add("invisible", "hidden");
-                // и обязательно сброс inline-стилей
-                gallerySection.style.opacity = '';
-                gallerySection.style.paddingTop = '';
-                gallerySection.style.paddingBottom = '';
-                gallerySection.style.maxHeight = '';
-                gallerySection.style.display = 'none';
-
-                setTimeout(() => {
-                    allSections.forEach((section) => section.classList.remove("hidden"));
-                    document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
-                }, 400);
-            } else {
-                document.querySelector("#about-us").scrollIntoView({ behavior: "smooth" });
-            }
-        });
-    });
-});
-
 //  Функции Zoom 
 const zoom = (img) => {
     const description = img.alt || '';

@@ -36,7 +36,7 @@
       <nav class="menu-center" aria-label="Main navigation">
         <ul class="main-menu">
           <li class="main-menu-button"><a href="#about-us">About Us</a></li>
-          <li class="main-menu-button">Menu</li>
+          <li class="main-menu-button menu-btn">Menu</li>
           <li class="main-menu-button gallery-btn">Gallary</li>
           <li class="main-menu-button reservation-btn">Reservation</li>
           <li class="main-menu-button language-btn">
@@ -218,23 +218,23 @@
 
   <!-- ===== FORM MAIN (signin) ===== -->
   <section class="form-main invisible" id="signin-section">
-    <form action="#" method="post" class="form" novalidate>
+    <form id="signin-form" method="post" class="form" novalidate>
       <div class="form-inside">
         <fieldset class="form-fieldset">
           <legend class="form-legend">Введите email и пароль</legend>
 
-          <label for="main-name" class="form-name">Full Name
-            <input type="text" id="main-name" name="main-name" autocomplete="on" required>
+          <label for="main-name" class="form-name">Login
+            <input type="text" id="main-name" name="login" autocomplete="on" required>
             <p class="error-message"></p>
           </label>
 
           <label for="main-email" class="form-signin">Email
-            <input type="email" placeholder="example@gmail.com" id="main-email" name="main-email" autocomplete="email" required>
+            <input type="email" placeholder="example@gmail.com" id="main-email" name="email" autocomplete="email" required>
             <p class="error-message"></p>
           </label>
 
-          <label for="main-password" class="form-password">Пароль
-            <input type="password" id="main-password" name="main-password" autocomplete="current-password" required>
+          <label for="main-password" class="form-password">Password
+            <input type="password" id="main-password" name="password" autocomplete="current-password" required>
             <p class="error-message"></p>
           </label>
 
@@ -251,7 +251,7 @@
 
           <div class="form-submit-wrap">
             <!-- кнопка "Войти" (signin) -->
-            <button class="form-submit-button form-submit-button--signin" type="submit">Войти</button>
+            <button class="form-submit-button form-submit-button--signin" type="submit" name="action" value="account">Войти</button>
           </div>
 
         </fieldset>
@@ -262,13 +262,13 @@
   <!-- ===== LOGIN / REGISTER SECTION ===== -->
   <section class="login-form-section invisible" id="login-section">
     <div class="login-form-all">
-      <form action="register.php" method="post" class="login-form" novalidate>
+      <form class="login-form" method="post" id="register-form" novalidate>
         <div class="login-form-inside">
           <fieldset class="login-form-fieldset">
             <legend class="login-form-legend">Создать аккаунт / Войти</legend>
 
             <label for="login-username" class="login-form-username">Логин
-              <input type="text" placeholder="username123" id="login-username" name="username" autocomplete="username"
+              <input type="text" placeholder="username123" id="login-username" name="login" autocomplete="username"
                 required>
             </label>
 
@@ -387,6 +387,77 @@
   </section>
 
 
+
+  <!-- =========================== MENU =========================== -->
+
+  <section class="menu-all" id="menu-all">
+
+    <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
+    <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false" data-bg="img/menu-hero.jpg">
+      <div class="menu-3d-container" id="menu-3d-container">
+        <!-- задний фон -->
+        <div class="menu-layer layer-1" style="background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');"></div>
+        <!-- средние слои (могут быть PNG с прозрачностью) -->
+        <div class="menu-layer layer-3">
+          <div class="menu-3d-center">
+            <h1 class="menu-3d-title">Menu</h1>
+            <p class="menu-3d-sub">Taste our seasonal selection — inspired by tradition, crafted with love</p>
+          </div>
+        </div>
+      </div>
+      <div class="menu-smoke" aria-hidden="true" style="background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')"></div>
+      <div class="menu-sun" aria-hidden="true" style="background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')"></div>
+    </div>
+
+    <!-- Кнопки-фильтры -->
+    <div class="menu-all-btn" role="tablist" aria-label="Menu categories">
+      <button class="menu-button active" data-filter="all" aria-pressed="true">All</button>
+      <button class="menu-button" data-filter="starters">Appetizers &amp; Salads</button>
+      <button class="menu-button" data-filter="sides">Side Dishes</button>
+      <button class="menu-button" data-filter="soups">Soups</button>
+      <button class="menu-button" data-filter="mains">Main Courses</button>
+      <button class="menu-button" data-filter="fish">Fish &amp; Seafood</button>
+      <button class="menu-button" data-filter="desserts">Desserts</button>
+      <button class="menu-button" data-filter="drinks">Drinks</button>
+      <button class="menu-button" data-filter="alcohol">Alcoholic Beverages</button>
+    </div>
+
+    <template id="menu-item-template">
+      <article class="menu-first-position menu-item" data-category="">
+        <img src="" alt="" class="menu-first-food-img">
+        <div class="menu-first-info">
+          <h3 class="menu-first-text"></h3>
+          <p class="menu-first-desc"></p>
+        </div>
+        <div class="menu-first-meta">
+          <div class="menu-first-price"></div>
+          <p class="menu-order-weight"></p>
+        </div>
+      </article>
+    </template>
+
+    <!-- Список блюд — каждая карточка это item -->
+    <div class="menu-items">
+
+      <!-- <article class="menu-first-position menu-item" data-category="starters">
+        <img src="img/menu-img/Закуски и салаты/1 шпигачки.png" alt="Fresh garden salad" class="menu-first-food-img">
+        <div class="menu-first-info">
+          <h3 class="menu-first-text">Klenot Garden Salad</h3>
+          <p class="menu-first-desc">Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette. Light, fresh and bright.</p>
+        </div>
+        <div class="menu-first-meta">
+          <div class="menu-first-price">120 CZK</div>
+          <p class="menu-order-weight">(250g)</p>
+        </div>
+      </article> -->
+
+      <!-- Добавьте другие блюда по образцу -->
+    </div>
+
+  </section>
+
+
+
   <footer class="footer">
     <div class="footer-box">
 
@@ -444,10 +515,12 @@
 
   <script src="js/animations.js"></script>
   <script src="js/switch-visibility.js"></script>
-  <script src="js/account.js"></script>
+	<script src="js/registration.js"></script>
+	<script src="js/signin.js"></script>
   <script src="js/switch-language.js"></script>
   <script src="js/form-validation.js"></script>
-  <script src="js/registration.js"></script>
+  <script src="js/menu.js"></script>
+	<script src="js/account.js"></script>
 
 </body>
 
