@@ -1442,7 +1442,6 @@ legend.login-form-legend {
 
 
 .gallery-section {
-  position: relative;
   padding: 4rem 2rem;
   color: white;
   background-size: cover;
@@ -1761,10 +1760,10 @@ legend.login-form-legend {
   border-radius: 16px;
   object-fit: cover;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: none;
   backface-visibility: hidden;
-  transform: translateZ(0);
-  image-rendering: crisp-edges;
+  transform: translate3d(0,0,0);
+  image-rendering: auto;
   -webkit-font-smoothing: none;
   will-change: transform;
   filter: none;
