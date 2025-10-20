@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (w <= 480) radius = 230;
         else if (w <= 768) radius = 300;
         else if (w <= 1024) radius = 400;
-        else radius = 500;
+        else radius = 450;
     };
     updateRadius();
     window.addEventListener("resize", updateRadius);
