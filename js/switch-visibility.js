@@ -11,12 +11,12 @@ const header = document.getElementById('dropped-menu');
 const footer = document.querySelector('footer');
 const logo = document.querySelector('.logo');
 const loginButton = document.querySelector('.login-btn');
-const galleryBtn = document.querySelector('.gallery-btn');
+const galleryBtn = document.querySelectorAll('.gallery-btn');
 const regestrationButton = document.querySelector('.form-regestration-div');
 const loginText = document.querySelector('.login-text');
 const reservationSection = document.getElementById('reservation-section');
-const reservationBtn = document.querySelector('.reservation-btn');
-const menuBtn = document.querySelector('.menu-btn');
+const reservationBtn = document.querySelectorAll('.reservation-btn');
+const menuBtn = document.querySelectorAll('.menu-btn');
 const menuSection = document.querySelector('.menu-all');
 const menuImg3D = document.querySelector('.menu-3d-hero');
 
@@ -101,11 +101,15 @@ document.addEventListener('DOMContentLoaded', () => {
   [menuSection, gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(makeInvisible);
 
   // ---------- Кнопки ----------
-  galleryBtn?.addEventListener('click', e => { 
-    e.preventDefault(); 
-    showSection(gallerySection); 
-    set3DMenuInvisible(true);
+  galleryBtn?.forEach(galleryButton => {
+    galleryButton.addEventListener('click', e => {
+      e.stopPropagation(); 
+      e.preventDefault(); 
+      showSection(gallerySection); 
+      set3DMenuInvisible(true);
+    });
   });
+
 
   logo?.addEventListener('click', e => {
     e.preventDefault();
@@ -123,19 +127,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     set3DMenuInvisible(true);
   });
-  
-  reservationBtn?.addEventListener('click', e => {
-    e.preventDefault();
-    showSection(reservationSection);
-    set3DMenuInvisible(true);
-  });
 
-  menuBtn?.addEventListener('click', e => {
-    e.preventDefault();
-    showSection(menuSection);
-    set3DMenuInvisible(false);
+  reservationBtn?.forEach(reservationButton => {
+    reservationButton.addEventListener('click', e => {
+      e.stopPropagation();
+      e.preventDefault();
+      showSection(reservationSection);
+      set3DMenuInvisible(true);
+    });
   })
 
+  menuBtn?.forEach(menuButton => {
+    menuButton.addEventListener('click', e => {
+      e.stopPropagation()
+      e.preventDefault();
+      showSection(menuSection);
+      set3DMenuInvisible(false);
+    });
+  });
 
   regestrationButton?.addEventListener('click', e => { 
     e.preventDefault(); 
