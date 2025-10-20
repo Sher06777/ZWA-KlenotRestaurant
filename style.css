@@ -1762,6 +1762,7 @@ legend.login-form-legend {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   transition: none;
   backface-visibility: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   transform: translate3d(0,0,0);
   image-rendering: auto;
   -webkit-font-smoothing: none;
