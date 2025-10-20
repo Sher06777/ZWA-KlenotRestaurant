@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     let currentRotation = 0;
-    let autoRotateSpeed = 0.05;
+    let autoRotateSpeed = 0.07;
     let isDragging = false;
     let lastX = 0;
     let autoRotate = true;
