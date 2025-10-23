@@ -394,9 +394,9 @@ header {
   cursor: pointer;
 }
 
+/* ========================== Язык ========================== */
 
-
-
+/* Контейнер для кнопок выбора языка */
 .language-btn {
   position: relative;
   display: inline-flex;
@@ -406,108 +406,101 @@ header {
   user-select: none;
 }
 
-/* Явная метка внутри кнопки — если будет, то используем её */
-.language-btn .lang-label {
-  pointer-events: none; /* клики проходят дальше на li */
+/* Метка внутри кнопки — клики проходят на li */
+.lang-label {
+  pointer-events: none;
 }
 
-.language-btn.active .language-options {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(-50%) translateX(5px); /* плавное появление справа */
-}
-
-.language-options span {
-  display: inline-block;
-  padding: 4px 6px;
-  cursor: pointer;
-  font-weight: bold;
-  color: #0e0e0e;
-  position: relative;
-}
-
-.language-options span::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background-color: #0e0e0e;
-  transition: width 0.2s ease;
-}
-
-
-.language-options span:hover::after {
-  width: 100%;
-}
-
+/* Контейнер с кнопками */
 .language-btn .language-options {
   display: flex;
-  gap: 10px;
+  gap: 6px; /* уменьшили отступ между кнопками */
   position: absolute;
   top: 50%;
-  left: 100%; /* справа от кнопки */
+  left: 100%;
   transform: translateY(-50%);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
 }
 
+/* Показ кнопок при активном состоянии */
+.language-btn.active .language-options {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(5px);
+}
 
-/* Выпадающий список */
-.language-dropdown {
+/* Стиль самих кнопок — как main-menu-button */
+.language-options .lang-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 6px 12px; /* уменьшили padding */
+  font-size: 90%;   /* чуть меньше шрифт */
+  font-family: "Montserrat Alternates", serif;
+  font-weight: bold;
+  color: #0e0e0e;
+  cursor: pointer;
+  position: relative;
+  white-space: nowrap;
+  background: transparent;
+  border: 2px solid transparent; /* по умолчанию прозрачный */
+  border-radius: 20px; /* меньше радиус, чтобы выглядело компактно */
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+/* Hover-эффект линии под кнопкой */
+.language-options .lang-btn::after {
+  content: "";
   position: absolute;
-  top: calc(100% + 8px); /* чуть ниже ссылки */
   left: 0;
-  min-width: 170px;
-  background: #ffffff;
-  border: 2px solid #9f712e;
-  border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  list-style: none;
-  padding: 6px 0;
-  margin: 0;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-8px);
-  transition: opacity 220ms ease, transform 220ms ease, visibility 220ms;
-  z-index: 10000;
-  /* чтобы не захватывало фокус/клики вне элемента */
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #0e0e0e;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
   pointer-events: none;
 }
 
-/* Видимое состояние */
-.language-btn.active .language-dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: auto;
+/* Стиль для выбранной кнопки (active-i18n) — бордер и отключённая линия */
+.language-options .lang-btn.active-i18n {
+  border-color: #0e0e0e;
 }
 
-/* Элементы в списке */
-.language-dropdown li {
-  padding: 10px 18px;
-  font-size: 15px;
-  color: #222;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.18s ease, color 0.18s ease;
+.language-options .lang-btn.active-i18n::after {
+  transform: scaleX(0) !important;
+  opacity: 0;
+  transition: none;
 }
 
-.language-dropdown li:hover,
-.language-dropdown li:focus {
-  background: rgba(159,113,46,0.08);
-  color: #000;
-  outline: none;
+
+/* показываем линию при hover/focus только если нет active-i18n */
+.language-options .lang-btn:hover:not(.active-i18n)::after,
+.language-options .lang-btn:focus:not(.active-i18n)::after {
+  transform: scaleX(1);
 }
 
-/* Адаптация: на маленьких экранах подправить позиционирование */
+/* Активная кнопка — обведена бордером */
+.language-options button.active-i18n {
+  border: 2px solid #0e0e0e;
+}
+
+/* Адаптация на маленьких экранах */
 @media (max-width: 800px) {
-  .language-dropdown {
+  .language-btn .language-options {
     left: auto;
     right: 0;
   }
+}
+
+@media (max-width:720px) {
+  .language-options .lang-btn { padding: 6px 10px; font-size: .92rem; }
 }
 
 
@@ -1045,14 +1038,13 @@ label input:focus {
 
 .form-submit-wrap {
   width: 50%;
-  margin: 20px auto 0;
   position: relative;
-  display: block;
+  text-align: center;
+  margin: 10px auto;
 }
 
 .form-submit-button,
 .login-form-submit-button {
-  width: 100%;
   padding: 15px 20px;
   font-size: 20px;
   font-weight: 600;
@@ -1061,7 +1053,15 @@ label input:focus {
   background: #fff;
   color: #9f712e;
   cursor: pointer;
-  display: block;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.form-submit-button{
+  text-align: center;
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
 }
 
 /* полоска на обёртке */
@@ -1173,14 +1173,15 @@ legend.login-form-legend {
   font-weight: 600;
   color: #9f712e;
   padding: 0 15px;
+  text-align: center;
 }
 
 /* Кнопка отправки */
 .login-form-submit-wrap {
-  width: 50%;
-  margin: 20px auto 0;
+  text-align: center;
   position: relative;
-  display: block;
+  margin: 0 auto;
+  width: 50%;
 }
 /* Полоска при наведении */
 .login-form-submit-wrap::after {
@@ -1223,6 +1224,9 @@ legend.login-form-legend {
 .login-form input:focus {
   border-color: #9f712e;
   box-shadow: 0 0 12px rgba(147, 117, 21, 0.35);
+}
+.login-form-inside {
+  width: 60%;
 }
 
 /* ==================== Личный кабинет ==================== */
@@ -1737,7 +1741,6 @@ legend.login-form-legend {
   transform-style: preserve-3d;
   cursor: grab;
   will-change: transform;
-  transform-style: preserve-3d;
 }
 
 .gallery-ring:active {
@@ -2400,4 +2403,71 @@ legend.login-form-legend {
   .menu-first-meta { align-items: flex-start; }
   .menu-button { width: 46%; min-width: 140px; }
   .menu-hero-title { font-size: 28px; }
+}
+
+
+/* ================================= Разделение секций ============================================= */
+
+.svg-divider {
+  display: block;
+  width: 100%;
+  line-height: 0;
+  pointer-events: none;
+  margin: 0;
+  filter: drop-shadow(0 0 25px rgba(249, 236, 167, 0.3))
+          drop-shadow(0 0 50px rgba(255, 249, 235, 0.3));
+}
+
+
+.svg-wave {
+  display:block;
+  width:100%;
+  height:120px;                /* можно менять */
+  --svg-h: 120px;              /* используем в трансформах */
+}
+
+/* небольшой тень-под волной для объёма */
+.svg-divider svg { 
+  display:block; 
+  width:100%; 
+  height:120px; 
+}
+
+.svg-divider .wave { 
+  filter: drop-shadow(0 -8px 20px rgba(0,0,0,0.12)); 
+}
+
+/* вариант для тёмного-в-светлом перехода — настраивай fill */
+.svg-divider--light-to-dark .wave { 
+  opacity: 0.7; 
+  fill: url(#grad1)
+}
+
+.svg-divider--light-to-dark .wave-bottom {
+  opacity: 0.7; 
+  fill: url(#grad2)
+}
+
+
+.flip-vertical {
+  transform: scale(1, -1);
+  transform-origin: center;
+}
+
+.svg-divider--dark-to-light .wave { 
+  fill: #b0620c; 
+  opacity: 1; 
+}
+
+
+/* мобильная коррекция */
+@media (max-width:720px) { 
+  .svg-divider svg { 
+    height:64px; 
+  }
+
+  .wave-bottom-group {
+    transform: scale(1, -1) translateY(-64px);
+  }
+
 }

@@ -1,0 +1,79 @@
+{
+    "body": {
+        "h1": "Klenot – Savor the Czech Legacy",
+        "h2": "An Elegant Journey Through Czech Flavors",
+        "description": "Step into Klenot and immerse in Czech cuisine. In a setting where history meets sophistication, our chefs craft each dish with meticulous care, balancing bold flavors with delicate presentation. From classic goulash to inventive seasonal creations, every plate celebrates Prague’s rich culinary heritage. Let your senses be captivated, your palate delighted, and your dining experience become a journey of elegance and taste.",
+        "menu-button": "Explore Our Menu"
+    },
+
+    "main": {
+        "menu-about-us": "About Us",
+        "menu-menu": "Menu",
+        "menu-gallery-btn": "Gallary",
+        "menu-reservation-btn": "Reservation",
+        "menu-language-button": "Language",
+        "menu-signin-button": "Sign in"
+
+    },
+
+    "body-second": {
+        "first-column-h3": "Magic of Cocktails",
+        "first-column-description": "He descends from a distinguished culinary lineage, devoted to the craft for generations. His cuisine is firmly rooted in Czech tradition, delicately elevated with Italy’s effortless elegance. Under his skilful guidance, flavours become more than a dish — they become a moment to remember.",
+        "first-column-button": "Klenot in Images",
+
+        "second-column-h3": "Treasure of the Menu",
+        "second-column-description": "Each dish perfectly blends bold flavors and refined textures into an unforgettable culinary adventure. From classics to unexpected delights, our menu is full of treasures. Fresh ingredients and thoughtful presentation make every bite memorable. Experience premium taste and meticulous attention in our kitchen.",
+        "second-column-button": "Delight in Dishes",
+
+        "third-column-h3": "Taste of Adventure",
+        "third-column-description": "Embark on a journey through exotic spices, rare ingredients, and bold flavor combinations crafted with passion. Every dish awakens curiosity and creates unforgettable sensory experiences. Unique presentation turns each plate into a visual delight. Dare to explore flavors that surprise and inspire endlessly.",
+        "third-column-button": "Dine with Us"
+
+    },
+
+    "about-us": {
+        "about-h2": "About Klenot Restaurant",
+        "about-description-first": "Located in the heart of Prague, Klenot Restaurant is a place where tradition meets elegance. We specialize in authentic Czech and European cuisine, prepared with fresh local ingredients and a touch of modern presentation.",
+        "about-description-second": "Our philosophy is simple: quality, hospitality, and unforgettable atmosphere. Whether you're visiting for a romantic dinner, a business meeting, or a family celebration, we aim to provide an experience that goes beyond just food.",
+        "about-description-third": "Our chefs combine classic recipes with contemporary techniques, offering seasonal dishes, signature specialties, and a curated wine selection. At Klenot Restaurant, every detail — from the interior design to the plating — is created to make you feel special."
+
+    },
+
+    "gallery": {
+        "title": "Our Gallery",
+        "description": "Step inside the atmosphere of Klenot Restaurant",
+        "soft-first": "Soft lighting and intimate ambience for unforgettable evenings.",
+        "second": "Open-air terrace perfect for warm evenings and city views.",
+        "third": "Elegant bar with crafted cocktails and a curated wine selection.",
+        "fourth": "Behind the scenes of our culinary artistry – where every dish begins.",
+        "fifth": "Spacious hall designed for celebrations, receptions, and special occasions.",
+        "sixth": "Elegant venue perfect for weddings, parties, and memorable gatherings.",
+        "seventh": "Bright and airy space ideal for receptions, ceremonies, and festive events."
+    },
+
+    "signing-form": {
+        "legend": "Enter your login, email and password.",
+        "login": "Login",
+        "email": "Email",
+        "password": "Password",
+        "create-account": "Don't have an account?",
+        "signin-button": "Sign in"
+    },
+
+    "login-form": {
+        "create-account": "Create account"
+    },
+
+    "reservation": {
+        "title": "Table Reservation",
+        "name": "Full Name",
+        "number": "Phone number",
+        "date": "Date",
+        "time": "Time",
+        "guests": "Number of guests",
+        "comment": "Comment (optional)",
+        "reservation": "Reserve",
+        "placeholder-name": "e.g. John Smith",
+        "placeholder-message": "Special requests or preferences"
+    }
+}

@@ -1,30 +1,177 @@
-(function () {
-  const languageBtn = document.querySelector('.language-btn');
-  if (!languageBtn) return;
+(() => {
+  const DEFAULT_LANG = 'eng';
+  const STORAGE_KEY = 'site_lang';
+  // JSON-файлы лежат в папке i18n
+  const TRANSLATIONS_BASE = '/i18n/';
+  const FILE_BY_LANG = (lang) => `${TRANSLATIONS_BASE}${lang}.json`; // ./i18n/en.json, ./i18n/cz.json
 
-  const label = languageBtn.querySelector('.lang-label');
-  const options = languageBtn.querySelector('.language-options');
+  const cache = {};
 
-  // Toggle при клике на LANGUAGE
-  languageBtn.addEventListener('click', e => {
-    e.stopPropagation();
-    languageBtn.classList.toggle('active');
-  });
+  function getSavedLang() {
+    try { return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG; }
+    catch (e) { return DEFAULT_LANG; }
+  }
+  function saveLang(lang) {
+    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* ignore */ }
+  }
 
-  // Клик на CZ/ENG
-  options.querySelectorAll('span').forEach(opt => {
-    opt.addEventListener('click', e => {
-      languageBtn.classList.remove('active');
+  async function fetchJson(path) {
+    const res = await fetch(path, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
+    return res.json();
+  }
+
+  async function loadDict(lang) {
+    if (cache[lang]) return cache[lang];
+    const path = FILE_BY_LANG(lang);
+    try {
+      const json = await fetchJson(path);
+      cache[lang] = json;
+      return json;
+    } catch (err) {
+      console.error('i18n: cannot load', path, err);
+      if (lang !== DEFAULT_LANG) return loadDict(DEFAULT_LANG);
+      throw err;
+    }
+  }
+
+  function lookup(dict, keyPath) {
+    if (!keyPath) return undefined;
+    const parts = keyPath.split('.');
+    let cur = dict;
+    for (const p of parts) {
+      if (cur && Object.prototype.hasOwnProperty.call(cur, p)) cur = cur[p];
+      else return undefined;
+    }
+    return cur;
+  }
+
+  function applyText(el, text) {
+    if (text == null) return;
+    try {
+      const firstSpan = el.querySelector && el.querySelector('span');
+      if (firstSpan && el.hasAttribute('data-i18n')) {
+        firstSpan.textContent = text;
+        return;
+      }
+    } catch (e) { /* ignore */ }
+    el.textContent = text;
+  }
+
+  function applyDictToDOM(dict) {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const value = lookup(dict, key);
+      if (value != null) applyText(el, value);
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      const value = lookup(dict, key);
+      if (value != null) el.setAttribute('placeholder', value);
+    });
+
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+      const key = el.getAttribute('data-i18n-alt');
+      const value = lookup(dict, key);
+      if (value != null) el.setAttribute('alt', value);
+    });
+
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+      const key = el.getAttribute('data-i18n-title');
+      const value = lookup(dict, key);
+      if (value != null) el.setAttribute('title', value);
+    });
+
+    document.querySelectorAll('[data-i18n-value]').forEach(el => {
+      const key = el.getAttribute('data-i18n-value');
+      const value = lookup(dict, key);
+      if (value != null) el.value = value;
+    });
+
+    document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+      const key = el.getAttribute('data-i18n-aria');
+      const value = lookup(dict, key);
+      if (value != null) el.setAttribute('aria-label', value);
+    });
+  }
+
+  async function setLanguage(lang) {
+    if (!lang) lang = DEFAULT_LANG;
+    try {
+      const dict = await loadDict(lang);
+      applyDictToDOM(dict);
+      saveLang(lang);
+      window.dispatchEvent(new CustomEvent('i18n:changed', { detail: { lang } }));
+      updateLangButtonsUI(lang);
+      console.info(`i18n: language set to ${lang}`);
+    } catch (err) {
+      console.error('i18n: failed to set language', err);
+    }
+  }
+
+  // Поддерживаем поиск переключателей двумя способами:
+  // 1) элементы с data-lang (data-lang="en" / "cz")
+  // 2) кнопки с классами .lang-eng и .lang-cz
+  function initLangButtons() {
+    // кнопки, использующие data-lang (CZ/ENG или др.)
+    const dataLangBtns = Array.from(document.querySelectorAll('[data-lang]'));
+
+    dataLangBtns.forEach(btn => {
+      // явные атрибуты для доступности
+      btn.setAttribute('role', 'button');
+      btn.setAttribute('tabindex', btn.getAttribute('tabindex') || '0');
+
+      // клик
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const chosen = btn.getAttribute('data-lang');
+        if (chosen) setLanguage(chosen);
+      });
+
+      // клавиатура (Enter / Space)
+      btn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const chosen = btn.getAttribute('data-lang');
+          if (chosen) setLanguage(chosen);
+        }
+      });
+    });
+
+    // Совместимость: также поддерживаем .lang-eng / .lang-cz классы (если где-то ещё используются)
+    document.querySelectorAll('.lang-eng').forEach(btn => {
+      btn.addEventListener('click', (e) => { e.preventDefault(); setLanguage('en'); });
+    });
+    document.querySelectorAll('.lang-cz').forEach(btn => {
+      btn.addEventListener('click', (e) => { e.preventDefault(); setLanguage('cz'); });
+    });
+
+    // Обновим UI (на случай, если уже выбран язык в localStorage)
+    updateLangButtonsUI(getSavedLang());
+  }
+
+  function updateLangButtonsUI(activeLang) {
+    
+    document.querySelectorAll('[data-lang]').forEach(el => el.classList.toggle('active-i18n', el.getAttribute('data-lang') === activeLang));
+    document.querySelectorAll('.lang-eng').forEach(el => el.classList.toggle('active-i18n', activeLang === 'en'));
+    document.querySelectorAll('.lang-cz').forEach(el => el.classList.toggle('active-i18n', activeLang === 'cz'));
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initLangButtons();
+    const lang = getSavedLang() || DEFAULT_LANG;
+    // асинхронно подгружаем словарь
+    setLanguage(lang).catch(() => {
+      console.warn('i18n: initial load failed');
     });
   });
 
-  // Клик вне кнопки закрывает список
-  document.addEventListener('click', () => {
-    languageBtn.classList.remove('active');
-  });
-
-  // Esc закрывает
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') languageBtn.classList.remove('active');
-  });
+  // API
+  window.i18n = {
+    setLanguage,
+    getLang: getSavedLang,
+    _loadDict: loadDict,
+    _cache: cache
+  };
 })();

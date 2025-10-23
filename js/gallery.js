@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const angle = parseFloat(item.dataset.angle);
             const totalAngle = angle + currentRotation;
             const rad = (totalAngle * Math.PI) / 180;
-            const roundTo = v => Math.round(v * 2) / 2; // округление до 0.5px
+            const roundTo = v => Math.round(v * 2) / 2;
             const xRaw = radius * Math.sin(rad);
             const zRaw = radius * Math.cos(rad);
             const x = roundTo(xRaw);
