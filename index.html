@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Klenot — Restaurace</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,15 +35,15 @@
       <!-- центр: навигация -->
       <nav class="menu-center" aria-label="Main navigation">
         <ul class="main-menu">
-          <li class="main-menu-button"><a href="#about-us">About Us</a></li>
-          <li class="main-menu-button menu-btn">Menu</li>
-          <li class="main-menu-button gallery-btn">Gallary</li>
-          <li class="main-menu-button reservation-btn">Reservation</li>
+          <li class="main-menu-button"><a href="#about-us" data-i18n="main.menu-about-us">About Us</a></li>
+          <li class="main-menu-button menu-btn" data-i18n="main.menu-menu">Menu</li>
+          <li class="main-menu-button gallery-btn" data-i18n="main.menu-gallery-btn">Gallary</li>
+          <li class="main-menu-button reservation-btn" data-i18n="main.menu-reservation-btn">Reservation</li>
           <li class="main-menu-button language-btn">
-            <span class="lang-label">Language</span>
+            <span class="lang-label" data-i18n="main.menu-language-button">Language</span>
             <div class="language-options">
-              <span data-lang="CZ">CZ</span>
-              <span data-lang="ENG">ENG</span>
+              <button id="lang-cz" class="lang-btn" data-lang="cz">CZ</button>
+              <button id="lang-eng" class="lang-btn" data-lang="eng">ENG</button>
             </div>
           </li>
         </ul>
@@ -54,7 +54,7 @@
         <div class="main-menu-right">
           <button class="login-btn">
             <span class="login-icon">👤</span>
-            <span class="login-text">Sign in</span>
+            <span class="login-text" data-i18n="main.menu-signin-button">Sign in</span>
             <svg class="btn-border" width="100%" height="100%" viewBox="0 0 200 60" preserveAspectRatio="none">
               <path class="border-path" d="" stroke="#000" stroke-width="3" fill="transparent" />
             </svg>
@@ -66,7 +66,7 @@
 
   <!-- Слайдер -->
   <main id="main" class="visible">
-    <div class="slider-wrapper">
+    <section class="slider-wrapper">
       <div class="slider">
         <!-- Радиокнопки -->
         <input type="radio" name="slider" id="slider-switch-1" class="slider-radio" checked>
@@ -100,24 +100,38 @@
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
+
+    <div class="svg-divider svg-divider--light-to-dark" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad1" x1="0%" x2="100%" y1="0%" y2="0%">
+            <stop offset="0%" stop-color="#fff9eb" />      <!-- левый край -->
+            <stop offset="40%" stop-color="#f9eca7" />     <!-- начало центра -->
+            <stop offset="60%" stop-color="#f9eca7" />     <!-- конец центра -->
+            <stop offset="100%" stop-color="#fff9eb" />    <!-- правый край -->
+          </linearGradient>
+        </defs>
+        <rect width="1440" height="120" fill="url(#grad1)" />
+      </svg>
+    </div>
 
     <!-- Первый блок с текстом -->
 
     <section class="body-history">
       <div class="body-history-left-text">
         <div class="body-history-all-text">
-          <h1>Klenot – Savor the Czech Legacy</h1>
-          <h2>An Elegant Journey Through Czech Flavors</h2>
-          <p>
+          <h1 data-i18n="body.h1">Klenot – Savor the Czech Legacy</h1>
+          <h2 data-i18n="body.h2">An Elegant Journey Through Czech Flavors</h2>
+          <p data-i18n="body.description">
             Step into Klenot and immerse in Czech cuisine. 
             In a setting where history meets sophistication, our chefs craft each dish with meticulous care, 
             balancing bold flavors with delicate presentation. 
             From classic goulash to inventive seasonal creations, every plate celebrates Prague’s rich culinary heritage. 
             Let your senses be captivated, your palate delighted, and your dining experience become a journey of elegance and taste.
           </p>
-          <button class="body-history-menu-button">
+          <button class="body-history-menu-button" data-i18n="body.menu-button">
             <span>Explore Our Menu</span>
           </button>
         </div>
@@ -127,6 +141,20 @@
       </div>
     </section>
 
+    <div class="svg-divider svg-divider--light-to-dark" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad1" x1="0%" x2="100%" y1="0%" y2="0%">
+            <stop offset="0%" stop-color="#fff9eb" />      <!-- левый край -->
+            <stop offset="40%" stop-color="#f9eca7" />     <!-- начало центра -->
+            <stop offset="60%" stop-color="#f9eca7" />     <!-- конец центра -->
+            <stop offset="100%" stop-color="#fff9eb" />    <!-- правый край -->
+          </linearGradient>
+        </defs>
+        <rect width="1440" height="120" fill="url(#grad1)" />
+      </svg>
+    </div>
+
     <!-- Второй блок с текстом -->
 
     <section class="columns-section">
@@ -135,39 +163,39 @@
         <div class="body-all-columns">
           <div class="body-column">
             <img src="img/food-bar2.jpg" class="body-img" alt="food-bar">
-            <h3 class="body-title">Magic of Cocktails</h3>
-            <p class="body-text">
+            <h3 class="body-title" data-i18n="body-second.first-column-h3">Magic of Cocktails</h3>
+            <p class="body-text" data-i18n="body-second.first-column-description">
               He descends from a distinguished culinary lineage, devoted to the craft for generations. 
               His cuisine is firmly rooted in Czech tradition, delicately elevated with Italy’s effortless elegance. 
               Under his skilful guidance, flavours become more than a dish — they become a moment to remember.
             </p>
-            <button class="body-button gallery-btn">
+            <button class="body-button gallery-btn" data-i18n="body-second.first-column-button">
               Klenot in Images
             </button>
           </div>
           <div class="body-column">
             <img src="img/food2.jpg" class="body-img" alt="food2">
-            <h3 class="body-title">Treasure of the Menu</h3>
-            <p class="body-text">
+            <h3 class="body-title" data-i18n="body-second.second-column-h3">Treasure of the Menu</h3>
+            <p class="body-text" data-i18n="body-second.second-column-description">
               Each dish perfectly blends bold flavors and refined textures into an unforgettable culinary adventure. 
               From classics to unexpected delights, our menu is full of treasures. 
               Fresh ingredients and thoughtful presentation make every bite memorable. 
               Experience premium taste and meticulous attention in our kitchen.
             </p>
-            <button class="body-button menu-btn">
+            <button class="body-button menu-btn" data-i18n="body-second.second-column-button">
               Delight in Dishes
             </button>
           </div>
           <div class="body-column">
             <img src="img/food3.jpg" class="body-img" alt="food3">
-            <h3 class="body-title">Taste of Adventure</h3>
-            <p class="body-text">
+            <h3 class="body-title" data-i18n="body-second.third-column-h3">Taste of Adventure</h3>
+            <p class="body-text" data-i18n="body-second.third-column-description">
               Embark on a journey through exotic spices, rare ingredients, and bold flavor combinations crafted with passion. 
               Every dish awakens curiosity and creates unforgettable sensory experiences. 
               Unique presentation turns each plate into a visual delight. 
               Dare to explore flavors that surprise and inspire endlessly.
             </p>
-            <button class="body-button reservation-btn">
+            <button class="body-button reservation-btn" data-i18n="body-second.third-column-button">
               Dine with Us
             </button>
           </div>
@@ -175,20 +203,22 @@
       </div>
     </section>
 
+    
+    <!-- ============================== ABOUT US ================================= -->
     <section id="about-us" class="about-us-section">
       <div class="about-us-background">
-        <h2>About Klenot Restaurant</h2>
-        <p>
+        <h2 data-i18n="about-us.about-h2">About Klenot Restaurant</h2>
+        <p data-i18n="about-us.about-description-first">
           Located in the heart of Prague, <strong>Klenot Restaurant</strong> is a place where
           tradition meets elegance. We specialize in authentic Czech and European cuisine,
           prepared with fresh local ingredients and a touch of modern presentation.
         </p>
-        <p>
+        <p data-i18n="about-us.about-description-second">
           Our philosophy is simple: quality, hospitality, and unforgettable atmosphere.
           Whether you're visiting for a romantic dinner, a business meeting, or a family
           celebration, we aim to provide an experience that goes beyond just food.
         </p>
-        <p>
+        <p data-i18n="about-us.about-description-third">
           Our chefs combine classic recipes with contemporary techniques,
           offering seasonal dishes, signature specialties, and a curated wine selection.
           At Klenot Restaurant, every detail — from the interior design to the plating —
@@ -211,17 +241,17 @@
       <div class="fog-layer fog-layer--br"></div>
       <div class="center-vignette"></div>
     </div>
-    <h2 class="gallery-title">Our Gallery</h2>
-    <p class="gallery-subtitle">Step inside the atmosphere of Klenot Restaurant</p>
+    <h2 class="gallery-title" data-i18n="gallery.title">Our Gallery</h2>
+    <p class="gallery-subtitle" data-i18n="gallery.description">Step inside the atmosphere of Klenot Restaurant</p>
 
     <div class="gallery-ring">
-      <div class="gallery-item"><img src="img/about-bg.png" alt="Soft lighting and intimate ambience for unforgettable evenings."></div>
-      <div class="gallery-item"><img src="img/klenot balcony.png" alt="Open-air terrace perfect for warm evenings and city views."></div>
-      <div class="gallery-item"><img src="img/food-bar1.jpg" alt="Elegant bar with crafted cocktails and a curated wine selection."></div>
-      <div class="gallery-item"><img src="img/klenot kitchen.png" alt="Behind the scenes of our culinary artistry – where every dish begins."></div>
-      <div class="gallery-item"><img src="img/klenot party.png" alt="Spacious hall designed for celebrations, receptions and special occasions."></div>
-      <div class="gallery-item"><img src="img/gallery-8.jpg" alt="Spacious hall designed for celebrations, receptions and special occasions."></div>
-      <div class="gallery-item"><img src="img/gallery-9.jpg" alt="Spacious hall designed for celebrations, receptions and special occasions."></div>
+      <div class="gallery-item"><img src="img/about-bg.png" data-i18n-alt="gallery.soft-first" alt="Soft lighting and intimate ambience for unforgettable evenings."></div>
+      <div class="gallery-item"><img src="img/klenot balcony.png" data-i18n-alt="gallery.second" alt="Open-air terrace perfect for warm evenings and city views."></div>
+      <div class="gallery-item"><img src="img/food-bar1.jpg" data-i18n-alt="gallery.third" alt="Elegant bar with crafted cocktails and a curated wine selection."></div>
+      <div class="gallery-item"><img src="img/klenot kitchen.png" data-i18n-alt="gallery.fourth" alt="Behind the scenes of our culinary artistry – where every dish begins."></div>
+      <div class="gallery-item"><img src="img/klenot party.png" data-i18n-alt="gallery.fifth" alt="Spacious hall designed for celebrations, receptions and special occasions."></div>
+      <div class="gallery-item"><img src="img/gallery-8.jpg" data-i18n-alt="gallery.sixth" alt="Elegant venue perfect for weddings, parties, and memorable gatherings."></div>
+      <div class="gallery-item"><img src="img/gallery-9.jpg" data-i18n-alt="gallery.seventh" alt="Bright and airy space ideal for receptions, ceremonies, and festive events."></div>
     </div>
   </section>
 
@@ -236,26 +266,29 @@
     <form id="signin-form" method="post" class="form" novalidate>
       <div class="form-inside">
         <fieldset class="form-fieldset">
-          <legend class="form-legend">Введите email и пароль</legend>
+          <legend class="form-legend" data-i18n="signing-form.legend">Enter your login, email and password</legend>
 
-          <label for="main-name" class="form-name">Login
+          <label for="main-name" class="form-name">
+            <span data-i18n="signing-form.login">Login</span>
             <input type="text" id="main-name" name="login" autocomplete="on" required>
             <p class="error-message"></p>
           </label>
 
-          <label for="main-email" class="form-signin">Email
+          <label for="main-email" class="form-signin">
+            <span data-i18n="signing-form.email">Email</span>
             <input type="email" placeholder="example@gmail.com" id="main-email" name="email" autocomplete="email" required>
             <p class="error-message"></p>
           </label>
 
-          <label for="main-password" class="form-password">Password
+          <label for="main-password" class="form-password">
+            <span data-i18n="signing-form.password">Password</span>
             <input type="password" id="main-password" name="password" autocomplete="current-password" required>
             <p class="error-message"></p>
           </label>
 
           <div class="form-reg-wrap">
             <div class="form-regestration-div">
-              <button class="form-regestration-btn" type="button">Don't have an account?</button>
+              <button class="form-regestration-btn" type="button" data-i18n="signing-form.create-account">Don't have an account?</button>
               <svg class="form-regestration-border" width="100%" height="100%" viewBox="0 0 200 200"
                 preserveAspectRatio="none">
                 <path class="form-regestration-border-path" d="" stroke="#000" stroke-width="2.5"
@@ -266,7 +299,7 @@
 
           <div class="form-submit-wrap">
             <!-- кнопка "Войти" (signin) -->
-            <button class="form-submit-button form-submit-button--signin" type="submit" name="action" value="account">Войти</button>
+            <button class="form-submit-button form-submit-button--signin" type="submit" name="action" value="account" data-i18n="signing-form.signin-button">Sign in</button>
           </div>
 
         </fieldset>
@@ -280,25 +313,28 @@
       <form class="login-form" method="post" id="register-form" novalidate>
         <div class="login-form-inside">
           <fieldset class="login-form-fieldset">
-            <legend class="login-form-legend">Создать аккаунт / Войти</legend>
+            <legend class="login-form-legend" data-i18n="login-form.create-account">Create account</legend>
 
-            <label for="login-username" class="login-form-username">Логин
+            <label for="login-username" class="login-form-username">
+              <span data-i18n="signin-form.login">Login</span>
               <input type="text" placeholder="username123" id="login-username" name="login" autocomplete="username"
                 required>
             </label>
 
-            <label for="login-email" class="login-form-email">Email
+            <label for="login-email" class="login-form-email">
+              <span data-i18n="signin-form.email">Email</span>
               <input type="email" placeholder="example@gmail.com" id="login-email" name="email" autocomplete="email"
                 required>
             </label>
 
-            <label for="login-password" class="login-form-password">Пароль
+            <label for="login-password" class="login-form-password">
+              <span data-i18n="signin-form.password">Password</span>
               <input type="password" id="login-password" name="password" autocomplete="new-password" required>
             </label>
 
             <div class="login-form-submit-wrap">
               <button class="form-submit-button form-submit-button--register" type="submit" name="action"
-                value="create-account">Создать аккаунт</button>
+                value="create-account" data-i18n="login-form.create-account">Create account</button>
             </div>
 
           </fieldset>
@@ -340,19 +376,21 @@
 
   <section id="reservation-section" class="reservation-section invisible">
     <div class="reservation-container">
-      <h2 class="reservation-title">Резервация столика</h2>
+      <h2 class="reservation-title" data-i18n="reservation.title">Table Reservation</h2>
       <form class="reservation-form" action="https://zwa.toad.cz/~xklima/vypisform.php" method="post" target="_blank">
         <div class="form-group">
           
-          <label for="reservation-name">Ваше имя
-            <input type="text" name="name" placeholder="Имя и фамилия"
+          <label for="reservation-name">
+            <span data-i18n="reservation.name">Full Name</span>
+            <input type="text" name="name" data-i18n-placeholder="reservation.placeholder-name" placeholder="e.g. John Smith"
               required>
           </label>
 
         </div>
         <div class="form-group">
 
-          <label for="reservation-phone">Телефон
+          <label for="reservation-phone">
+            <span data-i18n="reservation.number">Phone number</span>
             <input type="tel" name="phone" placeholder="+420 123 456 789"
               required>
           </label>
@@ -360,7 +398,8 @@
         </div>
         <div class="form-group">
 
-          <label for="reservation-email">Email
+          <label for="reservation-email">
+            <span data-i18n="signin-form.email">Email</span>
             <input type="email" name="email" placeholder="example@gmail.com"
               required>
           </label>
@@ -368,18 +407,21 @@
         </div>
         <div class="form-two-cols">
 
-          <label for="dateInput">Дата
+          <label for="dateInput">
+            <span data-i18n="reservation.date">Date</span>
             <input type="date" id="dateInput" name="date" required>
           </label>
 
-          <label for="timeInput">Время
+          <label for="timeInput">
+            <span data-i18n="reservation.time">Time</span>
             <input type="time" id="timeInput" name="time" required>
           </label>
 
         </div>
         <div class="form-group">
 
-          <label for="peopleInput">Количество человек
+          <label for="peopleInput">
+            <span data-i18n="reservation.guests">Number of guests</span>
             <input type="number" name="people" min="1" max="20" value="2"
               required>
           </label>
@@ -387,15 +429,16 @@
         </div>
         <div class="form-group">
 
-          <label for="messageInput">Комментарий (необязательно)
-            <textarea name="message"
-              placeholder="Пожелания или особые требования"></textarea>
+          <label for="messageInput">
+            <span data-i18n="reservation.comment">Comment (optional)</span>
+            <textarea name="message" data-i18n-placeholder="reservation.placeholder-message"
+              placeholder="Special requests or preferences"></textarea>
           </label>
           
         </div>
         <div class="reservation-submit-wrap">
           <button class="reservation-submit-btn"
-            type="submit">Забронировать</button>
+            type="submit" data-i18n="reservation.reservation">Reserve</button>
         </div>
       </form>
     </div>
@@ -516,12 +559,14 @@
       <p>© 2025 Klenot Restaurant. All rights reserved.</p>
     </div>
   </footer>
+
+  <script src="js/switch-language.js"></script>
+  <script src="js/language-dropdown.js"></script>
   <script src="js/animations.js"></script>
   <script src="js/gallery.js"></script>
   <script src="js/switch-visibility.js"></script>
 	<script src="js/registration.js"></script>
 	<script src="js/signin.js"></script>
-  <script src="js/switch-language.js"></script>
   <script src="js/form-validation.js"></script>
   <script src="js/menu.js"></script>
 	<script src="js/account.js"></script>

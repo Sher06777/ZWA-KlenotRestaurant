@@ -1,0 +1,79 @@
+{
+    "body": {
+        "h1": "Klenot – Ochutnejte českou esenci",
+        "h2": "Elegantní cesta po chutěmi české kuchyně",
+        "description": "Vstupte do restaurace Klenot a nechte se plně unést světem české gastronomie. V prostředí, kde se historie snoubí s vytříbeností, naši šéfkuchaři tvoří každé jídlo s pečlivostí a smyslem pro detail. Od klasického guláše až po nápadité sezónní kreace – každý pokrm oslavuje bohaté kulinářské dědictví Prahy. Nechte se okouzlit vůněmi, potěšte své chuťové buňky a proměňte svou večeři v cestu plnou elegance, jemnosti a chutí.",
+        "menu-button": "Objevte kouzlo menu"
+    },
+
+    "main": {
+        "menu-about-us": "O nás",
+        "menu-menu": "Menu",
+        "menu-gallery-btn": "Galerie",
+        "menu-reservation-btn": "Rezervace",
+        "menu-language-button": "Jazyk",
+        "menu-signin-button": "Přihlásit se"
+    },
+
+    "body-second": {
+        "first-column-h3": "Alchymie koktejlů",
+        "first-column-description": "Pochází z vážené kulinářské rodiny, která se po generace oddává umění gastronomie. Jeho kuchyně pevně vychází z české tradice, jemně obohacené o přirozenou eleganci Itálie. Pod jeho zkušeným vedením se chutě mění v něco víc než jen pokrm – stávají se okamžikem, na který se nezapomíná.",
+        "first-column-button": "Klenot v obrazech",
+
+        "second-column-h3": "Poklad našeho menu",
+        "second-column-description": "Každý pokrm mistrovsky spojuje výrazné chutě a jemné textury v nezapomenutelný kulinářský zážitek. Od klasik po nečekaná potěšení je naše menu plné pokladů. Čerstvé suroviny a promyšlená prezentace proměňují každé sousto ve výjimečný okamžik. Zažijte prvotřídní chuť a pečlivou péči v naší kuchyni.",
+        "second-column-button": "Ponořte se do chutí",
+
+        "third-column-h3": "Chuť dobrodružství",
+        "third-column-description": "Vydejte se na cestu světem exotického koření, vzácných surovin a odvážných kombinací chutí s vášní. Každý pokrm probouzí zvědavost a přináší nezapomenutelný smyslový zážitek. Originální prezentace proměňuje každý talíř v pastvu pro oči. Odhodlejte se objevovat chutě, které inspirují.",
+        "third-column-button": "Zažijte s námi"
+    },
+
+    "about-us": {
+        "about-h2": "O restauraci Klenot",
+        "about-description-first": "V srdci Prahy se nachází restaurace Klenot – místo, kde se tradice snoubí s elegancí. Specializujeme se na autentickou českou a evropskou kuchyni, připravovanou z čerstvých lokálních surovin s nádechem moderní prezentace.",
+        "about-description-second": "Naše filozofie je jednoduchá: kvalita, pohostinnost a nezapomenutelná atmosféra. Ať už přicházíte na romantickou večeři, obchodní schůzku nebo rodinnou oslavu, chceme vám nabídnout zážitek, který přesahuje samotné jídlo.",
+        "about-description-third": "Naši šéfkuchaři spojují klasické recepty se současnými technikami a přinášejí sezónní pokrmy, originální speciality a pečlivě vybranou nabídku vín. V restauraci Klenot je každý detail – od designu interiéru po servírování – vytvořen tak, abyste se cítili výjimečně."
+
+    },
+
+    "gallery": {
+        "title": "Naše galerie",
+        "description": "Ponořte se do atmosféry restaurace Klenot.",
+        "soft-first": "Měkké osvětlení a intimní atmosféra pro nezapomenutelné večery.",
+        "second": "Terasa pod širým nebem ideální pro teplé večery a výhled na město.",
+        "third": "Elegantní bar s pečlivě připravenými koktejly a vybraným vínem.",
+        "fourth": "Za scénou naší kulinářské umělecké tvorby – tam začíná každý pokrm.",
+        "fifth": "Prostorný sál určený pro oslavy, recepce a speciální příležitosti.",
+        "sixth": "Elegantní prostor ideální pro svatby, večírky a nezapomenutelná setkání.",
+        "seventh": "Světý a vzdušný prostor ideální pro recepce, obřady a slavnostní události."
+    },
+
+    "signing-form": {
+        "legend": "Zadejte login, e-mail a heslo.",
+        "login": "Login",
+        "email": "E-mail",
+        "password": "Heslo",
+        "create-account": "Nemáte účet?",
+        "signin-button": "Přihlásit se"
+    },
+
+    "login-form": {
+        "create-account": "Vytvořit účet"
+    },
+
+    "reservation": {
+        "title": "Rezervace stolu",
+        "name": "Jméno a příjmení",
+        "number": "Telefonní číslo",
+        "date": "Datum",
+        "time": "Čas",
+        "guests": "Počet osob",
+        "comment": "Komentář (volitelně)",
+        "reservation": "Rezervovat",
+        "placeholder-name": "např. Jan Novák",
+        "placeholder-message": "Přání nebo speciální požadavky"
+    }
+
+    
+}
