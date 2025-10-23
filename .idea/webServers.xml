@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="0922cf41-66e8-4088-ba3f-61c31ad64ef5" name="MyServer" url="https://zwa.toad.cz/~abdimshe/">
+        <fileTransfer rootFolder="/home/abdimshe/www" accessType="SFTP" host="zwa.toad.cz" port="22" sshConfigId="c3d2e608-d5f4-4f9e-bbad-dbb153d89870" sshConfig="abdimshe@zwa.toad.cz:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
