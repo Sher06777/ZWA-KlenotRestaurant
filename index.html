@@ -374,23 +374,21 @@
     </section>
   </div>
 
-  <section id="reservation-section" class="reservation-section invisible">
+    <section id="reservation-section" class="reservation-section invisible">
     <div class="reservation-container">
-      <h2 class="reservation-title" data-i18n="reservation.title">Table Reservation</h2>
-      <form class="reservation-form" action="https://zwa.toad.cz/~xklima/vypisform.php" method="post" target="_blank">
+      <h2 class="reservation-title">Резервация столика</h2>
+      <form class="reservation-form" id="reservation-form" method="post" novalidate>
         <div class="form-group">
-          
-          <label for="reservation-name">
-            <span data-i18n="reservation.name">Full Name</span>
-            <input type="text" name="name" data-i18n-placeholder="reservation.placeholder-name" placeholder="e.g. John Smith"
+
+          <label for="reservation-name">Ваше имя
+            <input type="text" name="name" placeholder="Имя и фамилия"
               required>
           </label>
 
         </div>
         <div class="form-group">
 
-          <label for="reservation-phone">
-            <span data-i18n="reservation.number">Phone number</span>
+          <label for="reservation-phone">Телефон
             <input type="tel" name="phone" placeholder="+420 123 456 789"
               required>
           </label>
@@ -398,8 +396,7 @@
         </div>
         <div class="form-group">
 
-          <label for="reservation-email">
-            <span data-i18n="signin-form.email">Email</span>
+          <label for="reservation-email">Email
             <input type="email" name="email" placeholder="example@gmail.com"
               required>
           </label>
@@ -407,21 +404,18 @@
         </div>
         <div class="form-two-cols">
 
-          <label for="dateInput">
-            <span data-i18n="reservation.date">Date</span>
+          <label for="dateInput">Дата
             <input type="date" id="dateInput" name="date" required>
           </label>
 
-          <label for="timeInput">
-            <span data-i18n="reservation.time">Time</span>
+          <label for="timeInput">Время
             <input type="time" id="timeInput" name="time" required>
           </label>
 
         </div>
         <div class="form-group">
 
-          <label for="peopleInput">
-            <span data-i18n="reservation.guests">Number of guests</span>
+          <label for="peopleInput">Количество человек
             <input type="number" name="people" min="1" max="20" value="2"
               required>
           </label>
@@ -429,20 +423,20 @@
         </div>
         <div class="form-group">
 
-          <label for="messageInput">
-            <span data-i18n="reservation.comment">Comment (optional)</span>
-            <textarea name="message" data-i18n-placeholder="reservation.placeholder-message"
-              placeholder="Special requests or preferences"></textarea>
+          <label for="messageInput">Комментарий (необязательно)
+            <textarea name="message"
+              placeholder="Пожелания или особые требования"></textarea>
           </label>
 
         </div>
         <div class="reservation-submit-wrap">
           <button class="reservation-submit-btn"
-            type="submit" data-i18n="reservation.reservation">Reserve</button>
+            type="submit">Забронировать</button>
         </div>
       </form>
     </div>
   </section>
+
 
 
 
