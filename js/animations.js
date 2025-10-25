@@ -157,3 +157,57 @@ dateInput.addEventListener('click', () => {
 timeInput.addEventListener('click', () => {
     if (timeInput.showPicker) timeInput.showPicker();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const heroWrap = document.getElementById('menu-3d-hero');
+  const container = document.getElementById('menu-3d-container');
+
+  if (!heroWrap || !container) return;
+
+  // ------------------------
+  // Параллакс мышью с плавной интерполяцией
+  // ------------------------
+  let rotX = 0, rotY = 0;
+  let targetRotX = 0, targetRotY = 0;
+
+  const handleMove = (e) => {
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+    targetRotY = (e.clientX - cx) * -0.008; // множитель поворота по X
+    targetRotX = (e.clientY - cy) * 0.015;   // множитель поворота по Y
+  };
+
+  const handleTouchMove = (e) => {
+    if (e.touches && e.touches[0]) handleMove(e.touches[0]);
+  };
+
+
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+
+  if (isMobile && window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', (e) => {
+      // e.beta: наклон вперёд/назад (-180..180)
+      // e.gamma: наклон влево/вправо (-90..90)
+      // можно подстроить множители под желаемый эффект
+      targetRotX = e.beta / 8;   // наклон вперёд/назад
+      targetRotY = e.gamma / 8;  // наклон влево/вправо
+    }, true);
+  };
+
+  const animate = () => {
+    // плавное приближение к цели
+    rotX += (targetRotX - rotX) * 0.1;
+    rotY += (targetRotY - rotY) * 0.1;
+    container.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+    requestAnimationFrame(animate);
+  };
+
+
+  animate();
+
+  if (!isMobile) {
+    // только для ПК
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('touchmove', handleTouchMove, {passive:true});
+  }
+});

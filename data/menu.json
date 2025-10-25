@@ -1,0 +1,21 @@
+[
+    {
+        "id": 1,
+        "category": "all",
+        "name": "Klenot Garden Salad",
+        "description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette. Light, fresh and bright.",
+        "price": "90 CZK",
+        "weight": "120g",
+        "image": "img/logo-restorant-without-background.png"
+    },
+    {
+        "id": 2,
+        "category": "all",
+        "name": "Beef Goulash",
+        "description": "Traditional Czech beef stew with dumplings",
+        "price": "210 CZK",
+        "weight": "350g",
+        "image": "img/logo-restorant-without-background.png"
+    }
+    
+]
