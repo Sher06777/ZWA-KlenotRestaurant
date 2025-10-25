@@ -215,12 +215,11 @@ header {
 /* Эффект блюра для хэдера */
 
 .menu-dropdown {
-  display: grid;
-  grid-template-columns: auto 1fr auto; /* left | center (растёт) | right */
+  display: flex;
   align-items: center;
+  justify-content: space-around; /* left | center | right */
   width: 100%;
   box-sizing: border-box;
-  gap: 0;
 }
 
 .main-menu {
@@ -241,10 +240,7 @@ header {
   padding-left: 20px; /* отступ от края экрана; меняй по вкусу */
   box-sizing: border-box;
   min-width: 160px;
-  --logo-offset: 100px;
-  transform: translateX(var(--logo-offset));
-  transition: transform .15s ease;
-  transform-origin: left center; /* полезно для анимации */
+  transform: none;
 }
 
 /* Центр: навигация */
@@ -253,23 +249,25 @@ header {
   align-items: center;
   justify-content: center;
   min-width: 0;               /* важно для корр. сжатия flex-элементов */
-  padding: 0 150px;           /* <- здесь можно держать визуальное выравнивание центра */
+  /* padding: 0 150px;   */
   box-sizing: border-box;
+}
+
+@media (max-width: 1024px) {
+  .menu-left, .menu-right {
+    transform: none;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 }
 
 /* Правый блок: кнопка входа */
 .menu-right {
   display: flex;
   align-items: center;
-  justify-content: end; /* Точный центр внутри блока */
-  min-width: 210px;        /* резерв под кнопку, можно подкорректировать */
   box-sizing: border-box;
-  position: relative;      /* на будущее, если потребуется абсолютное позиционирование */
-  transform: none;
-  --logo-offset: -85px;
-  transform: translateX(var(--logo-offset));
-  transition: transform .15s ease;
-  transform-origin: left center; /* полезно для анимации */     
+  position: relative;
+  transform: none;    
 }
 
 .main-menu-right {
@@ -295,6 +293,27 @@ header {
   list-style: none;
 }
 
+@media (max-width: 1024px) {
+  .menu-left .logo img {
+    width: 90px;
+    height: auto;
+  }
+
+  .menu-right .login-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .menu-center {
+    display: none; /* скрываем основной nav */
+  }
+
+  .menu-mobile-toggle {
+    display: flex;
+    z-index: 100000; /* выше overlay */
+  }
+}
+
 /* Адаптация: на узких экранах центр уступает, элементы растягиваются */
 @media (max-width: 1024px) {
   #dropped-menu .menu-dropdown.layout-left-logo {
@@ -305,6 +324,42 @@ header {
   }
   .main-menu {
     gap: 18px;
+  }
+}
+
+.menu-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.menu-mobile-toggle span {
+  display: block;
+  height: 3px;
+  background: #0e0e0e;
+  border-radius: 2px;
+}
+
+@media (max-width: 1024px) {
+  .menu-center {
+    display: none;
+  }
+
+  .menu-center.visible .main-menu {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .menu-mobile-toggle {
+    display: flex;
+  }
+
+  .language-btn {
+    display: none;
   }
 }
 
@@ -545,6 +600,124 @@ header {
   pointer-events: none; /* чтобы svg не мешал клику по лого */
 }
 
+/* =========== Mobile overlay меню =========== */
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #87ceeb; /* голубой фон */
+  display: none; /* по умолчанию скрыто */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+}
+
+.mobile-menu-overlay.active {
+  display: flex;
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 3rem;
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+}
+
+.mobile-menu-list {
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.mobile-menu-list li {
+  margin: 20px 0;
+}
+
+.mobile-menu-list a {
+  text-decoration: none;
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #0e0e0e;
+}
+
+.mobile-menu-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 2.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.mobile-language {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.mobile-language span {
+  font-weight: bold;
+  color: #000;
+  font-size: 1.2rem;
+}
+
+.mobile-language-options {
+  display: flex;
+  gap: 10px;
+}
+
+.mobile-language-options button {
+  padding: 8px 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: 2px solid #000;
+  border-radius: 20px;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+}
+
+.menu-mobile-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 100000;
+}
+
+.menu-mobile-toggle span {
+  display: block;
+  height: 3px;
+  background: #0e0e0e;
+  border-radius: 2px;
+}
+
+/* =========== Media Queries =========== */
+@media (max-width: 1024px) {
+  .menu-center {
+    display: none; /* скрываем desktop меню */
+  }
+  .menu-mobile-toggle {
+    display: flex;
+  }
+}
+
+
+
 /* ======================= Слайдер ===========================*/
 
 /* Центральный блок */
@@ -707,13 +880,13 @@ header {
 /* Настройка основной части */
 .body-history {
   display: flex;
-  height: 600px;
+  height: 75%;
   background-color: #404040;
 }
 
 .body-history-img {
-  height: 600px;
-  width: 900px;
+  height: 100%;
+  width: 60vw;
 }
 
 .body-history-left-text{
@@ -839,13 +1012,29 @@ header {
   bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 300px); /* по 150px слева и справа */
-  max-width: 1600px;
   display: flex;
   justify-content: space-between;
   gap: 50px;
   box-sizing: border-box;
   z-index: 2;
+}
+
+@media (max-width: 600px) {
+  .body-all-columns {
+    position: relative;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    transform: none;
+    left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-center {
+    padding: 0 20px;
+  }
 }
 
 /*фиксированная ширина, высота подгоняется по body-all-columns */
@@ -2310,7 +2499,6 @@ legend.login-form-legend {
   box-shadow: 0 12px 30px rgba(159,113,46,0.08);
 }
 
-/* ============= Карточка блюда: увеличена на ~30% ============= */
 /* Уменьшаем боковые отступы контейнера (чтобы блок был шире) */
 .menu-items {
   max-width: 1400px;   /* увеличил контейнер (меньше отступов слева/справа) */

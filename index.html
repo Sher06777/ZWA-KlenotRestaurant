@@ -20,7 +20,8 @@
   <!-- Верхнее главное меню -->
   <header id="dropped-menu">
     <div class="menu-dropdown layout-left-logo">
-      <!-- левый блок: логотип -->
+
+      <!-- Левый блок: логотип -->
       <div class="menu-left">
         <div class="logo" role="button" aria-label="Home">
           <div class="logo-wrap">
@@ -31,13 +32,38 @@
           </div>
         </div>
       </div>
+      <!-- Мобильный гамбургер -->
+      <div class="menu-mobile-toggle" aria-label="Open menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 
-      <!-- центр: навигация -->
+      <!-- Мобильное overlay меню -->
+      <div class="mobile-menu-overlay" id="mobile-menu">
+        <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
+        
+        <ul class="mobile-menu-list">
+          <li><a href="#about-us" data-i18n="main.menu-about-us">About Us</a></li>
+          <li><a href="#menu" data-i18n="main.menu-menu">Menu</a></li>
+          <li><a href="#gallery" data-i18n="main.menu-gallery-btn">Gallery</a></li>
+          <li><a href="#reservation" data-i18n="main.menu-reservation-btn">Reservation</a></li>
+        </ul>
+
+        <div class="mobile-language">
+          <span data-i18n="main.menu-language-button">Language</span>
+          <div class="mobile-language-options">
+            <button data-lang="cz">CZ</button>
+            <button data-lang="eng">ENG</button>
+          </div>
+        </div>
+      </div>
+      <!-- Центр: desktop меню -->
       <nav class="menu-center" aria-label="Main navigation">
         <ul class="main-menu">
           <li class="main-menu-button"><a href="#about-us" data-i18n="main.menu-about-us">About Us</a></li>
           <li class="main-menu-button menu-btn" data-i18n="main.menu-menu">Menu</li>
-          <li class="main-menu-button gallery-btn" data-i18n="main.menu-gallery-btn">Gallary</li>
+          <li class="main-menu-button gallery-btn" data-i18n="main.menu-gallery-btn">Gallery</li>
           <li class="main-menu-button reservation-btn" data-i18n="main.menu-reservation-btn">Reservation</li>
           <li class="main-menu-button language-btn">
             <span class="lang-label" data-i18n="main.menu-language-button">Language</span>
@@ -49,7 +75,7 @@
         </ul>
       </nav>
 
-      <!-- правый блок: кнопка Войти -->
+      <!-- Правый блок: кнопка Войти -->
       <div class="menu-right">
         <div class="main-menu-right">
           <button class="login-btn">
@@ -61,6 +87,7 @@
           </button>
         </div>
       </div>
+
     </div>
   </header>
 
@@ -103,20 +130,6 @@
     </section>
 
 
-    <div class="svg-divider svg-divider--light-to-dark" aria-hidden="true">
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="grad1" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stop-color="#fff9eb" />      <!-- левый край -->
-            <stop offset="40%" stop-color="#f9eca7" />     <!-- начало центра -->
-            <stop offset="60%" stop-color="#f9eca7" />     <!-- конец центра -->
-            <stop offset="100%" stop-color="#fff9eb" />    <!-- правый край -->
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="120" fill="url(#grad1)" />
-      </svg>
-    </div>
-
     <!-- Первый блок с текстом -->
 
     <section class="body-history">
@@ -140,20 +153,6 @@
         <img src="img/summer-menu-3.jpg" class="body-history-img" alt="summer-menu">
       </div>
     </section>
-
-    <div class="svg-divider svg-divider--light-to-dark" aria-hidden="true">
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="grad1" x1="0%" x2="100%" y1="0%" y2="0%">
-            <stop offset="0%" stop-color="#fff9eb" />      <!-- левый край -->
-            <stop offset="40%" stop-color="#f9eca7" />     <!-- начало центра -->
-            <stop offset="60%" stop-color="#f9eca7" />     <!-- конец центра -->
-            <stop offset="100%" stop-color="#fff9eb" />    <!-- правый край -->
-          </linearGradient>
-        </defs>
-        <rect width="1440" height="120" fill="url(#grad1)" />
-      </svg>
-    </div>
 
     <!-- Второй блок с текстом -->
 
@@ -557,6 +556,7 @@
   <script src="js/form-validation.js"></script>
   <script src="js/menu.js"></script>
 	<script src="js/account.js"></script>
+  <script src="js/mobile/menu-dropdown.js"></script>
 
 </body>
 
