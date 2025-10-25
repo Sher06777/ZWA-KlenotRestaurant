@@ -1,74 +1,48 @@
-// js/menu-3d.js
-document.addEventListener('DOMContentLoaded', () => {
-  const heroWrap = document.getElementById('menu-3d-hero');
-  const container = document.getElementById('menu-3d-container');
-  const enterBtn = document.getElementById('menu-3d-enter');
-  const skipBtn = document.getElementById('menu-3d-skip');
-  const menuAll = document.getElementById('menu-all');
+async function loadMenu() {
+  try {
+    const response = await fetch('data/menu.json'); // путь к JSON
+    if (!response.ok) {
+      throw new Error('Ошибка загрузки меню');
+    }
 
-  if (!heroWrap || !container) return;
+    const menuItems = await response.json();
+    renderMenu(menuItems);
+  } catch (error) {
+    console.error('Ошибка при загрузке меню:', error);
+  }
+}
 
-  // ------------------------
-  // Параллакс мышью с плавной интерполяцией
-  // ------------------------
-  let rotX = 0, rotY = 0;
-  let targetRotX = 0, targetRotY = 0;
 
-  const handleMove = (e) => {
-    const cx = window.innerWidth / 2;
-    const cy = window.innerHeight / 2;
-    targetRotY = (e.clientX - cx) * -0.008; // множитель поворота по X
-    targetRotX = (e.clientY - cy) * 0.015;   // множитель поворота по Y
-  };
 
-  const handleTouchMove = (e) => {
-    if (e.touches && e.touches[0]) handleMove(e.touches[0]);
-  };
+function renderMenu(items) {
+  const menuContainer = document.querySelector('.menu-items');
+  if (!menuContainer) {
+    console.error('Контейнер .menu-items не найден в DOM');
+    return;
+  }
 
-  const animate = () => {
-    // плавное приближение к цели
-    rotX += (targetRotX - rotX) * 0.1;
-    rotY += (targetRotY - rotY) * 0.1;
-    container.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-    requestAnimationFrame(animate);
-  };
+  menuContainer.innerHTML = ''; // очистка старого содержимого
 
-  animate();
+  items.forEach(item => {
+    const template = document.getElementById('menu-item-template');
+    const clone = template.content.cloneNode(true);
 
-  // ------------------------
-  // Функция скрытия hero
-  // ------------------------
-  const closeHero = () => {
-    heroWrap.classList.add('hidden');
-    // убираем обработчики мыши/тач
-    window.removeEventListener('mousemove', handleMove);
-    window.removeEventListener('touchmove', handleTouchMove, {passive:true});
-    // сброс transform для контейнера
-    container.style.transform = '';
-  };
+    const article = clone.querySelector('.menu-item');
+    const img = clone.querySelector('img');
+    const title = clone.querySelector('.menu-first-text');
+    const desc = clone.querySelector('.menu-first-desc');
+    const price = clone.querySelector('.menu-first-price');
+    const weight = clone.querySelector('.menu-order-weight');
 
-  // ------------------------
-  // Кнопки Enter и Skip
-  // ------------------------
-  enterBtn?.addEventListener('click', (e) => {
-    e.preventDefault();
-    closeHero();
-    if (menuAll) menuAll.scrollIntoView({behavior:'smooth'});
+    // наполнение
+    article.dataset.category = item.category;
+    img.src = item.image;
+    img.alt = item.name;
+    title.textContent = item.name;
+    desc.textContent = item.description;
+    price.textContent = item.price;
+    weight.textContent = item.weight;
+
+    menuContainer.appendChild(clone);
   });
-
-  skipBtn?.addEventListener('click', (e) => {
-    e.preventDefault();
-    closeHero();
-  });
-
-
-  // ------------------------
-  // Первый скролл тоже закрывает hero
-  // ------------------------
-
-  // ------------------------
-  // Подключаем события мыши/тач
-  // ------------------------
-  window.addEventListener('mousemove', handleMove);
-  window.addEventListener('touchmove', handleTouchMove, {passive:true});
-});
+}

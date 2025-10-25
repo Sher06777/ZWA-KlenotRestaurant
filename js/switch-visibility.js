@@ -19,6 +19,7 @@ const reservationBtn = document.querySelectorAll('.reservation-btn');
 const menuBtn = document.querySelectorAll('.menu-btn');
 const menuSection = document.querySelector('.menu-all');
 const menuImg3D = document.querySelector('.menu-3d-hero');
+const menuCard = document.querySelector('.menu-items')
 
 
 // Проверка наличия элементов
@@ -110,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-
   logo?.addEventListener('click', e => {
     e.preventDefault();
     showSection(mainContent);
@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       showSection(menuSection);
       set3DMenuInvisible(false);
+      loadMenu();
     });
   });
 
