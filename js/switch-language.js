@@ -2,7 +2,7 @@
   const DEFAULT_LANG = 'eng';
   const STORAGE_KEY = 'site_lang';
   // JSON-файлы лежат в папке i18n
-  const TRANSLATIONS_BASE = '/i18n/';
+  const TRANSLATIONS_BASE = 'i18n/';
   const FILE_BY_LANG = (lang) => `${TRANSLATIONS_BASE}${lang}.json`; // ./i18n/en.json, ./i18n/cz.json
 
   const cache = {};
