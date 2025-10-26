@@ -880,155 +880,239 @@ header {
 /* Настройка основной части */
 .body-history {
   display: flex;
-  height: 75%;
+  flex-wrap: wrap; /* делает блок адаптивным без media */
+  align-items: center;
+  justify-content: center;
   background-color: #404040;
+  color: #fff;
+  padding: clamp(30px, 5vw, 80px);
+  gap: clamp(20px, 4vw, 60px);
 }
 
-.body-history-img {
-  height: 100%;
-  width: 60vw;
-}
-
-.body-history-left-text{
+.body-history-left-text {
+  flex: 1 1 400px;
   display: flex;
+  justify-content: center;
 }
 
-.body-history-left-text h1,
-.body-history-left-text h2,
-.body-history-left-text p,
-.body-history-menu-button {
-  color: #ffffff;
+.body-history-all-text {
+  max-width: 600px;
+  text-align: justify;
+  padding: clamp(10px, 3vw, 40px);
 }
 
+/* Заголовки и текст */
 .body-history-left-text h1 {
-  font-weight: 450;
-  font-size: 35px;
+  font-weight: 500;
+  font-size: clamp(26px, 3vw, 38px);
+  margin-bottom: 10px;
 }
 
 .body-history-left-text h2 {
   font-weight: 400;
-  font-size: 25px;
+  font-size: clamp(20px, 2.5vw, 28px);
+  margin-bottom: 20px;
 }
 
 .body-history-left-text p {
   font-weight: 300;
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 20px);
   margin-bottom: 30px;
+  line-height: 1.6;
+  color: #e8e8e8;
 }
 
-.body-history-all-text {
-  padding: 50px;
-  text-align: justify;
+.body-history-right-text {
+  flex: 1 1 400px;
+  display: flex;
+  justify-content: center;
+}
+
+.body-history-img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  aspect-ratio: 3 / 2; /* делает изображение отзывчивым */
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  user-select: none;
+  pointer-events: none;
 }
 
 .body-history-menu-button {
-  display: block;
-  margin: 20px auto 0;
+  display: flex;                    /* ✅ вместо inline-block — flex для центрирования */
+  align-items: center;              /* центрирование стрелки по вертикали */
+  justify-content: center;          /* выравнивание текста по центру */
+  gap: 10px;                        /* отступ между текстом и стрелкой */
   position: relative;
-  padding: 12px 28px;
+  margin: 30px auto 0;              /* по центру */
+  padding: 12px 36px;               /* чуть больше места под стрелку */
   background: transparent;
   border: none;
   border-radius: 6px;
-  font-size: 26px;
+  font-size: clamp(18px, 2.5vw, 26px);
   color: #fff;
   cursor: pointer;
   text-align: center;
-  z-index: 0;
-  transition: color 0.5s ease;
   font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 500;
+  transition: color 0.4s ease, transform 0.3s ease;
+  z-index: 0;
 }
 
-
-/* Общие стили для before/after */
-.body-history-menu-button::before,
-.body-history-menu-button::after {
-  position: absolute;
-  top: 50%;
-  transform-origin: center;
-  transition: 0.5s ease;
-}
-
-/* Рамка */
 .body-history-menu-button::before {
   content: "";
-  left: 50%;
-  transform: translate(-50%, -50%) scaleX(1);
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  inset: 0;
   border-radius: 6px;
   box-shadow: 0 0 0 2px #fff inset;
   z-index: -1;
+  transition: 0.4s ease;
 }
 
-/* Стрелочка */
+/* 🔽 Стрелочка теперь — отдельный элемент справа */
 .body-history-menu-button::after {
   content: "ᐯ";
   font-size: 18px;
-  position: absolute;
-  top: 50%;
-  right: 0%; /* середина правой половины кнопки */
-  transform: translate(50%, -50%);
   opacity: 0;
+  transform: translateY(2px) scale(1);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* Hover */
+/* ✨ Hover-эффект */
 .body-history-menu-button:hover {
   color: #dd8d0d;
+  transform: translateY(-3px);
 }
 
 .body-history-menu-button:hover::before {
-  transform: translate(-50%, -50%) scaleX(1.2);
+  box-shadow: 0 0 0 2px #dd8d0d inset;
+  transform: scale(1.05);
 }
 
 .body-history-menu-button:hover::after {
   opacity: 1;
-  transform: translateY(-50%) scaleX(1.2);
+  transform: translateY(0) scale(1.2);
 }
+
 
 /* Часть страницы с колонками */
 
-.columns-section {
-  position: relative;
-  width: 100%;
+/* 🔶 Общие стили */
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
-.body-columns-background-img {
-  display: block;
+.columns-wrapper {
+  background: center / cover no-repeat url("img/EmperorHomelay.png");
+  padding: clamp(40px, 6vw, 100px) 0; /* адаптивные отступы */
+  display: flex;
+  justify-content: center;
+}
+
+/* 🔶 Контейнер всех колонок */
+.body-all-columns {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(20px, 5vw, 50px); /* адаптивное расстояние */
+  width: min(90%, 1300px); /* автоадаптивная ширина */
+  margin: 0 auto;
+}
+
+/* 🔶 Одна колонка */
+.body-column {
+  flex: 1 1 320px; /* автоматически подстраивается под ширину */
+  max-width: 400px;
+  min-height: 650px;
+  padding: clamp(20px, 4vw, 40px);
+  background-color: #ffffffdd; /* легкая прозрачность — выглядит объёмнее */
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.body-column:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+}
+
+/* Картинка */
+.body-img {
   width: 100%;
-  height: 985px; /* поставь высоту равную колонкам */
-  min-height: 925px;
+  height: auto;
+  aspect-ratio: 11 / 10; /* вместо фиксированной высоты — адаптивное соотношение */
   object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
   user-select: none;
   pointer-events: none;
-  z-index: 1;
+}
+
+/* Заголовок */
+.body-title {
+  font-weight: 600;
+  font-size: clamp(24px, 3vw, 40px);
+  text-align: center;
+  margin: 10px 0 15px;
+  color: #222;
+}
+
+/* Текст */
+.body-text {
+  font-weight: 400;
+  font-size: clamp(16px, 2vw, 20px);
+  text-align: justify;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  color: #333;
+  flex-grow: 1;
+}
+
+/* Кнопка */
+.body-button {
+  margin: auto auto 0 auto;
+  padding: 12px 28px;
+  font-size: clamp(18px, 2.2vw, 26px);
+  border: 2px solid #000;
+  border-radius: 8px;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  text-align: center;
   position: relative;
+  font-family: "Montserrat Alternates", sans-serif;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
-
-.body-all-columns {
+.body-button::after {
+  content: "ᐯ";
+  font-weight: 200;
+  font-size: 18px;
   position: absolute;
-  top: 80px;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  justify-content: space-between;
-  gap: 50px;
-  box-sizing: border-box;
-  z-index: 2;
+  bottom: 12px;
+  right: 15px;
+  opacity: 0;
+  transform: scaleX(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-@media (max-width: 600px) {
-  .body-all-columns {
-    position: relative;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    transform: none;
-    left: 0;
-  }
+.body-button:hover {
+  color: #dd8d0d;
+  border-color: #dd8d0d;
+  box-shadow: 0 0 10px rgba(221, 141, 13, 0.4);
+  padding: 12px 40px;
+}
+
+.body-button:hover::after {
+  opacity: 1;
+  transform: scaleX(1.2);
 }
 
 @media (max-width: 600px) {
@@ -1037,89 +1121,6 @@ header {
   }
 }
 
-/*фиксированная ширина, высота подгоняется по body-all-columns */
-.body-column {
-  width: 400px;
-  min-height: 650px;
-  padding: 40px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  flex-shrink: 0;             /* не сжимается при масштабировании */
-}
-
-.columns-wrapper {
-  position: relative;
-  width: 100%;
-  margin: 0 auto;
-  overflow: visible;
-}
-
-.body-img {
-  width: 275px;
-  height: 250px;
-  object-fit: cover; /* чтобы не растягивало */
-  display: block;
-  margin: 0 auto 15px;
-  flex-shrink: 0;
-}
-
-.body-title {
-  font-weight: 500;
-  font-size: 40px;
-  font-style: normal;
-  text-align: center;
-  margin: 15px 0 15px 0;
-}
-
-.body-text {
-  font-weight: 400;
-  font-style: normal;
-  font-size: 20px;
-  margin: 0 0 30px 0;
-  text-align: justify;
-}
-
-
-.body-button {
-  margin: auto auto 0 auto; /* прижимаем вниз + по центру */
-  padding: 12px 28px;
-  font-size: 26px;
-  border: 2px solid #000;
-  border-radius: 6px;
-  background: transparent;
-  color: #000;
-  cursor: pointer;
-  text-align: center;
-  position: relative;
-  transition: padding 0.25s linear;
-  font-family: "Montserrat Alternates", sans-serif;
-  font-weight: 500;
-}
-
-.body-button::after {
-  content: "ᐯ"; /* Unicode для ↓ */
-  font-weight: 200;
-  font-style: normal;
-  font-size: 18px;
-  position: absolute;
-  bottom: 13px;
-  right: 15px;
-  opacity: 0;
-  transform: scaleX(1);
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.body-button:hover {
-  padding: 12px 40px;
-  color: #dd8d0d;
-}
-
-.body-button:hover::after {
-  opacity: 1;
-  transform: scaleX(1.2);
-}
 
 /* About us */
 .about-us-section {
@@ -1343,6 +1344,7 @@ label input:focus {
 }
 
 .login-form-all {
+  width: -webkit-fill-available;
   display: flex;
   justify-content: center;
 }
@@ -2178,6 +2180,25 @@ legend.login-form-legend {
   display: block;
 }
 
+#reservation-message {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  display: none; /* Скрыто по умолчанию */
+  font-weight: 500;
+}
+
+#reservation-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+#reservation-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
 
 
 
@@ -2839,4 +2860,10 @@ legend.login-form-legend {
     transform: scale(1, -1) translateY(-64px);
   }
 
+}
+
+@media(max-width:400px){
+  .body-history-img {
+  display: none;
+}
 }
