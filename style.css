@@ -2318,6 +2318,63 @@ legend.login-form-legend {
 }
 
 
+@media (max-width: 640px) {
+
+  /* Меняем поведение фонового изображения: показываем весь кадр (contain),
+     чтобы не резать боковые части. */
+  .menu-3d-hero {
+    background-size: contain !important;     /* показываем весь кадр */
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+
+    /* Делаем высоту чуть выше, чтобы картинка в режиме contain имела место,
+       но при этом не занимала весь экран — плавно между 340px и 75vh */
+    height: clamp(340px, 52vh, 75vh) !important;
+
+    /* Мягкий переход при ресайзе */
+    transition: height .28s ease, background-size .28s ease, background-position .28s ease;
+  }
+
+  /* Задние слои: не перекрываем поведение, и заставляем не cover'ить */
+  .menu-layer {
+    background-size: contain !important;
+    background-position: center top !important;
+    background-repeat: no-repeat !important;
+  }
+
+  /* Уменьшаем масштаб 3D-контейнера, если он вызывает обрезку (scale может «врезать» картинку) */
+  .menu-3d-container {
+    --menu-scale: 0.82; /* чуть меньше, чем в обычных медиазапросах */
+    transform: translate3d(0,0,0) scale(var(--menu-scale)) !important;
+  }
+
+  /* Текстовый блок остаётся компактным (чтобы не занимал лишнее место) */
+  .menu-3d-center {
+    max-width: 92%;
+    padding: 12px 14px;
+  }
+
+  /* Декоративные элементы — уменьшаем, чтобы не мешали картинке */
+  .menu-smoke, .menu-sun {
+    width: 160px;
+    height: 100px;
+    top: 28px;
+    right: 24px; /* или left для sun */
+    filter: blur(1.5px);
+    transform: translateZ(0);
+  }
+}
+
+/* Дополнительно — мелкая поправка для ещё более узких экранов */
+@media (max-width: 420px) {
+  .menu-3d-hero {
+    height: clamp(300px, 58vh, 68vh);
+    background-position: center 20%;
+  }
+  .menu-3d-container { --menu-scale: 0.78; }
+  .menu-3d-center { padding: 10px; }
+}
+
 /* базовые стили слоя */
 .menu-layer {
   position: absolute;
