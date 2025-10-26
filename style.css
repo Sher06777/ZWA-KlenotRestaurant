@@ -2510,8 +2510,7 @@ legend.login-form-legend {
 }
 
 /* Активная кнопка — акцентный градиент, без масштаба */
-.menu-button.active,
-.menu-button[aria-pressed="true"] {
+.menu-button.active,[aria-pressed="true"] {
   background: linear-gradient(90deg,#fff4d6,#ffefc2);
   border-color: #9f712e;
   color: #2a2a2a;
@@ -2566,7 +2565,7 @@ legend.login-form-legend {
 .menu-first-desc { font-size: 15px; color: #444; line-height: 1.45; }
 
 /* Правый столбец: цена и кнопка */
-.menu-first-meta { display:flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+.menu-first-meta { display:flex; flex-direction: column; align-items: flex-end; gap: 12px; text-align: end; }
 .menu-first-price { font-weight: 900; font-size: 22px; color: #9f712e; }
 
 /* кнопка заказа — без вертикального сдвига, только изменение цвета */
