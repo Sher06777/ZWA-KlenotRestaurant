@@ -1,12 +1,14 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
 include __DIR__ . '/db.php';
 
 // Проверяем соединение
 if (!isset($conn)) {
-    die('Ошибка соединения с базой.');
+    echo json_encode(['success' => false, 'error' => 'Ошибка соединения с базой.']);
+    exit;
 }
 
-// Получаем данные из формы (с защитой)
+// Получаем данные из POST
 $name = trim($_POST['name'] ?? '');
 $phone = trim($_POST['phone'] ?? '');
 $email = trim($_POST['email'] ?? '');
@@ -17,7 +19,8 @@ $message = trim($_POST['message'] ?? '');
 
 // Проверка обязательных полей
 if (empty($name) || empty($phone) || empty($email) || empty($date) || empty($time) || $people < 1) {
-    die('Пожалуйста, заполните все обязательные поля.');
+    echo json_encode(['success' => false, 'error' => 'Пожалуйста, заполните все обязательные поля.']);
+    exit;
 }
 
 // Подготавливаем SQL-запрос
@@ -27,27 +30,18 @@ $stmt = $conn->prepare("
 ");
 
 if (!$stmt) {
-    die('Ошибка запроса: ' . htmlspecialchars($conn->error));
+    echo json_encode(['success' => false, 'error' => $conn->error]);
+    exit;
 }
 
 $stmt->bind_param("sssssis", $name, $phone, $email, $date, $time, $people, $message);
 
 // Выполняем запрос
 if ($stmt->execute()) {
-    echo "<h2>✅ Бронирование успешно добавлено!</h2>";
-    echo "<p><strong>Имя:</strong> " . htmlspecialchars($name) . "</p>";
-    echo "<p><strong>Телефон:</strong> " . htmlspecialchars($phone) . "</p>";
-    echo "<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>";
-    echo "<p><strong>Дата:</strong> " . htmlspecialchars($date) . "</p>";
-    echo "<p><strong>Время:</strong> " . htmlspecialchars($time) . "</p>";
-    echo "<p><strong>Количество человек:</strong> " . htmlspecialchars($people) . "</p>";
-    if (!empty($message)) {
-        echo "<p><strong>Комментарий:</strong> " . htmlspecialchars($message) . "</p>";
-    }
+    echo json_encode(['success' => true]);
 } else {
-    echo "Ошибка при добавлении бронирования: " . htmlspecialchars($stmt->error);
+    echo json_encode(['success' => false, 'error' => $stmt->error]);
 }
 
 $stmt->close();
 $conn->close();
-
