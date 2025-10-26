@@ -1,0 +1,879 @@
+{
+	"Appetizers-and-Salads": [
+		{
+			"id": 1.1,
+			"name": {
+				"eng": "Klenot Garden Salad",
+				"cz": "Klenot Zahradní Salát"
+			},
+			"description": {
+				"eng": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+				"cz": "Míchaný salát, pražená dýňová semínka, kozí sýr, jablečný vinaigrette."
+			},
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/1-Meat-skewers.png"
+		},
+
+		{
+			"id": 1.2,
+			"name": {
+				"eng": "Beef Goulash",
+				"cz": "Hovězí guláš"
+			},
+			"description": {
+				"eng": "Traditional Czech beef stew with dumplings.",
+				"cz": "Tradiční český hovězí guláš s knedlíky."
+			},
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Appetizers-and-Salads/2-Cucumber-salad-with-cream-and-walnuts.jpeg"
+		},
+
+		{
+			"id": 1.3,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/3-Prague-salad-with-chicken.jpg"
+		},
+
+		{
+			"id": 1.4,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/4-Egg-spread.jpg"
+		},
+
+		{
+			"id": 1.5,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Appetizers-and-Salads/5-Fried-cheese.jpg"
+		},
+		
+		{
+			"id": 1.6,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/6-Mushroom-salad.png"
+		},
+
+		{
+			"id": 1.7,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/7-Retro-egg-salad-according-to-1976-standards.jpg"
+		},
+
+		{
+			"id": 1.8,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Appetizers-and-Salads/8-Potato-salad-with-lambs-lettuce-and-bacon.jpg"
+		},
+
+		{
+			"id": 1.9,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/9-Zucchini-spread-with-cheese-appetizer.jpg"
+		},
+
+		{
+			"id": 1.10,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/10-Homemade-beer-cheese-appetizer.jpg"
+		},
+
+		{
+			"id": 1.11,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Appetizers-and-Salads/11-Czech-salad-with-chicken-beans-and-mushrooms-appetizer.jpg"
+		},
+		
+		{
+			"id": 1.12,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/12-Seafood.png"
+		},
+
+		{
+			"id": 1.13,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/13-Ham-spread-with-pickles-and-cream-cheese-appetizer.jpg"
+		},
+
+		{
+			"id": 1.14,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Appetizers-and-Salads/14-Olomouc-curd-cheese.jpg"
+		},
+
+		{
+			"id": 1.15,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/15-Salad-with-smoked-duck-cranberries-and-pomegranate-caviar.png"
+		},
+
+		{
+			"id": 1.16,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/16-Salad-with-roasted-beetroot-and-goat-cheese.png"
+		},
+
+		{
+			"id": 1.17,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Appetizers-and-Salads/17-Salad-with-tiger-prawns-and-eggplant.png"
+		},
+		
+		{
+			"id": 1.18,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Appetizers-and-Salads/18-Steak-salad-with-avocado-ricotta-and-cherry-tomatoes.png"
+		}
+	],
+
+	"Soups": [
+
+		{
+			"id": 2.1,
+			"name": "Špejchačky",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/1-Garlic-soup.jpg"
+		},
+
+		{
+			"id": 2.2,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Soups/2-Goulash-soup.jpg"
+		},
+
+		{
+			"id": 2.3,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/3-Krkonoše-sour-soup-Kyselo.jpg"
+		},
+
+		{
+			"id": 2.4,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/4-Thick-soup-made-of-sauerkraut-Zelnacka.jpg"
+		},
+
+		{
+			"id": 2.5,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Soups/5-Czech-potato-soup-with-mushrooms.jpeg"
+		},
+		
+		{
+			"id": 2.6,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/6-Czech-bread-soup-Celestina.jpg"
+		},
+
+		{
+			"id": 2.7,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/7-Old-Bohemian-duck-soup-Kaldoun.jpg"
+		},
+
+		{
+			"id": 2.8,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Soups/8-South-Bohemian-soup-with-mushrooms-potatoes-vinegar-and-dill-Kulajda.jpg"
+		},
+
+		{
+			"id": 2.9,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/9-Smoked-soup-with-roasted-semolina.jpg"
+		},
+
+		{
+			"id": 2.10,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/10-Bean-soup-with-smoked-pork-knuckle.jpg"
+		},
+
+		{
+			"id": 2.11,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Soups/11-Pea-soup-with-leek.jpg"
+		},
+		
+		{
+			"id": 2.12,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/12-Seafood-soup.png"
+		},
+
+		{
+			"id": 2.13,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/13-Bean-soup.jpg"
+		},
+
+		{
+			"id": 2.14,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Soups/14-Finnish-fish-soup-with-salmon-and-seafood.png"
+		},
+
+		{
+			"id": 2.15,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/15-Borscht-with-pampushky.png"
+		},
+
+		{
+			"id": 2.16,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Soups/16-Cream-soup-of-broccoli-and-spinach.png"
+		}
+	],
+
+	"Sides-Dishes": [
+
+		{
+			"id": 3.1,
+			"name": "Špejchačky",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Side-Dishes/1-Potato-pancakes-in-Czech-style.jpeg"
+		},
+
+		{
+			"id": 3.2,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Side-Dishes/2-Czech-dumplings.jpg"
+		},
+
+		{
+			"id": 3.3,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Side-Dishes/3-Old-Bohemian-barley-kuba-with-dried-mushrooms.jpg"
+		},
+
+		{
+			"id": 3.4,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Side-Dishes/4-Bulgur.jpg"
+		},
+
+		{
+			"id": 3.5,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Side-Dishes/5-Grilled-vegetables.jpg"
+		},
+		
+		{
+			"id": 3.6,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Side-Dishes/6-French-fries.jpg"
+		},
+
+		{
+			"id": 3.7,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Side-Dishes/7-Sweet-potato-fries.png"
+		},
+
+		{
+			"id": 3.8,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Side-Dishes/8-Potatoes-baked-in-salt-on-coals.png"
+		},
+
+		{
+			"id": 3.9,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Side-Dishes/9-Grilled-vegetables.png"
+		},
+
+		{
+			"id": 3.10,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Side-Dishes/10-Asparagus-with-broccoli-in-cream-sauce-with-bacon.png"
+		},
+
+		{
+			"id": 3.11,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Side-Dishes/11-Spinach-with-garlic-and-parmesan.png"
+		},
+		
+		{
+			"id": 3.12,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Side-Dishes/12-Pasta.png"
+		}
+
+	],
+
+  	"Main-Courses": [
+		{
+			"id": 4.1,
+			"name": {
+				"eng": "Roast Duck with Red Cabbage",
+				"cz": "Pečená kachna s červeným zelím"
+			},
+			"description": {
+				"eng": "Classic Czech roast duck with dumplings and red cabbage.",
+				"cz": "Klasická česká pečená kachna s knedlíky a červeným zelím."
+			},
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/1-Pork-knuckle.jpg"
+		},
+
+		{
+			"id": 4.2,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Main-Courses/2-Beef-sirloin-in-cream-sauce.jpg"
+		},
+
+		{
+			"id": 4.3,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/3-Steak-tartare.jpg"
+		},
+
+		{
+			"id": 4.4,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/4-Homemade-meat-aspic.jpg"
+		},
+
+		{
+			"id": 4.5,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Main-Courses/5-Szegedin-pork-goulash-with-sauerkraut.jpg"
+		},
+		
+		{
+			"id": 4.6,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/6-Roasted-duck.jpg"
+		},
+
+		{
+			"id": 4.7,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/7-Chicken-wings.png"
+		},
+
+		{
+			"id": 4.8,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Main-Courses/8-Quail-schnitzel-with-quince-chutney.png"
+		},
+
+		{
+			"id": 4.9,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/9-Pork-knuckle-with-coleslaw.png"
+		},
+
+		{
+			"id": 4.10,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/10-Pork-belly-with-miso-caramel-and-Borodinsky-mayonnaise.png"
+		},
+
+		{
+			"id": 4.11,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Main-Courses/11-Buffalo-chicken-wings.png"
+		},
+		
+		{
+			"id": 4.12,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/12-Duck-leg-confit-with-mashed-potatoes-and-Noilly-Prat-sauce.png"
+		},
+
+		{
+			"id": 4.13,
+			"name": "Špejchačky",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/13-Chicken-lyulya-kebab-with-tahini-and-eggplant.png"
+		},
+
+		{
+			"id": 4.14,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Main-Courses/14-Duck-breast-with-asparagus-Brussels-sprouts-and-date-puree.png"
+		},
+
+		{
+			"id": 4.15,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/15-New-Zealand-lamb-rack-with-fig-sauce-and-broccoli.png"
+		},
+
+		{
+			"id": 4.16,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/16-New-Zealand-lamb-shank-braised-in-red-wine-with-mashed-potatoes.png"
+		},
+
+		{
+			"id": 4.17,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Main-Courses/17-Pork-ribs-BBQ.png"
+		},
+		
+		{
+			"id": 4.18,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/18-Chicken-schnitzel-with-cranberry-sauce.png"
+		},
+
+		{
+			"id": 4.19,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/19-Beef-burger-on-homemade-brioche-bun.png"
+		},
+
+		{
+			"id": 4.20,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Main-Courses/20-Meat-set-No1.png"
+		},
+
+		{
+			"id": 4.21,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Main-Courses/21-Meat-set-No2.png"
+		}
+
+	],
+
+	"Fish-and-Seafood": [
+		{
+			"id": 5.1,
+			"name": {
+				"eng": "Roast Duck with Red Cabbage",
+				"cz": "Pečená kachna s červeným zelím"
+			},
+			"description": {
+				"eng": "Classic Czech roast duck with dumplings and red cabbage.",
+				"cz": "Klasická česká pečená kachna s knedlíky a červeným zelím."
+			},
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Fish-and-Seafood/1-Octopus-baked-on-coals-with-vegetables.png"
+		},
+
+		{
+			"id": 5.2,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Fish-and-Seafood/2-Dorado-fillet-with-spinach-and-lemon-sauce.png"
+		},
+
+		{
+			"id": 5.3,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Fish-and-Seafood/3-Salmon-fillet-with-asparagus-and-broccoli-puree.png"
+		},
+
+		{
+			"id": 5.4,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Fish-and-Seafood/4-Mussels-in-garlic-sauce.png"
+		}
+	],
+
+	"Desserts": [
+
+		{
+			"id": 6.1,
+			"name": "Špejchačky",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Desserts/1-Karlovy-Vary-waffles-dessert.jpg"
+		},
+
+		{
+			"id": 6.2,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Desserts/2-Bread-pudding-with-apples-and-bananas-dessert.jpg"
+		},
+
+		{
+			"id": 6.3,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Desserts/3-Trdelnik.jpg"
+		},
+
+		{
+			"id": 6.4,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Desserts/4-Wholegrain-bundt-cake-with-carrots-and-walnuts.jpg"
+		},
+
+		{
+			"id": 6.5,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Desserts/5-Sweet-buns-with-vanilla-custard-from-Mysak-Pastry-Shop.jpg"
+		},
+		
+		{
+			"id": 6.6,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Desserts/6-Homemade-mole-cake-with-curd-and-mascarpone.jpg"
+		},
+
+		{
+			"id": 6.7,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Desserts/7-Poppy-seed-cake-with-cherries.png"
+		},
+
+		{
+			"id": 6.8,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Desserts/8-Punch-cake.png"
+		},
+
+		{
+			"id": 6.9,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Desserts/9-Curd-bundt-cake-with-lemon-glaze-and-blackberries.jpg"
+		},
+
+		{
+			"id": 6.10,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Desserts/10-Wallachian-pear-frgal-from-spelt-flour-with-star-anise.png"
+		}
+
+	],
+
+	"Soft-Drinks": [
+
+		{
+			"id": 7.1,
+			"name": "Špejchačky",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Drinks/Soft-Drinks/1-Coca-Cola-0.25.jpeg"
+		},
+
+		{
+			"id": 7.2,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Drinks/Soft-Drinks/2-Coca-Cola-Zero-Sugar-0.25.jpeg"
+		},
+
+		{
+			"id": 7.3,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Drinks/Soft-Drinks/3-Fentimans-0.2.png"
+		},
+
+		{
+			"id": 7.4,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Drinks/Soft-Drinks/4-Dorna-Izvorul-Alb-0.33.png"
+		},
+
+		{
+			"id": 7.5,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Drinks/Soft-Drinks/5-San-Pellegrino-0.25.png"
+		},
+		
+		{
+			"id": 7.6,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Drinks/Soft-Drinks/6-San-Pellegrino-0.75.png"
+		},
+
+		{
+			"id": 7.7,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Drinks/Soft-Drinks/7-Assorted-juice.png"
+		}
+
+	],
+
+	"Alcoholic-Beverages": [
+
+		{
+			"id": 7.1,
+			"name": "Špejchačky",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Drinks/Alcoholic-Beverages/1-Becherovka.png"
+		},
+
+		{
+			"id": 7.2,
+			"name": "Beef Goulash",
+			"description": "Traditional Czech beef stew with dumplings.",
+			"price": "210 CZK",
+			"weight": "350g",
+			"image": "img/menu-img/Drinks/Alcoholic-Beverages/2-Slivovice.png"
+		},
+
+		{
+			"id": 7.3,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Drinks/Alcoholic-Beverages/3-Mead.png"
+		},
+
+		{
+			"id": 7.4,
+			"name": "Klenot Garden Salad",
+			"description": "Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette.",
+			"price": "90 CZK",
+			"weight": "120g",
+			"image": "img/menu-img/Drinks/Alcoholic-Beverages/4-Beer.jpg"
+		}
+
+	]
+}
