@@ -2205,11 +2205,28 @@ legend.login-form-legend {
   background: #000;     /* фон пока заглушка, можно градиент */
   transition: opacity .6s ease, visibility .6s ease, transform .6s ease;
   opacity: 1;
-  height: 100vh;
+  height: clamp(380px, 55vw, 100vh);
   width: 100%;
   overflow: hidden;
   visibility: visible;
   pointer-events: all;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+@media (max-width: 1200px) {
+  .menu-3d-hero {
+    background-size: 100% auto;   /* ширина всегда 100%, пропорции сохраняются */
+    background-position: center top;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-3d-hero {
+    background-size: 100% auto;
+    background-position: center top;
+  }
 }
 
 .menu-3d-container {
@@ -2234,8 +2251,72 @@ legend.login-form-legend {
   transform-style: preserve-3d;
   will-change: transform;
   transition: transform 0.9s cubic-bezier(.05,.5,0,1);
-  transform: translate3d(0,0,0); /* GPU ускорение */
+  transform: translate3d(0,0,0) scale(var(--menu-scale, 1));
 }
+
+/* На разных экранах уменьшаем scale */
+@media (max-width: 1200px) {
+  .menu-3d-container {
+    --menu-scale: 0.9;
+  }
+}
+@media (max-width: 992px) {
+  .menu-3d-container {
+    --menu-scale: 0.8;
+  }
+}
+@media (max-width: 768px) {
+  .menu-3d-container {
+    --menu-scale: 0.7;
+  }
+}
+
+@media (min-width: 1200px) {
+  .menu-3d-hero {
+    background-size: cover;        /* desktop: заполняет экран как раньше */
+    background-position: center center;
+    height: min(100vh, 820px);     /* можно ограничить максимальную видимую высоту, опц. */
+  }
+}
+
+/* Для среднего диапазона — используем режим, сохраняющий пропорции (не режет) */
+@media (max-width: 1200px) and (min-width: 600px) {
+  .menu-3d-hero {
+    /* авто-ширина, высота = 100% контейнера; это сохраняет пропорции и минимизирует обрезку */
+    background-size: auto 100%;
+    background-position: center top;
+    /* height остаётся из clamp() — поэтому при уменьшении ширины высота плавно уменьшается */
+  }
+
+  /* Лэйеры: задний фон не должен cover'иться, чтобы не обрезать боковые части */
+  .menu-layer {
+    background-size: contain;      /* contain — полностью видно изображение (могут появиться боковые полосы) */
+    background-repeat: no-repeat;
+    background-position: center top;
+  }
+}
+
+/* Для маленьких экранов — мобильный режим, компактный, текст читается хорошо */
+@media (max-width: 600px) {
+  .menu-3d-hero {
+    background-size: contain;      /* в мобиле обычно хочется увидеть весь кадр */
+    background-position: center top;
+    height: clamp(300px, 60vh, 70vh); /* более компактная высота на телефонах */
+  }
+  .menu-layer {
+    background-size: contain;
+    background-position: center top;
+  }
+
+  /* уменьшаем размеры декоративных элементов */
+  .menu-smoke, .menu-sun {
+    transform: translateZ(0); /* убрать сильную 3D-изменчивость на мобиле */
+    width: 180px;
+    height: 120px;
+    top: 32px;
+  }
+}
+
 
 /* базовые стили слоя */
 .menu-layer {
@@ -2263,7 +2344,31 @@ legend.login-form-legend {
   color: #fff;
   z-index: 3;
   padding: 20px;
-  max-width: 1080px;
+  max-width: min(90%, 1080px);
+  display: inline-block; 
+  margin: 0 auto;   
+  text-align: center;
+  width: auto;
+}
+
+@media (max-width: 480px) {
+  .menu-3d-center {
+    padding: 12px;
+    background: rgba(0,0,0,0.45); /* чуть темнее для читаемости */
+    max-width: 94%;
+  }
+  .menu-3d-title {
+    font-size: clamp(24px, 7vw, 42px); /* более компактный заголовок на очень маленьких экранах */
+  }
+  .menu-3d-sub {
+    font-size: clamp(12px, 3.6vw, 16px);
+  }
+}
+
+.menu-3d-container .menu-3d-center,
+.menu-3d-center {
+  align-self: center;  /* гарантируем вертикальное центрирование внутри flex-родителя */
+  /* flex: 0 0 auto; */ /* раскомментировать, если родитель даёт stretch */
 }
 
 .menu-3d-title {
@@ -2286,42 +2391,6 @@ legend.login-form-legend {
   margin-right: auto;
   font-size: 22px;
   font-weight: 400;
-}
-
-/* enter button */
-.menu-3d-enter {
-  padding: 12px 22px;
-  border-radius: 8px;
-  background: linear-gradient(90deg,#f7e7c0,#ffd36a);
-  border: 2px solid #9f712e;
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.menu-3d-enter,
-.menu-3d-skip {
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.menu-3d-enter.fade-out,
-.menu-3d-skip.fade-out {
-  opacity: 0;
-  transform: translateY(-20px);
-  pointer-events: none;
-}
-
-/* skip button (top-right) */
-.menu-3d-skip {
-  position: fixed;
-  top: 22px;
-  right: 22px;
-  z-index: 10100;
-  background: rgba(0,0,0,.45);
-  border: 1px solid rgba(255,255,255,.12);
-  color: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
 .menu-3d-hero .layer-6 {
@@ -2379,10 +2448,65 @@ legend.login-form-legend {
   filter: blur(2px);
 }
 
-/* mobile adjustments */
-@media (max-width: 900px) {
-  .menu-3d-container { transform-origin: center; }
-  .menu-3d-title { font-size: 34px; }
+/* крупные экраны — исходные размеры */
+@media (max-width: 1200px) {
+  .menu-smoke {
+    width: 336px;
+    height: 224px;
+    right: 160px; /* сдвигаем ближе к центру */
+    top: 20px;    /* чуть ниже */
+  }
+  .menu-sun {
+    width: 336px;
+    height: 224px;
+    left: 20px;   /* чуть смещаем вправо */
+    top: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .menu-smoke {
+    width: 294px;
+    height: 196px;
+    right: 120px;
+    top: 30px;
+  }
+  .menu-sun {
+    width: 294px;
+    height: 196px;
+    left: 15px;
+    top: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-smoke {
+    width: 252px;
+    height: 168px;
+    right: 80px;
+    top: 40px;
+  }
+  .menu-sun {
+    width: 252px;
+    height: 168px;
+    left: 10px;
+    top: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-smoke {
+    width: 210px;
+    height: 140px;
+    right: 40px;
+    top: 50px;
+  }
+  .menu-sun {
+    width: 210px;
+    height: 140px;
+    left: 5px;
+    top: 50px;
+  }
 }
 
 /* Увеличим hero, уберём background-attachment fixed */
@@ -2578,7 +2702,7 @@ legend.login-form-legend {
 @media (max-width: 1000px) {
   .menu-first-img { height: 60vh; min-height: 360px; }
   .menu-hero-title { font-size: 44px; }
-  .menu-first-food-img { width: 160px; height: 120px; }
+  .menu-first-food-img { width: 160px; height: 160px; }
   .menu-first-position { grid-template-columns: 160px 1fr 140px; padding: 18px; border-radius: 12px; }
   .menu-button { width: 110px; height: 44px; }
   .menu-items { padding: 0 10px; }
@@ -2587,7 +2711,7 @@ legend.login-form-legend {
 @media (max-width: 600px) {
   .menu-first-img { height: 46vh; min-height: 260px; }
   .menu-first-position { grid-template-columns: 1fr; gap: 12px; padding: 14px; }
-  .menu-first-food-img { width: 100%; height: 160px; border-radius: 8px; }
+  .menu-first-food-img { width: 100%; height: 100%; border-radius: 8px; }
   .menu-first-meta { align-items: flex-start; }
   .menu-button { width: 46%; min-width: 140px; }
   .menu-hero-title { font-size: 28px; }
