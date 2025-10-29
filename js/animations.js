@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const handleMove = (e) => {
     const cx = window.innerWidth / 2;
     const cy = window.innerHeight / 2;
-    targetRotY = (e.clientX - cx) * -0.008; // множитель поворота по X
+    targetRotY = (e.clientX - cx) * -0.006; // множитель поворота по X
     targetRotX = (e.clientY - cy) * 0.015;   // множитель поворота по Y
   };
 
