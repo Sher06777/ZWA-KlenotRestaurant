@@ -1670,7 +1670,7 @@ header {
 /* ещё для очень маленьких экранов */
 @media (max-width: 480px) {
   .section-title { font-size: 2rem; }
-  .gradient-run { font-size: 1.6rem; }
+  .gradient-run { font-size: 1.6rem; padding: 25px;}
   .reviews-columns .text { font-size: 14px; }
   .avatar { width: 32px; height: 32px; font-size: 12px; }
   .author-name { font-size: 13px; }
@@ -1704,7 +1704,7 @@ header {
     gap: 18px;
   }
 
-  
+
 }
 
 @media (max-width: 1300px) and (min-width: 1110px) {
@@ -1804,6 +1804,13 @@ header {
     grid-auto-rows: auto;
     gap: 2px;
     justify-content: flex-start; /* выравниваем влево */
+  }
+}
+
+@media (max-width: 740px) {
+  .reviews-container {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
