@@ -75,5 +75,72 @@
         "reservation": "Reserve",
         "placeholder-name": "e.g. John Smith",
         "placeholder-message": "Special requests or preferences"
+    },
+
+    "reviews": {
+        "title": "Voices from our table",
+        "r1": {
+            "meta": "Guest",
+            "cardInner": "We had a delightful dinner. Every detail was considered, from table setting to dessert plating. Minor timing issues, but the experience was wonderful."
+        },
+
+        "r2": {
+            "meta": "Food blogger",
+            "cardInner": "Very enjoyable dinner with fresh, flavorful dishes. Staff were attentive, though one main course was slightly delayed. The interior was stylish and cozy, perfect for a relaxed evening."
+        },
+
+        "r3": {
+            "meta": "Chef admirer",
+            "cardInner": "A truly spectacular visit. Every dish, from starters to dessert, was expertly prepared and full of flavor. The staff provided attentive and seamless service, making us feel valued and comfortable throughout the evening. The restaurant’s design is stylish and inviting, with soft lighting, comfortable seating, and a lively yet intimate ambiance. Drinks were carefully crafted, and the dessert selection was impressive. Every detail was considered, creating an unparalleled dining experience that deserves the highest praise."
+        },
+
+        "r4": {
+            "meta": "Traveler",
+            "cardInner": "Overall a pleasant visit. The food was tasty, but the dessert took longer than expected, and we had to ask twice for water refills. Still, the staff stayed friendly and attentive."
+        },
+
+        "r5": {
+            "meta": "Special occasion",
+            "cardInner": "Wonderful wine pairings and a calm ambience that allowed us to enjoy our conversation. The staff offered great recommendations and the attention to detail made our evening special.We'll remember this restaurant for its thoughtful combinations and friendly team."
+        },
+
+        "r6": {
+            "meta": "Regular",
+            "cardInner": "Perfect in every way. Culinary execution, ambiance, and service were remarkable. Plates were visually stunning, and staff anticipated our needs. The overall experience left us genuinely delighted and eager to return soon for another unforgettable visit."
+        },
+
+        "r7": {
+            "meta": "Gastronomy enthusiast",
+            "cardInner": "Absolutely perfect in every respect. The attention to detail is remarkable: from the culinary execution to the ambiance and service. Each plate is not just food, but a carefully composed experience of taste, texture, and visual delight. The staff anticipate your needs with professionalism and warmth. The interior creates a sense of calm luxury, enhanced by subtle lighting and music. This is the kind of restaurant that makes every visit memorable, leaving you with a lasting impression of excellence. Every bite feels thoughtfully crafted, making the meal a true journey for the senses."
+        },
+
+        "r8": {
+            "meta": "Foodie",
+            "cardInner": "A highly enjoyable dinner with a warm, welcoming environment. Every dish tasted fresh and was presented elegantly. The staff were accommodating, though there was a minor mix-up with the order, which was quickly resolved. This restaurant is ideal for a relaxed evening with friends or family, combining tasty cuisine with pleasant service."
+        },
+
+        "r9": {
+            "meta": "Traveler",
+            "cardInner": "A truly remarkable dinner. Every plate was crafted with attention to flavor, texture, and visual appeal. Service was smooth, friendly, and professional, making us feel welcome throughout the evening. Drinks and desserts were outstanding, adding a thoughtful touch to the experience. This restaurant consistently delivers a sophisticated and satisfying experience."
+        },
+
+        "r10": {
+            "meta": "Regular",
+            "cardInner": "We had an almost perfect visit. The restaurant offers excellent cuisine, refined service, and a beautifully arranged space. Staff were attentive and friendly, providing helpful suggestions. A minor delay on one appetizer was handled professionally. Overall, a memorable evening worth recommending."
+        },
+
+        "r11": {
+            "meta": "Visitor",
+            "cardInner": "Unforgettable experience with exceptional food, service, and atmosphere. Every course was flavorful, perfectly seasoned, and thoughtfully paired, leaving lasting delightful impressions. Staff were friendly, welcoming, and attentive."
+        },
+
+        "r12": {
+            "meta": "Visitor",
+            "cardInner": "This visit was very enjoyable. The dishes were well-prepared, with a range of flavors that pleased our group. The staff were attentive and friendly, ensuring we had everything we needed. The seating arrangement was comfortable, and the lighting created a relaxed yet stylish ambiance. Overall, it felt like a high-quality dining experience, with only minor timing issues."
+        },
+
+        "r13": {
+            "footer-text": "Grateful for every smile shared around our table 🌿"
+        }
     }
 }
