@@ -5,7 +5,7 @@ const mainContent = document.getElementById('main');
 const gallerySection = document.getElementById('gallery-section');
 const formMain = document.querySelector('.form-main');
 const loginFormSection = document.querySelector('.login-form-section');
-const personalAccount = document.querySelector('.main-content-wrapper');
+const personalAccount = document.querySelector('.personal-account');
 const mainContentWrapper = document.querySelector('.main-content-wrapper');
 const header = document.getElementById('dropped-menu');
 const footer = document.querySelector('footer');
@@ -49,6 +49,7 @@ const fadeIn = (el) => {
   if (!el) return;
   el.classList.remove('invisible');
   el.classList.add('visible');
+  el.style.display = 'block';
   el.style.opacity = 0;
 
   requestAnimationFrame(() => {
@@ -96,7 +97,6 @@ function set3DMenuInvisible(value) {
 
 // --------- Инициализация SPA ---------
 document.addEventListener('DOMContentLoaded', () => {
-  const logoutButton = document.querySelector('.logout-account-btn');
   // Начальное состояние: главная страница
   fadeIn(mainContent);
   [menuSection, gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(makeInvisible);
@@ -164,50 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
   [mainContent, gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(el => {
     el?.addEventListener('click', () => set3DMenuInvisible(true));
   });
-
-  // Инициализация сохранения входа в акаунт
-  fetch('check_session.php', { credentials: 'include' })
-    .then(res => res.json())
-    .then(data => {
-      if (data.loggedIn && data.user) {
-        const user = {
-          name: data.user.name || '',
-          email: data.user.email || ''
-        };
-        requestAnimationFrame(() => initPersonalAccount(user));
-        requestAnimationFrame(() => window.onLoginOrRegister?.());
-      }
-    })
-    .catch(err => console.error('Ошибка при инициализации аккаунта:', err));
-
-
-    if (logoutButton) {
-      logoutButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        fetch('logout.php', { method: 'POST', credentials: 'include' })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              console.log('✅ Пользователь вышел из аккаунта');
-
-              // Обновляем SPA-состояние
-              if (typeof window.setLoggedIn === 'function') {
-                window.setLoggedIn(false);
-              }
-
-              // Обновляем текст кнопки
-              const loginText = document.querySelector('.login-text');
-              if (loginText) loginText.textContent = 'Sign in';
-
-              // Переход обратно на главную страницу
-              console.log('⬅ Возврат на главную страницу...');
-              showSection(mainContent); // здесь fadeIn(mainContent) точно сработает корректно
-              set3DMenuInvisible(true);
-            }
-          })
-          .catch(err => console.error('Ошибка при выходе из аккаунта:', err));
-      });
-    }
 });
 
 // --------- Вспомогательные функции ---------
@@ -222,4 +178,3 @@ function makeInvisible(el) {
   el.classList.remove('visible'); 
   el.classList.add('invisible'); 
 }
-

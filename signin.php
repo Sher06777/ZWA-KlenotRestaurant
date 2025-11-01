@@ -1,4 +1,5 @@
 <?php
+session_start();
 include('db.php');
 header('Content-Type: application/json; charset=utf-8');
 
@@ -40,13 +41,23 @@ if (!password_verify($password, $user['password'])) {
 }
 
 // Всё успешно — создаём сессию
-session_start();
+
 $_SESSION['user_id'] = $user['id'];
 $_SESSION['user_name'] = $user['name'];
 $_SESSION['user_email'] = $user['email'];
+$passLen = strlen($user['password']);
+$password_mask = $passLen >= 2
+    ? $user['password'][0] . str_repeat('•', $passLen - 2) . $user['password'][$passLen-1]
+    : str_repeat('•', $passLen);
+
+$response['password_mask'] = $password_mask;
+
 
 $response['success'] = true;
 $response['message'] = 'Вход выполнен';
+$response['user_name'] = $user['name'];
+$response['user_email'] = $user['email'];
+$response['password_mask'] = $password_mask;
 
 echo json_encode($response);
 exit;
