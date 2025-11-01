@@ -1812,6 +1812,10 @@ header {
     padding-left: 0;
     padding-right: 0;
   }
+
+  .review-footer-card-inner {
+    margin-bottom: 45px;
+  }
 }
 
 
