@@ -40,7 +40,7 @@
 			},
 			"price": "180 CZK",
 			"weight": "220g",
-			"image": "img/menu-img/Appetizers-and-Salads/3-Prague-salad-with-chicken.jpg"
+			"image": "img/menu-img/Appetizers-and-Salads/3-Prague-salad-with-chicken-1.jpg"
 		},
 		{
 			"id": 1.4,
@@ -181,7 +181,7 @@
 			},
 			"price": "455 CZK",
 			"weight": "330g",
-			"image": "img/menu-img/Appetizers-and-Salads/13-Ham-spread-with-pickles-and-cream-cheese-appetizer.jpg"
+			"image": "img/menu-img/Appetizers-and-Salads/13-Ham-spread-with-pickles-and-cream-cheese-appetizer-2-obrezala.jpg"
 		},
 		{
 			"id": 1.14,
@@ -209,7 +209,7 @@
 			},
 			"price": "400 CZK",
 			"weight": "375g",
-			"image": "img/menu-img/Appetizers-and-Salads/15-Salad-with-smoked-duck-cranberries-and-pomegranate-caviar.png"
+			"image": "img/menu-img/Appetizers-and-Salads/15-Salad-with-smoked-duck-cranberries-and-pomegranate-caviar-4.jpg"
 		},
 		{
 			"id": 1.16,
@@ -223,7 +223,7 @@
 			},
 			"price": "350 CZK",
 			"weight": "350g",
-			"image": "img/menu-img/Appetizers-and-Salads/16-Salad-with-roasted-beetroot-and-goat-cheese.png"
+			"image": "img/menu-img/Appetizers-and-Salads/16-Salad-with-roasted-beetroot-and-goat-cheese.jpg"
 		},
 		{
 			"id": 1.17,
@@ -237,7 +237,7 @@
 			},
 			"price": "365 CZK",
 			"weight": "320g",
-			"image": "img/menu-img/Appetizers-and-Salads/17-Salad-with-tiger-prawns-and-eggplant.png"
+			"image": "img/menu-img/Appetizers-and-Salads/17-Salad-with-tiger-prawns-and-eggplant.jpg"
 		},
 
 		{
@@ -252,7 +252,7 @@
 			},
 			"price": "450 CZK",
 			"weight": "380g",
-			"image": "img/menu-img/Appetizers-and-Salads/18-Steak-salad-with-avocado-ricotta-and-cherry-tomatoes.png"
+			"image": "img/menu-img/Appetizers-and-Salads/18-Steak-salad-with-avocado-ricotta-and-cherry-tomatoes.jpg"
 		}
 	],
 
@@ -410,7 +410,7 @@
 			},
 			"price": "425 CZK",
 			"weight": "320g",
-			"image": "img/menu-img/Soups/11-Pea-soup-with-leek.jpg"
+			"image": "img/menu-img/Soups/11-Pea-soup-with-leek-2.jpg"
 		},
 		{
 			"id": 2.12,
@@ -624,7 +624,7 @@
 			},
 			"price": "235 CZK",
 			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/10-Asparagus-with-broccoli-in-cream-sauce-with-bacon.png"
+			"image": "img/menu-img/Side-Dishes/10-Asparagus-with-broccoli-in-cream-sauce-with-bacon.jpeg"
 		},
 		{
 			"id": 3.11,
@@ -638,7 +638,7 @@
 			},
 			"price": "425 CZK",
 			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/11-Spinach-with-garlic-and-parmesan.png"
+			"image": "img/menu-img/Side-Dishes/11-Spinach-with-garlic-and-parmesan-1.png"
 		},
 		{
 			"id": 3.12,
@@ -711,7 +711,7 @@
 			},
 			"price": "595 CZK",
 			"weight": "350g",
-			"image": "img/menu-img/Main-Courses/4-Homemade-meat-aspic.jpg"
+			"image": "img/menu-img/Main-Courses/4-Homemade-beer-cheese-appetizer-1.jpg"
 		},
 		{
 			"id": 4.5,
@@ -753,7 +753,7 @@
 			},
 			"price": "565 CZK",
 			"weight": "300g",
-			"image": "img/menu-img/Main-Courses/7-Chicken-wings.png"
+			"image": "img/menu-img/Main-Courses/7-Chicken-wings.jpg"
 		},
 		{
 			"id": 4.8,
@@ -1101,7 +1101,7 @@
 			},
 			"price": "310 CZK",
 			"weight": "245g",
-			"image": "img/menu-img/Desserts/6-Homemade-mole-cake-with-curd-and-mascarpone.jpg"
+			"image": "img/menu-img/Desserts/6-Homemade-mole-cake-with-curd-and-mascarpone.webp"
 		},
 		{
 			"id": 6.7,
@@ -1170,12 +1170,12 @@
 				"cz": "Coca-Cola 0.25"
 			},
 			"description": {
-				"eng": "",
-				"cz": ""
+				"eng": "The timeless classic, sparkling and full of flavor. Refreshing, invigorating, and always satisfying.",
+				"cz": "Nadčasová klasika, perlivá a plná chuti. Osvěžující, povzbuzující a vždy uspokojivá."
 			},
 			"price": "75 CZK",
 			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-Drinks/1-Coca-Cola-0.25.jpeg"
+			"image": "img/menu-img/Drinks/Soft-drinks/1-Coca-Cola-0.25.jpeg"
 		},
 
 		{
@@ -1185,87 +1185,117 @@
 				"cz": "Coca-Cola Zero 0.25"
 			},
 			"description": {
-				"eng": "",
-				"cz": ""
+				"eng": "The classic taste of Coca-Cola without sugar. Bold, refreshing, and perfectly balanced — enjoy every sip.",
+				"cz": "Klasická chuť Coca-Coly bez cukru. Odvážná, osvěžující a dokonale vyvážená — vychutnejte si každý doušek."
 			},
 			"price": "175 CZK",
 			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-Drinks/2-Coca-Cola-Zero-Sugar-0.25.jpeg"
+			"image": "img/menu-img/Drinks/Soft-drinks/2-Coca-Cola-Zero-Sugar-0.25.jpeg"
 		},
 
 		{
 			"id": 7.3,
 			"name": {
-				"eng": "Fentimans 0.2",
-				"cz": "Fentimans 0.2"
+				"eng": "Perier",
+				"cz": "Perier"
 			},
 			"description": {
-				"eng": "",
-				"cz": ""
+				"eng": "Sparkling mineral water with a crisp, refreshing bite. Perfect to accompany any meal or enjoy on its own.",
+				"cz": "Perlivá minerální voda s osvěžující křupavostí. Ideální k jídlu nebo jen tak pro osvěžení."
 			},
-			"price": "375 CZK",
+			"price": "275 CZK",
 			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-Drinks/3-Fentimans-0.2.png"
+			"image": "img/menu-img/Drinks/Soft-drinks/3-Perrier-210-207.jpg"
 		},
 
 		{
 			"id": 7.4,
 			"name": {
-				"eng": "Dorna Izvorul Alb 0.33",
-				"cz": "Dorna Izvorul Alb 0.33"
+				"eng": "Tea",
+				"cz": "Čaj"
 			},
 			"description": {
-				"eng": "",
-				"cz": ""
+				"eng": "Carefully selected loose-leaf teas or infusions, brewed to perfection. Aromatic, soothing, and ideal for a moment of calm.",
+				"cz": "Pečlivě vybrané sypané čaje nebo bylinné nálevy, připravené k dokonalosti. Aromatické, uklidňující a ideální pro chvíli odpočinku."
 			},
-			"price": "245 CZK",
+			"price": "100 CZK",
 			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-Drinks/4-Dorna-Izvorul-Alb-0.33.png"
+			"image": "img/menu-img/Drinks/Soft-drinks/4-Tea-1-207-210.jpg"
 		},
 
 		{
 			"id": 7.5,
 			"name": {
-				"eng": "S.Pelligrino 0.25",
-				"cz": "S.Pelligrino 0.25"
+				"eng": "Mojito",
+				"cz": "Mohito"
 			},
 			"description": {
-				"eng": "",
-				"cz": ""
+				"eng": "A Cuban classic with white rum, fresh mint, lime, and a touch of sugar. Light, invigorating, and perfectly balanced — an eternal favorite.",
+				"cz": "Kubánská klasika s bílým rumem, čerstvou mátou, limetkou a trochou cukru. Lehké, povzbuzující a dokonale vyvážené — věčný favorit."
 			},
 			"price": "275 CZK",
 			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-Drinks/5-San-Pellegrino-0.25.png"
+			"image": "img/menu-img/Drinks/Soft-drinks/5-mohito.jpg"
 		},
 		
 		{
 			"id": 7.6,
 			"name": {
-				"eng": "S.Pelligrino 0.75",
-				"cz": "S.Pelligrino 0.75"
+				"eng": "Juice",
+				"cz": "Džus"
 			},
 			"description": {
-				"eng": "",
-				"cz": ""
+				"eng": "Freshly squeezed or carefully selected fruit juices, bursting with natural flavor and vibrant color — a refreshing choice for every moment.",
+				"cz": "Čerstvě vymačkané nebo pečlivě vybrané ovocné šťávy, plné přirozené chuti a živé barvy — osvěžující volba pro každý okamžik."
 			},
 			"price": "375 CZK",
 			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-Drinks/6-San-Pellegrino-0.75.png"
+			"image": "img/menu-img/Drinks/Soft-drinks/6-dzus.jpg"
 		},
 
 		{
 			"id": 7.7,
 			"name": {
-				"eng": "Juice",
-				"cz": "Juice"
+				"eng": "Fanta",
+				"cz": "Fanta"
 			},
 			"description": {
-				"eng": "",
-				"cz": ""
+				"eng": "Refreshing orange soda with lively bubbles — a classic favorite for a light, uplifting drink.",
+				"cz": "Osvěžující pomerančová limonáda s živými bublinkami — klasický oblíbený nápoj pro lehké a povzbuzující osvěžení."
 			},
 			"price": "250 CZK",
 			"weight": "250ml",
-			"image": "img/menu-img/Drinks/Soft-Drinks/7-Assorted-juice.png"
+			"image": "img/menu-img/Drinks/Soft-drinks/7-fanta.webp"
+		},		
+		
+		{
+			"id": 7.8,
+			"name": {
+				"eng": "Matcha-Mango",
+				"cz": "Matča-mango"
+			},
+			"description": {
+				"eng": "A bold tropical cocktail bursting with mango flavor, enhanced by a hint of lime and subtle sweetness. A refreshing escape in every sip.",
+				"cz": "Odvážný tropický koktejl plný chuti manga, doplněný jemnou limetkou a mírnou sladkostí. Každý doušek je osvěžující útěk do tropů."
+			},
+			"price": "250 CZK",
+			"weight": "250ml",
+			"image": "img/menu-img/Drinks/Soft-drinks/8-matcha-mango.jpg"
+		},
+
+		{
+			"id": 7.9,
+			"name": {
+				"eng": "Aperol-Spritz",
+				"cz": "Aperol-Spritz"
+			},
+			"description": {
+				"eng": "A vibrant Italian classic, blending Aperol, prosecco, and a splash of soda. Refreshing and slightly bitter, garnished with an orange slice — perfect for a sunny, relaxed moment.",
+				"cz": "Živá italská klasika, kombinace Aperolu, prosecca a trochy sodovky. Osvěžující s jemně hořkou chutí, zdobené plátkem pomeranče — ideální pro slunečný, pohodový okamžik."
+			},
+			"price": "150 CZK",
+			"weight": "250ml",
+			"image": "img/menu-img/Drinks/Soft-drinks/9-Aperol-Spritz.jpg"
 		}
 
 	],
@@ -1283,7 +1313,7 @@
 			},
 			"price": "500 CZK",
 			"weight": "1 wineglass (500ml)",
-			"image": "img/menu-img/Drinks/Alcoholic-Beverages/1-Becherovka.png"
+			"image": "img/menu-img/Drinks/Alcoholic-Beverages/1-Becherovka-1-1.jpg"
 		},
 		{
 			"id": 8.2,
@@ -1297,7 +1327,7 @@
 			},
 			"price": "500 CZK",
 			"weight": "1 wineglass (500ml)",
-			"image": "img/menu-img/Drinks/Alcoholic-Beverages/2-Slivovice.png"
+			"image": "img/menu-img/Drinks/Alcoholic-Beverages/2-Slivovice-4.jpg"
 		},
 		{
 			"id": 8.3,
@@ -1311,7 +1341,7 @@
 			},
 			"price": "500 CZK",
 			"weight": "1 wineglass (500ml)",
-			"image": "img/menu-img/Drinks/Alcoholic-Beverages/3-Mead.png"
+			"image": "img/menu-img/Drinks/Alcoholic-Beverages/3-Mead-3.jpg"
 		},
 		{
 			"id": 8.4,

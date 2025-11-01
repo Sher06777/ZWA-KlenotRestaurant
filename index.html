@@ -341,7 +341,7 @@
                 </div>
                 <div class="rating" data-score="7" aria-label="Rating: 7 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                  <span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
                 </div>
               </div>
 
@@ -685,8 +685,8 @@
   </section>
 
   <!-- ===== PERSONAL ACCOUNT (placeholder) ===== -->
-  <div class="main-content-wrapper" id="account-wrapper">
-    <section class="personal-account invisible" id="personal-account">
+  <section class="main-content-wrapper" id="account-wrapper">
+    <div class="personal-account invisible" id="personal-account">
       <div class="personal-account-title">Личный кабинет</div>
       <div class="personal-account-wrap">
         <div class="personal-account-left">
@@ -697,24 +697,40 @@
 
         <div class="personal-account-divider"></div>
 
-        <div class="personal-account-right personal-account-content dates visible">
-          <h3>Добро пожаловать!</h3>
-          <p>Здесь будет информация о вашем аккаунте, резервации и доступ к админ-панели.</p>
-        </div>
+        <div class="personal-account-right">
+          <!-- Личные данные -->
+          <div class="personal-account-content dates visible">
+            <h3 class="personal-account-welcome">Добро пожаловать, <span class="user-name">Пользователь</span>!</h3>
+            <div class="account-info">
+              <p class="personal-account-data">Login: <span class="user-login"></span></p>
+              <p class="personal-account-data">Email: <span class="user-email"></span></p>
+              <p class="personal-account-data">Password: <span class="user-password"></span></p>
+              
+            </div>
+            <div class="personal-account-dates-buttons">
+              <button class="edit-account-btn">Изменить данные</button>
+              <button class="logout-account-btn">Выйти</button>
+            </div>
+          </div>
 
-        <div class="personal-account-right personal-account-content reservation invisible-account-button">
-          <h3>Резервация</h3>
-          <p>Здесь будет информация о вашем аккаунте, резервации и доступ к админ-панели.</p>
-        </div>
+          <!-- Резервация -->
+          <div class="personal-account-content reservation invisible">
+            <h3>Резервации</h3>
+            <p>Здесь будут ваши текущие и прошлые резервации. Пока этот раздел пуст.</p>
+          </div>
 
-        <div class="personal-account-right personal-account-content admin invisible-account-button">
-          <h3>Админская панель</h3>
-          <p>Здесь будет информация о вашем аккаунте, резервации и доступ к админ-панели.</p>
+          <!-- Админская панель -->
+          <div class="personal-account-content admin invisible">
+            <h3>Админская панель</h3>
+            <p>Доступ к административным функциям. Пока раздел недоступен.</p>
+          </div>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
+
+  <!-- ======================== RESERVATION ======================== -->
   <section id="reservation-section" class="reservation-section invisible">
     <div class="reservation-container">
       <h2 class="reservation-title" data-i18n="reservation.title">Table Reservation</h2>

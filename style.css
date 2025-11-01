@@ -1812,6 +1812,10 @@ header {
     padding-left: 0;
     padding-right: 0;
   }
+
+  .review-footer-card-inner {
+    margin-bottom: 45px;
+  }
 }
 
 
@@ -2078,7 +2082,7 @@ legend.login-form-legend {
   width: 60%;
 }
 
-/* ==================== Личный кабинет ==================== */
+/* ============================== Личный кабинет ========================== */
 
 .main-content-wrapper {
   display: flex;
@@ -2103,12 +2107,13 @@ legend.login-form-legend {
   backdrop-filter: blur(8px);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  margin-top: 0;
   will-change: auto;
   margin-top: 150px;
 }
 
-
+button {
+  font-family: "Montserrat Alternates", sans-serif;
+}
 
 /* Заголовок */
 .personal-account-title {
@@ -2159,24 +2164,88 @@ legend.login-form-legend {
 
 .personal-account-right {
   flex: 1;
-  padding: 20px;
-  overflow-y: auto;
+  overflow: hidden;
+  height: 100%;
+  display: flow;
+  text-align: justify;
+  background: rgba(255, 255, 255, 0.05); /* лёгкий фон для контента */
+  border-radius: 10px;
+  padding: 0 60px;
 }
 
-.personal-account-content h3 {
-  margin-bottom: 10px;
-  font-size: 20px;
+
+.personal-account-welcome {
+  margin-bottom: 20px;
+  font-size: 28px; /* Увеличенный шрифт */
   color: #2f4f2f;
+  text-align: center;
 }
 
-.personal-account-content p {
-  font-size: 16px;
-  color: #333;
+.account-info {
+  background: rgba(144, 238, 144, 0.15);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  height: 100%;
+  display: inline-block
 }
 
+.personal-account-data {
+  margin: 10px 0;
+  font-weight: 500;
+  font-size: 18px;
+  color: #333333;
+}
 
+.edit-account-btn,
+.logout-account-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #2e8b57;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
 
-/* ===== Footer ===== */
+.edit-account-btn:hover,
+.logout-account-btn:hover {
+  background: #246b44;
+}
+
+.personal-account-dates-buttons {
+  width: 100%;
+  height: fit-content;
+  justify-content: flex-start;
+  display: flex;
+  gap: 15px;
+}
+
+.user-login,
+.user-email {
+  display: inline-block;
+  background: rgba(46, 139, 87, 0.1);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #2e8b57;
+}
+
+.user-password--styled {
+  display: inline-block;
+  background: rgba(46, 139, 87, 0.1);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #2e8b57;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+/* ======================== Footer ======================== */
 .footer {
   background-color: #1a1a1a;
   color: #f0f0f0;
