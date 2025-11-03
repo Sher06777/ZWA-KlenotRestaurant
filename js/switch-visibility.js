@@ -13,7 +13,6 @@ const logo = document.querySelector('.logo');
 const loginButton = document.querySelector('.login-btn');
 const galleryBtn = document.querySelectorAll('.gallery-btn');
 const regestrationButton = document.querySelector('.form-regestration-div');
-const loginText = document.querySelector('.login-text');
 const reservationSection = document.getElementById('reservation-section');
 const reservationBtn = document.querySelectorAll('.reservation-btn');
 const menuBtn = document.querySelectorAll('.menu-btn');
@@ -30,6 +29,45 @@ if (!mainContent || !gallerySection || !formMain || !loginFormSection || !person
 window.onLoginOrRegister = function() {
   console.warn('onLoginOrRegister called but SPA not initialized yet.');
 };
+
+async function getTranslation(key) {
+  try {
+    const lang = (window.i18n && typeof window.i18n.getLang === 'function') ? window.i18n.getLang() : (localStorage.getItem('site_lang') || 'eng');
+    const dict = (window.i18n && window.i18n._loadDict) ? await window.i18n._loadDict(lang) : null;
+    if (!dict) return null;
+    const parts = key.split('.');
+    let cur = dict;
+    for (const p of parts) {
+      if (cur && Object.prototype.hasOwnProperty.call(cur, p)) cur = cur[p];
+      else { cur = undefined; break; }
+    }
+    return cur == null ? null : String(cur);
+  } catch (err) {
+    console.error('getTranslation error', err);
+    return null;
+  }
+}
+
+// ---- центральная функция для обновления надписи кнопки входа ----
+async function updateLoginLabel() {
+  const loginTextEl = document.querySelector('.login-btn .login-text'); 
+  if (!loginTextEl) {
+    return;
+  }
+
+  let key;
+  if (isLoggedIn()) {
+    key = 'main.menu-account-short';
+  } else {
+    key = 'main.menu-signin-button';
+  }
+
+  // обновляем и data-i18n, чтобы при смене языка подставлялся правильный текст
+  loginTextEl.setAttribute('data-i18n', key);
+
+  const txt = await getTranslation(key);
+  loginTextEl.textContent = txt;
+}
 
 // --------- Функции анимации ---------
 const fadeOut = (el, callback) => {
@@ -95,7 +133,7 @@ function set3DMenuInvisible(value) {
 }
 
 // --------- Инициализация SPA ---------
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const logoutButton = document.querySelector('.logout-account-btn');
   // Начальное состояние: главная страница
   fadeIn(mainContent);
@@ -117,13 +155,14 @@ document.addEventListener('DOMContentLoaded', () => {
     set3DMenuInvisible(true);
   });
 
-  loginButton?.addEventListener('click', e => {
+  loginButton?.addEventListener('click', async (e) => {
     e.preventDefault();
     if (isLoggedIn()) {
       showSection(personalAccount);
-      loginText.textContent = 'My Account';
+      await updateLoginLabel();
     } else {
       showSection(formMain);
+      await updateLoginLabel(); // на всякий случай — оставим, чтобы текст был корректным
     }
     set3DMenuInvisible(true);
   });
@@ -154,10 +193,10 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ---------- Вход / регистрация ----------
-  window.onLoginOrRegister = () => {
-    showSection(personalAccount);
-    loginText.textContent = 'My Account';
+  window.onLoginOrRegister = async () => {
     setLoggedIn(true);
+    await updateLoginLabel();
+    showSection(personalAccount);
     set3DMenuInvisible(true);
   };
 
@@ -166,48 +205,74 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Инициализация сохранения входа в акаунт
-  fetch('check_session.php', { credentials: 'include' })
-    .then(res => res.json())
-    .then(data => {
-      if (data.loggedIn && data.user) {
-        const user = {
-          name: data.user.name || '',
-          email: data.user.email || ''
-        };
-        requestAnimationFrame(() => initPersonalAccount(user));
-        requestAnimationFrame(() => window.onLoginOrRegister?.());
-      }
-    })
-    .catch(err => console.error('Ошибка при инициализации аккаунта:', err));
+  try {
+    const res = await fetch('check_session.php', { credentials: 'include' });
+    const data = await res.json();
 
+    if (data.loggedIn && data.user) {
+      const user = { name: data.user.name || '', email: data.user.email || '' };
+      requestAnimationFrame(() => initPersonalAccount(user));
+      setLoggedIn(true);
+
+      // Обновляем текст кнопки сразу
+      await updateLoginLabel();
+    }
+  } catch (err) {
+    console.error('[check_session] error', err);
+  }
 
     if (logoutButton) {
-      logoutButton.addEventListener('click', (e) => {
+      logoutButton.addEventListener('click', async (e) => {
         e.preventDefault();
-        fetch('logout.php', { method: 'POST', credentials: 'include' })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              console.log('✅ Пользователь вышел из аккаунта');
 
-              // Обновляем SPA-состояние
-              if (typeof window.setLoggedIn === 'function') {
-                window.setLoggedIn(false);
-              }
+        if (!confirm('Вы действительно хотите выйти из аккаунта?')) return;
 
-              // Обновляем текст кнопки
-              const loginText = document.querySelector('.login-text');
-              if (loginText) loginText.textContent = 'Sign in';
+        // обязательно: credentials чтобы передать cookie сессии
+        try {
+          const resp = await fetch('logout.php', {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-Token': window.csrfToken || '' //def CSRF (Cross-Site Request Forgery) - attack
+            },
+            body: JSON.stringify({ csrf_token: window.csrfToken || '' }) //def CSRF (Cross-Site Request Forgery) - attack
+          });
 
-              // Переход обратно на главную страницу
-              console.log('⬅ Возврат на главную страницу...');
-              showSection(mainContent); // здесь fadeIn(mainContent) точно сработает корректно
-              set3DMenuInvisible(true);
+          // если сервер вернул 403, покажем текст ответа для диагностики
+          if (!resp.ok) {
+            const text = await resp.text();
+            console.error('Logout failed, status', resp.status, text);
+            alert('Ошибка при выходе: сервер вернул ' + resp.status);
+            return;
+          }
+
+          const data = await resp.json();
+
+          if (data.success) {
+            console.log('✅ Пользователь вышел из аккаунта');
+
+            try { localStorage.clear(); sessionStorage.clear(); } catch (e) { console.warn(e); }
+            if (typeof window.setLoggedIn === 'function') window.setLoggedIn(false);
+            const loginText = document.querySelector('.login-text');
+            if (loginText) {
+              await updateLoginLabel();
             }
-          })
-          .catch(err => console.error('Ошибка при выходе из аккаунта:', err));
+
+            window.location.reload();
+          } else {
+            alert('Ошибка при выходе: ' + (data.error || data.message || 'Попробуйте снова.'));
+          }
+        } catch (err) {
+          console.error('Ошибка при выходе из аккаунта:', err);
+          alert('Ошибка соединения при выходе.');
+        }
       });
     }
+});
+
+document.addEventListener('i18n:changed', async (ev) => {
+  await updateLoginLabel();
 });
 
 // --------- Вспомогательные функции ---------
