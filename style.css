@@ -214,6 +214,8 @@ header {
 }
 /* Эффект блюра для хэдера */
 
+
+
 @media (max-width: 768px) {
   #dropped-menu {
     height: 90px;                  /* уменьшаем высоту */
@@ -251,7 +253,7 @@ header {
 .menu-left {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   padding-left: 20px; /* отступ от края экрана; меняй по вкусу */
   box-sizing: border-box;
   min-width: 160px;
@@ -299,44 +301,6 @@ header {
   list-style: none;
 }
 
-@media (max-width: 1024px) {
-  .menu-left .logo img {
-    width: 90px;
-    height: auto;
-  }
-
-  .menu-right .login-btn {
-    padding: 0;
-  }
-
-  .menu-center {
-    display: none; /* скрываем основной nav */
-  }
-
-  .menu-mobile-toggle {
-    display: flex;
-    z-index: 100000; /* выше overlay */
-  }
-}
-
-/* Адаптация: на узких экранах центр уступает, элементы растягиваются */
-@media (max-width: 1024px) {
-  #dropped-menu .menu-dropdown.layout-left-logo {
-    padding: 0 20px;
-  }
-  .menu-left, .menu-right {
-    min-width: 120px;
-    padding: 0;
-  }
-  .main-menu {
-    gap: 18px;
-  }
-
-  .menu-left {
-    justify-content: center;
-    padding: 0;
-  }
-}
 
 .menu-mobile-toggle {
   display: none;                /* показываем через медиа-запрос */
@@ -741,6 +705,122 @@ header {
   }
   .menu-mobile-toggle {
     display: flex;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1499px) {
+  #dropped-menu {
+    height: 96px;                /* чуть ниже, чем на крупных экранах */
+    padding: 0 18px;
+    background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 85%),
+      rgb(255 255 255 / 0%)
+    );
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+  }
+
+  /* уменьшение логотипа, чтобы освободить место для меню */
+  .logo-wrap img {
+    width: 100px;
+    height: auto;
+  }
+
+  /* сужаем минимальную ширину блоков слева/справа */
+  .menu-left, .menu-right {
+    min-width: 96px;
+    padding: 0 6px;
+  }
+
+  /* делаем центральное меню компактнее */
+  .menu-center {
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
+    margin: 0 8px;
+  }
+
+  /* общий gap между пунктами меньше */
+  .main-menu {
+    gap: 18px;           /* меньше чем на больших экранах */
+  }
+
+  /* общая кнопка меню — чуть компактнее */
+  .main-menu-button {
+    padding: 10px 12px;
+    font-size: 0.98rem;
+  }
+
+  /* Специально: сводим Gallery и Reservation вместе */
+  /* убираем большой gap между ними и делаем их сгруппированными */
+  .gallery-btn, .reservation-btn {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* сокращаем расстояние именно между этими двумя элементами.
+     это делается через отрицательный margin-right у Gallery или margin-left у Reservation. */
+  .gallery-btn {
+    margin-right: 2px;    /* почти прилегают к следующему элементу */
+  }
+  .reservation-btn {
+    margin-left: 2px;
+  }
+
+  /* (Альтернатива) если ты используешь порядок <... gallery ... reservation ...>
+     и хочешь их визуально группировать — можно дать им тонкую рамку общего контейнера */
+  .main-menu .grouped {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  /* делаем кнопку входа компактнее */
+  .login-btn { padding: 8px 16px; font-size: 16px; }
+
+  /* подстраиваем мобильный toggle — показываем его (если хочешь мобильный overlay на этих ширинах) */
+  .menu-mobile-toggle {
+    display: none; /* оставляем скрытым по умолчанию; включи ниже если хочешь overlay также для 1024-1499 */
+  }
+}
+
+@media (max-width: 1024px) {
+  .menu-left .logo img {
+    width: 90px;
+    height: auto;
+  }
+
+  .menu-right .login-btn {
+    padding: 0;
+  }
+
+  .menu-center {
+    display: none; /* скрываем основной nav */
+  }
+
+  .menu-mobile-toggle {
+    display: flex;
+    z-index: 100000; /* выше overlay */
+  }
+}
+
+@media (max-width: 1024px) {
+  #dropped-menu .menu-dropdown.layout-left-logo {
+    padding: 0 20px;
+  }
+  .menu-left, .menu-right {
+    min-width: 120px;
+    padding: 0;
+  }
+  .main-menu {
+    gap: 18px;
+  }
+
+  .menu-left {
+    justify-content: center;
+    padding: 0;
   }
 }
 
@@ -2245,6 +2325,46 @@ button {
   margin-right: 10px;
 }
 
+.reservation-info-text {
+  margin-bottom: 15px;
+  font-size: 17px;
+  color: #2e8b57;
+  font-weight: 500;
+}
+
+.reservation-list {
+  border: 1px solid #2e8b57;
+  border-radius: 8px;
+  background: rgba(46, 139, 87, 0.05);
+  padding: 15px;
+}
+
+.reservation-item {
+  border-bottom: 1px solid rgba(46, 139, 87, 0.2);
+  padding: 8px 0;
+}
+
+.reservation-item:last-child {
+  border-bottom: none;
+}
+
+.reservation-item h4 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: #2e8b57;
+}
+
+.reservation-item p {
+  margin: 0;
+  color: #333;
+}
+
+.empty-reservations {
+  color: #666;
+  font-style: italic;
+}
+
+
 /* ======================== Footer ======================== */
 .footer {
   background-color: #1a1a1a;
@@ -3583,4 +3703,17 @@ button {
   .body-history-img {
   display: none;
 }
+}
+
+.cancel-reservation-btn {
+  background-color: #2e8b57; /* насыщенный зелёный */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }

@@ -1,26 +1,19 @@
 <?php
-session_start();
-require 'db.php'; // подключение к БД
-header('Content-Type: application/json; charset=utf-8');
+include 'auth.php';
 
-$data = json_decode(file_get_contents("php://input"), true);
-$login = trim($data['login'] ?? '');
-$email = trim($data['email'] ?? '');
-$userId = $_SESSION['user_id'] ?? null;
-$newPassword = trim($data['password'] ?? '');
+$login = trim($_POST['login'] ?? '');
+$email = trim($_POST['email'] ?? '');
+$newPassword = trim($_POST['password'] ?? '');
+$user_id = $currentUserId;
 
-if (!$userId) {
-    echo json_encode(['success' => false, 'message' => 'Пользователь не авторизован']);
-    exit;
-}
 
 if ($newPassword) {
     $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
     $stmt = $conn->prepare("UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?");
-    $stmt->bind_param("sssi", $login, $email, $passwordHash, $userId);
+    $stmt->bind_param("sssi", $login, $email, $passwordHash, $currentUserId);
 } else {
     $stmt = $conn->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
-    $stmt->bind_param("ssi", $login, $email, $userId);
+    $stmt->bind_param("ssi", $login, $email, $currentUserId);
 }
 
 if (!$stmt) {

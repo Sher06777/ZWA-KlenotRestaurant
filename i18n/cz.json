@@ -12,7 +12,8 @@
         "menu-gallery-btn": "Galerie",
         "menu-reservation-btn": "Rezervace",
         "menu-language-button": "Jazyk",
-        "menu-signin-button": "Přihlásit se"
+        "menu-signin-button": "Přihlásit se",
+        "menu-account-short": "Účet"
     },
 
     "body-second": {

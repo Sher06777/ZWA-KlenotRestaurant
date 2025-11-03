@@ -11,6 +11,20 @@ const personalAccountButtons = {
   admin: personalAccountSection.querySelector('.personal-account-admin-panel')
 };
 
+let csrfToken = ''; //def CSRF (Cross-Site Request Forgery) - attack
+
+
+// Получаем токен с сервера
+fetch('get_csrf_token.php', { credentials: 'include' })
+  .then(res => res.json())
+  .then(data => {
+    csrfToken = data.csrf_token; //def CSRF (Cross-Site Request Forgery) - attack
+    console.log('✅ CSRF Token получен:', csrfToken);
+  })
+  .catch(err => {
+    console.error('Не удалось получить CSRF токен:', err);
+  });
+
 const logoutButton = datesContent.querySelector('.logout-account-btn');
 
 // --- Функция для показа только одного блока ---
@@ -44,17 +58,17 @@ function initPersonalAccount(user) {
 
   // Подставляем имя пользователя
   const userNameSpan = datesContent.querySelector('.user-name');
-  if (userNameSpan) userNameSpan.textContent = user.name;
+  if (userNameSpan) userNameSpan.textContent = user.name; //def XSS - attack
 
   // Подставляем login и email
   const loginSpan = datesContent.querySelector('.user-login');
   const emailSpan = datesContent.querySelector('.user-email');
   const passwordSpan = datesContent.querySelector('.user-password');
 
-  if (loginSpan) loginSpan.textContent = user.name;
-  if (emailSpan) emailSpan.textContent = user.email;
+  if (loginSpan) loginSpan.textContent = user.name; //def XSS - attack
+  if (emailSpan) emailSpan.textContent = user.email; //def XSS - attack
   if (passwordSpan) {
-    passwordSpan.textContent = maskPassword();
+    passwordSpan.textContent = maskPassword(); //def XSS - attack
     passwordSpan.classList.add('user-password--styled');
   }
 
@@ -63,7 +77,10 @@ function initPersonalAccount(user) {
 
   // --- Кнопки для переключения между блоками ---
   personalAccountButtons.dates.onclick = () => showAccountBlock(datesContent);
-  personalAccountButtons.reservation.onclick = () => showAccountBlock(reservationContent);
+  personalAccountButtons.reservation.onclick = () => {
+    showAccountBlock(reservationContent);
+    loadUserReservations(user.id);
+  };
   personalAccountButtons.admin.onclick = () => showAccountBlock(adminContent);
 }
 
@@ -76,8 +93,8 @@ if (editButton) {
     const userEmailEl = datesContent.querySelector('.user-email');
     const userPasswordEl = datesContent.querySelector('.user-password');
 
-    const loginValue = userLoginEl.textContent.trim();
-    const emailValue = userEmailEl.textContent.trim();
+    const loginValue = userLoginEl.textContent.trim(); //def XSS - attack
+    const emailValue = userEmailEl.textContent.trim(); //def XSS - attack
 
     // Создаём input для редактирования
     function createInput(type, value, placeholder = '') {
@@ -109,10 +126,12 @@ if (editButton) {
 
     // Создаём кнопки Сохранить и Отмена
     const saveBtn = document.createElement('button');
+    saveBtn.type = 'button';
     saveBtn.textContent = '💾 Сохранить';
     saveBtn.classList.add('edit-account-btn');
 
     const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
     cancelBtn.textContent = '❌ Отмена';
     cancelBtn.classList.add('logout-account-btn');
 
@@ -123,15 +142,21 @@ if (editButton) {
 
     // --- Сохранение ---
     saveBtn.addEventListener('click', () => {
+      
       const newLogin = loginInput.value.trim();
       const newEmail = emailInput.value.trim();
       const newPassword = passwordInput.value.trim();
+      console.log('CSRF Token being sent:', csrfToken);
+      const formData = new FormData();
+      formData.append('login', newLogin);
+      formData.append('email', newEmail);
+      formData.append('password', newPassword);
+      formData.append('csrf_token', csrfToken);
 
       fetch('update_user.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ login: newLogin, email: newEmail, password: newPassword })
+        body: formData
       })
         .then(res => res.json())
         .then(data => {
@@ -139,21 +164,21 @@ if (editButton) {
             // Обновляем отображение
             const newLoginSpan = document.createElement('span');
             newLoginSpan.className = 'user-login';
-            newLoginSpan.textContent = newLogin;
+            newLoginSpan.textContent = newLogin; //def XSS - attack
 
             const newEmailSpan = document.createElement('span');
             newEmailSpan.className = 'user-email';
-            newEmailSpan.textContent = newEmail;
+            newEmailSpan.textContent = newEmail; //def XSS - attack
 
             const newPasswordSpan = document.createElement('span');
             newPasswordSpan.className = 'user-password user-password--styled';
-            newPasswordSpan.textContent = maskPassword(); // всегда 8 точек
+            newPasswordSpan.textContent = maskPassword(); // всегда 8 точек //def XSS - attack
 
             loginInput.replaceWith(newLoginSpan);
             emailInput.replaceWith(newEmailSpan);
             passwordInput.replaceWith(newPasswordSpan);
 
-            userNameEl.textContent = newLogin;
+            userNameEl.textContent = newLogin; //def XSS - attack
 
             saveBtn.remove();
             cancelBtn.remove();
@@ -173,15 +198,15 @@ if (editButton) {
     cancelBtn.addEventListener('click', () => {
       const oldLoginSpan = document.createElement('span');
       oldLoginSpan.className = 'user-login';
-      oldLoginSpan.textContent = loginValue;
+      oldLoginSpan.textContent = loginValue; //def XSS - attack
 
       const oldEmailSpan = document.createElement('span');
       oldEmailSpan.className = 'user-email';
-      oldEmailSpan.textContent = emailValue;
+      oldEmailSpan.textContent = emailValue; //def XSS - attack
 
       const oldPasswordSpan = document.createElement('span');
       oldPasswordSpan.className = 'user-password user-password--styled';
-      oldPasswordSpan.textContent = maskPassword(); // всегда 8 точек
+      oldPasswordSpan.textContent = maskPassword(); // всегда 8 точек //def XSS - attack
 
       loginInput.replaceWith(oldLoginSpan);
       emailInput.replaceWith(oldEmailSpan);
@@ -192,4 +217,85 @@ if (editButton) {
       editButton.style.display = 'inline-block';
     });
   });
+}
+
+function loadUserReservations(userId) {
+  const container = document.getElementById('user-reservations');
+  if (!container) return;
+  container.innerHTML = '<p>Загружаем ваши резервации...</p>';
+
+  fetch('get_user_reservations.php', {
+  method: 'GET',
+  credentials: 'include' // <- обязательно
+  })
+    .then(res => res.json())
+    .then(data => {
+      container.innerHTML = ''; // очищаем
+
+      if (!data.success || !data.reservations.length) {
+        container.innerHTML = '<p class="empty-reservations">Пока у вас нет активных резерваций.</p>';
+        return;
+      }
+
+      data.reservations.forEach(r => {
+        const item = document.createElement('div');
+        item.className = 'reservation-item';
+        item.innerHTML = `
+          <h4>${r.date} в ${r.time}</h4>
+          <p><strong>Имя:</strong> ${r.name}</p>
+          <p><strong>Телефон:</strong> ${r.phone}</p>
+          <p><strong>Email:</strong> ${r.email}</p>
+          <p><strong>Гостей:</strong> ${r.people}</p>
+          ${r.message ? `<p><strong>Комментарий:</strong> ${r.message}</p>` : ''}
+        `;
+
+        const cancelBtn = document.createElement('button');
+        cancelBtn.type = 'button';
+        cancelBtn.className = 'cancel-reservation-btn';
+        cancelBtn.dataset.id = r.id;
+        cancelBtn.textContent = '❌ Отменить';
+
+        item.appendChild(cancelBtn);
+        container.appendChild(item);
+
+        
+      });
+
+      // --- Добавляем обработчики на кнопки "Отменить" ---
+      container.querySelectorAll('.cancel-reservation-btn').forEach(btn => {
+        btn.addEventListener('click', () => cancelReservation(btn.dataset.id, userId));
+      });
+    })
+    .catch(err => {
+      console.error(err);
+      container.innerHTML = '<p class="empty-reservations">Ошибка при загрузке резерваций.</p>';
+    });
+}
+
+function cancelReservation(reservationId, userId) {
+  if (!confirm('Вы уверены, что хотите отменить эту резервацию?')) return;
+
+  // обязательно отправляем куки сессии и csrf токен
+  fetch('cancel_reservation.php', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken // auth.php ищет этот заголовок //def CSRF (Cross-Site Request Forgery) - attack
+    },
+    body: JSON.stringify({ id: reservationId, csrf_token: csrfToken }) //def CSRF (Cross-Site Request Forgery) - attack
+  })
+    .then(res => res.json().catch(() => ({ success: false, error: 'invalid json' })))
+    .then(data => {
+      console.log('cancel_reservation response', data);
+      if (data.success) {
+        loadUserReservations(userId);
+      } else {
+        alert('Ошибка при отмене резервации: ' + (data.error || data.message || 'Неизвестная ошибка'));
+      }
+    })
+    .catch(err => {
+      console.error('Ошибка при запросе cancel_reservation:', err);
+      alert('Ошибка соединения с сервером.');
+    });
 }
