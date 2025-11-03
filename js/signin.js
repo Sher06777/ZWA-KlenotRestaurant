@@ -2,6 +2,14 @@ const signinForm = document.querySelector('#signin-form');
 const signinButton = document.querySelector('.form-submit-button--signin');
 let signingIn = false;
 
+try {
+  localStorage.clear();
+  sessionStorage.clear();
+  console.log("🧹 LocalStorage и SessionStorage очищены");
+} catch (e) {
+  console.warn("Не удалось очистить localStorage:", e);
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     // Проверяем активную сессию
@@ -10,7 +18,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (data.loggedIn) {
       console.log('✅ Пользователь уже вошёл:', data.user.name);
-      // Отрисовываем его данные
+      window.user = data.user;
       initPersonalAccount(data.user);
       // Обновляем SPA
       if (typeof window.onLoginOrRegister === 'function') {
@@ -43,20 +51,22 @@ signinButton.addEventListener('click', async (e) => {
     const result = await response.json();
 
     if (result.success) {
-      const user = {
+      // Сохраняем глобально
+      window.user = {
+        id: result.user_id,
         name: result.user_name,
         email: result.user_email,
         password_mask: result.password_mask
       };
 
       // Инициализируем личный кабинет с данными
-      initPersonalAccount(user);
+      initPersonalAccount(window.user);
 
       // Уведомляем SPA, что пользователь вошёл
-        requestAnimationFrame(() => {
-          if (typeof window.onLoginOrRegister === 'function') {
-            window.onLoginOrRegister();
-          }
+      requestAnimationFrame(() => {
+        if (typeof window.onLoginOrRegister === 'function') {
+          window.onLoginOrRegister();
+        }
       });
     } else {
       alert(result.message);

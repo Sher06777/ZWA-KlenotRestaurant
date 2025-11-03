@@ -715,8 +715,13 @@
 
           <!-- Резервация -->
           <div class="personal-account-content reservation invisible">
-            <h3>Резервации</h3>
-            <p>Здесь будут ваши текущие и прошлые резервации. Пока этот раздел пуст.</p>
+            <h3>Ваши резервации</h3>
+            <p class="reservation-info-text">
+              Здесь вы можете просмотреть ваши текущие и прошедшие резервации.
+            </p>
+            <div id="user-reservations" class="reservation-list">
+              <p class="empty-reservations">Пока у вас нет активных резерваций.</p>
+            </div>
           </div>
 
           <!-- Админская панель -->
@@ -783,7 +788,7 @@
         <div class="reservation-message" id="reservation-message"></div>
         <div class="reservation-submit-wrap">
           <button class="reservation-submit-btn"
-            type="submit" data-i18n="reservation.reservation">Reserve</button>
+            type="submit" data-i18n="reservation.reservation" name="action">Reserve</button>
         </div>
       </form>
     </div>
@@ -893,6 +898,7 @@
     </div>
   </footer>
 
+  <script src="js/main.js"></script>
   <script src="js/switch-language.js"></script>
   <script src="js/language-dropdown.js"></script>
   <script src="js/animations.js"></script>

@@ -1,6 +1,6 @@
 <?php
 
-// Параметры подключения — проверь их в панели хостинга или Adminer
+//def CSRF (Cross-Site Request Forgery) - attack
 $host   = 'localhost';
 $dbname = 'achilkem';
 $user   = 'achilkem';
@@ -20,4 +20,14 @@ try {
     http_response_code(500);
     echo 'DB connection failed.';
     exit;
+}
+
+function get_csrf_token() {
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+function verify_csrf_token($token) {
+    return !empty($token) && hash_equals($_SESSION['csrf_token'] ?? '', $token);
 }
