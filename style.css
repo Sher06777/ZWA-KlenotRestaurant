@@ -214,10 +214,11 @@ header {
 }
 /* Эффект блюра для хэдера */
 
+
+
 @media (max-width: 768px) {
   #dropped-menu {
     height: 90px;                  /* уменьшаем высоту */
-    font-size: 16px;                /* чуть меньше шрифт */
     padding: 0 10px;                /* небольшой горизонтальный padding */
   }
 }
@@ -225,8 +226,7 @@ header {
 /* Очень маленькие экраны — телефоны с узкой шириной */
 @media (max-width: 480px) {
   #dropped-menu {
-    height: 70px;                  /* ещё ниже, чтобы не занимать слишком много места */
-    font-size: 14px;               /* уменьшаем шрифт для читаемости */
+    height: 90px;                  /* ещё ниже, чтобы не занимать слишком много места */
     padding: 0 8px;                /* минимальные отступы */
   }
 }
@@ -253,7 +253,7 @@ header {
 .menu-left {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   padding-left: 20px; /* отступ от края экрана; меняй по вкусу */
   box-sizing: border-box;
   min-width: 160px;
@@ -269,15 +269,6 @@ header {
   /* padding: 0 150px;   */
   box-sizing: border-box;
 }
-
-@media (max-width: 1024px) {
-  .menu-left, .menu-right {
-    transform: none;
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-}
-
 /* Правый блок: кнопка входа */
 .menu-right {
   display: flex;
@@ -310,47 +301,18 @@ header {
   list-style: none;
 }
 
-@media (max-width: 1024px) {
-  .menu-left .logo img {
-    width: 90px;
-    height: auto;
-  }
-
-  .menu-right .login-btn {
-    padding: 8px 12px;
-    font-size: 14px;
-  }
-
-  .menu-center {
-    display: none; /* скрываем основной nav */
-  }
-
-  .menu-mobile-toggle {
-    display: flex;
-    z-index: 100000; /* выше overlay */
-  }
-}
-
-/* Адаптация: на узких экранах центр уступает, элементы растягиваются */
-@media (max-width: 1024px) {
-  #dropped-menu .menu-dropdown.layout-left-logo {
-    padding: 0 20px;
-  }
-  .menu-left, .menu-right {
-    min-width: 120px;
-  }
-  .main-menu {
-    gap: 18px;
-  }
-}
 
 .menu-mobile-toggle {
-  display: none;
+  display: none;                /* показываем через медиа-запрос */
   flex-direction: column;
   justify-content: space-between;
-  width: 25px;
+  width: 28px;
   height: 20px;
+  padding: 0;
+  background: transparent;
+  border: 0;
   cursor: pointer;
+  z-index: 100000;
 }
 
 .menu-mobile-toggle span {
@@ -358,7 +320,13 @@ header {
   height: 3px;
   background: #0e0e0e;
   border-radius: 2px;
+  transition: transform .25s ease, opacity .2s ease;
 }
+
+.menu-mobile-toggle.open span:nth-child(1){ transform: translateY(8.5px) rotate(45deg); }
+.menu-mobile-toggle.open span:nth-child(2){ opacity: 0; transform: scaleX(0); }
+.menu-mobile-toggle.open span:nth-child(3){ transform: translateY(-8.5px) rotate(-45deg); }
+
 
 @media (max-width: 1024px) {
   .menu-center {
@@ -437,20 +405,6 @@ header {
   display: block;
   width: 120px;
   height: auto;
-}
-
-@media (max-width: 1024px) {
-  #dropped-menu .menu-dropdown.layout-left-logo {
-    padding: 0 20px;
-  }
-  .menu-left, .menu-right {
-    min-width: 120px;
-    padding-left: 8px;
-    padding-right: 8px;
-  }
-  .menu-center .main-menu {
-    gap: 18px;
-  }
 }
 
 .main-menu .logo img,
@@ -621,59 +575,80 @@ header {
 
 .mobile-menu-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #87ceeb; /* голубой фон */
-  display: none; /* по умолчанию скрыто */
+  background-color: #87ceeb; /* можно заменить на твой градиент */
+  display: none; 
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 99999;
+  padding: 40px 20px;
+  box-sizing: border-box;
 }
 
 .mobile-menu-overlay.active {
   display: flex;
+  animation: overlayFade .18s ease-out;
+}
+
+@keyframes overlayFade {
+  from { opacity: 0; transform: scale(.995); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 .mobile-menu-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 3rem;
+  top: 18px;
+  right: 18px;
+  font-size: 2.4rem;
   background: none;
   border: none;
   color: #000;
   cursor: pointer;
+  line-height: 1;
 }
 
 .mobile-menu-list {
   list-style: none;
   text-align: center;
   padding: 0;
-  margin: 0;
+  margin: 0 0 24px 0;
 }
 
 .mobile-menu-list li {
-  margin: 20px 0;
-}
-
-.mobile-menu-list a {
-  text-decoration: none;
+  margin: 18px 0;
   font-size: 2.2rem;
-  font-weight: bold;
+  font-weight: 700;
   color: #0e0e0e;
+  cursor: pointer;
 }
 
-.mobile-menu-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 2.5rem;
-  background: none;
-  border: none;
+.mobile-language { display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:28px; }
+.mobile-language span { font-weight:700; color:#000; }
+.mobile-language-options { display:flex; gap:12px; }
+.mobile-language-options .lang-btn {
+  padding: 8px 14px;
+  font-weight:700;
+  border-radius: 999px;
+  border: 2px solid rgba(0,0,0,.12);
+  background: transparent;
   cursor: pointer;
+}
+
+@media (max-width: 1024px) {
+  .menu-mobile-toggle { display: flex; }
+  .menu-center { display: none; } /* если у тебя есть desktop nav */
+}
+
+.mobile-menu-overlay .mobile-menu-list,
+.mobile-menu-overlay .mobile-language { max-width: 94vw; }
+
+/* reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .menu-mobile-toggle span { transition: none; }
+  .mobile-menu-overlay { animation: none; }
 }
 
 .mobile-language {
@@ -730,6 +705,122 @@ header {
   }
   .menu-mobile-toggle {
     display: flex;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1499px) {
+  #dropped-menu {
+    height: 96px;                /* чуть ниже, чем на крупных экранах */
+    padding: 0 18px;
+    background: linear-gradient(
+      to bottom,
+      rgb(255 255 255 / 85%),
+      rgb(255 255 255 / 0%)
+    );
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+  }
+
+  /* уменьшение логотипа, чтобы освободить место для меню */
+  .logo-wrap img {
+    width: 100px;
+    height: auto;
+  }
+
+  /* сужаем минимальную ширину блоков слева/справа */
+  .menu-left, .menu-right {
+    min-width: 96px;
+    padding: 0 6px;
+  }
+
+  /* делаем центральное меню компактнее */
+  .menu-center {
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
+    margin: 0 8px;
+  }
+
+  /* общий gap между пунктами меньше */
+  .main-menu {
+    gap: 18px;           /* меньше чем на больших экранах */
+  }
+
+  /* общая кнопка меню — чуть компактнее */
+  .main-menu-button {
+    padding: 10px 12px;
+    font-size: 0.98rem;
+  }
+
+  /* Специально: сводим Gallery и Reservation вместе */
+  /* убираем большой gap между ними и делаем их сгруппированными */
+  .gallery-btn, .reservation-btn {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  /* сокращаем расстояние именно между этими двумя элементами.
+     это делается через отрицательный margin-right у Gallery или margin-left у Reservation. */
+  .gallery-btn {
+    margin-right: 2px;    /* почти прилегают к следующему элементу */
+  }
+  .reservation-btn {
+    margin-left: 2px;
+  }
+
+  /* (Альтернатива) если ты используешь порядок <... gallery ... reservation ...>
+     и хочешь их визуально группировать — можно дать им тонкую рамку общего контейнера */
+  .main-menu .grouped {
+    display: inline-flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  /* делаем кнопку входа компактнее */
+  .login-btn { padding: 8px 16px; font-size: 16px; }
+
+  /* подстраиваем мобильный toggle — показываем его (если хочешь мобильный overlay на этих ширинах) */
+  .menu-mobile-toggle {
+    display: none; /* оставляем скрытым по умолчанию; включи ниже если хочешь overlay также для 1024-1499 */
+  }
+}
+
+@media (max-width: 1024px) {
+  .menu-left .logo img {
+    width: 90px;
+    height: auto;
+  }
+
+  .menu-right .login-btn {
+    padding: 0;
+  }
+
+  .menu-center {
+    display: none; /* скрываем основной nav */
+  }
+
+  .menu-mobile-toggle {
+    display: flex;
+    z-index: 100000; /* выше overlay */
+  }
+}
+
+@media (max-width: 1024px) {
+  #dropped-menu .menu-dropdown.layout-left-logo {
+    padding: 0 20px;
+  }
+  .menu-left, .menu-right {
+    min-width: 120px;
+    padding: 0;
+  }
+  .main-menu {
+    gap: 18px;
+  }
+
+  .menu-left {
+    justify-content: center;
+    padding: 0;
   }
 }
 
@@ -1181,7 +1272,7 @@ header {
   position: relative;
 }
 
-.container {
+.reviews-container {
   margin: 0 auto;
   height: 100%;
   display: flex;
@@ -1264,7 +1355,7 @@ header {
   margin: 0 0 12px 0;
   color: #123;
   line-height: 1.45;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .author {
@@ -1279,7 +1370,7 @@ header {
 .r1 { grid-column: 1; grid-row: 1 / span 5; }
 .r4 { grid-column: 1; grid-row: 11 / 6; }
 .r6 { grid-column: 1; grid-row: 11 / span 6; }
-.r11 { grid-column: 1; grid-row: 17 / span 6; }
+.r11 { grid-column: 1; grid-row: 17 / span 5; }
 
 /* Column 2 placements */
 .r2 { grid-column: 2; grid-row: 1 / 5; }
@@ -1346,7 +1437,6 @@ header {
 
 
 .reviews-columns .text {
-  font-size: clamp(16px, 1.8vw, 18px); /* чуть крупнее */
   line-height: 1.6;
   color: #0b2340;
   text-align: justify;
@@ -1354,7 +1444,7 @@ header {
 
 /* Хедер карточки: аватар + имя + рейтинг */
 .card-header {
-  display: flex;
+  display: -webkit-inline-box;
   gap: 12px;
   align-items: center;
   margin-bottom: 10px;
@@ -1378,6 +1468,7 @@ header {
   height: 100%;
   object-fit: cover;            /* растягиваем картинку */
   object-position: center;      /* центрируем */
+  will-change: transform;
 }
 
 /* Имя автора и мета (город/роль) */
@@ -1387,12 +1478,9 @@ header {
 
 /* Рейтинг — 10 маленьких звёзд */
 .rating {
-  margin-left: auto; /* выталкиваем рейтинг вправо */
-  display: inline-flex;
-  gap: 2px;
+  display: flex;
   align-items: center;
-  font-size: 12px;
-  line-height: 1;
+  max-width: 100%;
 }
 
 /* звезда — базовый вид */
@@ -1410,13 +1498,6 @@ header {
 /* подсвеченные звезды */
 .star.filled { color: #ffbf00; text-shadow: 0 1px 0 rgba(0,0,0,0.12); }
 
-/* немного увеличим паддинг карточки и сделаем визуально аккуратно */
-.card { padding: 20px; border-radius: 12px; }
-
-/* на hover — лёгкое поднятие */
-.card:hover { transform: translateY(-6px); transition: transform .28s ease; }
-
-
 .scroll-indicator.scroll-up {
   bottom: auto;
   top: 110px;
@@ -1427,7 +1508,6 @@ header {
 /* Мобильное упрощение (чтобы хедер не выглядел тяжело) */
 @media (max-width: 560px) {
   .avatar { width:40px; height:40px; font-size:14px; }
-  .rating { font-size: 11px; gap: 1px; }
   .reviews-columns .text { font-size: 15px; }
 }
 
@@ -1461,13 +1541,7 @@ header {
 .scroll-indicator .chev { display:block; color:#0b2340; font-size:20px; line-height:1; opacity:0.9; }
 .scroll-indicator .chev-2 { margin-top: -6px; opacity:0.6; transform: scale(.95); }
 
-/* небольшая анимация "подпрыгивания" стрелки */
-@keyframes bounceDown {
-  0% { transform: translateY(0); opacity: 1; }
-  50% { transform: translateY(1px); opacity: .9; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-.scroll-indicator { animation: bounceDown 1.6s ease-in-out infinite; }
+
 
 @media (min-width: 741px) and (max-width: 1000px) {
   .scroll-indicator {
@@ -1523,7 +1597,7 @@ header {
   background: transparent;    /* убирает белый фон */
   box-shadow: 0 6px 20px rgba(0,0,0,0.06); /* можно смягчить тень, или поставить none */
   border: 0;                              /* убрать рамку, если не нужна */
-  padding: 26px;                          /* немного больше паддинга для футера */
+  padding: 20px;                          /* немного больше паддинга для футера */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1612,7 +1686,7 @@ header {
     padding-right: 20px;
   }
 
-  .container {
+  .reviews-container {
     padding-left: 20px;
     padding-right: 20px;
   }
@@ -1661,7 +1735,6 @@ header {
 
   .author-name { font-size: 14px; }
   .meta { font-size: 11px; opacity: 0.85; }
-  .rating { font-size: 11px; gap: 1px; }
 
   /* футер */
   .footer-card {
@@ -1677,7 +1750,7 @@ header {
 /* ещё для очень маленьких экранов */
 @media (max-width: 480px) {
   .section-title { font-size: 2rem; }
-  .gradient-run { font-size: 1.6rem; }
+  .gradient-run { font-size: 1.6rem; padding: 25px;}
   .reviews-columns .text { font-size: 14px; }
   .avatar { width: 32px; height: 32px; font-size: 12px; }
   .author-name { font-size: 13px; }
@@ -1704,6 +1777,127 @@ header {
     width: 100%;
   }
 }
+
+@media (max-width: 1500px) and (min-width: 1301px) {
+  .columns-grid {
+    grid-template-columns: 300px 380px 1fr; /* три равные колонки */
+    gap: 18px;
+  }
+
+
+}
+
+@media (max-width: 1300px) and (min-width: 1110px) {
+  .columns-grid {
+    grid-template-columns: 300px 380px 1fr; /* три равные колонки */
+    gap: 18px;
+  }
+
+  .rating {
+    display: grid;
+    grid-template-columns: repeat(5, auto); /* 5 звёзд в первом ряду */
+    grid-auto-rows: auto;
+    gap: 2px;
+    justify-content: flex-start; /* выравниваем влево */
+  }
+
+  /* текст пусть немного адаптируется */
+  .reviews-columns .text {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* для безопасности — если длинный текст, разрешаем перенос */
+  .card .text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .author-name {
+    font-size: 14px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .footer-card {
+    padding: 0;
+  }
+}
+
+@media (max-width: 1110px) {
+
+  .card {
+    padding: 10px;
+  }
+
+  .footer-card {
+    padding: 0;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .rating {
+    display: grid;
+    grid-template-columns: repeat(5, auto); /* 5 звёзд в первом ряду */
+    grid-auto-rows: auto;
+    gap: 2px;
+    justify-content: flex-start; /* выравниваем влево */
+  }
+}
+
+@media (max-width: 1300px) {
+
+  .reviews-container {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+@media (max-width: 1160px) {
+  .reviews-container {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+@media (max-width: 1110px) and (min-width: 1001px){
+  .columns-grid {
+    grid-template-columns: 230px 300px 1fr; /* три равные колонки */
+    gap: 18px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .text {
+    font-size: 14px;
+  }
+
+  .rating {
+    display: grid;
+    grid-template-columns: repeat(5, auto); /* 5 звёзд в первом ряду */
+    grid-auto-rows: auto;
+    gap: 2px;
+    justify-content: flex-start; /* выравниваем влево */
+  }
+}
+
+@media (max-width: 740px) {
+  .reviews-container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .review-footer-card-inner {
+    margin-bottom: 45px;
+  }
+}
+
 
 /* ====================== Form ======================= */
 
@@ -1968,7 +2162,7 @@ legend.login-form-legend {
   width: 60%;
 }
 
-/* ==================== Личный кабинет ==================== */
+/* ============================== Личный кабинет ========================== */
 
 .main-content-wrapper {
   display: flex;
@@ -1993,12 +2187,13 @@ legend.login-form-legend {
   backdrop-filter: blur(8px);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-  margin-top: 0;
   will-change: auto;
   margin-top: 150px;
 }
 
-
+button {
+  font-family: "Montserrat Alternates", sans-serif;
+}
 
 /* Заголовок */
 .personal-account-title {
@@ -2049,24 +2244,128 @@ legend.login-form-legend {
 
 .personal-account-right {
   flex: 1;
-  padding: 20px;
-  overflow-y: auto;
+  overflow: hidden;
+  height: 100%;
+  display: flow;
+  text-align: justify;
+  background: rgba(255, 255, 255, 0.05); /* лёгкий фон для контента */
+  border-radius: 10px;
+  padding: 0 60px;
 }
 
-.personal-account-content h3 {
-  margin-bottom: 10px;
-  font-size: 20px;
+
+.personal-account-welcome {
+  margin-bottom: 20px;
+  font-size: 28px; /* Увеличенный шрифт */
   color: #2f4f2f;
+  text-align: center;
 }
 
-.personal-account-content p {
-  font-size: 16px;
+.account-info {
+  background: rgba(144, 238, 144, 0.15);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  height: 100%;
+  display: inline-block
+}
+
+.personal-account-data {
+  margin: 10px 0;
+  font-weight: 500;
+  font-size: 18px;
+  color: #333333;
+}
+
+.edit-account-btn,
+.logout-account-btn {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  background: #2e8b57;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.edit-account-btn:hover,
+.logout-account-btn:hover {
+  background: #246b44;
+}
+
+.personal-account-dates-buttons {
+  width: 100%;
+  height: fit-content;
+  justify-content: flex-start;
+  display: flex;
+  gap: 15px;
+}
+
+.user-login,
+.user-email {
+  display: inline-block;
+  background: rgba(46, 139, 87, 0.1);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #2e8b57;
+}
+
+.user-password--styled {
+  display: inline-block;
+  background: rgba(46, 139, 87, 0.1);
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #2e8b57;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.reservation-info-text {
+  margin-bottom: 15px;
+  font-size: 17px;
+  color: #2e8b57;
+  font-weight: 500;
+}
+
+.reservation-list {
+  border: 1px solid #2e8b57;
+  border-radius: 8px;
+  background: rgba(46, 139, 87, 0.05);
+  padding: 15px;
+}
+
+.reservation-item {
+  border-bottom: 1px solid rgba(46, 139, 87, 0.2);
+  padding: 8px 0;
+}
+
+.reservation-item:last-child {
+  border-bottom: none;
+}
+
+.reservation-item h4 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: #2e8b57;
+}
+
+.reservation-item p {
+  margin: 0;
   color: #333;
 }
 
+.empty-reservations {
+  color: #666;
+  font-style: italic;
+}
 
 
-/* ===== Footer ===== */
+/* ======================== Footer ======================== */
 .footer {
   background-color: #1a1a1a;
   color: #f0f0f0;
@@ -3434,4 +3733,17 @@ legend.login-form-legend {
   .body-history-img {
   display: none;
 }
+}
+
+.cancel-reservation-btn {
+  background-color: #2e8b57; /* насыщенный зелёный */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }

@@ -32,32 +32,35 @@
           </div>
         </div>
       </div>
-      <!-- Мобильный гамбургер -->
-      <div class="menu-mobile-toggle" aria-label="Open menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      <!-- ====== Mobile menu: toggle + overlay ====== -->
+      <!-- Кнопка-гамбургер (используем <button> для доступности) -->
+      <button class="menu-mobile-toggle" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-toggle">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
 
-      <!-- Мобильное overlay меню -->
-      <div class="mobile-menu-overlay" id="mobile-menu">
-        <button class="mobile-menu-close" aria-label="Close menu">&times;</button>
-        
-        <ul class="mobile-menu-list">
-          <li><a href="#about-us" data-i18n="main.menu-about-us">About Us</a></li>
-          <li><a href="#menu" data-i18n="main.menu-menu">Menu</a></li>
-          <li><a href="#gallery" data-i18n="main.menu-gallery-btn">Gallery</a></li>
-          <li><a href="#reservation" data-i18n="main.menu-reservation-btn">Reservation</a></li>
+      <!-- Overlay меню (role="dialog" для доступности) -->
+      <nav class="mobile-menu-overlay" id="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+        <button class="mobile-menu-close" aria-label="Close menu" id="mobile-menu-close">&times;</button>
+
+        <ul class="mobile-menu-list" role="menu">
+          <li class="menu-btn" role="menuitem" data-i18n="main.menu-about-us">About Us</li>
+          <li class="menu-btn" role="menuitem" data-i18n="main.menu-menu">Menu</li>
+          <li class="gallery-btn"  role="menuitem" data-i18n="main.menu-gallery-btn">Gallery</li>
+          <li class="reservation-btn" role="menuitem" data-i18n="main.menu-reservation-btn">Reservation</li>
         </ul>
 
-        <div class="mobile-language">
+        <div class="mobile-language" aria-label="Language selection">
           <span data-i18n="main.menu-language-button">Language</span>
-          <div class="mobile-language-options">
-            <button data-lang="cz">CZ</button>
-            <button data-lang="eng">ENG</button>
+          <div class="mobile-language-options" role="radiogroup" aria-label="Choose language">
+            <button type="button" class="lang-btn" data-lang="cz" role="radio" aria-checked="false">CZ</button>
+            <button type="button" class="lang-btn" data-lang="eng" role="radio" aria-checked="true">ENG</button>
           </div>
         </div>
-      </div>
+      </nav>
+
+
       <!-- Центр: desktop меню -->
       <nav class="menu-center" aria-label="Main navigation">
         <ul class="main-menu">
@@ -239,8 +242,8 @@
         <div class="fog-layer"></div>
         <div class="fog-layer fog-layer--br"></div>
       </div>
-      <div class="container">
-        <h4 class="section-title">Voices from our table</h4>
+      <div class="reviews-container">
+        <h4 class="section-title" data-i18n="reviews.title">Voices from our table</h4>
         <button class="scroll-indicator scroll-up" aria-label="Scroll up">
           <span class="chev">⌃</span>
         </button>
@@ -250,11 +253,11 @@
             <article class="card r1">
               <div class="card-header">
                 <div class="avatar" aria-hidden="true">
-                  <img src="./img/avatar-1.jpg" alt="Anna K.">
+                  <img src="./img/avatar-1.jpg" alt="Anna">
                 </div>
                 <div class="author-block">
-                  <div class="author-name">Anna K.</div>
-                  <div class="meta">Prague · regular guest</div>
+                  <div class="author-name">Anna</div>
+                  <div class="meta" data-i18n="reviews.r1.meta">Guest</div>
                 </div>
                 <div class="rating" data-score="9" aria-label="Rating: 9 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -263,7 +266,7 @@
               </div>
 
               <div class="card-inner">
-                <p class="text">
+                <p class="text" data-i18n="reviews.r1.cardInner">
                   We had a delightful dinner. Every detail was considered, 
                   from table setting to dessert plating. 
                   Minor timing issues, but the experience was wonderful.
@@ -273,10 +276,12 @@
 
             <article class="card r2">
               <div class="card-header">
-                <div class="avatar" aria-hidden="true">ML</div>
+                <div class="avatar" aria-hidden="true">
+                  <img src="./img/avatar-2.jpg" alt="Marek Liška">
+                </div>
                 <div class="author-block">
-                  <div class="author-name">Marco L.</div>
-                  <div class="meta">Visitor · food blogger</div>
+                  <div class="author-name">Marek Liška</div>
+                  <div class="meta" data-i18n="reviews.r2.meta">Food blogger</div>
                 </div>
                 <div class="rating" data-score="8" aria-label="Rating: 8 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -285,7 +290,7 @@
               </div>
 
               <div class="card-inner">
-                <p class="text">
+                <p class="text" data-i18n="reviews.r2.cardInner">
                   Very enjoyable dinner with fresh, 
                   flavorful dishes. Staff were attentive, 
                   though one main course was slightly delayed. 
@@ -297,10 +302,12 @@
 
             <article class="card r3">
               <div class="card-header">
-                <div class="avatar" aria-hidden="true">EP</div>
+                <div class="avatar" aria-hidden="true">
+                  <img src="./img/avatar-3.jpg" alt="Elena Pruitt">
+                </div>
                 <div class="author-block">
-                  <div class="author-name">Elena P.</div>
-                  <div class="meta">Local · chef admirer</div>
+                  <div class="author-name">Elena Pruitt</div>
+                  <div class="meta" data-i18n="reviews.r3.meta">Chef admirer</div>
                 </div>
                 <div class="rating" data-score="10" aria-label="Rating: 10 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -309,7 +316,7 @@
               </div>
 
               <div class="card-inner">
-                <p class="text">
+                <p class="text" data-i18n="reviews.r3.cardInner">
                   A truly spectacular visit. Every dish, from starters to dessert, 
                   was expertly prepared and full of flavor. 
                   The staff provided attentive and seamless service, 
@@ -325,19 +332,21 @@
 
             <article class="card r4">
               <div class="card-header">
-                <div class="avatar" aria-hidden="true">TH</div>
+                <div class="avatar" aria-hidden="true">
+                  <img src="./img/avatar-4.jpg" alt="Tomas">
+                </div>
                 <div class="author-block">
-                  <div class="author-name">Tomas H.</div>
-                  <div class="meta">Traveler</div>
+                  <div class="author-name">Tomas</div>
+                  <div class="meta" data-i18n="reviews.r4.meta">Traveler</div>
                 </div>
                 <div class="rating" data-score="7" aria-label="Rating: 7 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+                  <span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
                 </div>
               </div>
 
               <div class="card-inner">
-                <p class="text">
+                <p class="text" data-i18n="reviews.r4.cardInner">
                   Overall a pleasant visit. The food was tasty, 
                   but the dessert took longer than expected, and we had to ask twice for water refills.
                   Still, the staff stayed friendly and attentive.
@@ -347,10 +356,12 @@
 
             <article class="card r5">
               <div class="card-header">
-                <div class="avatar" aria-hidden="true">JM</div>
+                <div class="avatar" aria-hidden="true">
+                  <img src="./img/avatar-5.jpg" alt="Vít Martin">
+                </div>
                 <div class="author-block">
-                  <div class="author-name">J. &amp; M.</div>
-                  <div class="meta">Couple · special occasion</div>
+                  <div class="author-name">Vít Martin</div>
+                  <div class="meta" data-i18n="reviews.r5.meta">Special occasion</div>
                 </div>
                 <div class="rating" data-score="9" aria-label="Rating: 9 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -359,7 +370,7 @@
               </div>
 
               <div class="card-inner">
-                <p class="text">
+                <p class="text" data-i18n="reviews.r5.cardInner">
                   Wonderful wine pairings and a calm ambience that allowed us to enjoy our conversation.
                   The staff offered great recommendations and the attention to detail made our evening special.
                   We'll remember this restaurant for its thoughtful combinations and friendly team.
@@ -369,10 +380,12 @@
 
             <article class="card r6">
               <div class="card-header">
-                <div class="avatar" aria-hidden="true">SN</div>
+                <div class="avatar" aria-hidden="true">
+                  <img src="./img/avatar-6.jpg" alt="Sophie N.">
+                </div>
                 <div class="author-block">
                   <div class="author-name">Sophie N.</div>
-                  <div class="meta">Local · regular</div>
+                  <div class="meta" data-i18n="reviews.r6.meta">Regular</div>
                 </div>
                 <div class="rating" data-score="10" aria-label="Rating: 10 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -381,7 +394,7 @@
               </div>
 
               <div class="card-inner">
-                <p class="text">
+                <p class="text" data-i18n="reviews.r6.cardInner">
                   Perfect in every way. Culinary execution, ambiance, and service were remarkable. 
                   Plates were visually stunning, and staff anticipated our needs. 
                   The overall experience left us genuinely delighted and eager to return soon for another unforgettable visit.
@@ -391,10 +404,12 @@
 
             <article class="card r7">
               <div class="card-header">
-                <div class="avatar" aria-hidden="true">DR</div>
+                <div class="avatar" aria-hidden="true">
+                  <img src="./img/avatar-7.jpg" alt="Daniel R.">
+                </div>
                 <div class="author-block">
-                  <div class="author-name">Daniel R.</div>
-                  <div class="meta">Gastronomy enthusiast</div>
+                  <div class="author-name">Daniel Richardson</div>
+                  <div class="meta" data-i18n="reviews.r7.meta">Gastronomy enthusiast</div>
                 </div>
                 <div class="rating" data-score="10" aria-label="Rating: 10 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -403,7 +418,7 @@
               </div>
 
               <div class="card-inner">
-                <p class="text">
+                <p class="text" data-i18n="reviews.r7.cardInner">
                   Absolutely perfect in every respect. The attention to detail is remarkable: 
                   from the culinary execution to the ambiance and service. 
                   Each plate is not just food, but a carefully composed experience of taste, 
@@ -417,10 +432,12 @@
             
             <article class="card r8">
               <div class="card-header">
-                <div class="avatar">LP</div>
+                <div class="avatar">
+                  <img src="./img/avatar-8.jpg" alt="Lena Plíšková">
+                </div>
                 <div class="author-block">
-                  <div class="author-name">Lena P.</div>
-                  <div class="meta">Foodie</div>
+                  <div class="author-name">Lena Plíšková</div>
+                  <div class="meta" data-i18n="reviews.r8.meta">Foodie</div>
                 </div>
                 <div class="rating" data-score="8" aria-label="Rating: 8 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -428,18 +445,23 @@
                 </div>
               </div>
               <div class="card-inner">
-                <p class="text">
-                  A highly enjoyable dinner with a warm, welcoming environment. Every dish tasted fresh and was presented elegantly. The staff were accommodating, though there was a minor mix-up with the order, which was quickly resolved. This restaurant is ideal for a relaxed evening with friends or family, combining tasty cuisine with pleasant service.
+                <p class="text" data-i18n="reviews.r8.cardInner">
+                  A highly enjoyable dinner with a warm, welcoming environment. 
+                  Every dish tasted fresh and was presented elegantly. 
+                  The staff were accommodating, though there was a minor mix-up with the order, which was quickly resolved. 
+                  This restaurant is ideal for a relaxed evening with friends or family, combining tasty cuisine with pleasant service.
                 </p>
               </div>
             </article>
 
             <article class="card r9">
               <div class="card-header">
-                <div class="avatar">CL</div>
+                <div class="avatar">
+                  <img src="./img/avatar-9.jpg" alt="C. Lee">
+                </div>
                 <div class="author-block">
                   <div class="author-name">C. Lee</div>
-                  <div class="meta">Traveler · reviewer</div>
+                  <div class="meta" data-i18n="reviews.r9.meta">Traveler</div>
                 </div>
                 <div class="rating" data-score="9" aria-label="Rating: 9 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -447,7 +469,7 @@
                 </div>
               </div>
               <div class="card-inner">
-                <p class="text">
+                <p class="text" data-i18n="reviews.r9.cardInner">
                   A truly remarkable dinner. Every plate was crafted with attention to flavor, 
                   texture, and visual appeal. Service was smooth, friendly, and professional, 
                   making us feel welcome throughout the evening. Drinks and desserts were outstanding, 
@@ -459,10 +481,12 @@
 
             <article class="card r10">
               <div class="card-header">
-                <div class="avatar">SR</div>
+                <div class="avatar">
+                  <img src="./img/avatar-10.jpg" alt="S. Rogers">
+                </div>
                 <div class="author-block">
                   <div class="author-name">S. Rogers</div>
-                  <div class="meta">Local · regular</div>
+                  <div class="meta" data-i18n="reviews.r10.meta">Regular</div>
                 </div>
                 <div class="rating" data-score="9" aria-label="Rating: 9 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -470,18 +494,23 @@
                 </div>
               </div>
               <div class="card-inner">
-                <p class="text">
-                  We had an almost perfect visit. The restaurant offers excellent cuisine, refined service, and a beautifully arranged space. Staff were attentive and friendly, providing helpful suggestions. A minor delay on one appetizer was handled professionally. Overall, a memorable evening worth recommending.
+                <p class="text" data-i18n="reviews.r10.cardInner">
+                  We had an almost perfect visit. The restaurant offers excellent cuisine, refined service, and a beautifully arranged space. 
+                  Staff were attentive and friendly, providing helpful suggestions. 
+                  A minor delay on one appetizer was handled professionally. 
+                  Overall, a memorable evening worth recommending.
                 </p>
               </div>
             </article>
 
             <article class="card r11">
               <div class="card-header">
-                <div class="avatar">BM</div>
+                <div class="avatar">
+                  <img src="./img/avatar-11.jpg" alt="J. &amp; M.">
+                </div>
                 <div class="author-block">
-                  <div class="author-name">B. Martin</div>
-                  <div class="meta">Visitor</div>
+                  <div class="author-name">J. &amp; M.</div>
+                  <div class="meta" data-i18n="reviews.r11.meta">Visitor</div>
                 </div>
                 <div class="rating" data-score="10" aria-label="Rating: 10 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -489,18 +518,22 @@
                 </div>
               </div>
               <div class="card-inner">
-                <p class="text">
-                  Unforgettable experience with exceptional food, service, and atmosphere. Every course was flavorful, perfectly seasoned, and thoughtfully paired, leaving lasting delightful impressions. Staff were friendly, welcoming, and attentive.
+                <p class="text" data-i18n="reviews.r11.cardInner">
+                  Unforgettable experience with exceptional food, service, and atmosphere. Every course was flavorful, 
+                  perfectly seasoned, and thoughtfully paired, leaving lasting delightful impressions. 
+                  Staff were friendly, welcoming, and attentive.
                 </p>
               </div>
             </article>
 
             <article class="card r12">
               <div class="card-header">
-                <div class="avatar">GT</div>
+                <div class="avatar">
+                  <img src="./img/avatar-12.jpg" alt="Grayson Turner">
+                </div>
                 <div class="author-block">
-                  <div class="author-name">G. Turner</div>
-                  <div class="meta">Visitor</div>
+                  <div class="author-name">Grayson Turner</div>
+                  <div class="meta" data-i18n="reviews.r12.meta">Visitor</div>
                 </div>
                 <div class="rating" data-score="8" aria-label="Rating: 8 out of 10">
                   <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
@@ -508,15 +541,18 @@
                 </div>
               </div>
               <div class="card-inner">
-                <p class="text">
-                  This visit was very enjoyable. The dishes were well-prepared, with a range of flavors that pleased our group. The staff were attentive and friendly, ensuring we had everything we needed. The seating arrangement was comfortable, and the lighting created a relaxed yet stylish ambiance. Overall, it felt like a high-quality dining experience, with only minor timing issues.
+                <p class="text" data-i18n="reviews.r12.cardInner">
+                  This visit was very enjoyable. The dishes were well-prepared, with a range of flavors that pleased our group. 
+                  The staff were attentive and friendly, ensuring we had everything we needed. 
+                  The seating arrangement was comfortable, and the lighting created a relaxed yet stylish ambiance. 
+                  Overall, it felt like a high-quality dining experience, with only minor timing issues.
                 </p>
               </div>
             </article>
 
             <article class="r13 footer-card">
               <div class="review-footer-card-inner">
-                <p class="reviews-footer-text gradient-run">Grateful for every smile shared around our table 🌿</p>
+                <p class="reviews-footer-text gradient-run" data-i18n="reviews.r13.footer-text">Grateful for every smile shared around our table 🌿</p>
               </div>
             </article>
 
@@ -649,8 +685,8 @@
   </section>
 
   <!-- ===== PERSONAL ACCOUNT (placeholder) ===== -->
-  <div class="main-content-wrapper" id="account-wrapper">
-    <section class="personal-account invisible" id="personal-account">
+  <section class="main-content-wrapper" id="account-wrapper">
+    <div class="personal-account invisible" id="personal-account">
       <div class="personal-account-title">Личный кабинет</div>
       <div class="personal-account-wrap">
         <div class="personal-account-left">
@@ -661,24 +697,45 @@
 
         <div class="personal-account-divider"></div>
 
-        <div class="personal-account-right personal-account-content dates visible">
-          <h3>Добро пожаловать!</h3>
-          <p>Здесь будет информация о вашем аккаунте, резервации и доступ к админ-панели.</p>
-        </div>
+        <div class="personal-account-right">
+          <!-- Личные данные -->
+          <div class="personal-account-content dates visible">
+            <h3 class="personal-account-welcome">Добро пожаловать, <span class="user-name">Пользователь</span>!</h3>
+            <div class="account-info">
+              <p class="personal-account-data">Login: <span class="user-login"></span></p>
+              <p class="personal-account-data">Email: <span class="user-email"></span></p>
+              <p class="personal-account-data">Password: <span class="user-password"></span></p>
+              
+            </div>
+            <div class="personal-account-dates-buttons">
+              <button class="edit-account-btn">Изменить данные</button>
+              <button class="logout-account-btn">Выйти</button>
+            </div>
+          </div>
 
-        <div class="personal-account-right personal-account-content reservation invisible-account-button">
-          <h3>Резервация</h3>
-          <p>Здесь будет информация о вашем аккаунте, резервации и доступ к админ-панели.</p>
-        </div>
+          <!-- Резервация -->
+          <div class="personal-account-content reservation invisible">
+            <h3>Ваши резервации</h3>
+            <p class="reservation-info-text">
+              Здесь вы можете просмотреть ваши текущие и прошедшие резервации.
+            </p>
+            <div id="user-reservations" class="reservation-list">
+              <p class="empty-reservations">Пока у вас нет активных резерваций.</p>
+            </div>
+          </div>
 
-        <div class="personal-account-right personal-account-content admin invisible-account-button">
-          <h3>Админская панель</h3>
-          <p>Здесь будет информация о вашем аккаунте, резервации и доступ к админ-панели.</p>
+          <!-- Админская панель -->
+          <div class="personal-account-content admin invisible">
+            <h3>Админская панель</h3>
+            <p>Доступ к административным функциям. Пока раздел недоступен.</p>
+          </div>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
+
+  <!-- ======================== RESERVATION ======================== -->
   <section id="reservation-section" class="reservation-section invisible">
     <div class="reservation-container">
       <h2 class="reservation-title" data-i18n="reservation.title">Table Reservation</h2>
@@ -731,7 +788,7 @@
         <div class="reservation-message" id="reservation-message"></div>
         <div class="reservation-submit-wrap">
           <button class="reservation-submit-btn"
-            type="submit" data-i18n="reservation.reservation">Reserve</button>
+            type="submit" data-i18n="reservation.reservation" name="action">Reserve</button>
         </div>
       </form>
     </div>
@@ -790,19 +847,7 @@
     <!-- Список блюд — каждая карточка -->
     <div class="menu-items">
 
-      <!-- <article class="menu-first-position menu-item" data-category="starters">
-        <img src="img/menu-img/Закуски и салаты/1 шпигачки.png" alt="Fresh garden salad" class="menu-first-food-img">
-        <div class="menu-first-info">
-          <h3 class="menu-first-text">Klenot Garden Salad</h3>
-          <p class="menu-first-desc">Mixed greens, roasted pumpkin seeds, goat cheese, apple vinaigrette. Light, fresh and bright.</p>
-        </div>
-        <div class="menu-first-meta">
-          <div class="menu-first-price">120 CZK</div>
-          <p class="menu-order-weight">(250g)</p>
-        </div>
-      </article> -->
 
-      <!-- Добавьте другие блюда по образцу -->
     </div>
 
   </section>
@@ -825,7 +870,7 @@
         <ul class="footer-links">
           <li class="footer-button-aboutus"><a href="#about-us" class="footer-button-aboutus">About Us</a></li>
           <li><button type="button" class="menu-btn">Menu</button></li>
-          <li><button type="button" class="gallary-btn">Gallery</button></li>
+          <li><button type="button" class="gallery-btn">Gallery</button></li>
           <li><button type="button" class="reservation-btn">Reservations</button></li>
         </ul>
       </div>
@@ -853,6 +898,7 @@
     </div>
   </footer>
 
+  <script src="js/main.js"></script>
   <script src="js/switch-language.js"></script>
   <script src="js/language-dropdown.js"></script>
   <script src="js/animations.js"></script>

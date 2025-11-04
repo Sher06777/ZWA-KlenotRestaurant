@@ -12,7 +12,8 @@
         "menu-gallery-btn": "Galerie",
         "menu-reservation-btn": "Rezervace",
         "menu-language-button": "Jazyk",
-        "menu-signin-button": "Přihlásit se"
+        "menu-signin-button": "Přihlásit se",
+        "menu-account-short": "Účet"
     },
 
     "body-second": {
@@ -73,7 +74,75 @@
         "reservation": "Rezervovat",
         "placeholder-name": "např. Jan Novák",
         "placeholder-message": "Přání nebo speciální požadavky"
-    }
+    },
 
+
+    "reviews": {
+        "title": "Hlasy od našeho stolu",
+
+        "r1": {
+            "meta": "Host",
+            "cardInner": "Měli jsme báječnou večeři. Každý detail byl promyšlen – od prostření stolu až po servírování dezertu. Došlo k menšímu zpoždění, ale celkový zážitek byl skvělý."
+        },
+
+        "r2": {
+            "meta": "Food bloger",
+            "cardInner": "Velmi příjemná večeře s čerstvými a chutnými jídly. Obsluha byla pozorná, i když jeden hlavní chod se trochu opozdil. Interiér byl stylový a útulný – ideální pro pohodový večer."
+        },
+
+        "r3": {
+            "meta": "Obdivovatel šéfkuchaře",
+            "cardInner": "Skutečně výjimečná návštěva. Každé jídlo – od předkrmů až po dezerty – bylo dokonale připravené a plné chuti. Obsluha byla pozorná a profesionální, díky čemuž jsme se po celý večer cítili vítaní a pohodlně. Design restaurace je stylový a lákavý, s jemným osvětlením, pohodlným sezením a atmosférou, která spojuje živost s intimitou. Nápoje byly precizně připravené a nabídka dezertů působivá. Každý detail byl promyšlen, čímž vznikl jedinečný gastronomický zážitek, který si zaslouží nejvyšší uznání."
+        },
+
+        "r4": {
+            "meta": "Cestovatel",
+            "cardInner": "Celkově příjemná návštěva. Jídlo bylo chutné, ale dezert trval déle, než jsme čekali, a o doplnění vody jsme museli požádat dvakrát. Přesto zůstala obsluha milá a pozorná."
+        },
+
+        "r5": {
+            "meta": "Zvláštní příležitost",
+            "cardInner": "Skvělé párování vín a klidná atmosféra, která nám umožnila užít si rozhovor. Obsluha nabídla výborná doporučení a smysl pro detail učinil náš večer výjimečným. Na tuto restauraci budeme vzpomínat díky promyšleným kombinacím a přátelskému personálu."
+        },
+
+        "r6": {
+            "meta": "Stálý host",
+            "cardInner": "Dokonalé ve všech směrech. Kuchyně, atmosféra i obsluha byly výjimečné. Pokrmy působily esteticky i chuťově úžasně a personál dokázal odhadnout naše potřeby. Celkový zážitek nás nadchl a těšíme se na další nezapomenutelnou návštěvu."
+        },
+
+        "r7": {
+            "meta": "Nadšenec gastronomie",
+            "cardInner": "Absolutně dokonalé ve všech ohledech. Smysl pro detail je obdivuhodný – od kuchyně až po atmosféru a obsluhu. Každý talíř není jen jídlem, ale pečlivě komponovaným zážitkem chutí, textur a vizuálního potěšení. Personál předvídá potřeby hostů s profesionalitou a vřelostí. Interiér navozuje pocit klidného luxusu, umocněný jemným osvětlením a hudbou. Je to typ restaurace, která zanechává trvalý dojem a činí každou návštěvu nezapomenutelnou. Každé sousto působí promyšleně – jako skutečná cesta pro smysly."
+        },
+
+        "r8": {
+            "meta": "Milovník jídla",
+            "cardInner": "Velmi příjemná večeře v teplém a přátelském prostředí. Každé jídlo chutnalo čerstvě a bylo elegantně servírováno. Obsluha byla vstřícná, i když došlo k drobné záměně objednávky, kterou rychle napravili. Restaurace je ideálním místem pro klidný večer s přáteli či rodinou – spojuje chutnou kuchyni s milou obsluhou."
+        },
+
+        "r9": {
+            "meta": "Cestovatel",
+            "cardInner": "Skutečně výjimečná večeře. Každý pokrm byl připraven s důrazem na chuť, texturu a estetiku. Obsluha byla plynulá, přátelská a profesionální, díky čemuž jsme se po celý večer cítili vítaní. Nápoje i dezerty byly vynikající a dodaly zážitku dokonalou tečku. Tato restaurace trvale nabízí sofistikovaný a uspokojivý gastronomický zážitek."
+        },
+
+        "r10": {
+            "meta": "Stálý host",
+            "cardInner": "Naše návštěva byla téměř dokonalá. Restaurace nabízí výtečnou kuchyni, kultivovanou obsluhu a krásně upravený prostor. Personál byl pozorný a přátelský, nabídl užitečná doporučení. Menší zpoždění u jednoho předkrmu bylo vyřešeno profesionálně. Celkově nezapomenutelný večer, který stojí za doporučení."
+        },
+
+        "r11": {
+            "meta": "Návštěvník",
+            "cardInner": "Nezapomenutelný zážitek s výjimečným jídlem, obsluhou a atmosférou. Každý chod byl plný chuti, dokonale dochucený a pečlivě sladěný, zanechávající dlouhotrvající dojem. Personál byl přátelský, pohostinný a pozorný."
+        },
+
+        "r12": {
+            "meta": "Návštěvník",
+            "cardInner": "Tato návštěva byla velmi příjemná. Pokrmy byly dobře připravené a nabídly rozmanité chutě, které potěšily celou naši skupinu. Obsluha byla pozorná a přátelská, postarala se, abychom měli vše, co potřebujeme. Sezení bylo pohodlné a osvětlení vytvořilo uvolněnou, ale stylovou atmosféru. Celkově šlo o vysoce kvalitní gastronomický zážitek, jen s drobnými časovými nedostatky."
+        },
+
+        "r13": {
+            "footer-text": "Vděční za každý úsměv sdílený u našeho stolu 🌿"
+        }
+    }
     
 }
