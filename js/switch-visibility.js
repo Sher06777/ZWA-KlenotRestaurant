@@ -26,7 +26,7 @@ if (!mainContent || !gallerySection || !formMain || !loginFormSection || !person
   console.warn('Не все элементы SPA найдены на странице.');
 }
 
-window.onLoginOrRegister = function() {
+window.onLoginOrRegister = function () {
   console.warn('onLoginOrRegister called but SPA not initialized yet.');
 };
 
@@ -50,7 +50,7 @@ async function getTranslation(key) {
 
 // ---- центральная функция для обновления надписи кнопки входа ----
 async function updateLoginLabel() {
-  const loginTextEl = document.querySelector('.login-btn .login-text'); 
+  const loginTextEl = document.querySelector('.login-btn .login-text');
   if (!loginTextEl) {
     return;
   }
@@ -142,9 +142,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ---------- Кнопки ----------
   galleryBtn?.forEach(galleryButton => {
     galleryButton.addEventListener('click', e => {
-      e.stopPropagation(); 
-      e.preventDefault(); 
-      showSection(gallerySection); 
+      e.stopPropagation();
+      e.preventDefault();
+      showSection(gallerySection);
       set3DMenuInvisible(true);
     });
   });
@@ -186,10 +186,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   });
 
-  regestrationButton?.addEventListener('click', e => { 
-    e.preventDefault(); 
+  regestrationButton?.addEventListener('click', e => {
+    e.preventDefault();
     showSection(loginFormSection);
-    set3DMenuInvisible(true); 
+    set3DMenuInvisible(true);
   });
 
   // ---------- Вход / регистрация ----------
@@ -221,54 +221,73 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('[check_session] error', err);
   }
 
-    if (logoutButton) {
-      logoutButton.addEventListener('click', async (e) => {
-        e.preventDefault();
+  if (logoutButton) {
+    logoutButton.addEventListener('click', async (e) => {
+      e.preventDefault();
 
-        if (!confirm('Вы действительно хотите выйти из аккаунта?')) return;
+      if (!confirm('Вы действительно хотите выйти из аккаунта?')) return;
 
-        // обязательно: credentials чтобы передать cookie сессии
-        try {
-          const resp = await fetch('logout.php', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-CSRF-Token': window.csrfToken || '' //def CSRF (Cross-Site Request Forgery) - attack
-            },
-            body: JSON.stringify({ csrf_token: window.csrfToken || '' }) //def CSRF (Cross-Site Request Forgery) - attack
-          });
+      // обязательно: credentials чтобы передать cookie сессии
+      try {
+        const resp = await fetch('logout.php', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': window.csrfToken || '' //def CSRF (Cross-Site Request Forgery) - attack
+          },
+          body: JSON.stringify({ csrf_token: window.csrfToken || '' }) //def CSRF (Cross-Site Request Forgery) - attack
+        });
 
-          // если сервер вернул 403, покажем текст ответа для диагностики
-          if (!resp.ok) {
-            const text = await resp.text();
-            console.error('Logout failed, status', resp.status, text);
-            alert('Ошибка при выходе: сервер вернул ' + resp.status);
-            return;
-          }
-
-          const data = await resp.json();
-
-          if (data.success) {
-            console.log('✅ Пользователь вышел из аккаунта');
-
-            try { localStorage.clear(); sessionStorage.clear(); } catch (e) { console.warn(e); }
-            if (typeof window.setLoggedIn === 'function') window.setLoggedIn(false);
-            const loginText = document.querySelector('.login-text');
-            if (loginText) {
-              await updateLoginLabel();
-            }
-
-            window.location.reload();
-          } else {
-            alert('Ошибка при выходе: ' + (data.error || data.message || 'Попробуйте снова.'));
-          }
-        } catch (err) {
-          console.error('Ошибка при выходе из аккаунта:', err);
-          alert('Ошибка соединения при выходе.');
+        // если сервер вернул 403, покажем текст ответа для диагностики
+        if (!resp.ok) {
+          const text = await resp.text();
+          console.error('Logout failed, status', resp.status, text);
+          alert('Ошибка при выходе: сервер вернул ' + resp.status);
+          return;
         }
-      });
-    }
+
+        const data = await resp.json();
+
+        if (data.success) {
+          console.log('✅ Пользователь вышел из аккаунта');
+
+          try { localStorage.clear(); sessionStorage.clear(); } catch (e) { console.warn(e); }
+          if (typeof window.setLoggedIn === 'function') window.setLoggedIn(false);
+          const loginText = document.querySelector('.login-text');
+          if (loginText) {
+            await updateLoginLabel();
+          }
+
+          window.location.reload();
+        } else {
+          alert('Ошибка при выходе: ' + (data.error || data.message || 'Попробуйте снова.'));
+        }
+      } catch (err) {
+        console.error('Ошибка при выходе из аккаунта:', err);
+        alert('Ошибка соединения при выходе.');
+      }
+    });
+  }
+  const aboutUsLink = document.querySelector('a[href="#about-us"]');
+  const aboutUsSection = document.getElementById('about-us');
+
+  if (aboutUsLink && aboutUsSection) {
+    aboutUsLink.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      // Показываем главную страницу
+      showSection(mainContent);
+      set3DMenuInvisible(true);
+
+      // Дадим время на анимацию появления mainContent
+      await new Promise(resolve => setTimeout(resolve, 600));
+
+      // Плавный скролл к блоку About Us
+      aboutUsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
 });
 
 document.addEventListener('i18n:changed', async (ev) => {
@@ -276,15 +295,17 @@ document.addEventListener('i18n:changed', async (ev) => {
 });
 
 // --------- Вспомогательные функции ---------
-function makeVisible(el) { 
-  if(!el) return; 
-  el.classList.remove('invisible'); 
-  el.classList.add('visible'); 
+function makeVisible(el) {
+  if (!el) return;
+  el.classList.remove('invisible');
+  el.classList.add('visible');
 }
 
-function makeInvisible(el) { 
-  if(!el) return; 
-  el.classList.remove('visible'); 
-  el.classList.add('invisible'); 
+function makeInvisible(el) {
+  if (!el) return;
+  el.classList.remove('visible');
+  el.classList.add('invisible');
 }
+
+
 
