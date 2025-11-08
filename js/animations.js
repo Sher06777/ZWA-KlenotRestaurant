@@ -161,54 +161,61 @@ timeInput.addEventListener('click', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const heroWrap = document.getElementById('menu-3d-hero');
   const container = document.getElementById('menu-3d-container');
-
   if (!heroWrap || !container) return;
 
-  // ------------------------
-  // Параллакс мышью с плавной интерполяцией
-  // ------------------------
   let rotX = 0, rotY = 0;
   let targetRotX = 0, targetRotY = 0;
+  let animFrameId = null;
+  let active = false; // включена ли анимация
 
   const handleMove = (e) => {
     const cx = window.innerWidth / 2;
     const cy = window.innerHeight / 2;
-    targetRotY = (e.clientX - cx) * -0.006; // множитель поворота по X
-    targetRotX = (e.clientY - cy) * 0.015;   // множитель поворота по Y
+    targetRotY = (e.clientX - cx) * -0.006;
+    targetRotX = (e.clientY - cy) * 0.015;
   };
 
   const handleTouchMove = (e) => {
     if (e.touches && e.touches[0]) handleMove(e.touches[0]);
   };
 
-
-  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-  const isTablet = ('ontouchstart' in window) && !isMobile && window.innerWidth >= 768;
-
-  if ((isMobile || isTablet) && window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', (e) => {
-      // e.beta: наклон вперёд/назад (-180..180)
-      // e.gamma: наклон влево/вправо (-90..90)
-      // можно подстроить множители под желаемый эффект
-      targetRotX = e.beta / 8;   // наклон вперёд/назад
-      targetRotY = e.gamma / 8;  // наклон влево/вправо
-    }, true);
-  };
-
   const animate = () => {
-    // плавное приближение к цели
+    if (!active) return; // если выключено — просто не анимируем
     rotX += (targetRotX - rotX) * 0.1;
     rotY += (targetRotY - rotY) * 0.1;
     container.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-    requestAnimationFrame(animate);
+    animFrameId = requestAnimationFrame(animate);
   };
 
+  const start3D = () => {
+    if (active) return;
+    active = true;
+    if (!(/Mobi|Android/i.test(navigator.userAgent))) {
+      window.addEventListener('mousemove', handleMove);
+      window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    }
+    animate();
+  };
 
-  animate();
+  const stop3D = () => {
+    active = false;
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    window.removeEventListener('mousemove', handleMove);
+    window.removeEventListener('touchmove', handleTouchMove);
+  };
 
-  if (!isMobile) {
-    // только для ПК
-    window.addEventListener('mousemove', handleMove);
-    window.addEventListener('touchmove', handleTouchMove, {passive:true});
+  // Экспортируем в глобальную область, чтобы SPA мог включать/выключать
+  window.menu3D = { start: start3D, stop: stop3D };
+
+  // для мобильных: DeviceOrientation
+  if ((/Mobi|Android/i.test(navigator.userAgent)) && window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', (e) => {
+      if (!active) return;
+      targetRotX = e.beta / 8;
+      targetRotY = e.gamma / 8;
+    }, true);
   }
+
+  // запускаем по умолчанию только если меню видно
+  if (!heroWrap.classList.contains('invisible')) start3D();
 });
