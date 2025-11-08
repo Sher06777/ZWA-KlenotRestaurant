@@ -3,9 +3,6 @@ let menuData = {};         // загруженные данные из data/menu
 let currentFilter = 'all'; // текущее правило фильтрации (ключ JSON или 'all')
 let currentLang = 'eng';   // текущий язык (используется как ключ в name/description)
 
-/**
- * Утилиты
- */
 function normKey(s) {
   if (!s && s !== 0) return '';
   return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
@@ -14,8 +11,8 @@ function normKey(s) {
 function pickLocalizedText(field, lang) {
   if (field == null) return '';
   if (typeof field === 'object') {
-    // поддерживаем варианты: eng/en/ cz
-    return field[lang] || field.eng || field.en || field.cz || Object.values(field)[0] || '';
+    // поддерживаем варианты: eng/cz
+    return field[lang] || field.eng || field.cz || Object.values(field)[0] || '';
   }
   return String(field);
 }

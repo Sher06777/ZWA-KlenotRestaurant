@@ -607,7 +607,7 @@
     <form id="signin-form" method="post" class="form" novalidate>
       <div class="form-inside">
         <fieldset class="form-fieldset">
-          <legend class="form-legend" data-i18n="signing-form.legend">Enter your login, email and password</legend>
+          <legend class="form-legend" data-i18n="signing-form.legend">Evening login</legend>
 
           <label for="main-name" class="form-name">
             <span data-i18n="signing-form.login">Login</span>
@@ -715,7 +715,7 @@
 
           <!-- Резервация -->
           <div class="personal-account-content reservation invisible">
-            <h3>Ваши резервации</h3>
+            <h3 class="personal-account-reservation-title">Ваши резервации</h3>
             <p class="reservation-info-text">
               Здесь вы можете просмотреть ваши текущие и прошедшие резервации.
             </p>
@@ -738,58 +738,64 @@
   <!-- ======================== RESERVATION ======================== -->
   <section id="reservation-section" class="reservation-section invisible">
     <div class="reservation-container">
-      <h2 class="reservation-title" data-i18n="reservation.title">Table Reservation</h2>
       <form class="reservation-form" id="reservation-form" method="post" novalidate>
-        <div class="form-group">
-          <label for="reservation-name">
-            <span data-i18n="reservation.name">Full Name</span>
-            <input type="text" name="name" data-i18n-placeholder="reservation.placeholder-name" placeholder="e.g. John Smith"
-              required>
-          </label>
-        </div>
-        <div class="form-group">
-          <label for="reservation-phone">
-            <span data-i18n="reservation.number">Phone number</span>
-            <input type="tel" name="phone" placeholder="+420 123 456 789"
-              required>
-          </label>
-        </div>
-        <div class="form-group">
-          <label for="reservation-email">
-            <span data-i18n="signin-form.email">Email</span>
-            <input type="email" name="email" placeholder="example@gmail.com"
-              required>
-          </label>
-        </div>
-        <div class="form-two-cols">
-          <label for="dateInput">
-            <span data-i18n="reservation.date">Date</span>
-            <input type="date" id="dateInput" name="date" required>
-          </label>
-          <label for="timeInput">
-            <span data-i18n="reservation.time">Time</span>
-            <input type="time" id="timeInput" name="time" required>
-          </label>
-        </div>
-        <div class="form-group">
-          <label for="peopleInput">
-            <span data-i18n="reservation.guests">Number of guests</span>
-            <input type="number" name="people" min="1" max="20" value="2"
-              required>
-          </label>
-        </div>
-        <div class="form-group">
-          <label for="messageInput">
-            <span data-i18n="reservation.comment">Comment (optional)</span>
-            <textarea name="message" data-i18n-placeholder="reservation.placeholder-message"
-              placeholder="Special requests or preferences"></textarea>
-          </label>
-        </div>
-        <div class="reservation-message" id="reservation-message"></div>
-        <div class="reservation-submit-wrap">
-          <button class="reservation-submit-btn"
-            type="submit" data-i18n="reservation.reservation" name="action">Reserve</button>
-        </div>
+        <fieldset class="reservation-form-fieldset">
+          <legend class="form-legend" data-i18n="reservation.title">Table Reservation</legend>
+          <div class="form-group">
+            <label for="reservation-name">
+              <span data-i18n="reservation.name">Full Name</span>
+              <input type="text" name="name" data-i18n-placeholder="reservation.placeholder-name" placeholder="e.g. John Smith"
+                required>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="reservation-phone">
+              <span data-i18n="reservation.number">Phone number</span>
+              <input type="tel" name="phone" placeholder="+420 123 456 789"
+                required>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="reservation-email">
+              <span data-i18n="signin-form.email">Email</span>
+              <input type="email" name="email" placeholder="example@gmail.com"
+                required>
+            </label>
+          </div>
+          <div class="form-two-cols">
+            <label for="dateInput">
+              <span data-i18n="reservation.date">Date</span>
+              <input type="date" id="dateInput" name="date" required>
+            </label>
+            <label for="timeInput">
+              <span data-i18n="reservation.time">Time</span>
+              <input type="time" id="timeInput" name="time" required>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="peopleInput">
+              <span data-i18n="reservation.guests">Number of guests(max. 20)</span>
+              <div class="custom-number-inline">
+                <input type="number" name="people" min="1" max="20" value="2" required>
+                <div class="number-btns">
+                  <button type="button" class="number-btn up">▲</button>
+                  <button type="button" class="number-btn down">▼</button>
+                </div>
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="messageInput">
+              <span data-i18n="reservation.comment">Comment (optional)</span>
+              <textarea name="message" data-i18n-placeholder="reservation.placeholder-message"
+                placeholder="Special requests or preferences"></textarea>
+            </label>
+          </div>
+          <div class="reservation-message" id="reservation-message"></div>
+          <div class="reservation-submit-wrap">
+            <button class="reservation-submit-btn"
+              type="submit" data-i18n="reservation.reservation" name="action">Reserve</button>
+          </div>
+        </fieldset>
       </form>
     </div>
   </section>
