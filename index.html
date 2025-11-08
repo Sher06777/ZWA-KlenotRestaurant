@@ -225,10 +225,8 @@
                 decoding="async" src="img/food2.jpg" class="body-img"
                 alt="food2">
               <h3 class="body-title"
-                data-i18n="body-second.second-column-h3">Treasure of the
-                Menu</h3>
-              <p class="body-text"
-                data-i18n="body-second.second-column-description">
+                data-i18n="body-second.second-column-h3">Treasure of the Menu</h3>
+              <p class="body-text" data-i18n="body-second.second-column-description">
                 Each dish perfectly blends bold flavors and refined textures
                 into an unforgettable culinary adventure.
                 From classics to unexpected delights, our menu is full of
@@ -1098,138 +1096,71 @@
     </div>
   </section>
 
+  <!-- =========================== MENU =========================== -->
 
-    <!-- ======================== RESERVATION ======================== -->
-    <section id="reservation-section" class="reservation-section invisible">
-      <div class="reservation-container">
-        <h2 class="reservation-title" data-i18n="reservation.title">Table
-          Reservation</h2>
-        <form class="reservation-form" id="reservation-form" method="post"
-          novalidate>
-          <div class="form-group">
-            <label for="reservation-name">
-              <span data-i18n="reservation.name">Full Name</span>
-              <input type="text" name="name"
-                data-i18n-placeholder="reservation.placeholder-name"
-                placeholder="e.g. John Smith"
-                required>
-            </label>
-          </div>
-          <div class="form-group">
-            <label for="reservation-phone">
-              <span data-i18n="reservation.number">Phone number</span>
-              <input type="tel" name="phone" placeholder="+420 123 456 789"
-                required>
-            </label>
-          </div>
-          <div class="form-group">
-            <label for="reservation-email">
-              <span data-i18n="signin-form.email">Email</span>
-              <input type="email" name="email" placeholder="example@gmail.com"
-                required>
-            </label>
-          </div>
-          <div class="form-two-cols">
-            <label for="dateInput">
-              <span data-i18n="reservation.date">Date</span>
-              <input type="date" id="dateInput" name="date" required>
-            </label>
-            <label for="timeInput">
-              <span data-i18n="reservation.time">Time</span>
-              <input type="time" id="timeInput" name="time" required>
-            </label>
-          </div>
-          <div class="form-group">
-            <label for="peopleInput">
-              <span data-i18n="reservation.guests">Number of guests</span>
-              <input type="number" name="people" min="1" max="20" value="2"
-                required>
-            </label>
-          </div>
-          <div class="form-group">
-            <label for="messageInput">
-              <span data-i18n="reservation.comment">Comment (optional)</span>
-              <textarea name="message"
-                data-i18n-placeholder="reservation.placeholder-message"
-                placeholder="Special requests or preferences"></textarea>
-            </label>
-          </div>
-          <div class="reservation-message" id="reservation-message"></div>
-          <div class="reservation-submit-wrap">
-            <button class="reservation-submit-btn"
-              type="submit" data-i18n="reservation.reservation"
-              name="action">Reserve</button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- =========================== MENU =========================== -->
-
-    <section class="menu-all" id="menu-all">
-
-      <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
-      <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false"
-        data-bg="img/menu-hero.jpg">
-        <div class="menu-3d-container" id="menu-3d-container">
-          <!-- задний фон -->
-          <div class="menu-layer layer-1"
-            style="background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');"></div>
-          <!-- средние слои (могут быть PNG с прозрачностью) -->
-          <div class="menu-layer layer-3">
-            <div class="menu-3d-center">
-              <h1 class="menu-3d-title">Menu</h1>
-              <p class="menu-3d-sub">Taste our seasonal selection — inspired by
-                tradition, crafted with love</p>
-            </div>
+  <section class="menu-all" id="menu-all">
+    <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
+    <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false"
+      data-bg="img/menu-hero.jpg">
+      <div class="menu-3d-container" id="menu-3d-container">
+        <!-- задний фон -->
+        <div class="menu-layer layer-1"
+          style="background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');"></div>
+        <!-- средние слои (могут быть PNG с прозрачностью) -->
+        <div class="menu-layer layer-3">
+          <div class="menu-3d-center">
+            <h1 class="menu-3d-title">Menu</h1>
+            <p class="menu-3d-sub" data-i18n="menu.menu-3d-sub">Taste our seasonal selection — inspired by
+              tradition, crafted with love</p>
           </div>
         </div>
-        <div class="menu-smoke" aria-hidden="true"
-          style="background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')"></div>
-        <div class="menu-sun" aria-hidden="true"
-          style="background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')"></div>
       </div>
+      <div class="menu-smoke" aria-hidden="true"
+        style="background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')"></div>
+      <div class="menu-sun" aria-hidden="true"
+        style="background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')"></div>
+    </div>
 
-      <!-- Кнопки-фильтры -->
-      <div class="menu-all-btn" role="tablist" aria-label="Menu categories">
-        <button class="menu-button" data-filter="all">All</button>
-        <button class="menu-button"
-          data-filter="Appetizers-and-Salads">Appetizers &amp; Salads</button>
-        <button class="menu-button" data-filter="Soups">Soups</button>
-        <button class="menu-button" data-filter="Sides-Dishes">Side
-          Dishes</button>
-        <button class="menu-button" data-filter="Main-Courses">Main
-          Courses</button>
-        <button class="menu-button" data-filter="Fish-and-Seafood">Fish &amp;
-          Seafood</button>
-        <button class="menu-button" data-filter="Desserts">Desserts</button>
-        <button class="menu-button" data-filter="Soft-Drinks">Soft
-          Drinks</button>
-        <button class="menu-button" data-filter="Alcoholic-Beverages">Alcoholic
-          Beverages</button>
-      </div>
+    <!-- Кнопки-фильтры -->
+    <div class="menu-all-btn" role="tablist" aria-label="Menu categories">
+      <button class="menu-button" data-filter="all">All</button>
+      <button class="menu-button"
+        data-filter="Appetizers-and-Salads">Appetizers &amp; Salads</button>
+      <button class="menu-button" data-filter="Soups">Soups</button>
+      <button class="menu-button" data-filter="Sides-Dishes">Side
+        Dishes</button>
+      <button class="menu-button" data-filter="Main-Courses">Main
+        Courses</button>
+      <button class="menu-button" data-filter="Fish-and-Seafood">Fish &amp;
+        Seafood</button>
+      <button class="menu-button" data-filter="Desserts">Desserts</button>
+      <button class="menu-button" data-filter="Soft-Drinks">Soft
+        Drinks</button>
+      <button class="menu-button" data-filter="Alcoholic-Beverages">Alcoholic
+        Beverages</button>
+    </div>
 
-      <template id="menu-item-template">
-        <article class="menu-first-position menu-item" data-category>
-          <img loading="lazy"
-            decoding="async" src alt class="menu-first-food-img">
-          <div class="menu-first-info">
-            <h3 class="menu-first-text"></h3>
-            <p class="menu-first-desc"></p>
-          </div>
-          <div class="menu-first-meta">
-            <div class="menu-first-price"></div>
-            <p class="menu-order-weight"></p>
-          </div>
-        </article>
-      </template>
+    <template id="menu-item-template">
+      <article class="menu-first-position menu-item" data-category>
+        <img loading="lazy"
+          decoding="async" src alt class="menu-first-food-img">
+        <div class="menu-first-info">
+          <h3 class="menu-first-text"></h3>
+          <p class="menu-first-desc"></p>
+        </div>
+        <div class="menu-first-meta">
+          <div class="menu-first-price"></div>
+          <p class="menu-order-weight"></p>
+        </div>
+      </article>
+    </template>
 
-      <!-- Список блюд — каждая карточка -->
-      <div class="menu-items">
+    <!-- Список блюд — каждая карточка -->
+    <div class="menu-items">
 
-      </div>
+    </div>
 
-    </section>
+  </section>
 
     <footer class="footer">
       <div class="footer-box">

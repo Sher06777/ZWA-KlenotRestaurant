@@ -2885,25 +2885,34 @@ legend.login-form-legend {
 
 @media (min-width: 580px) and (max-width: 768px) {
   .personal-account-left {
-    width: 170px;
+    width: 150px;
+    padding: 0 10px;
   }
 
   .personal-account-right {
-    padding: 0 30px;
+    padding: 0 25px;
+  }
+
+  .main-content-wrapper {
+    padding-top: 40px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
-@media (min-width: 425px) and (max-width: 579px) {
+@media (min-width: 375px) and (max-width: 579px) {
   .personal-account {
     min-width: 100%;
   }
 
   .personal-account-right {
-    padding: 0 15px;
+    padding: 0 5px;
   }
 
   .personal-account-left {
-    width: 150px;
+    width: 100px;
+    padding-left: 0;
+    padding-right: 0;
   }
 
   .account-info {
@@ -2912,6 +2921,91 @@ legend.login-form-legend {
 
   .personal-account-data {
     font-size: 16px;
+  }
+
+  .main-content-wrapper {
+    padding: 20px 0 20px 0;
+  }
+
+  .personal-account-btn {
+    font-size: 14px;
+    width: fit-content;
+    height: 70px;
+    padding: 10px 5px 12px 5px;
+  }
+
+  .personal-account-wrap {
+    padding-right: 0;
+  }
+
+  .personal-account-divider {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 374px) {
+  .personal-account {
+    min-width: 100%;
+  }
+
+  .personal-account-right {
+    padding: 0 5px;
+  }
+
+  .personal-account-left {
+    width: 100px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .account-info {
+    padding: 5px;
+  }
+
+  .personal-account-data {
+    font-size: 14px;
+  }
+
+  .main-content-wrapper {
+    padding: 20px 0 20px 0;
+  }
+
+  .personal-account-btn {
+    font-size: 14px;
+    width: fit-content;
+    height: 70px;
+    padding: 10px 5px 12px 5px;
+  }
+
+  .personal-account-wrap {
+    padding-right: 0;
+  }
+
+  .personal-account-divider {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .personal-account-welcome {
+    font-size: 24px;
+  }
+
+  .personal-account-dates-buttons {
+    gap: 5px; 
+  }
+
+  .edit-account-btn, 
+  .logout-account-btn {
+    padding: 5px 10px;
+  }
+  
+  .user-login, 
+  .user-email {
+    padding-left: 3px;
+    padding-right: 0;
+    height: 20px;
+    width: fit-content;
   }
 }
 

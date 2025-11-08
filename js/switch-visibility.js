@@ -128,8 +128,13 @@ function showSection(section) {
 // --------- Видимость 3D-меню ---------
 function set3DMenuInvisible(value) {
   if (!menuImg3D) return;
-  if (value) menuImg3D.classList.add('invisible');
-  else menuImg3D.classList.remove('invisible');
+  if (value) {
+    menuImg3D.classList.add('invisible');
+    window.menu3D?.stop(); // выключаем анимацию
+  } else {
+    menuImg3D.classList.remove('invisible');
+    window.menu3D?.start(); // включаем анимацию
+  }
 }
 
 // --------- Инициализация SPA ---------
