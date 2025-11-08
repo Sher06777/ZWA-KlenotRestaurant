@@ -183,8 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  const isTablet = ('ontouchstart' in window) && !isMobile && window.innerWidth >= 768;
 
-  if (isMobile && window.DeviceOrientationEvent) {
+  if ((isMobile || isTablet) && window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', (e) => {
       // e.beta: наклон вперёд/назад (-180..180)
       // e.gamma: наклон влево/вправо (-90..90)
