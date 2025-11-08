@@ -1,606 +1,880 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Klenot Restaurant</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto+Slab:wght@100..900&display=swap"
-    rel="stylesheet">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klenot Restaurant</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto+Slab:wght@100..900&display=swap"
+      rel="stylesheet">
 
-</head>
+  </head>
 
-<body>
+  <body>
 
-  <!-- Верхнее главное меню -->
-  <header id="dropped-menu">
-    <div class="menu-dropdown layout-left-logo">
+    <!-- Верхнее главное меню -->
+    <header id="dropped-menu">
+      <div class="menu-dropdown layout-left-logo">
 
-      <!-- Левый блок: логотип -->
-      <div class="menu-left">
-        <div class="logo" role="button" aria-label="Home">
-          <div class="logo-wrap">
-            <img src="img/logo-restorant-without-background.png" alt="logo">
-            <svg class="logo-border" width="100%" height="100%" viewBox="0 0 200 200" preserveAspectRatio="none">
-              <path class="logo-border-path" d="" stroke="#000" stroke-width="3" fill="transparent" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <!-- ====== Mobile menu: toggle + overlay ====== -->
-      <!-- Кнопка-гамбургер (используем <button> для доступности) -->
-      <button class="menu-mobile-toggle" aria-label="Open menu" aria-controls="mobile-menu" aria-expanded="false" id="mobile-menu-toggle">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </button>
-
-      <!-- Overlay меню (role="dialog" для доступности) -->
-      <nav class="mobile-menu-overlay" id="mobile-menu" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
-        <button class="mobile-menu-close" aria-label="Close menu" id="mobile-menu-close">&times;</button>
-
-        <ul class="mobile-menu-list" role="menu">
-          <li class="menu-btn" role="menuitem" data-i18n="main.menu-about-us">About Us</li>
-          <li class="menu-btn" role="menuitem" data-i18n="main.menu-menu">Menu</li>
-          <li class="gallery-btn"  role="menuitem" data-i18n="main.menu-gallery-btn">Gallery</li>
-          <li class="reservation-btn" role="menuitem" data-i18n="main.menu-reservation-btn">Reservation</li>
-        </ul>
-
-        <div class="mobile-language" aria-label="Language selection">
-          <span data-i18n="main.menu-language-button">Language</span>
-          <div class="mobile-language-options" role="radiogroup" aria-label="Choose language">
-            <button type="button" class="lang-btn" data-lang="cz" role="radio" aria-checked="false">CZ</button>
-            <button type="button" class="lang-btn" data-lang="eng" role="radio" aria-checked="true">ENG</button>
-          </div>
-        </div>
-      </nav>
-
-
-      <!-- Центр: desktop меню -->
-      <nav class="menu-center" aria-label="Main navigation">
-        <ul class="main-menu">
-          <li class="main-menu-button"><a href="#about-us" data-i18n="main.menu-about-us">About Us</a></li>
-          <li class="main-menu-button menu-btn" data-i18n="main.menu-menu">Menu</li>
-          <li class="main-menu-button gallery-btn" data-i18n="main.menu-gallery-btn">Gallery</li>
-          <li class="main-menu-button reservation-btn" data-i18n="main.menu-reservation-btn">Reservation</li>
-          <li class="main-menu-button language-btn">
-            <span class="lang-label" data-i18n="main.menu-language-button">Language</span>
-            <div class="language-options">
-              <button id="lang-cz" class="lang-btn" data-lang="cz">CZ</button>
-              <button id="lang-eng" class="lang-btn" data-lang="eng">ENG</button>
+        <!-- Левый блок: логотип -->
+        <div class="menu-left">
+          <div class="logo" role="button" aria-label="Home">
+            <div class="logo-wrap">
+              <img loading="lazy"
+                decoding="async" src="img/logo-restorant-without-background.png"
+                alt="logo">
+              <svg class="logo-border" width="100%" height="100%"
+                viewBox="0 0 200 200" preserveAspectRatio="none">
+                <path class="logo-border-path" d stroke="#000" stroke-width="3"
+                  fill="transparent" />
+              </svg>
             </div>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- Правый блок: кнопка Войти -->
-      <div class="menu-right">
-        <div class="main-menu-right">
-          <button class="login-btn">
-            <span class="login-icon">👤</span>
-            <span class="login-text" data-i18n="main.menu-signin-button">Sign in</span>
-            <svg class="btn-border" width="100%" height="100%" viewBox="0 0 200 60" preserveAspectRatio="none">
-              <path class="border-path" d="" stroke="#000" stroke-width="3" fill="transparent" />
-            </svg>
-          </button>
+          </div>
         </div>
+        <!-- ====== Mobile menu: toggle + overlay ====== -->
+        <!-- Кнопка-гамбургер (используем <button> для доступности) -->
+        <button class="menu-mobile-toggle" aria-label="Open menu"
+          aria-controls="mobile-menu" aria-expanded="false"
+          id="mobile-menu-toggle">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </button>
+
+        <!-- Overlay меню (role="dialog" для доступности) -->
+        <nav class="mobile-menu-overlay" id="mobile-menu" role="dialog"
+          aria-modal="true" aria-hidden="true" tabindex="-1">
+          <button class="mobile-menu-close" aria-label="Close menu"
+            id="mobile-menu-close">&times;</button>
+
+          <ul class="mobile-menu-list" role="menu">
+            <li class="menu-btn" role="menuitem"
+              data-i18n="main.menu-about-us">About Us</li>
+            <li class="menu-btn" role="menuitem"
+              data-i18n="main.menu-menu">Menu</li>
+            <li class="gallery-btn" role="menuitem"
+              data-i18n="main.menu-gallery-btn">Gallery</li>
+            <li class="reservation-btn" role="menuitem"
+              data-i18n="main.menu-reservation-btn">Reservation</li>
+          </ul>
+
+          <div class="mobile-language" aria-label="Language selection">
+            <span data-i18n="main.menu-language-button">Language</span>
+            <div class="mobile-language-options" role="radiogroup"
+              aria-label="Choose language">
+              <button type="button" class="lang-btn" data-lang="cz" role="radio"
+                aria-checked="false">CZ</button>
+              <button type="button" class="lang-btn" data-lang="eng"
+                role="radio" aria-checked="true">ENG</button>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Центр: desktop меню -->
+        <nav class="menu-center" aria-label="Main navigation">
+          <ul class="main-menu">
+            <li class="main-menu-button"><a href="#about-us"
+                data-i18n="main.menu-about-us">About Us</a></li>
+            <li class="main-menu-button menu-btn"
+              data-i18n="main.menu-menu">Menu</li>
+            <li class="main-menu-button gallery-btn"
+              data-i18n="main.menu-gallery-btn">Gallery</li>
+            <li class="main-menu-button reservation-btn"
+              data-i18n="main.menu-reservation-btn">Reservation</li>
+            <li class="main-menu-button language-btn">
+              <span class="lang-label"
+                data-i18n="main.menu-language-button">Language</span>
+              <div class="language-options">
+                <button id="lang-cz" class="lang-btn" data-lang="cz">CZ</button>
+                <button id="lang-eng" class="lang-btn"
+                  data-lang="eng">ENG</button>
+              </div>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Правый блок: кнопка Войти -->
+        <div class="menu-right">
+          <div class="main-menu-right">
+            <button class="login-btn">
+              <span class="login-icon">👤</span>
+              <span class="login-text" data-i18n="main.menu-signin-button">Sign
+                in</span>
+              <svg class="btn-border" width="100%" height="100%"
+                viewBox="0 0 200 60" preserveAspectRatio="none">
+                <path class="border-path" d stroke="#000" stroke-width="3"
+                  fill="transparent" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
       </div>
+    </header>
 
-    </div>
-  </header>
+    <!-- Слайдер -->
+    <main id="main" class="visible">
+      <section class="slider-wrapper">
+        <div class="slider">
+          <!-- Радиокнопки -->
+          <input type="radio" name="slider" id="slider-switch-1"
+            class="slider-radio" checked>
+          <input type="radio" name="slider" id="slider-switch-2"
+            class="slider-radio">
+          <input type="radio" name="slider" id="slider-switch-3"
+            class="slider-radio">
 
-  <!-- Слайдер -->
-  <main id="main" class="visible">
-    <section class="slider-wrapper">
-      <div class="slider">
-        <!-- Радиокнопки -->
-        <input type="radio" name="slider" id="slider-switch-1" class="slider-radio" checked>
-        <input type="radio" name="slider" id="slider-switch-2" class="slider-radio">
-        <input type="radio" name="slider" id="slider-switch-3" class="slider-radio">
+          <!-- Слайды -->
+          <div class="slider-slides">
+            <div class="slider-images">
+              <article class="slider-image-item">
+                <img loading="lazy"
+                  decoding="async" src="img/slider-img-1.jpg"
+                  alt="slider-img-1">
+              </article>
+              <article class="slider-image-item">
+                <img loading="lazy"
+                  decoding="async" src="img/slider-img-15.jpg"
+                  alt="slider-img-15">
+              </article>
+              <article class="slider-image-item">
+                <img loading="lazy"
+                  decoding="async" src="img/slider-img-17.jpg"
+                  alt="slider-img-17">
+              </article>
+            </div>
+          </div>
 
-        <!-- Слайды -->
-        <div class="slider-slides">
-          <div class="slider-images">
-            <article class="slider-image-item">
-              <img src="img/slider-img-1.jpg" alt="slider-img-1">
-            </article>
-            <article class="slider-image-item">
-              <img src="img/slider-img-15.jpg" alt="slider-img-15">
-            </article>
-            <article class="slider-image-item">
-              <img src="img/slider-img-17.jpg" alt="slider-img-17">
-            </article>
+          <!-- Кнопки переключения + scaleBar -->
+          <div class="slider-pagination-wrapper">
+            <div class="slider-pagination">
+              <label for="slider-switch-1" class="slider-number">1</label>
+              <label for="slider-switch-2" class="slider-number">2</label>
+              <label for="slider-switch-3" class="slider-number">3</label>
+            </div>
+            <div class="slider-progress">
+              <div class="slider-progress-fill"></div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <!-- Кнопки переключения + scaleBar -->
-        <div class="slider-pagination-wrapper">
-          <div class="slider-pagination">
-            <label for="slider-switch-1" class="slider-number">1</label>
-            <label for="slider-switch-2" class="slider-number">2</label>
-            <label for="slider-switch-3" class="slider-number">3</label>
-          </div>
-          <div class="slider-progress">
-            <div class="slider-progress-fill"></div>
+      <!-- Первый блок с текстом -->
+
+      <section class="body-history">
+        <div class="body-history-left-text">
+          <div class="body-history-all-text">
+            <h1 data-i18n="body.h1">Klenot – Savor the Czech Legacy</h1>
+            <h2 data-i18n="body.h2">An Elegant Journey Through Czech
+              Flavors</h2>
+            <p data-i18n="body.description">
+              Step into Klenot and immerse in Czech cuisine.
+              In a setting where history meets sophistication, our chefs craft
+              each dish with meticulous care,
+              balancing bold flavors with delicate presentation.
+              From classic goulash to inventive seasonal creations, every plate
+              celebrates Prague’s rich culinary heritage.
+              Let your senses be captivated, your palate delighted, and your
+              dining experience become a journey of elegance and taste.
+            </p>
+            <button class="body-history-menu-button"
+              data-i18n="body.menu-button">
+              <span>Explore Our Menu</span>
+            </button>
           </div>
         </div>
-      </div>
-    </section>
+        <div class="body-history-right-text">
+          <img loading="lazy"
+            decoding="async" src="img/summer-menu-3.jpg"
+            class="body-history-img" alt="summer-menu">
+        </div>
+      </section>
 
+      <!-- Второй блок с текстом -->
 
-    <!-- Первый блок с текстом -->
+      <section class="columns-section">
+        <div class="columns-wrapper">
+          <div class="body-all-columns">
+            <div class="body-column">
+              <img loading="lazy"
+                decoding="async" src="img/food-bar2.jpg" class="body-img"
+                alt="food-bar">
+              <h3 class="body-title"
+                data-i18n="body-second.first-column-h3">Magic of Cocktails</h3>
+              <p class="body-text"
+                data-i18n="body-second.first-column-description">
+                He descends from a distinguished culinary lineage, devoted to
+                the craft for generations.
+                His cuisine is firmly rooted in Czech tradition, delicately
+                elevated with Italy’s effortless elegance.
+                Under his skilful guidance, flavours become more than a dish —
+                they become a moment to remember.
+              </p>
+              <button class="body-button gallery-btn"
+                data-i18n="body-second.first-column-button">
+                Klenot in Images
+              </button>
+            </div>
+            <div class="body-column">
+              <img loading="lazy"
+                decoding="async" src="img/food2.jpg" class="body-img"
+                alt="food2">
+              <h3 class="body-title"
+                data-i18n="body-second.second-column-h3">Treasure of the
+                Menu</h3>
+              <p class="body-text"
+                data-i18n="body-second.second-column-description">
+                Each dish perfectly blends bold flavors and refined textures
+                into an unforgettable culinary adventure.
+                From classics to unexpected delights, our menu is full of
+                treasures.
+                Fresh ingredients and thoughtful presentation make every bite
+                memorable.
+                Experience premium taste and meticulous attention in our
+                kitchen.
+              </p>
+              <button class="body-button menu-btn"
+                data-i18n="body-second.second-column-button">
+                Delight in Dishes
+              </button>
+            </div>
+            <div class="body-column">
+              <img loading="lazy"
+                decoding="async" src="img/food3.jpg" class="body-img"
+                alt="food3">
+              <h3 class="body-title"
+                data-i18n="body-second.third-column-h3">Taste of Adventure</h3>
+              <p class="body-text"
+                data-i18n="body-second.third-column-description">
+                Embark on a journey through exotic spices, rare ingredients, and
+                bold flavor combinations crafted with passion.
+                Every dish awakens curiosity and creates unforgettable sensory
+                experiences.
+                Unique presentation turns each plate into a visual delight.
+                Dare to explore flavors that surprise and inspire endlessly.
+              </p>
+              <button class="body-button reservation-btn"
+                data-i18n="body-second.third-column-button">
+                Dine with Us
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <section class="body-history">
-      <div class="body-history-left-text">
-        <div class="body-history-all-text">
-          <h1 data-i18n="body.h1">Klenot – Savor the Czech Legacy</h1>
-          <h2 data-i18n="body.h2">An Elegant Journey Through Czech Flavors</h2>
-          <p data-i18n="body.description">
-            Step into Klenot and immerse in Czech cuisine.
-            In a setting where history meets sophistication, our chefs craft each dish with meticulous care,
-            balancing bold flavors with delicate presentation.
-            From classic goulash to inventive seasonal creations, every plate celebrates Prague’s rich culinary heritage.
-            Let your senses be captivated, your palate delighted, and your dining experience become a journey of elegance and taste.
+      <!-- ============================== ABOUT US ================================= -->
+      <section id="about-us" class="about-us-section">
+        <div class="about-us-background">
+          <h2 data-i18n="about-us.about-h2">About Klenot Restaurant</h2>
+          <p data-i18n="about-us.about-description-first">
+            Located in the heart of Prague, <strong>Klenot Restaurant</strong>
+            is a place where
+            tradition meets elegance. We specialize in authentic Czech and
+            European cuisine,
+            prepared with fresh local ingredients and a touch of modern
+            presentation.
           </p>
-          <button class="body-history-menu-button" data-i18n="body.menu-button">
-            <span>Explore Our Menu</span>
+          <p data-i18n="about-us.about-description-second">
+            Our philosophy is simple: quality, hospitality, and unforgettable
+            atmosphere.
+            Whether you're visiting for a romantic dinner, a business meeting,
+            or a family
+            celebration, we aim to provide an experience that goes beyond just
+            food.
+          </p>
+          <p data-i18n="about-us.about-description-third">
+            Our chefs combine classic recipes with contemporary techniques,
+            offering seasonal dishes, signature specialties, and a curated wine
+            selection.
+            At Klenot Restaurant, every detail — from the interior design to the
+            plating —
+            is created to make you feel special.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================== REWIEWS ================================= -->
+
+      <section class="reviews-columns">
+        <div class="gallery-bg" aria-hidden="true">
+          <div class="bokeh b1"></div>
+          <div class="bokeh b2"></div>
+          <div class="bokeh b3"></div>
+          <div class="bokeh b4"></div>
+          <div class="bokeh b5"></div>
+          <div class="bokeh b6"></div>
+          <div class="fog-layer"></div>
+          <div class="fog-layer fog-layer--br"></div>
+        </div>
+        <div class="reviews-container">
+          <h4 class="section-title" data-i18n="reviews.title">Voices from our
+            table</h4>
+          <button class="scroll-indicator scroll-up" aria-label="Scroll up">
+            <span class="chev">⌃</span>
           </button>
+          <div class="reviews-columns-wrapper">
+
+            <div class="columns-grid">
+              <article class="card r1">
+                <div class="card-header">
+                  <div class="avatar" aria-hidden="true">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-1.jpg" alt="Anna">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">Anna</div>
+                    <div class="meta" data-i18n="reviews.r1.meta">Guest</div>
+                  </div>
+                  <div class="rating" data-score="9"
+                    aria-label="Rating: 9 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span class="star">★</span>
+                  </div>
+                </div>
+
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r1.cardInner">
+                    We had a delightful dinner. Every detail was considered,
+                    from table setting to dessert plating.
+                    Minor timing issues, but the experience was wonderful.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r2">
+                <div class="card-header">
+                  <div class="avatar" aria-hidden="true">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-2.jpg"
+                      alt="Marek Liška">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">Marek Liška</div>
+                    <div class="meta" data-i18n="reviews.r2.meta">Food
+                      blogger</div>
+                  </div>
+                  <div class="rating" data-score="8"
+                    aria-label="Rating: 8 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star">★</span><span class="star">★</span>
+                  </div>
+                </div>
+
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r2.cardInner">
+                    Very enjoyable dinner with fresh,
+                    flavorful dishes. Staff were attentive,
+                    though one main course was slightly delayed.
+                    The interior was stylish and cozy, perfect for
+                    a relaxed evening.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r3">
+                <div class="card-header">
+                  <div class="avatar" aria-hidden="true">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-3.jpg"
+                      alt="Elena Pruitt">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">Elena Pruitt</div>
+                    <div class="meta" data-i18n="reviews.r3.meta">Chef
+                      admirer</div>
+                  </div>
+                  <div class="rating" data-score="10"
+                    aria-label="Rating: 10 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                  </div>
+                </div>
+
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r3.cardInner">
+                    A truly spectacular visit. Every dish, from starters to
+                    dessert,
+                    was expertly prepared and full of flavor.
+                    The staff provided attentive and seamless service,
+                    making us feel valued and comfortable throughout the
+                    evening.
+                    The restaurant’s design is stylish and inviting,
+                    with soft lighting, comfortable seating,
+                    and a lively yet intimate ambiance.
+                    Drinks were carefully crafted, and the dessert selection was
+                    impressive. Every detail was considered,
+                    creating an unparalleled dining experience that deserves the
+                    highest praise.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r4">
+                <div class="card-header">
+                  <div class="avatar" aria-hidden="true">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-4.jpg" alt="Tomas">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">Tomas</div>
+                    <div class="meta" data-i18n="reviews.r4.meta">Traveler</div>
+                  </div>
+                  <div class="rating" data-score="7"
+                    aria-label="Rating: 7 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star">★</span><span class="star">★</span><span
+                      class="star">★</span>
+                  </div>
+                </div>
+
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r4.cardInner">
+                    Overall a pleasant visit. The food was tasty,
+                    but the dessert took longer than expected, and we had to ask
+                    twice for water refills.
+                    Still, the staff stayed friendly and attentive.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r5">
+                <div class="card-header">
+                  <div class="avatar" aria-hidden="true">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-5.jpg"
+                      alt="Vít Martin">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">Vít Martin</div>
+                    <div class="meta" data-i18n="reviews.r5.meta">Special
+                      occasion</div>
+                  </div>
+                  <div class="rating" data-score="9"
+                    aria-label="Rating: 9 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span class="star">★</span>
+                  </div>
+                </div>
+
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r5.cardInner">
+                    Wonderful wine pairings and a calm ambience that allowed us
+                    to enjoy our conversation.
+                    The staff offered great recommendations and the attention to
+                    detail made our evening special.
+                    We'll remember this restaurant for its thoughtful
+                    combinations and friendly team.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r6">
+                <div class="card-header">
+                  <div class="avatar" aria-hidden="true">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-6.jpg" alt="Sophie N.">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">Sophie N.</div>
+                    <div class="meta" data-i18n="reviews.r6.meta">Regular</div>
+                  </div>
+                  <div class="rating" data-score="10"
+                    aria-label="Rating: 10 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                  </div>
+                </div>
+
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r6.cardInner">
+                    Perfect in every way. Culinary execution, ambiance, and
+                    service were remarkable.
+                    Plates were visually stunning, and staff anticipated our
+                    needs.
+                    The overall experience left us genuinely delighted and eager
+                    to return soon for another unforgettable visit.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r7">
+                <div class="card-header">
+                  <div class="avatar" aria-hidden="true">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-7.jpg" alt="Daniel R.">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">Daniel Richardson</div>
+                    <div class="meta" data-i18n="reviews.r7.meta">Gastronomy
+                      enthusiast</div>
+                  </div>
+                  <div class="rating" data-score="10"
+                    aria-label="Rating: 10 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                  </div>
+                </div>
+
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r7.cardInner">
+                    Absolutely perfect in every respect. The attention to detail
+                    is remarkable:
+                    from the culinary execution to the ambiance and service.
+                    Each plate is not just food, but a carefully composed
+                    experience of taste,
+                    texture, and visual delight. The staff anticipate your needs
+                    with professionalism and warmth.
+                    The interior creates a sense of calm luxury, enhanced by
+                    subtle lighting and music.
+                    This is the kind of restaurant that makes every visit
+                    memorable, leaving you with a lasting impression of
+                    excellence.
+                    Every bite feels thoughtfully crafted, making the meal a
+                    true journey for the senses.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r8">
+                <div class="card-header">
+                  <div class="avatar">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-8.jpg"
+                      alt="Lena Plíšková">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">Lena Plíšková</div>
+                    <div class="meta" data-i18n="reviews.r8.meta">Foodie</div>
+                  </div>
+                  <div class="rating" data-score="8"
+                    aria-label="Rating: 8 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star">★</span><span class="star">★</span>
+                  </div>
+                </div>
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r8.cardInner">
+                    A highly enjoyable dinner with a warm, welcoming
+                    environment.
+                    Every dish tasted fresh and was presented elegantly.
+                    The staff were accommodating, though there was a minor
+                    mix-up with the order, which was quickly resolved.
+                    This restaurant is ideal for a relaxed evening with friends
+                    or family, combining tasty cuisine with pleasant service.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r9">
+                <div class="card-header">
+                  <div class="avatar">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-9.jpg" alt="C. Lee">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">C. Lee</div>
+                    <div class="meta" data-i18n="reviews.r9.meta">Traveler</div>
+                  </div>
+                  <div class="rating" data-score="9"
+                    aria-label="Rating: 9 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                  </div>
+                </div>
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r9.cardInner">
+                    A truly remarkable dinner. Every plate was crafted with
+                    attention to flavor,
+                    texture, and visual appeal. Service was smooth, friendly,
+                    and professional,
+                    making us feel welcome throughout the evening. Drinks and
+                    desserts were outstanding,
+                    adding a thoughtful touch to the experience.
+                    This restaurant consistently delivers a sophisticated and
+                    satisfying experience.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r10">
+                <div class="card-header">
+                  <div class="avatar">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-10.jpg"
+                      alt="S. Rogers">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">S. Rogers</div>
+                    <div class="meta" data-i18n="reviews.r10.meta">Regular</div>
+                  </div>
+                  <div class="rating" data-score="9"
+                    aria-label="Rating: 9 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span class="star">★</span>
+                  </div>
+                </div>
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r10.cardInner">
+                    We had an almost perfect visit. The restaurant offers
+                    excellent cuisine, refined service, and a beautifully
+                    arranged space.
+                    Staff were attentive and friendly, providing helpful
+                    suggestions.
+                    A minor delay on one appetizer was handled professionally.
+                    Overall, a memorable evening worth recommending.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r11">
+                <div class="card-header">
+                  <div class="avatar">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-11.jpg"
+                      alt="J. &amp; M.">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">J. &amp; M.</div>
+                    <div class="meta" data-i18n="reviews.r11.meta">Visitor</div>
+                  </div>
+                  <div class="rating" data-score="10"
+                    aria-label="Rating: 10 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                  </div>
+                </div>
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r11.cardInner">
+                    Unforgettable experience with exceptional food, service, and
+                    atmosphere. Every course was flavorful,
+                    perfectly seasoned, and thoughtfully paired, leaving lasting
+                    delightful impressions.
+                    Staff were friendly, welcoming, and attentive.
+                  </p>
+                </div>
+              </article>
+
+              <article class="card r12">
+                <div class="card-header">
+                  <div class="avatar">
+                    <img loading="lazy"
+                      decoding="async" src="./img/avatar-12.jpg"
+                      alt="Grayson Turner">
+                  </div>
+                  <div class="author-block">
+                    <div class="author-name">Grayson Turner</div>
+                    <div class="meta" data-i18n="reviews.r12.meta">Visitor</div>
+                  </div>
+                  <div class="rating" data-score="8"
+                    aria-label="Rating: 8 out of 10">
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span>
+                    <span class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star filled">★</span><span
+                      class="star">★</span><span class="star">★</span>
+                  </div>
+                </div>
+                <div class="card-inner">
+                  <p class="text" data-i18n="reviews.r12.cardInner">
+                    This visit was very enjoyable. The dishes were
+                    well-prepared, with a range of flavors that pleased our
+                    group.
+                    The staff were attentive and friendly, ensuring we had
+                    everything we needed.
+                    The seating arrangement was comfortable, and the lighting
+                    created a relaxed yet stylish ambiance.
+                    Overall, it felt like a high-quality dining experience, with
+                    only minor timing issues.
+                  </p>
+                </div>
+              </article>
+
+              <article class="r13 footer-card">
+                <div class="review-footer-card-inner">
+                  <p class="reviews-footer-text gradient-run"
+                    data-i18n="reviews.r13.footer-text">Grateful for every smile
+                    shared around our table 🌿</p>
+                </div>
+              </article>
+
+            </div>
+          </div>
+
+          <button class="scroll-indicator scroll-down" aria-label="Scroll down">
+            <span class="chev">⌄</span>
+          </button>
+
         </div>
-      </div>
-      <div class="body-history-right-text">
-        <img src="img/summer-menu-3.jpg" class="body-history-img" alt="summer-menu">
-      </div>
-    </section>
+      </section>
 
-    <!-- Второй блок с текстом -->
+    </main>
 
-    <section class="columns-section">
-      <div class="columns-wrapper">
-        <div class="body-all-columns">
-          <div class="body-column">
-            <img src="img/food-bar2.jpg" class="body-img" alt="food-bar">
-            <h3 class="body-title" data-i18n="body-second.first-column-h3">Magic of Cocktails</h3>
-            <p class="body-text" data-i18n="body-second.first-column-description">
-              He descends from a distinguished culinary lineage, devoted to the craft for generations.
-              His cuisine is firmly rooted in Czech tradition, delicately elevated with Italy’s effortless elegance.
-              Under his skilful guidance, flavours become more than a dish — they become a moment to remember.
-            </p>
-            <button class="body-button gallery-btn" data-i18n="body-second.first-column-button">
-              Klenot in Images
-            </button>
-          </div>
-          <div class="body-column">
-            <img src="img/food2.jpg" class="body-img" alt="food2">
-            <h3 class="body-title" data-i18n="body-second.second-column-h3">Treasure of the Menu</h3>
-            <p class="body-text" data-i18n="body-second.second-column-description">
-              Each dish perfectly blends bold flavors and refined textures into an unforgettable culinary adventure.
-              From classics to unexpected delights, our menu is full of treasures.
-              Fresh ingredients and thoughtful presentation make every bite memorable.
-              Experience premium taste and meticulous attention in our kitchen.
-            </p>
-            <button class="body-button menu-btn" data-i18n="body-second.second-column-button">
-              Delight in Dishes
-            </button>
-          </div>
-          <div class="body-column">
-            <img src="img/food3.jpg" class="body-img" alt="food3">
-            <h3 class="body-title" data-i18n="body-second.third-column-h3">Taste of Adventure</h3>
-            <p class="body-text" data-i18n="body-second.third-column-description">
-              Embark on a journey through exotic spices, rare ingredients, and bold flavor combinations crafted with passion.
-              Every dish awakens curiosity and creates unforgettable sensory experiences.
-              Unique presentation turns each plate into a visual delight.
-              Dare to explore flavors that surprise and inspire endlessly.
-            </p>
-            <button class="body-button reservation-btn" data-i18n="body-second.third-column-button">
-              Dine with Us
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- ============================== GALLERY ================================= -->
 
-
-    <!-- ============================== ABOUT US ================================= -->
-    <section id="about-us" class="about-us-section">
-      <div class="about-us-background">
-        <h2 data-i18n="about-us.about-h2">About Klenot Restaurant</h2>
-        <p data-i18n="about-us.about-description-first">
-          Located in the heart of Prague, <strong>Klenot Restaurant</strong> is a place where
-          tradition meets elegance. We specialize in authentic Czech and European cuisine,
-          prepared with fresh local ingredients and a touch of modern presentation.
-        </p>
-        <p data-i18n="about-us.about-description-second">
-          Our philosophy is simple: quality, hospitality, and unforgettable atmosphere.
-          Whether you're visiting for a romantic dinner, a business meeting, or a family
-          celebration, we aim to provide an experience that goes beyond just food.
-        </p>
-        <p data-i18n="about-us.about-description-third">
-          Our chefs combine classic recipes with contemporary techniques,
-          offering seasonal dishes, signature specialties, and a curated wine selection.
-          At Klenot Restaurant, every detail — from the interior design to the plating —
-          is created to make you feel special.
-        </p>
-      </div>
-    </section>
-
-
-    <!-- ============================== REWIEWS ================================= -->
-
-    <section class="reviews-columns">
+    <section id="gallery-section" class="gallery-section invisible">
       <div class="gallery-bg" aria-hidden="true">
         <div class="bokeh b1"></div>
         <div class="bokeh b2"></div>
         <div class="bokeh b3"></div>
         <div class="bokeh b4"></div>
         <div class="bokeh b5"></div>
-        <div class="bokeh b6"></div>
+        <div class="bokeh b8"></div>
         <div class="fog-layer"></div>
         <div class="fog-layer fog-layer--br"></div>
+        <div class="center-vignette"></div>
       </div>
-      <div class="reviews-container">
-        <h4 class="section-title" data-i18n="reviews.title">Voices from our table</h4>
-        <button class="scroll-indicator scroll-up" aria-label="Scroll up">
-          <span class="chev">⌃</span>
-        </button>
-        <div class="reviews-columns-wrapper">
-          
-          <div class="columns-grid">
-            <article class="card r1">
-              <div class="card-header">
-                <div class="avatar" aria-hidden="true">
-                  <img src="./img/avatar-1.jpg" alt="Anna">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">Anna</div>
-                  <div class="meta" data-i18n="reviews.r1.meta">Guest</div>
-                </div>
-                <div class="rating" data-score="9" aria-label="Rating: 9 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
-                </div>
-              </div>
+      <div class="gallery-header">
 
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r1.cardInner">
-                  We had a delightful dinner. Every detail was considered, 
-                  from table setting to dessert plating. 
-                  Minor timing issues, but the experience was wonderful.
-                </p>
-              </div>
-            </article>
+        <h2 class="gallery-title" data-i18n="gallery.title">Our Gallery</h2>
 
-            <article class="card r2">
-              <div class="card-header">
-                <div class="avatar" aria-hidden="true">
-                  <img src="./img/avatar-2.jpg" alt="Marek Liška">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">Marek Liška</div>
-                  <div class="meta" data-i18n="reviews.r2.meta">Food blogger</div>
-                </div>
-                <div class="rating" data-score="8" aria-label="Rating: 8 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
-                </div>
-              </div>
+        <button id="gallery-pause-btn" class="gallery-btn-circle"
+          aria-label="Приостановить анимацию">
 
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r2.cardInner">
-                  Very enjoyable dinner with fresh, 
-                  flavorful dishes. Staff were attentive, 
-                  though one main course was slightly delayed. 
-                  The interior was stylish and cozy, perfect for
-                  a relaxed evening.
-                </p>
-              </div>
-            </article>
-
-            <article class="card r3">
-              <div class="card-header">
-                <div class="avatar" aria-hidden="true">
-                  <img src="./img/avatar-3.jpg" alt="Elena Pruitt">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">Elena Pruitt</div>
-                  <div class="meta" data-i18n="reviews.r3.meta">Chef admirer</div>
-                </div>
-                <div class="rating" data-score="10" aria-label="Rating: 10 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                </div>
-              </div>
-
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r3.cardInner">
-                  A truly spectacular visit. Every dish, from starters to dessert, 
-                  was expertly prepared and full of flavor. 
-                  The staff provided attentive and seamless service, 
-                  making us feel valued and comfortable throughout the evening. 
-                  The restaurant’s design is stylish and inviting, 
-                  with soft lighting, comfortable seating, 
-                  and a lively yet intimate ambiance. 
-                  Drinks were carefully crafted, and the dessert selection was impressive. Every detail was considered, 
-                  creating an unparalleled dining experience that deserves the highest praise.
-                </p>
-              </div>
-            </article>
-
-            <article class="card r4">
-              <div class="card-header">
-                <div class="avatar" aria-hidden="true">
-                  <img src="./img/avatar-4.jpg" alt="Tomas">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">Tomas</div>
-                  <div class="meta" data-i18n="reviews.r4.meta">Traveler</div>
-                </div>
-                <div class="rating" data-score="7" aria-label="Rating: 7 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
-                </div>
-              </div>
-
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r4.cardInner">
-                  Overall a pleasant visit. The food was tasty, 
-                  but the dessert took longer than expected, and we had to ask twice for water refills.
-                  Still, the staff stayed friendly and attentive.
-                </p>
-              </div>
-            </article>
-
-            <article class="card r5">
-              <div class="card-header">
-                <div class="avatar" aria-hidden="true">
-                  <img src="./img/avatar-5.jpg" alt="Vít Martin">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">Vít Martin</div>
-                  <div class="meta" data-i18n="reviews.r5.meta">Special occasion</div>
-                </div>
-                <div class="rating" data-score="9" aria-label="Rating: 9 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
-                </div>
-              </div>
-
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r5.cardInner">
-                  Wonderful wine pairings and a calm ambience that allowed us to enjoy our conversation.
-                  The staff offered great recommendations and the attention to detail made our evening special.
-                  We'll remember this restaurant for its thoughtful combinations and friendly team.
-                </p>
-              </div>
-            </article>
-
-            <article class="card r6">
-              <div class="card-header">
-                <div class="avatar" aria-hidden="true">
-                  <img src="./img/avatar-6.jpg" alt="Sophie N.">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">Sophie N.</div>
-                  <div class="meta" data-i18n="reviews.r6.meta">Regular</div>
-                </div>
-                <div class="rating" data-score="10" aria-label="Rating: 10 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                </div>
-              </div>
-
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r6.cardInner">
-                  Perfect in every way. Culinary execution, ambiance, and service were remarkable. 
-                  Plates were visually stunning, and staff anticipated our needs. 
-                  The overall experience left us genuinely delighted and eager to return soon for another unforgettable visit.
-                </p>
-              </div>
-            </article>
-
-            <article class="card r7">
-              <div class="card-header">
-                <div class="avatar" aria-hidden="true">
-                  <img src="./img/avatar-7.jpg" alt="Daniel R.">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">Daniel Richardson</div>
-                  <div class="meta" data-i18n="reviews.r7.meta">Gastronomy enthusiast</div>
-                </div>
-                <div class="rating" data-score="10" aria-label="Rating: 10 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                </div>
-              </div>
-
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r7.cardInner">
-                  Absolutely perfect in every respect. The attention to detail is remarkable: 
-                  from the culinary execution to the ambiance and service. 
-                  Each plate is not just food, but a carefully composed experience of taste, 
-                  texture, and visual delight. The staff anticipate your needs with professionalism and warmth. 
-                  The interior creates a sense of calm luxury, enhanced by subtle lighting and music. 
-                  This is the kind of restaurant that makes every visit memorable, leaving you with a lasting impression of excellence. 
-                  Every bite feels thoughtfully crafted, making the meal a true journey for the senses.
-                </p>
-              </div>
-            </article>
-            
-            <article class="card r8">
-              <div class="card-header">
-                <div class="avatar">
-                  <img src="./img/avatar-8.jpg" alt="Lena Plíšková">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">Lena Plíšková</div>
-                  <div class="meta" data-i18n="reviews.r8.meta">Foodie</div>
-                </div>
-                <div class="rating" data-score="8" aria-label="Rating: 8 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
-                </div>
-              </div>
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r8.cardInner">
-                  A highly enjoyable dinner with a warm, welcoming environment. 
-                  Every dish tasted fresh and was presented elegantly. 
-                  The staff were accommodating, though there was a minor mix-up with the order, which was quickly resolved. 
-                  This restaurant is ideal for a relaxed evening with friends or family, combining tasty cuisine with pleasant service.
-                </p>
-              </div>
-            </article>
-
-            <article class="card r9">
-              <div class="card-header">
-                <div class="avatar">
-                  <img src="./img/avatar-9.jpg" alt="C. Lee">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">C. Lee</div>
-                  <div class="meta" data-i18n="reviews.r9.meta">Traveler</div>
-                </div>
-                <div class="rating" data-score="9" aria-label="Rating: 9 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                </div>
-              </div>
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r9.cardInner">
-                  A truly remarkable dinner. Every plate was crafted with attention to flavor, 
-                  texture, and visual appeal. Service was smooth, friendly, and professional, 
-                  making us feel welcome throughout the evening. Drinks and desserts were outstanding, 
-                  adding a thoughtful touch to the experience. 
-                  This restaurant consistently delivers a sophisticated and satisfying experience.
-                </p>
-              </div>
-            </article>
-
-            <article class="card r10">
-              <div class="card-header">
-                <div class="avatar">
-                  <img src="./img/avatar-10.jpg" alt="S. Rogers">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">S. Rogers</div>
-                  <div class="meta" data-i18n="reviews.r10.meta">Regular</div>
-                </div>
-                <div class="rating" data-score="9" aria-label="Rating: 9 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span>
-                </div>
-              </div>
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r10.cardInner">
-                  We had an almost perfect visit. The restaurant offers excellent cuisine, refined service, and a beautifully arranged space. 
-                  Staff were attentive and friendly, providing helpful suggestions. 
-                  A minor delay on one appetizer was handled professionally. 
-                  Overall, a memorable evening worth recommending.
-                </p>
-              </div>
-            </article>
-
-            <article class="card r11">
-              <div class="card-header">
-                <div class="avatar">
-                  <img src="./img/avatar-11.jpg" alt="J. &amp; M.">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">J. &amp; M.</div>
-                  <div class="meta" data-i18n="reviews.r11.meta">Visitor</div>
-                </div>
-                <div class="rating" data-score="10" aria-label="Rating: 10 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                </div>
-              </div>
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r11.cardInner">
-                  Unforgettable experience with exceptional food, service, and atmosphere. Every course was flavorful, 
-                  perfectly seasoned, and thoughtfully paired, leaving lasting delightful impressions. 
-                  Staff were friendly, welcoming, and attentive.
-                </p>
-              </div>
-            </article>
-
-            <article class="card r12">
-              <div class="card-header">
-                <div class="avatar">
-                  <img src="./img/avatar-12.jpg" alt="Grayson Turner">
-                </div>
-                <div class="author-block">
-                  <div class="author-name">Grayson Turner</div>
-                  <div class="meta" data-i18n="reviews.r12.meta">Visitor</div>
-                </div>
-                <div class="rating" data-score="8" aria-label="Rating: 8 out of 10">
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span>
-                  <span class="star filled">★</span><span class="star filled">★</span><span class="star filled">★</span><span class="star">★</span><span class="star">★</span>
-                </div>
-              </div>
-              <div class="card-inner">
-                <p class="text" data-i18n="reviews.r12.cardInner">
-                  This visit was very enjoyable. The dishes were well-prepared, with a range of flavors that pleased our group. 
-                  The staff were attentive and friendly, ensuring we had everything we needed. 
-                  The seating arrangement was comfortable, and the lighting created a relaxed yet stylish ambiance. 
-                  Overall, it felt like a high-quality dining experience, with only minor timing issues.
-                </p>
-              </div>
-            </article>
-
-            <article class="r13 footer-card">
-              <div class="review-footer-card-inner">
-                <p class="reviews-footer-text gradient-run" data-i18n="reviews.r13.footer-text">Grateful for every smile shared around our table 🌿</p>
-              </div>
-            </article>
-
-          </div>        
-        </div>
-
-        <button class="scroll-indicator scroll-down" aria-label="Scroll down">
-          <span class="chev">⌄</span>
+          <span class="pause-content">
+            <span class="icon-pause">&#10074;&#10074;</span>
+          </span>
+          <span class="play-content">
+            <span class="icon-play">&#9658;</span>
+          </span>
         </button>
 
+      </div>
+      <p class="gallery-subtitle" data-i18n="gallery.description">Step inside
+        the atmosphere of Klenot Restaurant</p>
+
+      <div class="gallery-ring">
+        <div class="gallery-item"><img loading="lazy"
+            decoding="async" src="img/about-bg.png"
+            data-i18n-alt="gallery.soft-first"
+            alt="Soft lighting and intimate ambience for unforgettable evenings."></div>
+        <div class="gallery-item"><img loading="lazy"
+            decoding="async" src="img/klenot balcony.png"
+            data-i18n-alt="gallery.second"
+            alt="Open-air terrace perfect for warm evenings and city views."></div>
+        <div class="gallery-item"><img loading="lazy"
+            decoding="async" src="img/food-bar1.jpg"
+            data-i18n-alt="gallery.third"
+            alt="Elegant bar with crafted cocktails and a curated wine selection."></div>
+        <div class="gallery-item"><img loading="lazy"
+            decoding="async" src="img/klenot kitchen.png"
+            data-i18n-alt="gallery.fourth"
+            alt="Behind the scenes of our culinary artistry – where every dish begins."></div>
+        <div class="gallery-item"><img loading="lazy"
+            decoding="async" src="img/klenot party.png"
+            data-i18n-alt="gallery.fifth"
+            alt="Spacious hall designed for celebrations, receptions and special occasions."></div>
+        <div class="gallery-item"><img loading="lazy"
+            decoding="async" src="img/gallery-8.jpg"
+            data-i18n-alt="gallery.sixth"
+            alt="Elegant venue perfect for weddings, parties, and memorable gatherings."></div>
+        <div class="gallery-item"><img loading="lazy"
+            decoding="async" src="img/gallery-9.jpg"
+            data-i18n-alt="gallery.seventh"
+            alt="Bright and airy space ideal for receptions, ceremonies, and festive events."></div>
       </div>
     </section>
 
-  </main>
+    <div id="zoom" class="zoom-container">
+      <span id="zoom-close" class="zoom-close">&times;</span>
 
-  <!-- ============================== GALLERY ================================= -->
+      <button id="zoom-prev" class="zoom-nav zoom-prev"
+        aria-label="Previous image">&lt;</button>
+      <button id="zoom-next" class="zoom-nav zoom-next"
+        aria-label="Next image">&gt;</button>
 
-  <section id="gallery-section" class="gallery-section invisible">
-    <div class="gallery-bg" aria-hidden="true">
-      <div class="bokeh b1"></div>
-      <div class="bokeh b2"></div>
-      <div class="bokeh b3"></div>
-      <div class="bokeh b4"></div>
-      <div class="bokeh b5"></div>
-      <div class="bokeh b8"></div>
-      <div class="fog-layer"></div>
-      <div class="fog-layer fog-layer--br"></div>
-      <div class="center-vignette"></div>
+      <img id="zoom-img" src alt="zoom">
+      <p id="zoom-description"></p>
     </div>
-    <h2 class="gallery-title" data-i18n="gallery.title">Our Gallery</h2>
-    <p class="gallery-subtitle" data-i18n="gallery.description">Step inside the atmosphere of Klenot Restaurant</p>
-
-    <div class="gallery-ring">
-      <div class="gallery-item"><img src="img/about-bg.png" data-i18n-alt="gallery.soft-first" alt="Soft lighting and intimate ambience for unforgettable evenings."></div>
-      <div class="gallery-item"><img src="img/klenot balcony.png" data-i18n-alt="gallery.second" alt="Open-air terrace perfect for warm evenings and city views."></div>
-      <div class="gallery-item"><img src="img/food-bar1.jpg" data-i18n-alt="gallery.third" alt="Elegant bar with crafted cocktails and a curated wine selection."></div>
-      <div class="gallery-item"><img src="img/klenot kitchen.png" data-i18n-alt="gallery.fourth" alt="Behind the scenes of our culinary artistry – where every dish begins."></div>
-      <div class="gallery-item"><img src="img/klenot party.png" data-i18n-alt="gallery.fifth" alt="Spacious hall designed for celebrations, receptions and special occasions."></div>
-      <div class="gallery-item"><img src="img/gallery-8.jpg" data-i18n-alt="gallery.sixth" alt="Elegant venue perfect for weddings, parties, and memorable gatherings."></div>
-      <div class="gallery-item"><img src="img/gallery-9.jpg" data-i18n-alt="gallery.seventh" alt="Bright and airy space ideal for receptions, ceremonies, and festive events."></div>
-    </div>
-  </section>
-
-  <div id="zoom" class="zoom-container">
-    <span id="zoom-close" class="zoom-close">&times;</span>
-    <img id="zoom-img" src="" alt="zoom">
-    <p id="zoom-description"></p>
-  </div>
 
   <!-- ===== FORM MAIN (signin) ===== -->
   <section class="form-main invisible" id="signin-section">
@@ -609,120 +883,144 @@
         <fieldset class="form-fieldset">
           <legend class="form-legend" data-i18n="signing-form.legend">Evening login</legend>
 
-          <label for="main-name" class="form-name">
-            <span data-i18n="signing-form.login">Login</span>
-            <input type="text" id="main-name" name="login" autocomplete="on" required>
-            <p class="error-message"></p>
-          </label>
+            <label for="main-name" class="form-name">
+              <span data-i18n="signing-form.login">Login</span>
+              <input type="text" id="main-name" name="login" autocomplete="on"
+                required>
+              <p class="error-message"></p>
+            </label>
 
-          <label for="main-email" class="form-signin">
-            <span data-i18n="signing-form.email">Email</span>
-            <input type="email" placeholder="example@gmail.com" id="main-email" name="email" autocomplete="email" required>
-            <p class="error-message"></p>
-          </label>
+            <label for="main-email" class="form-signin">
+              <span data-i18n="signing-form.email">Email</span>
+              <input type="email" placeholder="example@gmail.com"
+                id="main-email" name="email" autocomplete="email" required>
+              <p class="error-message"></p>
+            </label>
 
-          <label for="main-password" class="form-password">
-            <span data-i18n="signing-form.password">Password</span>
-            <input type="password" id="main-password" name="password" autocomplete="current-password" required>
-            <p class="error-message"></p>
-          </label>
+            <label for="main-password" class="form-password">
+              <span data-i18n="signing-form.password">Password</span>
+              <input type="password" id="main-password" name="password"
+                autocomplete="current-password" required>
+              <p class="error-message"></p>
+            </label>
 
-          <div class="form-reg-wrap">
-            <div class="form-regestration-div">
-              <button class="form-regestration-btn" type="button" data-i18n="signing-form.create-account">Don't have an account?</button>
-              <svg class="form-regestration-border" width="100%" height="100%" viewBox="0 0 200 200"
-                preserveAspectRatio="none">
-                <path class="form-regestration-border-path" d="" stroke="#000" stroke-width="2.5"
-                  fill="transparent" />
-              </svg>
+            <div class="form-reg-wrap">
+              <div class="form-regestration-div">
+                <button class="form-regestration-btn" type="button"
+                  data-i18n="signing-form.create-account">Don't have an
+                  account?</button>
+                <svg class="form-regestration-border" width="100%" height="100%"
+                  viewBox="0 0 200 200"
+                  preserveAspectRatio="none">
+                  <path class="form-regestration-border-path" d stroke="#000"
+                    stroke-width="2.5"
+                    fill="transparent" />
+                </svg>
+              </div>
             </div>
-          </div>
 
-          <div class="form-submit-wrap">
-            <!-- кнопка "Войти" (signin) -->
-            <button class="form-submit-button form-submit-button--signin" type="submit" name="action" value="account" data-i18n="signing-form.signin-button">Sign in</button>
-          </div>
-
-        </fieldset>
-      </div>
-    </form>
-  </section>
-
-  <!-- ===== LOGIN / REGISTER SECTION ===== -->
-  <section class="login-form-section invisible" id="login-section">
-    <div class="login-form-all">
-      <form class="login-form" method="post" id="register-form" novalidate>
-        <div class="login-form-inside">
-          <fieldset class="login-form-fieldset">
-            <legend class="login-form-legend" data-i18n="login-form.create-account">Create account</legend>
-
-            <label for="login-username" class="login-form-username">
-              <span data-i18n="signin-form.login">Login</span>
-              <input type="text" placeholder="username123" id="login-username" name="login" autocomplete="username"
-                required>
-            </label>
-
-            <label for="login-email" class="login-form-email">
-              <span data-i18n="signin-form.email">Email</span>
-              <input type="email" placeholder="example@gmail.com" id="login-email" name="email" autocomplete="email"
-                required>
-            </label>
-
-            <label for="login-password" class="login-form-password">
-              <span data-i18n="signin-form.password">Password</span>
-              <input type="password" id="login-password" name="password" autocomplete="new-password" required>
-            </label>
-
-            <div class="login-form-submit-wrap">
-              <button class="form-submit-button form-submit-button--register" type="submit" name="action"
-                value="create-account" data-i18n="login-form.create-account">Create account</button>
+            <div class="form-submit-wrap">
+              <!-- кнопка "Войти" (signin) -->
+              <button class="form-submit-button form-submit-button--signin"
+                type="submit" name="action" value="account"
+                data-i18n="signing-form.signin-button">Sign in</button>
             </div>
 
           </fieldset>
         </div>
       </form>
-    </div>
-  </section>
+    </section>
 
-  <!-- ===== PERSONAL ACCOUNT (placeholder) ===== -->
-  <section class="main-content-wrapper" id="account-wrapper">
-    <div class="personal-account invisible" id="personal-account">
-      <div class="personal-account-title">Личный кабинет</div>
-      <div class="personal-account-wrap">
-        <div class="personal-account-left">
-          <button class="personal-account-btn personal-account-dates">Личные данные</button>
-          <button class="personal-account-btn personal-account-reservation">Резервация</button>
-          <button class="personal-account-btn personal-account-admin-panel">Админская панель</button>
-        </div>
+    <!-- ===== LOGIN / REGISTER SECTION ===== -->
+    <section class="login-form-section invisible" id="login-section">
+      <div class="login-form-all">
+        <form class="login-form" method="post" id="register-form" novalidate>
+          <div class="login-form-inside">
+            <fieldset class="login-form-fieldset">
+              <legend class="login-form-legend"
+                data-i18n="login-form.create-account">Create account</legend>
 
-        <div class="personal-account-divider"></div>
+              <label for="login-username" class="login-form-username">
+                <span data-i18n="signin-form.login">Login</span>
+                <input type="text" placeholder="username123" id="login-username"
+                  name="login" autocomplete="username"
+                  required>
+              </label>
 
-        <div class="personal-account-right">
-          <!-- Личные данные -->
-          <div class="personal-account-content dates visible">
-            <h3 class="personal-account-welcome">Добро пожаловать, <span class="user-name">Пользователь</span>!</h3>
-            <div class="account-info">
-              <p class="personal-account-data">Login: <span class="user-login"></span></p>
-              <p class="personal-account-data">Email: <span class="user-email"></span></p>
-              <p class="personal-account-data">Password: <span class="user-password"></span></p>
-              
-            </div>
-            <div class="personal-account-dates-buttons">
-              <button class="edit-account-btn">Изменить данные</button>
-              <button class="logout-account-btn">Выйти</button>
-            </div>
+              <label for="login-email" class="login-form-email">
+                <span data-i18n="signin-form.email">Email</span>
+                <input type="email" placeholder="example@gmail.com"
+                  id="login-email" name="email" autocomplete="email"
+                  required>
+              </label>
+
+              <label for="login-password" class="login-form-password">
+                <span data-i18n="signin-form.password">Password</span>
+                <input type="password" id="login-password" name="password"
+                  autocomplete="new-password" required>
+              </label>
+
+              <div class="login-form-submit-wrap">
+                <button class="form-submit-button form-submit-button--register"
+                  type="submit" name="action"
+                  value="create-account"
+                  data-i18n="login-form.create-account">Create account</button>
+              </div>
+
+            </fieldset>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== PERSONAL ACCOUNT (placeholder) ===== -->
+    <section class="main-content-wrapper" id="account-wrapper">
+      <div class="personal-account invisible" id="personal-account">
+        <div class="personal-account-title">Личный кабинет</div>
+        <div class="personal-account-wrap">
+          <div class="personal-account-left">
+            <button class="personal-account-btn personal-account-dates">Личные
+              данные</button>
+            <button
+              class="personal-account-btn personal-account-reservation">Резервация</button>
+            <button
+              class="personal-account-btn personal-account-admin-panel">Админская
+              панель</button>
           </div>
 
-          <!-- Резервация -->
-          <div class="personal-account-content reservation invisible">
-            <h3 class="personal-account-reservation-title">Ваши резервации</h3>
-            <p class="reservation-info-text">
-              Здесь вы можете просмотреть ваши текущие и прошедшие резервации.
-            </p>
-            <div id="user-reservations" class="reservation-list">
-              <p class="empty-reservations">Пока у вас нет активных резерваций.</p>
+          <div class="personal-account-divider"></div>
+
+          <div class="personal-account-right">
+            <!-- Личные данные -->
+            <div class="personal-account-content dates visible">
+              <h3 class="personal-account-welcome">Добро пожаловать, <span
+                  class="user-name">Пользователь</span>!</h3>
+              <div class="account-info">
+                <p class="personal-account-data">Login: <span
+                    class="user-login"></span></p>
+                <p class="personal-account-data">Email: <span
+                    class="user-email"></span></p>
+                <p class="personal-account-data">Password: <span
+                    class="user-password"></span></p>
+
+              </div>
+              <div class="personal-account-dates-buttons">
+                <button class="edit-account-btn">Изменить данные</button>
+                <button class="logout-account-btn">Выйти</button>
+              </div>
             </div>
-          </div>
+
+            <!-- Резервация -->
+            <div class="personal-account-content reservation invisible">
+              <h3 class="personal-account-reservation-title">Ваши резервации</h3>
+              <p class="reservation-info-text">
+                Здесь вы можете просмотреть ваши текущие и прошедшие резервации.
+              </p>
+              <div id="user-reservations" class="reservation-list">
+                <p class="empty-reservations">Пока у вас нет активных
+                  резерваций.</p>
+              </div>
+            </div>
 
           <!-- Админская панель -->
           <div class="personal-account-content admin invisible">
@@ -801,124 +1099,205 @@
   </section>
 
 
+    <!-- ======================== RESERVATION ======================== -->
+    <section id="reservation-section" class="reservation-section invisible">
+      <div class="reservation-container">
+        <h2 class="reservation-title" data-i18n="reservation.title">Table
+          Reservation</h2>
+        <form class="reservation-form" id="reservation-form" method="post"
+          novalidate>
+          <div class="form-group">
+            <label for="reservation-name">
+              <span data-i18n="reservation.name">Full Name</span>
+              <input type="text" name="name"
+                data-i18n-placeholder="reservation.placeholder-name"
+                placeholder="e.g. John Smith"
+                required>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="reservation-phone">
+              <span data-i18n="reservation.number">Phone number</span>
+              <input type="tel" name="phone" placeholder="+420 123 456 789"
+                required>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="reservation-email">
+              <span data-i18n="signin-form.email">Email</span>
+              <input type="email" name="email" placeholder="example@gmail.com"
+                required>
+            </label>
+          </div>
+          <div class="form-two-cols">
+            <label for="dateInput">
+              <span data-i18n="reservation.date">Date</span>
+              <input type="date" id="dateInput" name="date" required>
+            </label>
+            <label for="timeInput">
+              <span data-i18n="reservation.time">Time</span>
+              <input type="time" id="timeInput" name="time" required>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="peopleInput">
+              <span data-i18n="reservation.guests">Number of guests</span>
+              <input type="number" name="people" min="1" max="20" value="2"
+                required>
+            </label>
+          </div>
+          <div class="form-group">
+            <label for="messageInput">
+              <span data-i18n="reservation.comment">Comment (optional)</span>
+              <textarea name="message"
+                data-i18n-placeholder="reservation.placeholder-message"
+                placeholder="Special requests or preferences"></textarea>
+            </label>
+          </div>
+          <div class="reservation-message" id="reservation-message"></div>
+          <div class="reservation-submit-wrap">
+            <button class="reservation-submit-btn"
+              type="submit" data-i18n="reservation.reservation"
+              name="action">Reserve</button>
+          </div>
+        </form>
+      </div>
+    </section>
 
-  <!-- =========================== MENU =========================== -->
+    <!-- =========================== MENU =========================== -->
 
-  <section class="menu-all" id="menu-all">
+    <section class="menu-all" id="menu-all">
 
-    <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
-    <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false" data-bg="img/menu-hero.jpg">
-      <div class="menu-3d-container" id="menu-3d-container">
-        <!-- задний фон -->
-        <div class="menu-layer layer-1" style="background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');"></div>
-        <!-- средние слои (могут быть PNG с прозрачностью) -->
-        <div class="menu-layer layer-3">
-          <div class="menu-3d-center">
-            <h1 class="menu-3d-title">Menu</h1>
-            <p class="menu-3d-sub">Taste our seasonal selection — inspired by tradition, crafted with love</p>
+      <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
+      <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false"
+        data-bg="img/menu-hero.jpg">
+        <div class="menu-3d-container" id="menu-3d-container">
+          <!-- задний фон -->
+          <div class="menu-layer layer-1"
+            style="background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');"></div>
+          <!-- средние слои (могут быть PNG с прозрачностью) -->
+          <div class="menu-layer layer-3">
+            <div class="menu-3d-center">
+              <h1 class="menu-3d-title">Menu</h1>
+              <p class="menu-3d-sub">Taste our seasonal selection — inspired by
+                tradition, crafted with love</p>
+            </div>
           </div>
         </div>
+        <div class="menu-smoke" aria-hidden="true"
+          style="background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')"></div>
+        <div class="menu-sun" aria-hidden="true"
+          style="background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')"></div>
       </div>
-      <div class="menu-smoke" aria-hidden="true" style="background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')"></div>
-      <div class="menu-sun" aria-hidden="true" style="background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')"></div>
-    </div>
 
-    <!-- Кнопки-фильтры -->
-    <div class="menu-all-btn" role="tablist" aria-label="Menu categories">
-      <button class="menu-button" data-filter="all">All</button>
-      <button class="menu-button" data-filter="Appetizers-and-Salads">Appetizers &amp; Salads</button>
-      <button class="menu-button" data-filter="Soups">Soups</button>
-      <button class="menu-button" data-filter="Sides-Dishes">Side Dishes</button>
-      <button class="menu-button" data-filter="Main-Courses">Main Courses</button>
-      <button class="menu-button" data-filter="Fish-and-Seafood">Fish &amp; Seafood</button>
-      <button class="menu-button" data-filter="Desserts">Desserts</button>
-      <button class="menu-button" data-filter="Soft-Drinks">Soft Drinks</button>
-      <button class="menu-button" data-filter="Alcoholic-Beverages">Alcoholic Beverages</button>
-    </div>
+      <!-- Кнопки-фильтры -->
+      <div class="menu-all-btn" role="tablist" aria-label="Menu categories">
+        <button class="menu-button" data-filter="all">All</button>
+        <button class="menu-button"
+          data-filter="Appetizers-and-Salads">Appetizers &amp; Salads</button>
+        <button class="menu-button" data-filter="Soups">Soups</button>
+        <button class="menu-button" data-filter="Sides-Dishes">Side
+          Dishes</button>
+        <button class="menu-button" data-filter="Main-Courses">Main
+          Courses</button>
+        <button class="menu-button" data-filter="Fish-and-Seafood">Fish &amp;
+          Seafood</button>
+        <button class="menu-button" data-filter="Desserts">Desserts</button>
+        <button class="menu-button" data-filter="Soft-Drinks">Soft
+          Drinks</button>
+        <button class="menu-button" data-filter="Alcoholic-Beverages">Alcoholic
+          Beverages</button>
+      </div>
 
-    <template id="menu-item-template">
-      <article class="menu-first-position menu-item" data-category="">
-        <img src="" alt="" class="menu-first-food-img">
-        <div class="menu-first-info">
-          <h3 class="menu-first-text"></h3>
-          <p class="menu-first-desc"></p>
+      <template id="menu-item-template">
+        <article class="menu-first-position menu-item" data-category>
+          <img loading="lazy"
+            decoding="async" src alt class="menu-first-food-img">
+          <div class="menu-first-info">
+            <h3 class="menu-first-text"></h3>
+            <p class="menu-first-desc"></p>
+          </div>
+          <div class="menu-first-meta">
+            <div class="menu-first-price"></div>
+            <p class="menu-order-weight"></p>
+          </div>
+        </article>
+      </template>
+
+      <!-- Список блюд — каждая карточка -->
+      <div class="menu-items">
+
+      </div>
+
+    </section>
+
+    <footer class="footer">
+      <div class="footer-box">
+
+        <div class="footer-about-us">
+          <h3>About Us</h3>
+          <p>
+            Klenot Restaurant offers a unique blend of Czech tradition and
+            modern culinary artistry.
+            Our mission is to consistently deliver exceptional food and
+            memorable service in the heart of Prague.
+          </p>
         </div>
-        <div class="menu-first-meta">
-          <div class="menu-first-price"></div>
-          <p class="menu-order-weight"></p>
+
+        <div class="footer-links">
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li class="footer-button-aboutus"><a href="#about-us"
+                class="footer-button-aboutus">About Us</a></li>
+            <li><button type="button" class="menu-btn">Menu</button></li>
+            <li><button type="button" class="gallery-btn">Gallery</button></li>
+            <li><button type="button"
+                class="reservation-btn">Reservations</button></li>
+          </ul>
         </div>
-      </article>
-    </template>
 
-    <!-- Список блюд — каждая карточка -->
-    <div class="menu-items">
-
-
-    </div>
-
-  </section>
-
-
-
-  <footer class="footer">
-    <div class="footer-box">
-
-      <div class="footer-about-us">
-        <h3>About Us</h3>
-        <p>
-          Klenot Restaurant offers a unique blend of Czech tradition and modern culinary artistry.
-          Our mission is to consistently deliver exceptional food and memorable service in the heart of Prague.
-        </p>
-      </div>
-
-      <div class="footer-links">
-        <h4>Explore</h4>
-        <ul class="footer-links">
-          <li class="footer-button-aboutus"><a href="#about-us" class="footer-button-aboutus">About Us</a></li>
-          <li><button type="button" class="menu-btn">Menu</button></li>
-          <li><button type="button" class="gallery-btn">Gallery</button></li>
-          <li><button type="button" class="reservation-btn">Reservations</button></li>
-        </ul>
-      </div>
-
-      <div class="footer-contact">
-        <h4>Contact</h4>
-        <p>📍 Václavské náměstí, Prague, Czechia</p>
-        <p>📞 +420 123 456 789</p>
-        <p>✉️ info@klenotrestaurant.cz</p>
-      </div>
-
-      <div class="footer-media-links">
-        <h4>Follow Us</h4>
-        <div class="media-icons">
-          <a href="#"><img src="img/facebook-logo.svg" alt="Facebook"></a>
-          <a href="#"><img src="img/insta-logo.svg" alt="Instagram"></a>
-          <a href="#"><img src="img/tripadvisor-logo.svg" alt="TripAdvisor"></a>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p>📍 Václavské náměstí, Prague, Czechia</p>
+          <p>📞 +420 123 456 789</p>
+          <p>✉️ info@klenotrestaurant.cz</p>
         </div>
+
+        <div class="footer-media-links">
+          <h4>Follow Us</h4>
+          <div class="media-icons">
+            <a href="#"><img loading="lazy"
+                decoding="async" src="img/facebook-logo.svg" alt="Facebook"></a>
+            <a href="#"><img loading="lazy"
+                decoding="async" src="img/insta-logo.svg" alt="Instagram"></a>
+            <a href="#"><img loading="lazy"
+                decoding="async" src="img/tripadvisor-logo.svg"
+                alt="TripAdvisor"></a>
+          </div>
+        </div>
+
       </div>
 
-    </div>
+      <div class="footer-bottom">
+        <p>© 2025 Klenot Restaurant. All rights reserved.</p>
+      </div>
+    </footer>
 
-    <div class="footer-bottom">
-      <p>© 2025 Klenot Restaurant. All rights reserved.</p>
-    </div>
-  </footer>
+    <script src="js/main.js"></script>
+    <script src="js/switch-language.js"></script>
+    <script src="js/language-dropdown.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/gallery.js"></script>
+    <script src="js/switch-visibility.js"></script>
+    <script src="js/registration.js"></script>
+    <script src="js/signin.js"></script>
+    <script src="js/reservation.js"></script>
+    <script src="js/form-validation.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/account.js"></script>
+    <script src="js/mobile/menu-dropdown.js"></script>
+    <script src="js/review.js"></script>
 
-  <script src="js/main.js"></script>
-  <script src="js/switch-language.js"></script>
-  <script src="js/language-dropdown.js"></script>
-  <script src="js/animations.js"></script>
-  <script src="js/gallery.js"></script>
-  <script src="js/switch-visibility.js"></script>
-	<script src="js/registration.js"></script>
-	<script src="js/signin.js"></script>
-  <script src="js/reservation.js"></script>
-  <script src="js/form-validation.js"></script>
-  <script src="js/menu.js"></script>
-	<script src="js/account.js"></script>
-  <script src="js/mobile/menu-dropdown.js"></script>
-  <script src="js/review.js"></script>
-
-</body>
+  </body>
 
 </html>
