@@ -51,7 +51,7 @@
     },
 
     "signing-form": {
-        "legend": "Zadejte login, e-mail a heslo.",
+        "legend": "Večerní přihlášení",
         "login": "Login",
         "email": "E-mail",
         "password": "Heslo",
@@ -69,7 +69,7 @@
         "number": "Telefonní číslo",
         "date": "Datum",
         "time": "Čas",
-        "guests": "Počet osob",
+        "guests": "Počet osob (max. 20)",
         "comment": "Komentář (volitelně)",
         "reservation": "Rezervovat",
         "placeholder-name": "např. Jan Novák",

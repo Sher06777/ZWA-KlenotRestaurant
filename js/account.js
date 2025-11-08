@@ -242,11 +242,11 @@ function loadUserReservations(userId) {
         item.className = 'reservation-item';
         item.innerHTML = `
           <h4>${r.date} в ${r.time}</h4>
-          <p><strong>Имя:</strong> ${r.name}</p>
-          <p><strong>Телефон:</strong> ${r.phone}</p>
-          <p><strong>Email:</strong> ${r.email}</p>
-          <p><strong>Гостей:</strong> ${r.people}</p>
-          ${r.message ? `<p><strong>Комментарий:</strong> ${r.message}</p>` : ''}
+          <p><strong class="personal-account-reservation-first-text">Имя:</strong> ${r.name}</p>
+          <p><strong class="personal-account-reservation-first-text">Телефон:</strong> ${r.phone}</p>
+          <p><strong class="personal-account-reservation-first-text">Email:</strong> ${r.email}</p>
+          <p><strong class="personal-account-reservation-first-text">Гостей:</strong> ${r.people}</p>
+          ${r.message ? `<p><strong class="personal-account-reservation-first-text">Комментарий:</strong> ${r.message}</p>` : ''}
         `;
 
         const cancelBtn = document.createElement('button');

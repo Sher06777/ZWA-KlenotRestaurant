@@ -9,7 +9,7 @@
     "main": {
         "menu-about-us": "About Us",
         "menu-menu": "Menu",
-        "menu-gallery-btn": "Gallary",
+        "menu-gallery-btn": "Gallery",
         "menu-reservation-btn": "Reservation",
         "menu-language-button": "Language",
         "menu-signin-button": "Sign in",
@@ -53,7 +53,7 @@
     },
 
     "signing-form": {
-        "legend": "Enter your login, email and password.",
+        "legend": "Evening login",
         "login": "Login",
         "email": "Email",
         "password": "Password",
@@ -71,7 +71,7 @@
         "number": "Phone number",
         "date": "Date",
         "time": "Time",
-        "guests": "Number of guests",
+        "guests": "Number of guests (max. 20)",
         "comment": "Comment (optional)",
         "reservation": "Reserve",
         "placeholder-name": "e.g. John Smith",
