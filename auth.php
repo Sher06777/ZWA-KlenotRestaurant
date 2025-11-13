@@ -1,16 +1,9 @@
 <?php
+require_once 'session_init.php';
 include 'security_headers.php';
-$secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || $_SERVER['SERVER_PORT'] == 443;
-session_set_cookie_params([
-    'lifetime' => 0,
-    'path' => '/',
-    'domain' => '.zwa.toad.cz',
-    'secure' => $secure,
-    'httponly' => true,
-    'samesite' => 'Lax'
-]);
-session_start();
 include 'db.php';
+
+header('Content-Type: application/json; charset=utf-8');
 
 // Проверка авторизации
 $currentUserId = $_SESSION['user_id'] ?? 0;
@@ -35,15 +28,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // 3) если ещё пусто — попробуем заголовок X-CSRF-Token
+    // 3) если ещё пусто — попробуем заголовки (безопасный fallback)
     if (empty($csrf_token)) {
-        $headers = getallheaders();
-        $csrf_token = $headers['X-CSRF-Token'] ?? $headers['x-csrf-token'] ?? $csrf_token;
+        if (function_exists('getallheaders')) {
+            $headers = getallheaders();
+        } else {
+            // fallback — собрать заголовки из $_SERVER
+            $headers = [];
+            foreach ($_SERVER as $k => $v) {
+                if (strpos($k, 'HTTP_') === 0) {
+                    $name = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($k, 5)))));
+                    $headers[$name] = $v;
+                }
+            }
+        }
+        $csrf_token = $headers['X-CSRF-Token'] ?? $headers['x-csrf-token'] ?? $headers['X-Csrf-Token'] ?? $csrf_token;
     }
 
     if (!verify_csrf_token($csrf_token)) {
         http_response_code(403);
-        echo json_encode(['success'=>false, 'error'=>'CSRF токен неверен']);
+        echo json_encode(['success' => false, 'error' => 'CSRF токен неверен']);
         exit;
     }
 }

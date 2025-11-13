@@ -2481,28 +2481,40 @@ label input:focus {
 /* ===== Login Form (та же стилистика, что у form-main) ===== */
 
 .login-form-section {
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 120px 0 120px;
-  /* отступ сверху для header */
-  background: transparent;
+  padding: 120px 0 60px;
+  background: url("img/profil-2.jpg") center/cover no-repeat;
+  backdrop-filter: blur(6px);
   opacity: 0;
-  transition: opacity 0.45s ease, visibility 0s linear 0.45s;
-  flex-direction: column;
+  visibility: hidden;
+  transition: opacity .45s ease, visibility 0s linear .45s;
   z-index: 5000;
-  inset: 0;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
-/* Вся форма целиком */
+.login-form-section.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .45s ease;
+}
+
+/* ===== FORM WRAPPER ===== */
+.login-form-all {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== REGISTER FORM BOX (стиль как .form) ===== */
 .login-form {
-  width: 1000px;
-  max-width: 90%;
-  background: #fff;
-  border: 3px solid #28a745;
+  width: 750px; /* ✅ как в старой форме */
+  background: rgba(80, 20, 20, 0.40); /* ✅ тёмный бордовый как signup */
+  backdrop-filter: blur(8px);
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
   padding: 40px;
   display: flex;
   justify-content: center;
@@ -2510,82 +2522,75 @@ label input:focus {
   flex-direction: column;
 }
 
-.login-form-all {
-  width: -webkit-fill-available;
-  display: flex;
-  justify-content: center;
-}
-
-/* Внутренняя рамка */
+/* ===== FIELDSET (как form-fieldset) ===== */
 .login-form-fieldset {
-  border: 3px solid #9f712e;
+  border: 1px solid rgba(255, 200, 200, 0.18);
   border-radius: 10px;
   padding: 40px;
+  width: 650px; /* ✅ ровно как старая форма */
   position: relative;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
 
-legend.login-form-legend {
+/* ===== TITLE ===== */
+.login-form-legend {
   font-size: 28px;
   font-weight: 600;
-  color: #9f712e;
+  color: rgba(255, 215, 215, 0.95);
   padding: 0 15px;
-  text-align: center;
 }
 
-/* Кнопка отправки */
-.login-form-submit-wrap {
-  text-align: center;
-  position: relative;
-  margin: 0 auto;
-  width: 50%;
-}
-
-/* Полоска при наведении */
-.login-form-submit-wrap::after {
-  content: "";
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  width: 0;
-  height: 2.3px;
-  background: #000000;
-  transform: translateX(-50%);
-  transition: width 0.5s cubic-bezier(.3, .7, .2, 1);
-}
-
-.login-form-submit-wrap:hover::after {
-  width: 60%;
-}
-
-
+/* ===== LABELS ===== */
 .login-form label {
   display: block;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 500;
-  margin-bottom: 18px;
-  color: #333;
+  margin-bottom: 25px;
+  color: rgba(255, 230, 230, 0.85);
+  text-align: left;
 }
 
+/* ===== INPUTS ===== */
 .login-form input {
-  display: block;
   width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  font-size: 18px;
-  border: 2px solid #9f712e;
+  padding: 15px;
+  margin-top: 10px;
+  font-size: 20px;
+  border: 1px solid rgba(255, 200, 200, 0.25);
   border-radius: 8px;
+  background: rgba(60, 0, 15, 0.35);
+  color: rgba(255, 240, 240, 0.95);
   outline: none;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  transition: box-shadow .3s ease, border-color .3s ease, background-color .4s ease, color .4s ease;
 }
 
 .login-form input:focus {
   border-color: #9f712e;
-  box-shadow: 0 0 12px rgba(147, 117, 21, 0.35);
+  box-shadow: 0 0 12px rgba(147, 117, 21, 0.6);
 }
 
+/* ===== BUTTON ===== */
+.form-submit-button--register {
+  width: 50%;
+  padding: 15px;
+  background: rgb(255 178 74 / 0.9);
+  border: 2px solid #9f712e;
+  border-radius: 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #2A1A10;
+  cursor: pointer;
+  position: relative;
+}
+
+.form-submit-button--register:hover {
+  background: #e19e35;
+}
+
+/* Align block inside form */
 .login-form-inside {
-  width: 60%;
+  width: 100%;
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -2657,10 +2662,6 @@ legend.login-form-legend {
 .main-content-wrapper {
   opacity: 0;
   transition: opacity .2s ease;
-}
-
-.main-content-wrapper.loaded {
-  opacity: 1;
 }
 
 .main-content-wrapper {
@@ -4063,6 +4064,8 @@ legend.login-form-legend {
 .custom-number-inline input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
+  appearance: none;
+  -moz-appearance: none;
 }
 
 /* Контейнер кнопок внутри input */
