@@ -48,6 +48,7 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
   clearAll();
 
   const formData = new FormData(signinForm);
+  formData.append('csrf_token', window.csrfToken);
 
   try {
     const response = await fetch('signin.php', {
@@ -69,6 +70,16 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
 
       // Инициализируем личный кабинет с данными
       initPersonalAccount(window.user);
+
+      try {
+        const tokenRes = await fetch('get_csrf_token.php', { credentials: 'include' });
+        const tokenData = await tokenRes.json();
+        window.csrfToken = tokenData.csrf_token;
+        console.log('✅ Новый CSRF Token получен после логина:', window.csrfToken);
+      } catch (err) {
+        console.error('Ошибка получения CSRF после входа:', err);
+      }
+
 
       // Уведомляем SPA, что пользователь вошёл
       requestAnimationFrame(() => {

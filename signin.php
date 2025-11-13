@@ -1,9 +1,9 @@
 <?php
-error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
-ini_set('display_errors', 0);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once 'session_init.php';
 include 'security_headers.php';
 include 'db.php';
-session_start();
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -53,13 +53,13 @@ if ($_SESSION['failed_login_attempts'] >= $maxAttempts && (time() - $_SESSION['l
 }
 
 // Проверяем, есть ли пользователь с таким email
-$sql = "SELECT id, name, email, password FROM users WHERE email = ?";
+$sql = "SELECT id, name, email, password FROM users WHERE email = ? AND name = ?";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Ошибка сервера (prepare).']);
     exit;
 }
-$stmt->bind_param("s", $email);
+$stmt->bind_param("ss", $email, $login);
 $stmt->execute();
 $result = $stmt->get_result();
 

@@ -935,34 +935,68 @@
         <form class="login-form" method="post" id="register-form" novalidate>
           <div class="login-form-inside">
             <fieldset class="login-form-fieldset">
-              <legend class="login-form-legend"
-                data-i18n="login-form.create-account">Create account</legend>
+              <legend class="login-form-legend" data-i18n="login-form.create-account">Create account</legend>
 
+              <!-- USERNAME -->
               <label for="login-username" class="login-form-username">
                 <span data-i18n="signin-form.login">Login</span>
-                <input type="text" placeholder="username123" id="login-username"
-                  name="login" autocomplete="username"
-                  required>
+                <input
+                  type="text"
+                  placeholder="username123"
+                  id="login-username"
+                  name="login"
+                  autocomplete="username"
+                  required
+                >
               </label>
 
+              <!-- EMAIL -->
               <label for="login-email" class="login-form-email">
                 <span data-i18n="signin-form.email">Email</span>
-                <input type="email" placeholder="example@gmail.com"
-                  id="login-email" name="email" autocomplete="email"
-                  required>
+                <input
+                  type="email"
+                  placeholder="example@gmail.com"
+                  id="login-email"
+                  name="email"
+                  autocomplete="email"
+                  required
+                >
               </label>
 
+              <!-- PASSWORD -->
               <label for="login-password" class="login-form-password">
                 <span data-i18n="signin-form.password">Password</span>
-                <input type="password" id="login-password" name="password"
-                  autocomplete="new-password" required>
+                <input
+                  type="password"
+                  id="login-password"
+                  name="password"
+                  autocomplete="new-password"
+                  required
+                >
               </label>
 
+              <!-- CONFIRM PASSWORD -->
+              <label for="login-password-confirm" class="login-form-password">
+                <span data-i18n="signin-form.confirm-password">Confirm password</span>
+                <input
+                  type="password"
+                  id="login-password-confirm"
+                  name="password_confirm"
+                  autocomplete="new-password"
+                  required
+                >
+              </label>
+
+              <!-- SUBMIT -->
               <div class="login-form-submit-wrap">
-                <button class="form-submit-button form-submit-button--register"
-                  type="submit" name="action"
+                <button
+                  class="form-submit-button--register"
+                  type="submit"
+                  name="action"
                   value="create-account"
-                  data-i18n="login-form.create-account">Create account</button>
+                  data-i18n="login-form.create-account">
+                  Create account
+                </button>
               </div>
 
             </fieldset>
@@ -972,8 +1006,8 @@
     </section>
 
     <!-- ===== PERSONAL ACCOUNT (placeholder) ===== -->
-    <section class="main-content-wrapper" id="account-wrapper">
-      <div class="personal-account invisible" id="personal-account">
+    <section class="main-content-wrapper invisible" id="account-wrapper">
+      <div class="personal-account" id="personal-account">
         <div class="personal-account-title">Личный кабинет</div>
         <div class="personal-account-wrap">
           <div class="personal-account-left">
@@ -1223,9 +1257,10 @@
     <script src="js/registration.js"></script>
     <script src="js/signin.js"></script>
     <script src="js/reservation.js"></script>
-    <script src="js/form-validation.js"></script>
+    <script src="js/signin-validation.js"></script>
     <script src="js/menu.js"></script>
     <script src="js/account.js"></script>
+    <script src="js/login-validation.js"></script>
     <script src="js/mobile/menu-dropdown.js"></script>
     <script src="js/review.js"></script>
 
