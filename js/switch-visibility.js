@@ -6,7 +6,6 @@ const gallerySection = document.getElementById('gallery-section');
 const formMain = document.querySelector('.form-main');
 const loginFormSection = document.querySelector('.login-form-section');
 const personalAccount = document.querySelector('.main-content-wrapper');
-const mainContentWrapper = document.querySelector('.main-content-wrapper');
 const header = document.getElementById('dropped-menu');
 const footer = document.querySelector('footer');
 const logo = document.querySelector('.logo');
@@ -167,7 +166,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       await updateLoginLabel();
     } else {
       showSection(formMain);
-      await updateLoginLabel(); // на всякий случай — оставим, чтобы текст был корректным
+      await updateLoginLabel();
     }
     set3DMenuInvisible(true);
   });
@@ -198,9 +197,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // ---------- Вход / регистрация ----------
-  window.onLoginOrRegister = async () => {
+  window.onLoginOrRegister = async (user) => {
     setLoggedIn(true);
     await updateLoginLabel();
+
+    if (user) {
+      window.user = user; // сохраняем глобально
+      initPersonalAccount(user); // подставляем данные в Personal Account
+    }
+
     showSection(personalAccount);
     set3DMenuInvisible(true);
   };

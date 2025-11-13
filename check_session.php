@@ -1,7 +1,8 @@
 <?php
+require_once 'session_init.php';
 include 'security_headers.php';
 include 'db.php';
-session_start();
+header('Content-Type: application/json; charset=utf-8');
 
 $response = [
   'loggedIn' => isset($_SESSION['user_id']),

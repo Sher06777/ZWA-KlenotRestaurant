@@ -1,12 +1,20 @@
-document.addEventListener('DOMContentLoaded', () => {
-  fetch('get_csrf_token.php') //def CSRF (Cross-Site Request Forgery) - attack
-    .then(res => res.json())
-    .then(data => { window.csrfToken = data.csrf_token; });
-});
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    // Проверяем сессию
+    const sessionRes = await fetch('check_session.php', { credentials: 'include' });
+    const sessionData = await sessionRes.json();
+    if (sessionData.loggedIn) {
+      window.user = sessionData.user;
+      initPersonalAccount(window.user);
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const wrapper = document.querySelector('.main-content-wrapper');
-  if (wrapper) {
-    wrapper.classList.add('loaded');
+    // Получаем CSRF токен (один раз)
+    const tokenRes = await fetch('get_csrf_token.php', { credentials: 'include' });
+    const tokenData = await tokenRes.json();
+    window.csrfToken = tokenData.csrf_token;
+    console.log('✅ CSRF Token получен при загрузке страницы:', window.csrfToken);
+
+  } catch (err) {
+    console.error('Ошибка при инициализации сессии/CSRF:', err);
   }
 });

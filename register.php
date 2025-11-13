@@ -1,22 +1,56 @@
 <?php
-include('db.php');
+error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
+ini_set('display_errors', 0);
+include 'session_init.php';
+include 'security_headers.php';
+include 'db.php';
+
 
 header('Content-Type: application/json; charset=utf-8');
-
-$response = [];
 
 $login = trim($_POST['login'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $password = trim($_POST['password'] ?? '');
+$confirmPassword = trim($_POST['password_confirm'] ?? '');
 
-if (!$login || !$email || !$password) {
-    $response['success'] = false;
-    $response['message'] = 'Пожалуйста, заполните все поля!';
-    echo json_encode($response);
+// Проверка обязательных полей
+$missing = [];
+if ($login === '') $missing[] = 'login';
+if ($email === '') $missing[] = 'email';
+if ($password === '') $missing[] = 'password';
+if ($confirmPassword === '') $missing[] = 'password_confirm';
+
+
+if (!empty($missing)) {
+    echo json_encode([
+        'success' => false,
+        'fields' => $missing,
+        'field' => $missing[0]
+    ]);
     exit;
 }
 
-// Проверка, есть ли такой email
+// Валидация email
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode([
+        'success' => false,
+        'fields' => ['email'],
+        'field' => 'email'
+    ]);
+    exit;
+}
+
+// Проверка совпадения пароля
+if ($password !== $confirmPassword) {
+    echo json_encode([
+        'success' => false,
+        'field' => 'password_confirm',
+        'message' => 'Пароли не совпадают'
+    ]);
+    exit;
+}
+
+// Проверка существующего пользователя
 $checkSql = "SELECT id FROM users WHERE email = ?";
 $checkStmt = $conn->prepare($checkSql);
 $checkStmt->bind_param("s", $email);
@@ -24,9 +58,11 @@ $checkStmt->execute();
 $checkStmt->store_result();
 
 if ($checkStmt->num_rows > 0) {
-    $response['success'] = false;
-    $response['message'] = "Пользователь с таким email уже существует!";
-    echo json_encode($response);
+    echo json_encode([
+        'success' => false,
+        'field' => 'email',
+        'message' => 'Такой email уже зарегистрирован'
+    ]);
     $checkStmt->close();
     $conn->close();
     exit;
@@ -37,21 +73,35 @@ $checkStmt->close();
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Вставка нового пользователя
-$sql = "INSERT INTO users (name, email, password, created_at) VALUES (?, ?, ?, NOW())";
-$stmt = $conn->prepare($sql);
+$stmt = $conn->prepare("INSERT INTO users (name, email, password, created_at) VALUES (?, ?, ?, NOW())");
 $stmt->bind_param("sss", $login, $email, $hashedPassword);
 
 try {
     $stmt->execute();
-    $response['success'] = true;
-    $response['message'] = "Регистрация прошла успешно!";
+    $userId = $stmt->insert_id; // ID нового пользователя
+
+    // ==== Добавляем сессию для нового пользователя ====
+    $_SESSION['user_id'] = $userId;
+    $_SESSION['user_email'] = $email;
+    $_SESSION['user_name'] = $login;
+
+    echo json_encode([
+        'success' => true,
+        'user' => [
+            'id' => $userId,
+            'name' => $login,
+            'email' => $email
+        ]
+    ]);
 } catch (mysqli_sql_exception $e) {
-    $response['success'] = false;
-    $response['message'] = "Ошибка сервера: " . $e->getMessage();
+    echo json_encode([
+        'success' => false,
+        'fields' => [],
+        'field' => '',
+        'error' => 'Ошибка сервера'
+    ]);
 }
 
 $stmt->close();
 $conn->close();
-
-echo json_encode($response);
 exit;

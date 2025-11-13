@@ -1,6 +1,8 @@
 <?php
 include 'auth.php';
 
+header('Content-Type: application/json; charset=utf-8');
+
 $login = trim($_POST['login'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $newPassword = trim($_POST['password'] ?? '');
