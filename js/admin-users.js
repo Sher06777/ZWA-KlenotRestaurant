@@ -181,13 +181,10 @@ function initAdminPanel(user) {
 
       if (hideAdminUsersBtn) {
           hideAdminUsersBtn.addEventListener('click', () => {
-              const tableWrap = document.querySelector('#admin-users-table .admin-users-table-wrap');
-              const paginationEl = document.getElementById('admin-users-table-pagination');
-
-              if (tableWrap) tableWrap.innerHTML = '';
-              if (paginationEl) paginationEl.innerHTML = '';
-
               fadeOut(adminUsersContent);
+
+              const paginationEl = document.getElementById('admin-users-table-pagination');
+              if (paginationEl) fadeOut(paginationEl);
           });
       }
 
@@ -195,18 +192,21 @@ function initAdminPanel(user) {
 
       adminUsersBtn.addEventListener('click', () => {
         showBlock(adminUsersContent, { keepParent: adminPanel });
-        fadeIn(adminUsersContent);
 
-        // загружаем страницу только если кеш пуст
-        if (!cachedUsersPages[1]) {
-          loadUsersPage(1);
-        } else {
-          const tableWrap = document.querySelector('#admin-users-table .admin-users-table-wrap');
-          renderUsers(cachedUsersPages[1], tableWrap);
-          const paginationEl = document.getElementById('admin-users-table-pagination');
-          renderUserPagination(1, userTotalPages, paginationEl);
+        const tableWrap = document.querySelector('#admin-users-table .admin-users-table-wrap');
+        const paginationEl = document.getElementById('admin-users-table-pagination');
+
+        if (paginationEl) {
+            fadeIn(paginationEl); // <- снимает invisible
         }
-      });
+
+        if (!cachedUsersPages[1]) {
+            loadUsersPage(1);
+        } else {
+            renderUsers(cachedUsersPages[1], tableWrap);
+            renderUserPagination(1, userTotalPages, paginationEl);
+        }
+    });
 
       datesBtn.addEventListener('click', () => showBlock(datesContent));
       reservationBtn.addEventListener('click', () => showBlock(reservationContent));
