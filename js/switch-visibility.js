@@ -19,7 +19,7 @@ const menuSection = document.querySelector('.menu-all');
 const menuImg3D = document.querySelector('.menu-3d-hero');
 const menuCard = document.querySelector('.menu-items')
 
-
+let currentLanguage = localStorage.getItem('site_lang') || 'eng';
 // Проверка наличия элементов
 if (!mainContent || !gallerySection || !formMain || !loginFormSection || !personalAccount || !reservationSection || !menuSection || !menuImg3D) {
   console.warn('Не все элементы SPA найдены на странице.');
@@ -66,6 +66,13 @@ async function updateLoginLabel() {
 
   const txt = await getTranslation(key);
   loginTextEl.textContent = txt;
+}
+
+async function translateElement(el, key) {
+  if (!el || !key) return;
+  el.setAttribute('data-i18n', key);
+  const txt = await getTranslation(key);
+  if (txt) el.textContent = txt;
 }
 
 // --------- Функции анимации ---------
@@ -216,7 +223,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Инициализация сохранения входа в акаунт
   try {
-    const res = await fetch('check_session.php', { credentials: 'include' });
+    const res = await fetch('./php/check_session.php', { credentials: 'include' });
     const data = await res.json();
 
     if (data.loggedIn && data.user) {
@@ -239,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // обязательно: credentials чтобы передать cookie сессии
       try {
-        const resp = await fetch('logout.php', {
+        const resp = await fetch('./php/logout.php', {
           method: 'POST',
           credentials: 'include',
           headers: {
@@ -301,7 +308,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 document.addEventListener('i18n:changed', async (ev) => {
+  const newLang = window.i18n.getLang?.() || currentLanguage;
+  if (newLang === currentLanguage) return; // язык не изменился — ничего не делаем
+  currentLanguage = newLang;
+
   await updateLoginLabel();
+  // Тут можно вызвать другие функции, если нужно обновить тексты на странице
 });
 
 // --------- Вспомогательные функции ---------

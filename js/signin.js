@@ -13,7 +13,7 @@ try {
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     // Проверяем активную сессию
-    const response = await fetch('check_session.php', { credentials: 'include' });
+    const response = await fetch('./php/check_session.php', { credentials: 'include' });
     const data = await response.json();
 
     if (data.loggedIn) {
@@ -51,7 +51,7 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
   formData.append('csrf_token', window.csrfToken);
 
   try {
-    const response = await fetch('signin.php', {
+    const response = await fetch('./php/signin.php', {
       method: 'POST',
       body: formData,
       credentials: 'include'
@@ -72,7 +72,7 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
       initPersonalAccount(window.user);
 
       try {
-        const tokenRes = await fetch('get_csrf_token.php', { credentials: 'include' });
+        const tokenRes = await fetch('./php/get_csrf_token.php', { credentials: 'include' });
         const tokenData = await tokenRes.json();
         window.csrfToken = tokenData.csrf_token;
         console.log('✅ Новый CSRF Token получен после логина:', window.csrfToken);

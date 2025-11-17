@@ -4,14 +4,14 @@ ini_set('display_errors', 0);
 include 'session_init.php';
 include 'security_headers.php';
 include 'db.php';
-
-
 header('Content-Type: application/json; charset=utf-8');
+
 
 $login = trim($_POST['login'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $password = trim($_POST['password'] ?? '');
 $confirmPassword = trim($_POST['password_confirm'] ?? '');
+$createdAt = getCzechTime();
 
 // Проверка обязательных полей
 $missing = [];
@@ -73,8 +73,8 @@ $checkStmt->close();
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Вставка нового пользователя
-$stmt = $conn->prepare("INSERT INTO users (name, email, password, created_at) VALUES (?, ?, ?, NOW())");
-$stmt->bind_param("sss", $login, $email, $hashedPassword);
+$stmt = $conn->prepare("INSERT INTO users (name, email, password, created_at) VALUES (?, ?, ?, ?)");
+$stmt->bind_param("ssss", $login, $email, $hashedPassword, $createdAt);
 
 try {
     $stmt->execute();

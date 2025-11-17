@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     // Проверяем сессию
-    const sessionRes = await fetch('check_session.php', { credentials: 'include' });
+    const sessionRes = await fetch('./php/check_session.php', { credentials: 'include' });
     const sessionData = await sessionRes.json();
     if (sessionData.loggedIn) {
       window.user = sessionData.user;
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     // Получаем CSRF токен (один раз)
-    const tokenRes = await fetch('get_csrf_token.php', { credentials: 'include' });
+    const tokenRes = await fetch('./php/get_csrf_token.php', { credentials: 'include' });
     const tokenData = await tokenRes.json();
     window.csrfToken = tokenData.csrf_token;
     console.log('✅ CSRF Token получен при загрузке страницы:', window.csrfToken);

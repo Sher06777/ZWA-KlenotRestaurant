@@ -116,7 +116,7 @@ if (!loginForm) {
 
     try {
       const formData = new FormData(loginForm);
-      const res = await fetch("login.php", {
+      const res = await fetch("./php/login.php", {
         method: "POST",
         body: formData,
         credentials: 'include'

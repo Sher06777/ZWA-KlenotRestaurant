@@ -53,7 +53,7 @@ if ($_SESSION['failed_login_attempts'] >= $maxAttempts && (time() - $_SESSION['l
 }
 
 // Проверяем, есть ли пользователь с таким email
-$sql = "SELECT id, name, email, password FROM users WHERE email = ? AND name = ?";
+$sql = "SELECT id, name, email, password, isAdmin FROM users WHERE email = ? AND name = ?";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Ошибка сервера (prepare).']);
@@ -89,6 +89,13 @@ session_regenerate_id(true);
 $_SESSION['user_id'] = $user['id'];
 $_SESSION['user_name'] = $user['name'];
 $_SESSION['user_email'] = $user['email'];
+$_SESSION['isAdmin'] = (int)$user['isAdmin'];
+
+
+$czechTime = getCzechTime();
+$update = $conn->prepare("UPDATE users SET last_login = ? WHERE id = ?");
+$update->bind_param("si", $czechTime, $user['id']);
+$update->execute();
 
 // маска пароля (оставлю как у тебя)
 $passLen = strlen($user['password']);

@@ -2696,9 +2696,9 @@ label input:focus {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 800px;
+  width: 900px;
   max-width: 90%;
-  height: 700px;
+  height: 800px;
   background: rgba(0, 40, 80, 0.65);
   backdrop-filter: blur(8px);
   border-radius: 12px;
@@ -2761,14 +2761,19 @@ label input:focus {
 
 .personal-account-right {
   flex: 1;
-  overflow: hidden;
   height: 95%;
   display: flow;
   text-align: justify;
   background: rgba(0, 30, 70, 0.25);
   border-radius: 10px;
-  padding-left: 60px;
-  padding-right: 60px;
+  padding-top: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+  position: relative;
+}
+
+.admin {
+  max-height: 100%;
 }
 
 .personal-account-reservation-first-text {
@@ -2776,6 +2781,81 @@ label input:focus {
   font-weight: 500;
 }
 
+/* обёртка, которая ограничивает высоту и скроллит только содержимое */
+#admin-users-table {
+  box-sizing: border-box;
+  padding: 12px 0;           /* если нужно оставить отступы сверху/снизу */
+}
+
+.admin-users-table-wrap {
+  max-height: 100%;          /* не выше родителя (#admin-users-table -> .personal-account-right) */
+  overflow-y: auto;          /* вертикальная прокрутка только здесь */
+  overflow-x: auto;          /* и горизонтальная при узком экране */
+  display: block;
+  box-sizing: border-box;
+}
+
+/* для самой таблицы — чтобы не растягивалась за ширину контейнера */
+.admin-users-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 12px 8px; /* горизонталь = 12px | вертикаль = 8px */
+  color: #ffdcb1;
+  font-size: 18px;
+  table-layout: fixed;
+  word-wrap: break-word;
+}
+
+.admin-users-table th:nth-child(1),
+.admin-users-table td:nth-child(1) {
+  width: 40px; /* ID */
+}
+
+.admin-users-table th:nth-child(2),
+.admin-users-table td:nth-child(2) {
+  width: 135px; /* Login */
+}
+
+.admin-users-table th:nth-child(3),
+.admin-users-table td:nth-child(3) {
+  width: 260px; /* Email */
+}
+
+.admin-users-table th:nth-child(4),
+.admin-users-table td:nth-child(4) {
+  width: 125px; /* Date */
+  text-align: center;
+}
+
+
+.admin-users-table th {
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffe7c9;
+  padding: 4px;
+}
+
+.admin-users-table td {
+  padding: 8px 6px;
+}
+
+.admin-users-table tr {
+  padding: 8px 6px;
+}
+
+.admin-users {
+  width: 100%;
+}
+
+.admin-static-text {
+  text-align: center;
+  color: #FFD27F;
+}
+
+.admin-dashboard {
+  font-size: 32px;
+  font-weight: 700;
+}
 
 .personal-account-welcome,
 .personal-account-reservation-title {
@@ -2834,7 +2914,8 @@ label input:focus {
 }
 
 .user-login,
-.user-email {
+.user-email,
+.user-password {
   display: inline-block;
   background: rgba(255, 210, 127, 0.2);
   padding: 3px 6px;
@@ -2859,21 +2940,27 @@ label input:focus {
   font-size: 18px;
   color: rgb(249, 209, 208);
   font-weight: 500;
+  text-align: center;
 }
 
 .reservation-list {
   border: 1px solid rgba(255, 210, 127, 0.5);
   border-radius: 8px;
-  background: rgba(0, 60, 120, 0.15);
-  padding-left: 15px;
-  padding-right: 20px;
+  background: rgba(0,60,120,0.15);
+}
+
+#user-reservations {
+  padding: 10px;
+  max-height: 450px;
+  overflow: hidden;
 }
 
 .reservation-item {
-  border-bottom: 1px solid rgba(255, 210, 127, 0.2);
-  padding: 8px 0;
-  gap: 5px;
-  display: grid;
+  border-bottom: 1px solid #ffd27f;
+  padding: 15px;
+  margin-bottom: 20px;
+  max-height: 250px;
+  overflow-y: auto;
 }
 
 .reservation-item:last-child {
@@ -2892,9 +2979,144 @@ label input:focus {
   color: #FFD27F;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 15px;
+}
+
+.admin-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.pg-num,
+.pg-arrow {
+  padding: 6px 10px;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+.pg-num.active {
+  background: #007bff;
+  color: white;
+  font-weight: bold;
+}
+
+.pg-num:hover,
+.pg-arrow:hover:not(:disabled) {
+  background: #d7d7d7;
+}
+
+.pg-arrow:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.pagination button {
+  padding: 6px 10px;
+  border-radius: 5px;
+  border: 1px solid #777;
+  cursor: pointer;
+}
+
+.pagination button.active-page {
+  background: #272727;
+  color: white;
+  font-weight: bold;
+}
+
 .empty-reservations {
   color: #FFD27F;
   font-style: italic;
+}
+
+.admin-users-buttons {
+  display: flex;
+  gap: 10px; /* промежуток между кнопками */
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.reservation-row td {
+  padding: 10px;
+  text-align: left;
+}
+
+.admin-table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  color: #ffe7c9;
+}
+
+
+.admin-table th,
+.admin-table td {
+  text-align: center;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.admin-table-thead {
+  font-size: 18px;
+}
+
+.admin-table th.col-res-id,
+.admin-table td.col-res-id { width: 50px; }
+.admin-table th.col-res-name,
+.admin-table td.col-res-name { width: 150px; }
+.admin-table th.col-res-phone,
+.admin-table td.col-res-phone { width: 140px; }
+.admin-table th.col-res-email,
+.admin-table td.col-res-email { width: 250px; }
+.admin-table th.col-res-date,
+.admin-table td.col-res-date { width: 65px;}
+.admin-table th.col-res-time,
+.admin-table td.col-res-time { width: 80px; }
+.admin-table th.col-res-people,
+.admin-table td.col-res-people { width: 60px; }
+.admin-table th.col-res-msg,
+.admin-table td.col-res-msg { width: 200px; word-break: break-word}
+.admin-table th.col-res-userid,
+.admin-table td.col-res-userid { width: 60px; }
+.admin-table th.col-res-delete,
+.admin-table td.col-res-delete { width: 100px; }
+
+#admin-reservations-pagination {
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+#admin-users-btn,
+#hide-admin-users-btn {
+  margin-bottom: 15px;
+}
+
+.admin-show-all-reservations,
+.admin-hide-all-reservations {
+  margin-bottom: 25px;
+}
+
+.admin-delete-reservation-btn {
+  margin-top: 0;
+}
+
+#admin-users-table-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.admin-reservations-btn-wrapper {
+  justify-content: center;
 }
 
 @media (min-width: 580px) and (max-width: 768px) {

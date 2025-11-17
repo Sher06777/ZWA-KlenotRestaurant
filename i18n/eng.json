@@ -147,5 +147,40 @@
         "r13": {
             "footer-text": "Grateful for every smile shared around our table 🌿"
         }
+    },
+
+    "personal-account": {
+        "your-account": "My Account",
+        "button-your-dates": "Profile Details",
+        "button-your-reservations": "My Reservation",
+        "button-your-admin-panel": "Admin Dashboard",
+        "welcome": "Welcome",
+        "edit-dates": "Edit Profile",
+        "logout": "Log Out",
+        "your-reservations": "Your Reservations",
+        "your-reservations-text": "View your current and past reservations here.",
+        "no-your-reservations": "You have no active reservations at the moment.",
+        "admin-panel": "Admin Dashboard",
+        "admin-panel-reservations": "Loading reservations…",
+        "admin-panel-all-users": "All Users",
+        "admin-panel-hide-users": "Hide Users",
+        "admin-reservation-list": "Reservation List",
+        "name": "Name:",
+        "phone": "Phone number:",
+        "email": "Email:",
+        "guest": "Guests:",
+        "comment": "Comment:",
+        "save": "Save 💾",
+        "cancel": "Cancel ❌",
+        "set-new-password": "Set a new password",
+        "password": "Password:"
+    },
+
+    "admin": {
+        "delete": "Delete?",
+        "delete-yes": "Yes",
+        "all-reservations": "All Reservations",
+        "hide-all-reservations": "Hide All Reservations",
+        "all-users": "All Users"
     }
 }
