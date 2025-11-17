@@ -12,7 +12,6 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto+Slab:wght@100..900&display=swap"
       rel="stylesheet">
-
   </head>
 
   <body>
@@ -225,8 +224,10 @@
                 decoding="async" src="img/food2.jpg" class="body-img"
                 alt="food2">
               <h3 class="body-title"
-                data-i18n="body-second.second-column-h3">Treasure of the Menu</h3>
-              <p class="body-text" data-i18n="body-second.second-column-description">
+                data-i18n="body-second.second-column-h3">Treasure of the
+                Menu</h3>
+              <p class="body-text"
+                data-i18n="body-second.second-column-description">
                 Each dish perfectly blends bold flavors and refined textures
                 into an unforgettable culinary adventure.
                 From classics to unexpected delights, our menu is full of
@@ -874,12 +875,13 @@
       <p id="zoom-description"></p>
     </div>
 
-  <!-- ===== FORM MAIN (signin) ===== -->
-  <section class="form-main invisible" id="signin-section">
-    <form id="signin-form" method="post" class="form" novalidate>
-      <div class="form-inside">
-        <fieldset class="form-fieldset">
-          <legend class="form-legend" data-i18n="signing-form.legend">Evening login</legend>
+    <!-- ===== FORM MAIN (signin) ===== -->
+    <section class="form-main invisible" id="signin-section">
+      <form id="signin-form" method="post" class="form" novalidate>
+        <div class="form-inside">
+          <fieldset class="form-fieldset">
+            <legend class="form-legend" data-i18n="signing-form.legend">Evening
+              login</legend>
 
             <label for="main-name" class="form-name">
               <span data-i18n="signing-form.login">Login</span>
@@ -935,7 +937,8 @@
         <form class="login-form" method="post" id="register-form" novalidate>
           <div class="login-form-inside">
             <fieldset class="login-form-fieldset">
-              <legend class="login-form-legend" data-i18n="login-form.create-account">Create account</legend>
+              <legend class="login-form-legend"
+                data-i18n="login-form.create-account">Create account</legend>
 
               <!-- USERNAME -->
               <label for="login-username" class="login-form-username">
@@ -946,8 +949,7 @@
                   id="login-username"
                   name="login"
                   autocomplete="username"
-                  required
-                >
+                  required>
               </label>
 
               <!-- EMAIL -->
@@ -959,8 +961,7 @@
                   id="login-email"
                   name="email"
                   autocomplete="email"
-                  required
-                >
+                  required>
               </label>
 
               <!-- PASSWORD -->
@@ -971,20 +972,19 @@
                   id="login-password"
                   name="password"
                   autocomplete="new-password"
-                  required
-                >
+                  required>
               </label>
 
               <!-- CONFIRM PASSWORD -->
               <label for="login-password-confirm" class="login-form-password">
-                <span data-i18n="signin-form.confirm-password">Confirm password</span>
+                <span data-i18n="signin-form.confirm-password">Confirm
+                  password</span>
                 <input
                   type="password"
                   id="login-password-confirm"
                   name="password_confirm"
                   autocomplete="new-password"
-                  required
-                >
+                  required>
               </label>
 
               <!-- SUBMIT -->
@@ -1067,6 +1067,113 @@
             <div id="admin-reservations-container" class="reservation-list" >
               <p data-i18n="personal-account.admin-panel-reservations">Loading reservations…</p>
             </div>
+            <div class="menu-admin-controls">
+                <button id="menu-show-add-item-btn" class="menu-admin-button">
+                  ✚ Добавить элемент меню
+                </button>
+              </div>
+
+              <div id="add-item-dialog"
+                class="menu-add-dialog menu-modal-hidden">
+                <div class="menu-add-dialog-content">
+                  <button id="close-dialog"
+                    class="menu-close-btn">&times;</button>
+                  <h2>Добавить новое блюдо</h2>
+
+                  <form id="menu-add-item-form">
+
+                    <div class="menu-add-form__field">
+                      <label for="item-category">Категория</label>
+                      <select id="item-category" required>
+                        <option value="Appetizers-and-Salads">Appetizers &
+                          Salads</option>
+                        <option value="Soups">Soups</option>
+                        <option value="Sides-Dishes">Side Dishes</option>
+                        <option value="Main-Courses">Main Courses</option>
+                        <option value="Fish-and-Seafood">Fish & Seafood</option>
+                        <option value="Desserts">Desserts</option>
+                        <option value="Soft-Drinks">Soft Drinks</option>
+                        <option value="Alcoholic-Beverages">Alcoholic
+                          Beverages</option>
+                      </select>
+                    </div>
+
+                    <div class="menu-add-form__field">
+                      <label for="item-id">ID (Автоматически)</label>
+                      <input type="text" id="item-id" readonly
+                        style="background: #f0f0f0; cursor: not-allowed; color: #555;">
+                    </div>
+
+                    <fieldset class="menu-add-form__fieldset">
+                      <legend>Название (Name)</legend>
+                      <div class="menu-add-form__field">
+                        <label for="item-name-eng">English</label>
+                        <input type="text" id="item-name-eng" required
+                          placeholder="e.g. Beef Steak">
+                      </div>
+                      <div class="menu-add-form__field">
+                        <label for="item-name-cz">Czech</label>
+                        <input type="text" id="item-name-cz" required
+                          placeholder="např. Hovězí steak">
+                      </div>
+                    </fieldset>
+
+                    <fieldset class="menu-add-form__fieldset">
+                      <legend>Описание (Description)</legend>
+                      <div class="menu-add-form__field">
+                        <label for="item-desc-eng">English</label>
+                        <textarea id="item-desc-eng" required
+                          rows="3"></textarea>
+                      </div>
+                      <div class="menu-add-form__field">
+                        <label for="item-desc-cz">Czech</label>
+                        <textarea id="item-desc-cz" required
+                          rows="3"></textarea>
+                      </div>
+                    </fieldset>
+
+                    <div class="menu-add-form__group">
+                      <div class="menu-add-form__field">
+                        <label for="item-price">Price (число)</label>
+                        <input type="number" id="item-price" required
+                          placeholder="250">
+                      </div>
+                      <div class="menu-add-form__field">
+                        <label for="item-weight">Weight</label>
+                        <input type="text" id="item-weight" placeholder="300g">
+                      </div>
+                    </div>
+
+                    <div class="menu-add-form__field" style="margin-top: 15px;">
+                      <label>Изображение</label>
+
+                      <div id="drop-zone" class="menu-drop-zone">
+                        <p>Перетащите фото сюда или кликните</p>
+                        <input type="file" id="file-input" hidden
+                          accept="image/*">
+                        <img id="preview-img" src alt="Preview"
+                          style="display: none;">
+                      </div>
+
+                      <label for="item-image-name"
+                        style="margin-top: 10px; font-size: 12px;">Имя
+                        файла:</label>
+                      <input type="text" id="item-image-name"
+                        placeholder="steak.jpg" readonly
+                        style="background:#f9f9f9;">
+                      <small
+                        style="color:#888; font-size: 11px; display:block; margin-top:4px;">
+                        Путь в JSON будет: img/menu-img/Категория/Имя_файла
+                      </small>
+                    </div>
+
+                    <button type="submit"
+                      class="menu-admin-button menu-admin-button--submit">
+                      Сформировать JSON в консоль
+                    </button>
+                  </form>
+                </div>
+              </div>
 
             <!-- Пагинация -->
             <div id="admin-reservations-pagination" class="admin-pagination">
@@ -1142,139 +1249,6 @@
                 <div class="number-btns">
                   <button type="button" class="number-btn up">▲</button>
                   <button type="button" class="number-btn down">▼</button>
-                </div>
-              </div>
-          </div>
-          <div class="form-group">
-            <label for="messageInput">
-              <span data-i18n="reservation.comment">Comment (optional)</span>
-              <textarea name="message" data-i18n-placeholder="reservation.placeholder-message"
-                placeholder="Special requests or preferences"></textarea>
-            </label>
-          </div>
-          <div class="reservation-message" id="reservation-message"></div>
-          <div class="reservation-submit-wrap">
-            <button class="reservation-submit-btn"
-              type="submit" data-i18n="reservation.reservation" name="action">Reserve</button>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-  </section>
-
-  <!-- =========================== MENU =========================== -->
-
-  <section class="menu-all" id="menu-all">
-    <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
-    <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false"
-      data-bg="img/menu-hero.jpg">
-      <div class="menu-3d-container" id="menu-3d-container">
-        <!-- задний фон -->
-        <div class="menu-layer layer-1"
-          style="background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');"></div>
-        <!-- средние слои (могут быть PNG с прозрачностью) -->
-        <div class="menu-layer layer-3">
-          <div class="menu-3d-center">
-            <h1 class="menu-3d-title">Menu</h1>
-            <p class="menu-3d-sub" data-i18n="menu.menu-3d-sub">Taste our seasonal selection — inspired by
-              tradition, crafted with love</p>
-          </div>
-        </div>
-      </div>
-      <div class="menu-smoke" aria-hidden="true"
-        style="background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')"></div>
-      <div class="menu-sun" aria-hidden="true"
-        style="background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')"></div>
-    </div>
-
-    <!-- Кнопки-фильтры -->
-    <div class="menu-all-btn" role="tablist" aria-label="Menu categories">
-      <button class="menu-button" data-filter="all">All</button>
-      <button class="menu-button"
-        data-filter="Appetizers-and-Salads">Appetizers &amp; Salads</button>
-      <button class="menu-button" data-filter="Soups">Soups</button>
-      <button class="menu-button" data-filter="Sides-Dishes">Side
-        Dishes</button>
-      <button class="menu-button" data-filter="Main-Courses">Main
-        Courses</button>
-      <button class="menu-button" data-filter="Fish-and-Seafood">Fish &amp;
-        Seafood</button>
-      <button class="menu-button" data-filter="Desserts">Desserts</button>
-      <button class="menu-button" data-filter="Soft-Drinks">Soft
-        Drinks</button>
-      <button class="menu-button" data-filter="Alcoholic-Beverages">Alcoholic
-        Beverages</button>
-    </div>
-
-    <template id="menu-item-template">
-      <article class="menu-first-position menu-item" data-category>
-        <img loading="lazy"
-          decoding="async" src alt class="menu-first-food-img">
-        <div class="menu-first-info">
-          <h3 class="menu-first-text"></h3>
-          <p class="menu-first-desc"></p>
-        </div>
-        <div class="menu-first-meta">
-          <div class="menu-first-price"></div>
-          <p class="menu-order-weight"></p>
-        </div>
-      </article>
-    </template>
-
-    <!-- Список блюд — каждая карточка -->
-    <div class="menu-items">
-
-    </div>
-
-  </section>
-
-    <footer class="footer">
-      <div class="footer-box">
-
-        <div class="footer-about-us">
-          <h3>About Us</h3>
-          <p>
-            Klenot Restaurant offers a unique blend of Czech tradition and
-            modern culinary artistry.
-            Our mission is to consistently deliver exceptional food and
-            memorable service in the heart of Prague.
-          </p>
-        </div>
-
-        <div class="footer-links">
-          <h4>Explore</h4>
-          <ul class="footer-links">
-            <li class="footer-button-aboutus"><a href="#about-us"
-                class="footer-button-aboutus">About Us</a></li>
-            <li><button type="button" class="menu-btn">Menu</button></li>
-            <li><button type="button" class="gallery-btn">Gallery</button></li>
-            <li><button type="button"
-                class="reservation-btn">Reservations</button></li>
-          </ul>
-        </div>
-
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <p>📍 Václavské náměstí, Prague, Czechia</p>
-          <p>📞 +420 123 456 789</p>
-          <p>✉️ info@klenotrestaurant.cz</p>
-        </div>
-
-        <div class="footer-media-links">
-          <h4>Follow Us</h4>
-          <div class="media-icons">
-            <a href="#"><img loading="lazy"
-                decoding="async" src="img/facebook-logo.svg" alt="Facebook"></a>
-            <a href="#"><img loading="lazy"
-                decoding="async" src="img/insta-logo.svg" alt="Instagram"></a>
-            <a href="#"><img loading="lazy"
-                decoding="async" src="img/tripadvisor-logo.svg"
-                alt="TripAdvisor"></a>
-          </div>
-        </div>
-
-      </div>
-
       <div class="footer-bottom">
         <p>© 2025 Klenot Restaurant. All rights reserved.</p>
       </div>
