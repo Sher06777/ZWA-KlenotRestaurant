@@ -1008,16 +1008,15 @@
     <!-- ===== PERSONAL ACCOUNT (placeholder) ===== -->
     <section class="main-content-wrapper invisible" id="account-wrapper">
       <div class="personal-account" id="personal-account">
-        <div class="personal-account-title">Личный кабинет</div>
+        <div class="personal-account-title" data-i18n="personal-account.your-account">My Account</div>
         <div class="personal-account-wrap">
           <div class="personal-account-left">
-            <button class="personal-account-btn personal-account-dates">Личные
-              данные</button>
+            <button class="personal-account-btn personal-account-dates" data-i18n="personal-account.button-your-dates">Profile 
+              Details</button>
             <button
-              class="personal-account-btn personal-account-reservation">Резервация</button>
+              class="personal-account-btn personal-account-reservation" data-i18n="personal-account.button-your-reservations">My Reservation</button>
             <button
-              class="personal-account-btn personal-account-admin-panel">Админская
-              панель</button>
+              class="personal-account-btn personal-account-admin-panel invisible" data-i18n="personal-account.button-your-admin-panel">Admin Dashboard</button>
           </div>
 
           <div class="personal-account-divider"></div>
@@ -1025,39 +1024,72 @@
           <div class="personal-account-right">
             <!-- Личные данные -->
             <div class="personal-account-content dates visible">
-              <h3 class="personal-account-welcome">Добро пожаловать, <span
-                  class="user-name">Пользователь</span>!</h3>
+              <h3 class="personal-account-welcome"><span data-i18n="personal-account.welcome">Welcome</span>, <span
+                  class="user-name">User</span>!</h3>
               <div class="account-info">
                 <p class="personal-account-data">Login: <span
                     class="user-login"></span></p>
                 <p class="personal-account-data">Email: <span
                     class="user-email"></span></p>
-                <p class="personal-account-data">Password: <span
+                <p class="personal-account-data" data-i18n="personal-account.password"><span class="user-password-label">Password:</span>  <span
                     class="user-password"></span></p>
 
               </div>
               <div class="personal-account-dates-buttons">
-                <button class="edit-account-btn">Изменить данные</button>
-                <button class="logout-account-btn">Выйти</button>
+                <button class="edit-account-btn" data-i18n="personal-account.edit-dates">Edit Profile</button>
+                <button class="logout-account-btn" data-i18n="personal-account.logout">Log Out</button>
               </div>
             </div>
 
             <!-- Резервация -->
             <div class="personal-account-content reservation invisible">
-              <h3 class="personal-account-reservation-title">Ваши резервации</h3>
-              <p class="reservation-info-text">
-                Здесь вы можете просмотреть ваши текущие и прошедшие резервации.
+              <h3 class="personal-account-reservation-title" data-i18n="personal-account.your-reservations">Your Reservations</h3>
+              <p class="reservation-info-text" data-i18n="personal-account.your-reservations-text">
+                View your current and past reservations here.
               </p>
               <div id="user-reservations" class="reservation-list">
-                <p class="empty-reservations">Пока у вас нет активных
-                  резерваций.</p>
+                <p class="empty-reservations" data-i18n="personal-account.no-your-reservations">You have no active reservations at the moment.</p>
               </div>
+
+              <div id="user-reservations-pagination" class="pagination">
+
+              </div>
+
             </div>
 
           <!-- Админская панель -->
-          <div class="personal-account-content admin invisible">
-            <h3>Админская панель</h3>
-            <p>Доступ к административным функциям. Пока раздел недоступен.</p>
+          <div id="admin-panel" class="personal-account-content admin invisible">
+            <div class="admin-static-text">
+              <h3 data-i18n="personal-account.admin-panel" class="admin-dashboard">Admin Dashboard</h3>
+              <h3 data-i18n="personal-account.admin-reservation-list">Reservation List</h3>
+            </div>
+            <!-- Список резерваций будет рендериться сюда -->
+            <div id="admin-reservations-container" class="reservation-list" >
+              <p data-i18n="personal-account.admin-panel-reservations">Loading reservations…</p>
+            </div>
+
+            <!-- Пагинация -->
+            <div id="admin-reservations-pagination" class="admin-pagination">
+              
+            </div>
+            <!-- === конец блока бронирований === -->
+
+            <h3 data-i18n="personal-account.admin-reservation-list" class="admin-static-text">Guest List</h3>
+
+            <div class="admin-users-buttons">
+              <button id="admin-users-btn" class="edit-account-btn personal-account-users-list" data-i18n="personal-account.admin-panel-all-users">All Users</button>
+              <button id="hide-admin-users-btn" class="edit-account-btn personal-account-users-list" data-i18n="personal-account.admin-panel-hide-users">Hide Users</button>
+            </div>
+            
+            <div id="admin-users-content" class="personal-account-content admin-users invisible">
+              <div id="admin-users-table">
+                <div class="admin-users-table-wrap">
+                  <table class="admin-users-table">
+                    <!-- ... строки ... -->
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1263,6 +1295,8 @@
     <script src="js/login-validation.js"></script>
     <script src="js/mobile/menu-dropdown.js"></script>
     <script src="js/review.js"></script>
+    <script src="js/admin-users.js"></script>
+    <script src="js/admin-reservations.js"></script>
 
   </body>
 

@@ -1,5 +1,6 @@
 <?php
-include 'auth.php';
+include_once 'auth.php';
+include_once 'db.php';
 
 // Проверяем соединение
 if (!isset($conn)) {
@@ -15,6 +16,7 @@ $date = trim($_POST['date'] ?? '');
 $time = trim($_POST['time'] ?? '');
 $people = intval($_POST['people'] ?? 0);
 $message = trim($_POST['message'] ?? '');
+$createdAt = getCzechTime();
 $user_id = $currentUserId;
 
 
@@ -45,8 +47,8 @@ if (empty($name) || empty($phone) || empty($email) || empty($date) || empty($tim
 
 // Подготавливаем SQL-запрос
 $stmt = $conn->prepare("
-    INSERT INTO reservations (user_id, name, phone, email, date, time, people, message)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO reservations (user_id, name, phone, email, date, time, people, message, created_at)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
 ");
 
 if (!$stmt) {
@@ -54,7 +56,7 @@ if (!$stmt) {
     exit;
 }
 //def SQL-injection - attack
-$stmt->bind_param("isssssis", $user_id, $name, $phone, $email, $date, $time, $people, $message);
+$stmt->bind_param("isssssiss", $user_id, $name, $phone, $email, $date, $time, $people, $message, $createdAt);
 
 // Выполняем запрос
 if ($stmt->execute()) {

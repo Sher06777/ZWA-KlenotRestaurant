@@ -147,6 +147,41 @@
         "r13": {
             "footer-text": "Vděční za každý úsměv sdílený u našeho stolu 🌿"
         }
+    },
+
+    "personal-account": {
+        "your-account": "Můj účet",
+        "button-your-dates": "Osobní údaje",
+        "button-your-reservations": "Moje rezervace",
+        "button-your-admin-panel": "Administrační panel",
+        "welcome": "Vítejte",
+        "edit-dates": "Upravit profil",
+        "logout": "Odhlásit se",
+        "your-reservations": "Vaše rezervace",
+        "your-reservations-text": "Zde si můžete prohlédnout své aktuální i minulé rezervace.",
+        "no-your-reservations": "Momentálně nemáte žádné aktivní rezervace.",
+        "admin-panel": "Administrační panel",
+        "admin-panel-reservations": "Načítáme rezervace…",
+        "admin-panel-all-users": "Všichni uživatelé",
+        "admin-panel-hide-users": "Skrýt uživatele",
+        "admin-reservation-list": "Seznam rezervací",
+        "name": "Jméno:",
+        "phone": "Telefonní číslo:",
+        "email": "E-mail:",
+        "guest": "Hosté:",
+        "comment": "Komentář:",
+        "save": "Uložit 💾",
+        "cancel": "Zrušit ❌",
+        "set-new-password": "Nastavte nové heslo",
+        "password": "Heslo:"
+    },
+
+    "admin": {
+        "delete": "Smazat?",
+        "delete-yes": "Ano",
+        "all-reservations": "Všechny rezervace",
+        "hide-all-reservations": "Skrýt všechny rezervace",
+        "all-users": "Všichni uživatelé"
     }
     
 }

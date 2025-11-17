@@ -174,7 +174,7 @@ if (!reservationForm) {
       const formData = new FormData(reservationForm);
       formData.append('csrf_token', window.csrfToken);
 
-      const response = await fetch("reservation.php", {
+      const response = await fetch("./php/reservation.php", {
         method: "POST",
         body: formData,
         credentials: 'include'
