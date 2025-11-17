@@ -225,9 +225,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Инициализация сохранения входа в акаунт
-try {
-  const res = await fetch('./php/check_session.php', { credentials: 'include' });
-  const data = await res.json();
+  try {
+    const res = await fetch('./php/check_session.php', { credentials: 'include' });
+    const data = await res.json();
 
     if (data.loggedIn && data.user) {
       const user = { name: data.user.name || '', email: data.user.email || '' };

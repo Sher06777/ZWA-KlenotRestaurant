@@ -203,6 +203,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Элементы
   const dialog = document.getElementById("add-item-dialog");
   const openBtn = document.getElementById("menu-show-add-item-btn");
+  const dialogContent = dialog.querySelector(".menu-add-dialog-content");
   const closeBtn = document.getElementById("close-dialog");
   const form = document.getElementById("menu-add-item-form");
   const categorySelect = document.getElementById("item-category");

@@ -1,1361 +1,1348 @@
 {
-	"Appetizers-and-Salads": [
-		{
-			"id": 1.1,
-			"name": {
-				"eng": "Meat skewers",
-				"cz": "Masové špízy"
-			},
-			"description": {
-				"eng": "Traditional Czech sausages, crafted from an authentic late 19th century recipe.",
-				"cz": "Tradiční české klobásy, připravené podle autentického receptu z konce 19. století."
-			},
-			"price": "890 CZK",
-			"weight": "540g",
-			"image": "img/menu-img/Appetizers-and-Salads/1-Meat-skewers.png"
-		},
-		{
-			"id": 1.2,
-			"name": {
-				"eng": "Cucumber salad with cream and walnuts",
-				"cz": "Okurkový salát se smetanou a vlašskými ořechy"
-			},
-			"description": {
-				"eng": "A delicate harmony of fresh cucumbers, walnuts, and sour cream, accented with subtle notes of garlic and herbs, offering a timeless culinary elegance.",
-				"cz": "Jemná harmonie čerstvých okurek, vlašských ořechů a zakysané smetany, doplněná náznaky česneku a bylinek, nabízející nadčasovou kulinářskou eleganci."
-			},
-			"price": "270 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Appetizers-and-Salads/2-Cucumber-salad-with-cream-and-walnuts.jpeg"
-		},
-		{
-			"id": 1.3,
-			"name": {
-				"eng": "Prague salad with chicken",
-				"cz": "Pražský salát s kuřecím masem"
-			},
-			"description": {
-				"eng": "The “Prague” Salad is a sophisticated composition of succulent chicken fillet sautéed with golden onions and crisp vegetables. The sweetness of bell pepper and apple is delicately balanced by the subtle tang of pickled cucumbers, while a silky mayonnaise dressing completes the ensemble with a touch of culinary harmony.",
-				"cz": "„Pražský“ salát je sofistikovaná kompozice šťavnatého kuřecího filé osmaženého se zlatou cibulkou a křupavou zeleninou. Sladkost papriky a jablek je jemně vyvážena lehkou kyselostí nakládaných okurek, zatímco hedvábná majonézová zálivka dotváří kulinářskou harmonii."
-			},
-			"price": "180 CZK",
-			"weight": "220g",
-			"image": "img/menu-img/Appetizers-and-Salads/3-Prague-salad-with-chicken-1.jpg"
-		},
-		{
-			"id": 1.4,
-			"name": {
-				"eng": "Egg spread",
-				"cz": "Vaječná pomazánka"
-			},
-			"description": {
-				"eng": "A delicate ensemble of boiled eggs and pickled cucumbers, elegantly dressed in a silky mayonnaise–mustard sauce, offers a refined flavor that pairs exquisitely with artisanal fresh bread.",
-				"cz": "Jemná kombinace vařených vajec a nakládaných okurek, delikátně smíchaná v hedvábné majonézovo-hořčičné omáčce, nabízí vybranou chuť, která se dokonale hodí k řemeslnému čerstvému chlebu."
-			},
-			"price": "240 CZK",
-			"weight": "210g",
-			"image": "img/menu-img/Appetizers-and-Salads/4-Egg-spread.jpg"
-		},
-		{
-			"id": 1.5,
-			"name": {
-				"eng": "Fried cheese",
-				"cz": "Smažený sýr"
-			},
-			"description": {
-				"eng": "The legendary Czech fried cheese — an embodiment of culinary tradition. The authentic “Smažák” is crafted from exquisite Hermelín cheese, whose gentle flavor and velvety texture lend the dish an air of refined elegance.",
-				"cz": "Legendární český smažený sýr — ztělesnění kulinářské tradice. Autentický „Smažák“ je připraven z vynikajícího sýra Hermelín, jehož jemná chuť a sametová textura propůjčují pokrmu vznešenou eleganci."
-			},
-			"price": "215 CZK",
-			"weight": "185g",
-			"image": "img/menu-img/Appetizers-and-Salads/5-Fried-cheese.jpg"
-		},
-		{
-			"id": 1.6,
-			"name": {
-				"eng": "Mushroom salad",
-				"cz": "Houbový salát"
-			},
-			"description": {
-				"eng": "An elegant composition of fragrant wild mushrooms, lightly sautéed to perfection and adorned with fresh herbs. A delicate dressing unveils the rich harmony of flavors and textures.",
-				"cz": "Elegantní kompozice aromatických lesních hub, lehce osmažených do dokonalosti a zdobených čerstvými bylinkami. Jemná zálivka odhaluje bohatou harmonii chutí a textur."
-			},
-			"price": "200 CZK",
-			"weight": "150g",
-			"image": "img/menu-img/Appetizers-and-Salads/6-Mushroom-salad.png"
-		},
-		{
-			"id": 1.7,
-			"name": {
-				"eng": "Retro egg salad according to 1976 standards",
-				"cz": "Retro vaječný salát podle standardů roku 1976"
-			},
-			"description": {
-				"eng": "A refined interpretation of the classic 1976 salad: tender potatoes boiled in their skins, crisp onions, and sweet-and-sour pickles, delicately dressed with creamy mayonnaise and full-bodied mustard — a nostalgic taste of an elegant era.",
-				"cz": "Vznešená interpretace klasického salátu z roku 1976: jemné brambory vařené ve slupce, křupavá cibule a sladkokyselé okurky, jemně dochucené krémovou majonézou a plnou chutí hořčice — nostalgická chuť elegantní éry."
-			},
-			"price": "250 CZK",
-			"weight": "150g",
-			"image": "img/menu-img/Appetizers-and-Salads/7-Retro-egg-salad-according-to-1976-standards.jpg"
-		},
-		{
-			"id": 1.8,
-			"name": {
-				"eng": "Potato salad with lambs lettuce and bacon",
-				"cz": "Bramborový salát s hlávkovým salátem a slaninou"
-			},
-			"description": {
-				"eng": "Tender boiled potatoes, complemented by crisp smoked bacon and finely sliced onions, create a perfect balance of flavors. A subtle vinegar dressing unveils the dish with a delicate touch of acidity and freshness.",
-				"cz": "Jemné vařené brambory, doplněné křupavou uzenou slaninou a jemně nakrájenou cibulkou, vytvářejí dokonalou rovnováhu chutí. Lehce octová zálivka přidává pokrmu jemný nádech kyselosti a svěžesti."
-			},
-			"price": "275 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Appetizers-and-Salads/8-Potato-salad-with-lambs-lettuce-and-bacon.jpg"
-		},
-		{
-			"id": 1.9,
-			"name": {
-				"eng": "Zucchini spread with cheese appetizer",
-				"cz": "Cuketová pomazánka se sýrem"
-			},
-			"description": {
-				"eng": "An exquisite light appetizer with the subtle aroma of fresh zucchini and sweet onion. Its velvety texture and rich flavor are elevated by a sophisticated blend of two fine cheeses.",
-				"cz": "Vynikající lehká předkrmová pomazánka s jemnou vůní čerstvé cukety a sladké cibule. Sametová textura a bohatá chuť jsou zvýrazněny sofistikovanou kombinací dvou vybraných sýrů."
-			},
-			"price": "560 CZK",
-			"weight": "210",
-			"image": "img/menu-img/Appetizers-and-Salads/9-Zucchini-spread-with-cheese-appetizer.jpg"
-		},
-		{
-			"id": 1.10,
-			"name": {
-				"eng": "Homemade beer cheese appetizer",
-				"cz": "Domácí pivní sýrový předkrm"
-			},
-			"description": {
-				"eng": "An exquisite homemade beer cheese appetizer, perfectly complementing the aroma of freshly baked bread or toasted brioche. Its light, creamy flavor and delicate texture create a true gourmet experience.",
-				"cz": "Vynikající domácí pivní sýrový předkrm, který dokonale doplňuje vůni čerstvě upečeného chleba nebo opečeného brioche. Lehká, krémová chuť a jemná textura vytvářejí opravdový gurmánský zážitek."
-			},
-			"price": "210 CZK",
-			"weight": "200g",
-			"image": "img/menu-img/Appetizers-and-Salads/10-Homemade-beer-cheese-appetizer.jpg"
-		},
-
-		{
-			"id": 1.11,
-			"name": {
-				"eng": "Czech salad with chicken beans and mushrooms appetizer",
-				"cz": "Český salát s kuřetem, fazolemi a houbami"
-			},
-			"description": {
-				"eng": "Czech-style salad with chicken, beans, and marinated mushrooms. Tender chicken fillet, velvety red beans, and the tangy note of pickled mushrooms come together with marjoram and fresh lemon juice, creating a vibrant and perfectly balanced flavor.",
-				"cz": "Český salát s kuřetem, fazolemi a nakládanými houbami. Jemné kuřecí filé, sametové červené fazole a pikantní tón nakládaných hub se snoubí s majoránkou a čerstvou citronovou šťávou, vytvářejíc živou a dokonale vyváženou chuť."
-			},
-			"price": "300 CZK",
-			"weight": "220g",
-			"image": "img/menu-img/Appetizers-and-Salads/11-Czech-salad-with-chicken-beans-and-mushrooms-appetizer.jpg"
-		},
-		{
-			"id": 1.12,
-			"name": {
-				"eng": "Seafood",
-				"cz": "Mořské plody"
-			},
-			"description": {
-				"eng": "A refined seafood selection — an elegant combination of red and white fish, delicately smoked specialties, and succulent shrimp. Beautifully garnished with orange slices, fresh salad leaves, and fragrant herbs.",
-				"cz": "Vznešený výběr mořských plodů — elegantní kombinace červené a bílé ryby, jemně uzených specialit a šťavnatých krevet. Krásně zdobené plátky pomeranče a čerstvými salátovými listy a aromatickými bylinkami."
-			},
-			"price": "850 CZK",
-			"weight": "450",
-			"image": "img/menu-img/Appetizers-and-Salads/12-Seafood.png"
-		},
-		{
-			"id": 1.13,
-			"name": {
-				"eng": "Ham spread with pickles and cream cheese appetizer",
-				"cz": "Šunková pomazánka s okurkou a tvarohovým sýrem"
-			},
-			"description": {
-				"eng": "A refined creamy spread made from tender ham, cheese, and green onion, enhanced with sour cream, butter, and a subtle touch of mustard. A hint of paprika adds a sophisticated note to its delicate flavor.",
-				"cz": "Vznešená krémová pomazánka z jemné šunky, sýra a zelené cibulky, doplněná zakysanou smetanou, máslem a jemným nádechem hořčice. Špetka papriky dodává jemné chuti sofistikovaný tón."
-			},
-			"price": "455 CZK",
-			"weight": "330g",
-			"image": "img/menu-img/Appetizers-and-Salads/13-Ham-spread-with-pickles-and-cream-cheese-appetizer-2-obrezala.jpg"
-		},
-		{
-			"id": 1.14,
-			"name": {
-				"eng": "Olomouc curd cheese",
-				"cz": "Olomoucký tvarůžek"
-			},
-			"description": {
-				"eng": "The legendary Czech cheese from Olomouc — a true symbol of Moravian culinary tradition. Its refined aroma and intense flavor offer a distinctive and sophisticated tasting experience.",
-				"cz": "Legendární český sýr z Olomouce — skutečný symbol moravské kulinářské tradice. Jeho jemné aroma a intenzivní chuť nabízí výrazný a sofistikovaný chuťový zážitek."
-			},
-			"price": "250 CZK",
-			"weight": "100g",
-			"image": "img/menu-img/Appetizers-and-Salads/14-Olomouc-curd-cheese.jpg"
-		},
-		{
-			"id": 1.15,
-			"name": {
-				"eng": "Salad with smoked duck cranberries and pomegranate caviar",
-				"cz": "Salát s uzenou kachnou, brusinkami a granátovým kaviárem"
-			},
-			"description": {
-				"eng": "An artisanal creation combining the freshness of citrus with the refined flavor of smoked duck. A delicate mix of greens, fennel, pomegranate caviar, and cranberries in syrup delivers perfect balance. Finished with a signature dressing of honey, mustard, and lemon juice.",
-				"cz": "Řemeslné dílo spojující svěžest citrusů s jemnou chutí uzené kachny. Jemná směs salátových listů, fenyklu, granátového kaviáru a brusinek v sirupu vytváří dokonalou rovnováhu. Dokončeno originální zálivkou z medu, hořčice a citronové šťávy."
-			},
-			"price": "400 CZK",
-			"weight": "375g",
-			"image": "img/menu-img/Appetizers-and-Salads/15-Salad-with-smoked-duck-cranberries-and-pomegranate-caviar-4.jpg"
-		},
-		{
-			"id": 1.16,
-			"name": {
-				"eng": "Salad with roasted beetroot and goat cheese",
-				"cz": "Salát s pečenou řepou a kozím sýrem"
-			},
-			"description": {
-				"eng": "A well-balanced salad combining the sweetness of roasted beetroot with the freshness of seasonal vegetables — cherry tomatoes, cucumber, and parsnip. The aromatic honey–mustard Niçoise dressing enhances the greens, while goat cheese and almond crumble add a touch of elegance.",
-				"cz": "Vyvážený salát spojující sladkost pečené řepy s čerstvostí sezónní zeleniny — cherry rajčata, okurka a pastinák. Aromatická medovo-hořčičná zálivka Niçoise zvýrazňuje listovou zeleninu, zatímco kozí sýr a mandlová drobenka přidávají nádech elegance."
-			},
-			"price": "350 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Appetizers-and-Salads/16-Salad-with-roasted-beetroot-and-goat-cheese.jpg"
-		},
-		{
-			"id": 1.17,
-			"name": {
-				"eng": "Salad with tiger prawns and eggplant",
-				"cz": "Salát s tygřími krevetami a lilkem"
-			},
-			"description": {
-				"eng": "A perfectly balanced salad combining the freshness of cherry tomatoes, greens, and a hint of chili with velvety ricotta cream and the aroma of grilled zucchini. Thin slices of tender roast beef, smooth avocado purée, and a delicate nut crumble complete the composition with depth and refinement.",
-				"cz": "Dokonale vyvážený salát spojující svěžest cherry rajčat, listové zeleniny a jemný nádech chilli s sametovým krémem z ricotty a vůní grilované cukety. Tenké plátky jemného roastbeefu, hladké avokádové pyré a křehká ořechová drobenka doplňují kompozici o hloubku a rafinovanost."
-			},
-			"price": "365 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Appetizers-and-Salads/17-Salad-with-tiger-prawns-and-eggplant.jpg"
-		},
-
-		{
-			"id": 1.18,
-			"name": {
-				"eng": "Steak salad with avocado ricotta and cherry tomatoes",
-				"cz": "Steakový salát s avokádovou ricottou a cherry rajčaty"
-			},
-			"description": {
-				"eng": "An elegant composition of tiger prawns sautéed in garlic and olive oil, served on a bed of fresh greens, cherry tomatoes, eggplant, and Cipollini onions. Avocado cream and a light tempura provide subtle balance and sophisticated texture.",
-				"cz": "Elegantní kompozice tygřích krevet osmažených na česneku v olivovém oleji, podávaná na lůžku čerstvé zeleniny, cherry rajčat, lilku a cibulek Cipollini. Avokádový krém a lehká tempura dodávají pokrmu jemnou rovnováhu a sofistikovanou texturu."
-			},
-			"price": "450 CZK",
-			"weight": "380g",
-			"image": "img/menu-img/Appetizers-and-Salads/18-Steak-salad-with-avocado-ricotta-and-cherry-tomatoes.jpg"
-		}
-	],
-
-
-	"Soups": [
-		{
-			"id": 2.1,
-			"name": { 
-				"eng": "Garlic soup", 
-				"cz": "Česneková polévka" 
-			},
-			"description": {
-				"eng": "Garlic soup with a rich texture, prepared with potatoes, smoked delicacies, aged cheese, and fresh herbs, served in a crisp rye bread bowl. The depth of flavors and contrasting textures deliver an unforgettable gourmet experience.",
-				"cz": "Česneková polévka s bohatou texturou, připravená z brambor, uzených specialit, zralého sýra a čerstvých bylinek, podávaná v křupavém žitném chlebu. Hloubka chutí a kontrastní textury odhalují nezapomenutelný gurmánský zážitek."
-			},
-			"price": "495 CZK",
-			"weight": "365g",
-			"image": "img/menu-img/Soups/1-Garlic-soup.jpg"
-		},
-		{
-			"id": 2.2,
-			"name": { 
-				"eng": "Goulash soup", 
-				"cz": "Gulášová polévka" 
-			},
-			"description": {
-				"eng": "A hearty beef soup, crafted according to a traditional 19th-century Czech recipe. Finely chopped onions and spices are sautéed to release their aromas, then select beef and potatoes are added. Slow simmering develops a rich flavor and velvety broth. Served piping hot with rye bread or golden croutons.",
-				"cz": "Sytá hovězí polévka připravená podle tradiční české receptury z 19. století. Jemně nasekaná cibule a koření se osmaží pro uvolnění vůní, poté se přidá vybrané hovězí maso a brambory. Pomalé vaření rozvíjí bohatou chuť a sametový vývar. Servírovaná horká s žitným chlebem nebo zlatavými krutony."
-			},
-			"price": "270 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Soups/2-Goulash-soup.jpg"
-		},
-		{
-			"id": 2.3,
-			"name": { 
-				"eng": "Krkonoše sour soup Kyselo", 
-				"cz": "Krkonošské kyselo" 
-			},
-			"description": {
-				"eng": "Traditional Krkonoše Kyselo, a soup with an unparalleled flavor and aroma, shaped by naturally fermented sourdough and dried forest mushrooms. Its delicate tang and profound depth of taste create a rich culinary harmony, reflecting centuries-old Czech traditions.",
-				"cz": "Tradiční krkonošské kyselo s nezaměnitelnou chutí a vůní, tvořené přírodně kvašeným kváskem a sušenými lesními houbami. Jemná kyselost a hluboká chuť vytvářejí bohatou kulinářskou harmonii, odrážející staleté české tradice."
-			},
-			"price": "265 CZK",
-			"weight": "345g",
-			"image": "img/menu-img/Soups/3-Krkonoše-sour-soup-Kyselo.jpg"
-		},
-		{
-			"id": 2.4,
-			"name": { 
-				"eng": "Thick soup made of sauerkraut Zelnacka", 
-				"cz": "Zelná polévka Zelnáčka" 
-			},
-			"description": {
-				"eng": "A hearty and robust sauerkraut soup with carefully selected meats, simmered to perfection. The harmony of the cabbage’s subtle tang and the rich depth of the meat broth creates a complex and refined flavor profile, celebrating the finest Czech culinary traditions.",
-				"cz": "Sytá a robustní zelňačka s pečlivě vybraným masem, pomalu vařená do dokonalosti. Harmonie jemné kyselosti zelí a bohaté chuti masového vývaru vytváří komplexní a vybraný chuťový profil, oslavující ty nejlepší české kulinářské tradice."
-			},
-			"price": "245 CZK",
-			"weight": "300g",
-			"image": "img/menu-img/Soups/4-Thick-soup-made-of-sauerkraut-Zelnacka.jpg"
-		},
-		{
-			"id": 2.5,
-			"name": { 
-				"eng": "Czech potato soup with mushrooms", 
-				"cz": "Bramboračka s houbami" 
-			},
-			"description": {
-				"eng": "Rich and noble Bramboračka soup with forest mushrooms, potatoes, and aromatic vegetables, slowly simmered to unveil every nuance of flavor. Each serving is a symphony of textures and aromas, transforming a traditional Czech recipe into a gourmet masterpiece for discerning connoisseurs.",
-				"cz": "Bohatá a vznešená bramboračka s lesními houbami, bramborami a aromatickou zeleninou, pomalu vařená, aby se odhalil každý odstín chutí. Každá porce je symfonií textur a vůní, proměňující tradiční český recept v gurmánské mistrovské dílo pro náročné znalce."
-			},
-			"price": "265 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Soups/5-Czech-potato-soup-with-mushrooms.jpeg"
-		},
-		{
-			"id": 2.6,
-			"name": { 
-				"eng": "Czech bread soup Celestina", 
-				"cz": "Chlebová polévka Celestina" 
-			},
-			"description": {
-				"eng": "Delicate Panadeľ Celestino soup on a fragrant broth, adorned with exquisitely thin pancake-style noodles that melt in the mouth. This culinary composition brings forth layers of subtle flavor, turning a classic Czech dish into a masterpiece for the most discerning palates.",
-				"cz": "Jemná polévka Panadeľ Celestino na voňavém vývaru, zdobená nádherně tenkými nudličkami ve stylu palačinek, které se rozplývají v ústech. Tato kulinářská kompozice odhaluje vrstvy jemné chuti a proměňuje klasické české jídlo v mistrovské dílo pro nejnáročnější chutě."
-			},
-			"price": "265 CZK",
-			"weight": "300g",
-			"image": "img/menu-img/Soups/6-Czech-bread-soup-Celestina.jpg"
-		},
-		{
-			"id": 2.7,
-			"name": { 
-				"eng": "Old Bohemian duck soup Kaldoun", 
-				"cz": "Starobohémská kachní polévka Kaldoun" 
-			},
-			"description": {
-				"eng": "A rich and hearty soup crafted from homemade duck stock, enhanced with aromatic roots and tender carrots. A subtle thickening lends the broth a velvety texture, creating a harmonious blend of flavors inherited from classic Czech culinary tradition.",
-				"cz": "Bohatá a sytá polévka připravená z domácího kachního vývaru, doplněná aromatickou kořenovou zeleninou a jemnou mrkví. Jemné zahuštění dodává vývaru sametovou texturu a vytváří harmonickou směs chutí děděnou z klasické české kulinářské tradice."
-			},
-			"price": "245 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Soups/7-Old-Bohemian-duck-soup-Kaldoun.jpg"
-		},
-		{
-			"id": 2.8,
-			"name": { 
-				"eng": "South Bohemian soup with mushrooms, potatoes, vinegar and dill Kulajda", 
-				"cz": "Jihočeská kulajda s houbami, bramborami, octem a koprem" 
-			},
-			"description": {
-				"eng": "Traditional South Bohemian Kulajda soup with a velvety cream base, aromatic forest mushrooms, tender potatoes, and fresh dill. A subtle tang of vinegar and a delicate poached egg create a perfect harmony of flavors, reflecting centuries-old traditions of South Bohemia.",
-				"cz": "Tradiční jihočeská kulajda s hedvábnou smetanovou základnou, aromatickými lesními houbami, jemnými bramborami a čerstvým koprem. Jemná kyselost octa a delikátně pošírované vejce vytvářejí dokonalou harmonii chutí, odrážející staleté tradice Jižních Čech."
-			},
-			"price": "340 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Soups/8-South-Bohemian-soup-with-mushrooms-potatoes-vinegar-and-dill-Kulajda.jpg"
-		},
-		{
-			"id": 2.9,
-			"name": { 
-				"eng": "Smoked soup with roasted semolina", 
-				"cz": "Uzená polévka s praženou krupicí" 
-			},
-			"description": {
-				"eng": "Noble smoked soup with delicately roasted semolina, gently enriching the velvety broth. Each presentation unveils the profound aroma of smoked ingredients and the refined texture of the grains, transforming an authentic Czech recipe into a haute cuisine masterpiece.",
-				"cz": "Vznešená uzená polévka s jemně praženou krupicí, která lehce obohacuje sametový vývar. Každá porce odhaluje hlubokou vůni uzených ingrediencí a jemnou texturu krupice, proměňující autentický český recept v mistrovské dílo haute cuisine."
-			},
-			"price": "345 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Soups/9-Smoked-soup-with-roasted-semolina.jpg"
-		},
-		{
-			"id": 2.10,
-			"name": { 
-				"eng": "Bean soup with smoked pork knuckle", 
-				"cz": "Fazolová polévka s uzeným kolenem" 
-			},
-			"description": {
-				"eng": "A classic Czech bean soup with smoked pork knuckle, simmered to perfection. The rich broth and velvety beans create a profound depth of flavor, highlighting the heritage of Czech cuisine and centuries-old culinary traditions.",
-				"cz": "Klasická česká fazolová polévka s uzeným kolenem, pomalu vařená do dokonalosti. Bohatý vývar a sametové fazole vytvářejí hlubokou chuť a zdůrazňují dědictví české kuchyně a staleté kulinářské tradice."
-			},
-			"price": "235 CZK",
-			"weight": "300g",
-			"image": "img/menu-img/Soups/10-Bean-soup-with-smoked-pork-knuckle.jpg"
-		},
-		{
-			"id": 2.11,
-			"name": { 
-				"eng": "Pea soup with leek", 
-				"cz": "Hrášková polévka s pórkem" 
-			},
-			"description": {
-				"eng": "Delicate Czech pea soup with the subtle aroma of fresh leek, slowly simmered to unveil every nuance of flavor. The light texture and gentle sweetness of the peas create a refined harmony, highlighting the rich heritage of Czech cuisine.",
-				"cz": "Jemná česká hrášková polévka s jemnou vůní čerstvého pórku, pomalu vařená, aby se odhalil každý odstín chuti. Lehká textura a jemná sladkost hrášku vytvářejí vybranou harmonii, zdůrazňující bohaté dědictví české kuchyně."
-			},
-			"price": "425 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Soups/11-Pea-soup-with-leek-2.jpg"
-		},
-		{
-			"id": 2.12,
-			"name": { 
-				"eng": "Seafood soup", 
-				"cz": "Mořská polévka" 
-			},
-			"description": {
-				"eng": "Majestic seafood soup featuring an assortment of fish and tender potatoes, garnished with lemon wedges and fresh herbs. The harmony of oceanic aromas and vegetable textures creates a refined flavor, highlighting the rich heritage of Czech and European culinary tradition.",
-				"cz": "Vznešená mořská polévka s výběrem ryb a jemných brambor, ozdobená plátky citronu a čerstvými bylinkami. Harmonie oceánských vůní a jemných chutí zeleniny vytváří vybranou chuť, zdůrazňující bohaté dědictví české a evropské kuchyně."
-			},
-			"price": "535 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Soups/12-Seafood-soup.png"
-		},
-		{
-			"id": 2.13,
-			"name": { 
-				"eng": "Bean soup", 
-				"cz": "Fazolová polévka" 
-			},
-			"description": {
-				"eng": "An age-old Czech bean soup, originating from the rustic kitchens of 19th-century Bohemia. The broth, enriched with velvety beans, unveils the profound flavors and culinary traditions passed down through generations.",
-				"cz": "Staletá česká fazolová polévka pocházející z venkovských kuchyní 19. století v Čechách. Vývar, obohacený sametovými fazolemi, odhaluje hluboké chutě a kulinářské tradice předávané z generace na generaci."
-			},
-			"price": "245 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Soups/13-Bean-soup.jpg"
-		},
-		{
-			"id": 2.14,
-			"name": { 
-				"eng": "Finnish fish soup with salmon and seafood", 
-				"cz": "Finská rybí polévka s lososem a mořskými plody" 
-			},
-			"description": {
-				"eng": "Delicate Finnish fish soup with house-smoked salmon, dorado, and shrimp, prepared on a base of fragrant fish stock and cream. The light, velvety texture and harmonious blend of seafood flavors reflect the rich heritage of Nordic cuisine.",
-				"cz": "Jemná finská rybí polévka s domácím uzeným lososem, doradem a krevetami, připravená na voňavém rybím vývaru se smetanou. Lehká, sametová textura a harmonická kombinace chutí mořských plodů odhaluje bohaté dědictví severské kuchyně."
-			},
-			"price": "205 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Soups/14-Finnish-fish-soup-with-salmon-and-seafood.png"
-		},
-		{
-			"id": 2.15,
-			"name": { 
-				"eng": "Borscht with pampushky", 
-				"cz": "Boršč s pampuškami" 
-			},
-			"description": {
-				"eng": "An authentic hearty borscht with the rich aroma of vegetables and spices, served with garlic pampushky, fragrant rendered lard, and red pepper. This borscht combines centuries-old Slavic culinary traditions with a deep, layered flavor passed down through generations.",
-				"cz": "Autentický sytý boršč s bohatou vůní zeleniny a koření, podávaný s česnekovými pampuškami, voňavou sádlem a červenou paprikou. Tento boršč spojuje staleté slovanské kulinářské tradice s hlubokou, vrstvenou chutí předávanou z generace na generaci."
-			},
-			"price": "345 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Soups/15-Borscht-with-pampushky.png"
-		},
-		{
-			"id": 2.16,
-			"name": { 
-				"eng": "Cream soup of broccoli and spinach", 
-				"cz": "Krémová polévka z brokolice a špenátu" 
-			},
-			"description": {
-				"eng": "A balanced and delicate broccoli and spinach cream soup, enriched with truffle oil and cream, with finely grated Parmesan. Served with homemade crispy grissini sticks, highlighting the harmony of flavors and the rich heritage of European culinary tradition.",
-				"cz": "Vyvážená a jemná krémová polévka z brokolice a špenátu, obohacená lanýžovým olejem a smetanou, s jemně strouhaným parmazánem. Podáváno s domácími křupavými grissini tyčinkami, zdůrazňující harmonii chutí a bohaté dědictví evropské kuchyně."
-			},
-			"price": "285 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Soups/16-Cream-soup-of-broccoli-and-spinach.png"
-		}
-	],
-
-
-	"Sides-Dishes": [
-		{
-			"id": 3.1,
-			"name": { 
-				"eng": "Potato pancakes in Czech style", 
-				"cz": "Bramboráky po česku" 
-			},
-			"description": {
-				"eng": "Traditional Czech potato pancakes — golden, delicately textured fritters with a subtle aroma, prepared according to a classic recipe.",
-				"cz": "Tradiční české bramboráky – zlatavé, jemně texturované placičky s jemnou vůní, připravené podle klasického receptu."
-			},
-			"price": "325 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/1-Potato-pancakes-in-Czech-style.jpeg"
-		},
-		{
-			"id": 3.2,
-			"name": { 
-				"eng": "Czech dumplings", 
-				"cz": "České knedlíky" 
-			},
-			"description": {
-				"eng": "Classic Czech dumplings made from yeast dough — light, airy, and perfectly balanced in flavor.",
-				"cz": "Klasické české knedlíky z kynutého těsta – lehké, nadýchané a dokonale vyvážené v chuti."
-			},
-			"price": "245 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/2-Czech-dumplings.jpg"
-		},
-		{
-			"id": 3.3,
-			"name": { 
-				"eng": "Old Bohemian barley kuba with dried mushrooms", 
-				"cz": "Starobohémský ječný kuba se sušenými houbami" 
-			},
-			"description": {
-				"eng": "The historic Bohemian Barley Kuba with dried mushrooms — a dish traditionally served as a Lenten specialty in rural households. Its tender texture and deep mushroom aroma offer a true gourmet experience, embodying the richness of Old Bohemian cuisine.",
-				"cz": "Historický starobohémský ječný kuba se sušenými houbami – pokrm tradičně podávaný jako postní specialita na venkovských usedlostech. Jemná textura a hluboká houbová vůně nabízejí pravý gurmánský zážitek, odrážející bohatství starobohémské kuchyně."
-			},
-			"price": "265 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/3-Old-Bohemian-barley-kuba-with-dried-mushrooms.jpg"
-		},
-		{
-			"id": 3.4,
-			"name": { 
-				"eng": "Bulgur", 
-				"cz": "Bulgur" 
-			},
-			"description": {
-				"eng": "Bulgur is a light, aromatic, and nourishing side. Its velvety texture and subtle nutty notes create a perfect pairing with refined dishes, transforming each serving into a haute cuisine experience.",
-				"cz": "Bulgur je lehká, aromatická a výživná příloha. Sametová textura a jemné ořechové tóny vytvářejí dokonalé spojení s jemnými pokrmy, proměňující každou porci v zážitek haute cuisine."
-			},
-			"price": "245 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/4-Bulgur.jpg"
-		},
-		{
-			"id": 3.5,
-			"name": { 
-				"eng": "Grilled vegetables", 
-				"cz": "Grilovaná zelenina" 
-			},
-			"description": {
-				"eng": "A medley of fresh seasonal vegetables — tomatoes, bell peppers, mushrooms, zucchini, and eggplant — delicately grilled to a golden finish. Preserving the natural flavors and aromas of each ingredient, transforming a simple dish into a gourmet delight.",
-				"cz": "Směs čerstvé sezónní zeleniny – rajčata, papriky, houby, cuketa a lilek – jemně grilovaná do zlatova. Zachovává přirozené chutě a vůně každé ingredience, proměňující jednoduchý pokrm v gurmánskou lahůdku."
-			},
-			"price": "265 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/5-Grilled-vegetables.jpg"
-		},
-		{
-			"id": 3.6,
-			"name": { 
-				"eng": "French fries", 
-				"cz": "Hranolky" 
-			},
-			"description": {
-				"eng": "Golden potato wedges, hand-fried in a skillet, as if following ancient ancestral recipes. A delicate hint of smoke and a tender crust tell the story of family traditions, transforming a simple potato into a culinary artifact for true connoisseurs.",
-				"cz": "Zlaté bramborové hranolky, ručně smažené na pánvi podle starých rodinných receptů. Jemný nádech kouře a křehká kůrka vyprávějí příběh rodinných tradic, proměňující obyčejnou bramboru v kulinářský artefakt pro opravdové znalce."
-			},
-			"price": "265 CZK",
-			"weight": "270g",
-			"image": "img/menu-img/Side-Dishes/6-French-fries.jpg"
-		},
-		{
-			"id": 3.7,
-			"name": { 
-				"eng": "Sweet potato fries", 
-				"cz": "Hranolky ze sladkých brambor" 
-			},
-			"description": {
-				"eng": "Tender sweet potatoes, deep-fried to a flawless golden texture, accompanied by the fiery “Dynamite” sauce — crafted from homemade mayonnaise, accented with lime, aromatic Togarashi, and Thai Sriracha. Each bite offers a perfect balance of crispiness and spice.",
-				"cz": "Jemné sladké brambory, smažené do dokonalé zlatavé barvy, doplněné pikantní omáčkou „Dynamite“ – připravenou z domácí majonézy s limetkou, aromatickým Togarashi a thajskou Srirachou. Každé sousto nabízí dokonalou rovnováhu křupavosti a kořeněnosti."
-			},
-			"price": "245 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/7-Sweet-potato-fries.png"
-		},
-		{
-			"id": 3.8,
-			"name": { 
-				"eng": "Potatoes baked in salt on coals", 
-				"cz": "Brambory pečené v soli na uhlí" 
-			},
-			"description": {
-				"eng": "Potatoes, cooked to perfection and baked over charcoal embers, retain a velvety texture and rich flavor. Served with a sprig of fresh thyme, evoking ancient village traditions and imparting noble simplicity to the dish.",
-				"cz": "Brambory, perfektně uvařené a pečené na žhavém uhlí, si zachovávají sametovou texturu a bohatou chuť. Podáváno s větvičkou čerstvého tymiánu, evokující staré vesnické tradice a dodávající pokrmu ušlechtilou jednoduchost."
-			},
-			"price": "345 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/8-Potatoes-baked-in-salt-on-coals.png"
-		},
-		{
-			"id": 3.9,
-			"name": { 
-				"eng": "Grilled vegetables", 
-				"cz": "Grilovaná zelenina s bylinkami" 
-			},
-			"description": {
-				"eng": "Zucchini, eggplant, bell peppers, red onion, mushrooms, and tomatoes are gently sautéed in olive oil with fresh herbs, a touch of pepper, and sea salt. This method preserves the natural juiciness and rich aroma of each vegetable, creating a harmonious combination of textures and flavors.",
-				"cz": "Cuketa, lilek, papriky, červená cibule, houby a rajčata jsou jemně restovány na olivovém oleji s čerstvými bylinkami, špetkou pepře a mořské soli. Tento způsob zachovává přirozenou šťavnatost a bohatou vůni každé zeleniny, vytvářející harmonickou kombinaci textur a chutí."
-			},
-			"price": "235 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/9-Grilled-vegetables.png"
-		},
-		{
-			"id": 3.10,
-			"name": { 
-				"eng": "Asparagus with broccoli in cream sauce with bacon", 
-				"cz": "Chřest s brokolicí v krémové omáčce s baconem" 
-			},
-			"description": {
-				"eng": "Asparagus, seared to a delicate golden hue, and broccoli with a velvety texture, are paired with haute cuisine blue cheese sauce and crisp bacon. This dish showcases the chef’s mastery, transforming each ingredient into a gourmet masterpiece for an elite dining experience.",
-				"cz": "Chřest opečený do jemně zlatavé barvy a brokolice s sametovou texturou, doplněné omáčkou z modrého sýra haute cuisine a křupavou slaninou. Tento pokrm ukazuje mistrovství šéfkuchaře a proměňuje každou ingredienci v gurmánské mistrovské dílo pro elitní kulinářský zážitek."
-			},
-			"price": "235 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/10-Asparagus-with-broccoli-in-cream-sauce-with-bacon.jpeg"
-		},
-		{
-			"id": 3.11,
-			"name": { 
-				"eng": "Spinach with garlic and parmesan", 
-				"cz": "Špenát s česnekem a parmazánem" 
-			},
-			"description": {
-				"eng": "Spinach gently braised in refined white wine with fragrant garlic, preserving a velvety texture and natural fresh flavor. Served with delicate shavings of Parmesan, the dish achieves a harmonious balance of aroma and elegance.",
-				"cz": "Špenát jemně dušený v kvalitním bílém víně s voňavým česnekem, zachovává sametovou texturu a přirozenou čerstvou chuť. Podáváno s jemnými hoblinami parmazánu, pokrm dosahuje harmonické rovnováhy vůně a elegance."
-			},
-			"price": "425 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/11-Spinach-with-garlic-and-parmesan-1.png"
-		},
-		{
-			"id": 3.12,
-			"name": { 
-				"eng": "Pasta", 
-				"cz": "Těstoviny" 
-			},
-			"description": {
-				"eng": "Spaghetti, cooked al dente and gently boiled, are seasoned with a touch of salt and premium butter. This seemingly simple dish reveals a rich flavor and a velvety texture in every strand of pasta.",
-				"cz": "Špagety, uvařené al dente a jemně povařené, ochucené špetkou soli a prémiovým máslem. Tento zdánlivě jednoduchý pokrm odhaluje bohatou chuť a sametovou texturu v každém nudlovém proužku."
-			},
-			"price": "535 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Side-Dishes/12-Pasta.png"
-		}
-	],
-
-	"Main-Courses": [
-		{
-			"id": 4.1,
-			"name": {
-				"eng": "Pork knuckle", 
-				"cz": "Vepřové koleno"
-			},
-			"description": {
-				"eng": "Slow-roasted pork knuckle with a crisp, golden crust, revealing the rich aroma of spices and subtle smokiness. Served with tender braised cabbage and fragrant herbs, highlighting the heritage of 19th-century Czech rustic cuisine.",
-				"cz": "Pomalu pečené vepřové koleno s křupavou zlatavou kůrkou, odhalující bohatou vůni koření a jemný kouřový nádech. Podáváno s jemně dušeným zelím a voňavými bylinkami, připomínající tradici české venkovské kuchyně 19. století."
-			},
-			"price": "595 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Main-Courses/1-Pork-knuckle.jpg"
-		},
-		{
-			"id": 4.2,
-			"name": {
-				"eng": "Beef sirloin in cream sauce", 
-				"cz": "Hovězí svíčková na smetaně"
-			},
-			"description": {
-				"eng": "Traditional 19th-century Czech dish of succulent beef with a delicate vegetable cream sauce. Each presentation reveals a refined balance of flavor and texture, transforming the classic national recipe into a haute cuisine masterpiece for discerning epicureans.",
-				"cz": "Tradiční český pokrm z šťavnatého hovězího masa s jemnou zeleninovou smetanovou omáčkou. Každé podání odhaluje vyváženou harmonii chuti a textury a proměňuje klasický národní recept v gurmánské mistrovské dílo."
-			},
-			"price": "645 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Main-Courses/2-Beef-sirloin-in-cream-sauce.jpg"
-		},
-		{
-			"id": 4.3,
-			"name": {
-				"eng": "Steak tartare", 
-				"cz": "Tatarský biftek"
-			},
-			"description": {
-				"eng": "Exquisite raw beef tartare with a delicate texture and rich flavor, introduced in the Czech Republic under the influence of 19th-century French cuisine. Each presentation transforms this classic recipe into a haute cuisine masterpiece for discerning epicureans.",
-				"cz": "Vynikající syrový hovězí tatarský biftek s jemnou strukturou a bohatou chutí, zavedený do české kuchyně pod vlivem francouzské kuchyně 19. století. Každé podání proměňuje klasický recept v gurmánské mistrovské dílo."
-			},
-			"price": "675 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Main-Courses/3-Steak-tartare.jpg"
-		},
-		{
-			"id": 4.4,
-			"name": {
-				"eng": "Homemade meat aspic", 
-				"cz": "Domácí masová aspik"
-			},
-			"description": {
-				"eng": "Homemade meat aspic, crafted according to traditional Czech culinary recipes. The tender texture and rich flavor of the meat blend highlight authenticity and centuries-old culinary traditions passed down through generations.",
-				"cz": "Domácí masová aspik, připravený podle tradičních českých receptů. Jemná textura a bohatá chuť masa zdůrazňují autenticitu a staleté kulinářské tradice předávané z generace na generaci."
-			},
-			"price": "595 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Main-Courses/4-Homemade-beer-cheese-appetizer-1.jpg"
-		},
-		{
-			"id": 4.5,
-			"name": {
-				"eng": "Szegedin pork goulash with sauerkraut", 
-				"cz": "Segedínský vepřový guláš s kysaným zelím"
-			},
-			"description": {
-				"eng": "Aromatic Szegedin pork goulash with the rich aroma of paprika and slowly braised sauerkraut. Each presentation highlights the depth of flavors and the velvety texture of the meat, transforming a historic Austro-Hungarian recipe into a haute cuisine masterpiece.",
-				"cz": "Aromatický segedínský vepřový guláš s bohatou vůní papriky a pomalu dušeným kysaným zelím. Každé podání zvýrazňuje hloubku chutí a sametovou texturu masa a proměňuje historický recept z Rakousko-Uherska v gurmánské mistrovské dílo."
-			},
-			"price": "685 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Main-Courses/5-Szegedin-pork-goulash-with-sauerkraut.jpg"
-		},
-		{
-			"id": 4.6,
-			"name": {
-				"eng": "Roasted duck", 
-				"cz": "Pečená kachna"
-			},
-			"description": {
-				"eng": "Exquisitely roasted duck with a rich aroma of spices and a golden crust. Each presentation is served with braised cabbage and delicate herbal accents, transforming a classic Czech recipe into a haute cuisine masterpiece for discerning epicureans.",
-				"cz": "Dokonale pečená kachna s bohatou vůní koření a zlatavou kůrkou. Podávána s dušeným zelím a jemnými bylinkovými akcenty a proměňuje klasický český recept v gurmánské mistrovské dílo."
-			},
-			"price": "635 CZK",
-			"weight": "300g",
-			"image": "img/menu-img/Main-Courses/6-Roasted-duck.jpg"
-		},
-		{
-			"id": 4.7,
-			"name": {
-				"eng": "Chicken wings", 
-				"cz": "Kuřecí křídla"
-			},
-			"description": {
-				"eng": "Delectable chicken wings, pan-seared to a golden crisp and served with tomato and teriyaki sauces. Garnished with fresh lemon wedges and herbs, this dish offers a refined freshness while highlighting the harmonious flavors and rich heritage of European cuisine.",
-				"cz": "Lahodná kuřecí křídla, opečená do zlatova, podávaná s rajčatovou a teriyaki omáčkou. Ozdobená čerstvými plátky citronu a bylinkami, pokrm nabízí jemnou svěžest a harmonii chutí evropské kuchyně."
-			},
-			"price": "565 CZK",
-			"weight": "300g",
-			"image": "img/menu-img/Main-Courses/7-Chicken-wings.jpg"
-		},
-		{
-			"id": 4.8,
-			"name": {
-				"eng": "Quail schnitzel with quince chutney", 
-				"cz": "Srnčí řízek z křepelky s chutney z kdoule"
-			},
-			"description": {
-				"eng": "Tender quail schnitzel, pan-seared to a golden crisp, served with aromatic quince chutney. The delicate balance of sweetness and subtle tang in the chutney highlights the refined flavor of the bird and the rich heritage of Central European cuisine.",
-				"cz": "Jemný řízek z křepelky, opečený do zlatova, podávaný s aromatickým chutney z kdoule. Jemná rovnováha sladkosti a mírné kyselosti zvýrazňuje rafinovanou chuť masa a bohaté dědictví středoevropské kuchyně."
-			},
-			"price": "210 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Main-Courses/8-Quail-schnitzel-with-quince-chutney.png"
-		},
-		{
-			"id": 4.9,
-			"name": {
-				"eng": "Pork knuckle with coleslaw", 
-				"cz": "Vepřové koleno s coleslawem"
-			},
-			"description": {
-				"eng": "Tender pork knuckle with a crispy crust, served with refined coleslaw that creates a harmonious balance of freshness and texture. Each presentation transforms this traditional Czech dish into a haute cuisine masterpiece for discerning epicureans.",
-				"cz": "Jemné vepřové koleno s křupavou kůrkou, podávané s jemným coleslawem, vytvářejícím harmonickou rovnováhu svěžesti a textury. Každé podání proměňuje tradiční český pokrm v gurmánské mistrovské dílo."
-			},
-			"price": "685 CZK",
-			"weight": "345g",
-			"image": "img/menu-img/Main-Courses/9-Pork-knuckle-with-coleslaw.png"
-		},
-		{
-			"id": 4.10,
-			"name": {
-				"eng": "Pork belly with miso caramel and Borodinsky mayonnaise", 
-				"cz": "Vepřové břicho s miso karamelem a borodinskou majonézou"
-			},
-			"description": {
-				"eng": "Delectable pork belly, roasted to perfection, served with miso caramel and Borodinsky mayonnaise. This dish unites traditional Czech flavors with Eastern nuances, creating a harmonious interplay of sweetness, umami, and subtle spiciness.",
-				"cz": "Lahodné vepřové břicho, dokonale pečené, podávané s miso karamelem a borodinskou majonézou. Pokrm spojuje tradiční české chutě s orientálními nuancemi a vytváří harmonii sladkosti, umami a jemné pikantnosti."
-			},
-			"price": "615 CZK",
-			"weight": "345g",
-			"image": "img/menu-img/Main-Courses/10-Pork-belly-with-miso-caramel-and-Borodinsky-mayonnaise.png"
-		},
-		{
-			"id": 4.11,
-			"name": {
-				"eng": "Buffalo chicken wings", 
-				"cz": "Buffalo kuřecí křídla"
-			},
-			"description": {
-				"eng": "Expertly prepared Buffalo chicken wings, caramelized in a rich cream-chili sauce with hints of peanut oil and lime. Each serving is adorned with crushed peanuts and fresh green onions, transforming a familiar dish into a haute cuisine masterpiece.",
-				"cz": "Odborně připravená Buffalo kuřecí křídla, karamelizovaná v bohaté smetanovo-chilli omáčce s nádechem arašídového oleje a limetky. Každé podání je zdobeno drcenými arašídy a čerstvou jarní cibulkou, proměňující známý pokrm v gurmánské mistrovské dílo."
-			},
-			"price": "635 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Main-Courses/11-Buffalo-chicken-wings.png"
-		},
-		{
-			"id": 4.12,
-			"name": {
-				"eng": "Duck leg confit with mashed potatoes and Noilly Prat sauce", 
-				"cz": "Konfitované kachní stehno s bramborovou kaší a omáčkou Noilly Prat"
-			},
-			"description": {
-				"eng": "Succulent duck leg confit, prepared using the traditional method of slow poaching in fat at low temperature, preserving its full aroma and texture. Served on a delicate cloud of mashed potatoes, with Noilly Prat sauce made from white vermouth, cane sugar, and spices, garnished with a sprig of thyme.",
-				"cz": "Šťavnaté konfitované kachní stehno, připravené tradiční metodou pomalého pošírování v tuku při nízké teplotě, zachovávající plnou vůni a texturu. Podáváno na jemné bramborové kaši s omáčkou Noilly Prat z bílého vermutu, třtinového cukru a koření, ozdobeno větvičkou tymiánu."
-			},
-			"price": "685 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Main-Courses/12-Duck-leg-confit-with-mashed-potatoes-and-Noilly-Prat-sauce.png"
-		},
-		{
-			"id": 4.13,
-			"name": {
-				"eng": "Chicken lyulya kebab with tahini and eggplant", 
-				"cz": "Kuřecí lula kebab s tahini a lilkem"
-			},
-			"description": {
-				"eng": "Fragrant chicken lula kebab, seasoned with garlic, cilantro, and shallots, grilled to a golden crust. Served with roasted eggplant, tahini cream made from sesame paste, and Kalamata olives, creating a harmonious interplay of spices, textures, and fresh notes.",
-				"cz": "Voňavý kuřecí lula kebab, ochucený česnekem, koriandrem a šalotkou, grilovaný do zlatova. Podáváno s pečeným lilkem, tahini krémem z sezamové pasty a olivami Kalamata, vytvářející harmonii koření, textur a svěžích chutí."
-			},
-			"price": "625 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Main-Courses/13-Chicken-lyulya-kebab-with-tahini-and-eggplant.png"
-		},
-		{
-			"id": 4.14,
-			"name": {
-				"eng": "Duck breast with asparagus Brussels sprouts and date puree", 
-				"cz": "Kachní prso s chřestem, růžičkovou kapustou a datlovým pyré"
-			},
-			"description": {
-				"eng": "Duck breast with asparagus, Brussels sprouts, and date purée. The dish balances the contrast of sweet and savory flavors, delicately revealing the richness and succulence of the tender duck breast. Served with Brussels sprouts, parsnip, asparagus, carrots, and a silky date purée. On the plate: Noilly Prat sauce — a refined blend of chicken stock, cane sugar, balsamic vinegar, and a subtle mix of spices.",
-				"cz": "Pokrm vyvažuje kontrast sladkých a slaných chutí, jemně odhaluje bohatost a šťavnatost jemného kachního masa. Podáváno s růžičkovou kapustou, pastinákem, chřestem, mrkví a hedvábným datlovým pyré. Na talíři: omáčka Noilly Prat — jemná směs kuřecího vývaru, třtinového cukru, balsamika a jemného koření."
-			},
-			"price": "645 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Main-Courses/14-Duck-breast-with-asparagus-Brussels-sprouts-and-date-puree.png"
-		},
-		{
-			"id": 4.15,
-			"name": {
-				"eng": "New Zealand lamb rack with fig sauce and broccoli", 
-				"cz": "Jehněčí hřbet z Nového Zélandu s fíkovou omáčkou a brokolicí"
-			},
-			"description": {
-				"eng": "Rack of New Zealand lamb, with a rich aroma and velvety texture, served alongside select vegetables including broccoli, carrot, parsnip, and aromatic garlic, garnished with a sprig of thyme. Celery cream and fig sauce impart depth of flavor, transforming this classic dish into a haute cuisine masterpiece.",
-				"cz": "Jehněčí hřbet z Nového Zélandu, s bohatou vůní a sametovou texturou, podávaný se vybranou zeleninou – brokolicí, mrkví, pastinákem a aromatickým česnekem, ozdobený větvičkou tymiánu. Celerový krém a fíková omáčka dodávají hloubku chuti a proměňují klasický pokrm v gurmánské mistrovské dílo."
-			},
-			"price": "655 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Main-Courses/15-New-Zealand-lamb-rack-with-fig-sauce-and-broccoli.png"
-		},
-		{
-			"id": 4.16,
-			"name": {
-				"eng": "New Zealand lamb shank braised in red wine with mashed potatoes", 
-				"cz": "Jehněčí kýta z Nového Zélandu dušená v červeném víně s bramborovou kaší"
-			},
-			"description": {
-				"eng": "New Zealand lamb shank slowly braised in a rich red wine sauce with onions, carrots, plum tomatoes, a blend of peppers, and aromatic herbs. Served with velvety creamy mashed potatoes and a tomato-wine vegetable sauce, offering a harmonious interplay of flavors and textures.",
-				"cz": "Jehněčí kýta z Nového Zélandu, pomalu dušená v bohaté červené vinné omáčce s cibulí, mrkví, švestkami, směsí paprik a aromatickými bylinkami. Podáváno s jemnou bramborovou kaší a rajčatovo-vinnou zeleninovou omáčkou, nabízející harmonii chutí a textur."
-			},
-			"price": "645 CZK",
-			"weight": "320g",
-			"image": "img/menu-img/Main-Courses/16-New-Zealand-lamb-shank-braised-in-red-wine-with-mashed-potatoes.png"
-		},
-
-		{
-			"id": 4.17,
-			"name": {
-				"eng": "Pork ribs BBQ",
-				"cz": "Vepřová žebírka BBQ"
-			},
-			"description": {
-				"eng": "Juicy pork ribs, marinated in a blend of aromatic spices with garlic, mustard, paprika, and butter, grilled in a Josper over open coals. Served with delicate mustard accents and fresh microgreens, unveiling a rich flavor profile with smoky depth.",
-				"cz": "Šťavnatá vepřová žebírka, marinovaná v směsi aromatického koření s česnekem, hořčicí, paprikou a máslem, grilovaná v Josperu na otevřeném uhlí. Podáváno s jemnými hořčičnými akcenty a čerstvými mikrobylinkami, odhalující bohatou chuť s kouřovým nádechem."
-			},
-			"price": "685 CZK",
-			"weight": "350g",
-			"image": "img/menu-img/Main-Courses/17-Pork-ribs-BBQ.png"
-		},
-		
-		{
-			"id": 4.18,
-			"name": {
-				"eng": "Chicken schnitzel with cranberry sauce",
-				"cz": "Kuřecí řízek s brusinkovou omáčkou"
-			},
-			"description": {
-				"eng": "Golden chicken schnitzel, fried to a perfect crisp, retaining the succulence and natural aroma of the finest poultry. Served with a velvety cranberry sauce that delicately complements the meat, creating a harmonious balance of sweet and savory notes. A wedge of lemon adds subtle freshness and refined acidity, enhancing the dish’s elegance. Every cut reveals the tender texture of the schnitzel, transforming the dining experience into a true culinary delight.",
-				"cz": "Zlatavý kuřecí řízek, smažený do dokonalé křupavosti, zachovávající šťavnatost a přirozenou vůni kvalitního drůbežího masa. Podáváno s jemnou brusinkovou omáčkou, která dokonale doplňuje maso, vytvářející harmonii sladkých a slaných chutí. Plátek citronu dodává jemnou svěžest a elegantní kyselost, zvýrazňující celkovou eleganci pokrmu."
-			},
-			"price": "785 CZK",
-			"weight": "430g",
-			"image": "img/menu-img/Main-Courses/18-Chicken-schnitzel-with-cranberry-sauce.png"
-		},
-
-		{
-			"id": 4.19,
-			"name": {
-				"eng": "Beef burger on homemade brioche bun",
-				"cz": "Hovězí burger na domácí brioche žemli"
-			},
-			"description": {
-				"eng": "A succulent beef patty, nestled within a delicate, freshly baked artisan bun, paired with a house-crafted burger sauce blending chili, soy, and a velvety homemade mayonnaise enriched with mustard, lemon juice, vinegar, oil, and egg. Complemented by a luxurious Chili-Cheddar sauce, marrying aged Cheddar, cream, cream cheese, adjika, butter, and a hint of paprika. Layered with ripe tomatoes, crisp lettuce, pickled cucumbers, and tender onions, each bite offers a symphony of textures and flavors. Served alongside golden, hand-cut French fries and a piquant Dynamite sauce—homemade mayonnaise infused with lime juice, Togarashi four-pepper blend, and Thai Sriracha—elevating this classic comfort dish into a refined gastronomic experience.",
-				"cz": "Šťavnatá hovězí placka, vložená do jemné, čerstvě upečené artisan žemle, doplněná domácí burgerovou omáčkou z chilli, sóji a sametové domácí majonézy s hořčicí, citronovou šťávou, octem, olejem a vejcem. Doplňováno luxusní omáčkou Chili-Cheddar z dozrálého Cheddaru, smetany, tvarohu, adjiky, másla a špetky papriky. S vrstvami zralých rajčat, křupavého salátu, nakládaných okurek a jemné cibule. Podáváno se zlatavými ručně krájenými hranolkami a pikantní omáčkou Dynamite – domácí majonéza s limetkovou šťávou, směsí Togarashi čtyř pepřů a thajskou Srirachou – povyšující tento klasický comfort food do elegantního gastronomického zážitku."
-			},
-			"price": "640 CZK",
-			"weight": "420g",
-			"image": "img/menu-img/Main-Courses/19-Beef-burger-on-homemade-brioche-bun.png"
-		},
-
-		{
-			"id": 4.20,
-			"name": {
-				"eng": "Meat set No1",
-				"cz": "Masová sada č.1"
-			},
-			"description": {
-				"eng": "A refined meat selection for true connoisseurs, featuring chicken and lamb lula kebabs, signature Currywurst and Bratwurst sausages, succulent BBQ pork ribs, and freshly grilled vegetables. Each item is crafted with meticulous attention to texture and aroma, revealing a symphony of flavors with contrasting spice and smoky notes. Elegantly presented, this ensemble transforms the meal into a haute cuisine experience.",
-				"cz": "Vkusně sestavená masová sada pro opravdové znalce, obsahující kuřecí a jehněčí lula kebaby, typické klobásy Currywurst a Bratwurst, šťavnatá BBQ vepřová žebírka a čerstvě grilovanou zeleninu. Každá položka je připravena s pečlivou pozorností na texturu a vůni, odhalující symfonii chutí s kontrastními kořeněnými a kouřovými tóny. Elegantně podáno, toto sousto proměňuje jídlo v zážitek haute cuisine."
-			},
-			"price": "2650 CZK",
-			"weight": "1200g",
-			"image": "img/menu-img/Main-Courses/20-Meat-set-No1.png"
-		},
-
-		{
-			"id": 4.21,
-			"name": {
-				"eng": "Meat set No2",
-				"cz": "Masová sada č.2"
-			},
-			"description": {
-				"eng": "A superb meat platter featuring a variety of delicacies: house-smoked pork knuckle, melt-in-the-mouth BBQ pork ribs, flavorful pork tenderloin, Currywurst and Bratwurst sausages, and grilled vegetables with smoky undertones. Each dish is presented with meticulous care, showcasing the chef’s expertise and transforming the meal into a unique gastronomic journey.",
-				"cz": "Vynikající masová mísa s různými delikatesami: domácí uzené vepřové koleno, BBQ vepřová žebírka rozpadající se na jazyku, šťavnatá vepřová svíčková, klobásy Currywurst a Bratwurst a grilovaná zelenina s kouřovými tóny. Každý pokrm je servírován s pečlivou precizností, ukazující šéfkuchařovo umění."
-			},
-			"price": "2500 CZK",
-			"weight": "1250g",
-			"image": "img/menu-img/Main-Courses/21-Meat-set-No2.png"
-		}
-
-	],
-
-	"Fish-and-Seafood": [
-		{
-			"id": 5.1,
-			"name": {
-				"eng": "Octopus baked on coals with vegetables",
-				"cz": "Chobotnice pečená na uhlí se zeleninou"
-			},
-			"description": {
-				"eng": "Tender octopus tentacles, marinated in aromatic herbs, are grilled over an open flame to a delicate golden finish. Served with succulent cherry tomatoes, carrot, parsnip, and asparagus, perfectly balanced to enhance natural flavors. Finished with a vibrant chimichurri sauce of fresh herbs, garlic, chili, and olive oil, this dish unveils layers of freshness and subtle spice—a true culinary delight for discerning seafood connoisseurs.",
-				"cz": "Jemná chapadla chobotnice, marinovaná v aromatických bylinkách, jsou grilována na otevřeném ohni do zlatavé křupavosti. Podávána s šťavnatými cherry rajčaty, mrkví, pastinákem a chřestem, dokonale vyvážená pro zvýraznění přirozených chutí. Dokončeno živou chimichurri omáčkou z čerstvých bylinek, česneku, chilli a olivového oleje — pokrm odhaluje vrstvy svěžesti a jemného koření, skutečný kulinářský zážitek pro znalce mořských plodů."
-			},
-			"price": "530 CZK",
-			"weight": "230g",
-			"image": "img/menu-img/Fish-and-Seafood/1-Octopus-baked-on-coals-with-vegetables.png"
-		},
-		{
-			"id": 5.2,
-			"name": {
-				"eng": "Dorado fillet with spinach and lemon sauce",
-				"cz": "Filé z dorády se špenátem a citronovou omáčkou"
-			},
-			"description": {
-				"eng": "The exquisite dorado fillets, cooked to perfect tenderness, are served atop a bed of fresh spinach. The dish is enveloped in a delicate lemon-cream sauce, lending a subtle citrus freshness and velvety texture. The harmonious combination elevates a classic sea fillet into a refined gastronomic delight for aficionados of haute cuisine.",
-				"cz": "Vynikající filé z dorády, uvařené do dokonalé měkkosti, je servírováno na lůžku čerstvého špenátu. Pokrm je přelit jemnou citronovo-smotanovou omáčkou, která dodává lehkou citrusovou svěžest a hedvábnou texturu. Harmonická kombinace povyšuje klasické mořské filé na vybraný gastronomický zážitek pro milovníky haute cuisine."
-			},
-			"price": "485 CZK",
-			"weight": "210g",
-			"image": "img/menu-img/Fish-and-Seafood/2-Dorado-fillet-with-spinach-and-lemon-sauce.png"
-		},
-		{
-			"id": 5.3,
-			"name": {
-				"eng": "Salmon fillet with asparagus and broccoli puree",
-				"cz": "Filé z lososa s chřestem a brokolicovým pyré"
-			},
-			"description": {
-				"eng": "Salmon fillet infused with the delicate flavors of miso and rice vinegar, accented with garlic, is gently grilled in a Josper oven. Accompanied by creamy broccoli purée, fresh asparagus, carrot, and green peas, the dish delivers a rich harmony of flavors and a visually sophisticated presentation worthy of haute cuisine.",
-				"cz": "Filé z lososa, prosycené jemnými chutěmi miso a rýžového octa a doplněné česnekem, je jemně grilováno v peci Josper. Podáváno s krémovým brokolicovým pyré, čerstvým chřestem, mrkví a zeleným hráškem. Pokrm přináší bohatou harmonii chutí a vizuálně sofistikovanou prezentaci hodnou haute cuisine."
-			},
-			"price": "490 CZK",
-			"weight": "210g",
-			"image": "img/menu-img/Fish-and-Seafood/3-Salmon-fillet-with-asparagus-and-broccoli-puree.png"
-		},
-		{
-			"id": 5.4,
-			"name": {
-				"eng": "Mussels in garlic sauce",
-				"cz": "Slávky v česnekové omáčce"
-			},
-			"description": {
-				"eng": "Mytilus galloprovincialis are gently simmered in butter with onions and aromatic garlic, enhanced with white wine and a sprig of thyme. Served with a wedge of lemon and fresh ciabatta, this dish allows one to savor every nuance of the sea’s freshness and refined flavor—a perfect choice for discerning seafood connoisseurs.",
-				"cz": "Slávky Mytilus galloprovincialis jsou jemně dusené na másle s cibulí a aromatickým česnekem, doplněné bílým vínem a snítkou tymiánu. Podáváno s klínkem citronu a čerstvou ciabattou — pokrm umožňuje vychutnat každý nádech mořské svěžesti a jemné chuti, ideální volba pro znalce mořských plodů."
-			},
-			"price": "795 CZK",
-			"weight": "375g",
-			"image": "img/menu-img/Fish-and-Seafood/4-Mussels-in-garlic-sauce.png"
-		}
-	],
-
-	"Desserts": [
-		{
-			"id": 6.1,
-			"name": {
-				"eng": "Karlovy Vary wafers",
-				"cz": "Karlovarské oplatky"
-			},
-			"description": {
-				"eng": "Refined Karlovy Vary wafers — a delicate sweet composition hailing from the renowned spa town of Karlovy Vary, where the tradition of baking ultra-thin wafers dates back to the late 18th century. The confection is crafted from two near-transparent layers of batter bound by a hazelnut or vanilla filling, imbued with the essence of the region’s mineral springs. Presented with a subtle warm service touch — the perfect gastronomic finale to an exclusive evening.",
-				"cz": "Vynikající Karlovarské oplatky — jemná sladká kompozice pocházející z proslulého lázeňského města Karlovy Vary, kde tradice pečení extratenkých oplatků sahá až do konce 18. století. Oplatky jsou tvořeny dvěma téměř průhlednými vrstvami těsta spojenými lískovo-oříškovou nebo vanilkovou náplní, prosycené esencí místních minerálních pramenů. Servírováno s jemným teplým dotekem — dokonalý gastronomický závěr vytříbeného gurmánského večera."
-			},
-			"price": "90 CZK",
-			"weight": "60g",
-			"image": "img/menu-img/Desserts/1-Karlovy-Vary-waffles-dessert.jpg"
-		},
-		{
-			"id": 6.2,
-			"name": {
-				"eng": "Bread pudding with apples and bananas",
-				"cz": "Zemlovka s jablky a banány"
-			},
-			"description": {
-				"eng": "Bread pudding with apples and bananas — a delicate dessert with a storied past, first appearing in 19th-century Czech households as a refined way to revive day-old bread. Layers of soft rolls, caramelized apples, and ripe banana are soaked in a vanilla-scented cream, creating a warm and aromatic harmony of comfort and nostalgia.",
-				"cz": "Zemlovka s jablky a banány — jemný dezert s bohatou historií, poprvé se objevující v českých domácnostech 19. století jako vytříbený způsob, jak oživit starší chleba. Vrstvy měkkých rohlíků, karamelizovaných jablek a zralého banánu jsou namočeny ve vanilkovém krému, vytvářející teplou, aromatickou harmonii pohodlí a nostalgie."
-			},
-			"price": "300 CZK",
-			"weight": "250g",
-			"image": "img/menu-img/Desserts/2-Bread-pudding-with-apples-and-bananas-dessert.jpg"
-		},
-		{
-			"id": 6.3,
-			"name": {
-				"eng": "Trdelník",
-				"cz": "Trdelník"
-			},
-			"description": {
-				"eng": "An authentic trdelník made from yeast dough wrapped around a wooden rod and roasted over coals to a golden crisp. This dessert traces its origins to the late 18th–19th centuries in eastern Moravia and the South Bohemian region, where it was served at family festivities and fairs. Served warm, with subtle notes of cinnamon and walnut caramel — the perfect end to a refined gastronomic evening.",
-				"cz": "Autentický trdelník z kynutého těsta omotaného kolem dřevěné tyče a opékaného na uhlí do zlatova křupavého stavu. Tento dezert pochází z konce 18.–19. století z východní Moravy a jižních Čech, kde se podával na rodinných slavnostech a jarmarcích. Servírováno teplé, s jemnými tóny skořice a vlašského ořechu s karamelem — dokonalý závěr vytříbeného gurmánského večera."
-			},
-			"price": "370 CZK",
-			"weight": "345g",
-			"image": "img/menu-img/Desserts/3-Trdelnik.jpg"
-		},
-		{
-			"id": 6.4,
-			"name": {
-				"eng": "Wholegrain bundt cake with carrots and walnuts",
-				"cz": "Celozrnná bábovka s mrkví a ořechy"
-			},
-			"description": {
-				"eng": "Carrot and walnut bábovka — a legendary Czech dessert once gracing the tables of nobles and bourgeois households during the Austro-Hungarian era. This modern whole-grain interpretation preserves its traditional soul: moist, subtly fragrant, with a tender crumb and nutty finish. Each slice pays homage to history — a taste of European elegance and timeless comfort.",
-				"cz": "Mrkvová a ořechová bábovka — legendární český dezert, který kdysi zdobil stoly šlechty a měšťanských domácností během období Rakousko-Uherska. Tato moderní celozrnná verze zachovává tradiční duši dezertu: vlhká, jemně vonící, s nadýchanou střídou a ořechovým závěrem. Každý plátek vzdává hold historii — chuť evropské elegance a nadčasového pohodlí."
-			},
-			"price": "160 CZK",
-			"weight": "100g",
-			"image": "img/menu-img/Desserts/4-Wholegrain-bundt-cake-with-carrots-and-walnuts.jpg"
-		},
-		{
-			"id": 6.5,
-			"name": {
-				"eng": "Sweet buns with vanilla custard",
-				"cz": "Sladké housky se šodó"
-			},
-			"description": {
-				"eng": "Sweet buns with šodó sauce — a classic Czech dessert with origins in the culinary heritage of the 19th century. Golden, fluffy yeast buns are served with warm šodó — a delicate custard made from white wine, cream, egg yolks, and natural vanilla. The dish gracefully unites rustic comfort with the refined elegance of historic Prague.",
-				"cz": "Sladké housky se šodó — klasický český dezert s kořeny v kulinářském dědictví 19. století. Zlaté, nadýchané kynuté housky jsou servírovány s teplým šodó — jemným krémem z bílého vína, smetany, žloutků a přírodní vanilky. Pokrm elegantně spojuje rustikální pohodlí s vytříbenou elegancí historické Prahy."
-			},
-			"price": "260 CZK",
-			"weight": "235g",
-			"image": "img/menu-img/Desserts/5-Sweet-buns-with-vanilla-custard-from-Mysak-Pastry-Shop.jpg"
-		},
-		{
-			"id": 6.6,
-			"name": {
-				"eng": "Homemade mole cake with curd and mascarpone",
-				"cz": "Domácí dort „Kopček“ s tvarohem a mascarpone"
-			},
-			"description": {
-				"eng": "Homemade “Molehill” Cake with Quark and Mascarpone — a refined interpretation of a beloved Czech classic, symbolizing comfort and sweet nostalgia. Beneath its cocoa “hill,” the tender sponge conceals a light, velvety cream made from mascarpone and fresh quark, delicately infused with fruit accents. A perfect harmony of tradition and modern culinary elegance.",
-				"cz": "Domácí dort „Kopček“ s tvarohem a mascarpone — vytříbená interpretace oblíbeného českého klasiku, symbolizujícího pohodlí a sladkou nostalgii. Pod jeho kakaovým „kopcem“ se ukrývá jemný piškot s lehkým, hedvábným krémem z mascarpone a čerstvého tvarohu, jemně dochucený ovocnými akcenty. Dokonalá harmonie tradice a moderní kulinářské elegance."
-			},
-			"price": "310 CZK",
-			"weight": "245g",
-			"image": "img/menu-img/Desserts/6-Homemade-mole-cake-with-curd-and-mascarpone.webp"
-		},
-		{
-			"id": 6.7,
-			"name": {
-				"eng": "Poppy seed cake with cherries",
-				"cz": "Makovec s třešněmi"
-			},
-			"description": {
-				"eng": "Poppy Seed Cake with Cherries — a tribute to the timeless Czech baking heritage, once gracing festive tables across Bohemia. The buttery, tender dough embraces a rich poppy seed filling intertwined with juicy cherries. The subtle tartness of the fruit balances the smooth sweetness of the poppy seeds, offering a refined harmony where tradition meets contemporary elegance.",
-				"cz": "Makovec s třešněmi — pocta nadčasovému českému pekařskému dědictví, kdysi zdobící slavnostní stoly po celém Česku. Máslové, jemné těsto obejímá bohatou náplň z máku propojenou se šťavnatými třešněmi. Jemná kyselost ovoce vyvažuje hladkou sladkost máku a nabízí vytříbenou harmonii, kde se tradice setkává s moderní elegancí."
-			},
-			"price": "210 CZK",
-			"weight": "160g",
-			"image": "img/menu-img/Desserts/7-Poppy-seed-cake-with-cherries.png"
-		},
-		{
-			"id": 6.8,
-			"name": {
-				"eng": "Punch cake",
-				"cz": "Punčový dort"
-			},
-			"description": {
-				"eng": "Punch Cake — a dessert with an aristocratic heritage, embodying the spirit of old Prague. Airy sponge layers soaked in rum syrup with a hint of fruit are complemented by a smooth cream and a refined pink glaze. Its flavor recalls the charm of 19th-century Prague cafés, where sweetness and subtle spice met in perfect harmony.",
-				"cz": "Punčový dort — dezert s aristokratickým dědictvím, ztělesňující duch staré Prahy. Nadýchané vrstvy piškotu namočené v rumovém sirupu s nádechem ovoce jsou doplněny hladkým krémem a jemnou růžovou polevou. Jeho chuť připomíná kouzlo pražských kaváren 19. století, kde se sladkost a jemné koření setkávaly v dokonalé harmonii."
-			},
-			"price": "210 CZK",
-			"weight": "120g",
-			"image": "img/menu-img/Desserts/8-Punch-cake.png"
-		},
-		{
-			"id": 6.9,
-			"name": {
-				"eng": "Curd bundt cake with lemon glaze and blackberries",
-				"cz": "Tvarohová bábovka s citronovou polevou a ostružinami"
-			},
-			"description": {
-				"eng": "Cottage Cheese Bábovka with Lemon Glaze and Blackberries — a refined interpretation of an old Czech classic. The delicate curd-based dough remains moist and velvety, while the lemon glaze adds a subtle freshness. Adorned with ripe blackberries, this bábovka evokes the comforting warmth of home, elevated to the realm of haute pâtisserie.",
-				"cz": "Tvarohová bábovka s citronovou polevou a ostružinami — vytříbená interpretace starého českého klasiku. Jemné tvarohové těsto zůstává vlhké a hedvábné, zatímco citronová poleva přidává jemnou svěžest. Ozdobená zralými ostružinami, tato bábovka evokuje hřejivý pocit domova, povýšený do sféry gurmánské cukrařiny."
-			},
-			"price": "455 CZK",
-			"weight": "360g",
-			"image": "img/menu-img/Desserts/9-Curd-bundt-cake-with-lemon-glaze-and-blackberries.jpg"
-		},
-		{
-			"id": 6.10,
-			"name": {
-				"eng": "Wallachian pear frgál from spelt flour with star anise",
-				"cz": "Valašský hruškový frgál ze špaldové mouky s badyánem"
-			},
-			"description": {
-				"eng": "Wallachian Pear Frgál from Spelt Flour with Star Anise — a delicate pastry hailing from the heart of Moravia. Soft spelt dough embraces a caramelized pear filling subtly perfumed with star anise. Its taste embodies a dialogue between rustic simplicity and noble refinement — a dessert that preserves the soul of Wallachian heritage and the warmth of the old countryside oven.",
-				"cz": "Valašský hruškový frgál ze špaldové mouky s badyánem — jemné pečivo pocházející ze srdce Moravy. Měkké špaldové těsto obaluje karamelizovanou hruškovou náplň jemně provoněnou badyánem. Jeho chuť představuje dialog mezi rustikální jednoduchostí a ušlechtilou elegancí — dezert, který zachovává duši valašského dědictví a teplo staré venkovské pece."
-			},
-			"price": "290 CZK",
-			"weight": "125g",
-			"image": "img/menu-img/Desserts/10-Wallachian-pear-frgal-from-spelt-flour-with-star-anise.png"
-		}
-	],
-
-	"Soft-Drinks": [
-
-		{
-			"id": 7.1,
-			"name": {
-				"eng": "Coca-Cola 0.25",
-				"cz": "Coca-Cola 0.25"
-			},
-			"description": {
-				"eng": "The timeless classic, sparkling and full of flavor. Refreshing, invigorating, and always satisfying.",
-				"cz": "Nadčasová klasika, perlivá a plná chuti. Osvěžující, povzbuzující a vždy uspokojivá."
-			},
-			"price": "75 CZK",
-			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-drinks/1-Coca-Cola-0.25.jpeg"
-		},
-
-		{
-			"id": 7.2,
-			"name": {
-				"eng": "Coca-Cola Zero 0.25",
-				"cz": "Coca-Cola Zero 0.25"
-			},
-			"description": {
-				"eng": "The classic taste of Coca-Cola without sugar. Bold, refreshing, and perfectly balanced — enjoy every sip.",
-				"cz": "Klasická chuť Coca-Coly bez cukru. Odvážná, osvěžující a dokonale vyvážená — vychutnejte si každý doušek."
-			},
-			"price": "175 CZK",
-			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-drinks/2-Coca-Cola-Zero-Sugar-0.25.jpeg"
-		},
-
-		{
-			"id": 7.3,
-			"name": {
-				"eng": "Perier",
-				"cz": "Perier"
-			},
-			"description": {
-				"eng": "Sparkling mineral water with a crisp, refreshing bite. Perfect to accompany any meal or enjoy on its own.",
-				"cz": "Perlivá minerální voda s osvěžující křupavostí. Ideální k jídlu nebo jen tak pro osvěžení."
-			},
-			"price": "275 CZK",
-			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-drinks/3-Perrier-210-207.jpg"
-		},
-
-		{
-			"id": 7.4,
-			"name": {
-				"eng": "Tea",
-				"cz": "Čaj"
-			},
-			"description": {
-				"eng": "Carefully selected loose-leaf teas or infusions, brewed to perfection. Aromatic, soothing, and ideal for a moment of calm.",
-				"cz": "Pečlivě vybrané sypané čaje nebo bylinné nálevy, připravené k dokonalosti. Aromatické, uklidňující a ideální pro chvíli odpočinku."
-			},
-			"price": "100 CZK",
-			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-drinks/4-Tea-1-207-210.jpg"
-		},
-
-		{
-			"id": 7.5,
-			"name": {
-				"eng": "Mojito",
-				"cz": "Mohito"
-			},
-			"description": {
-				"eng": "A Cuban classic with white rum, fresh mint, lime, and a touch of sugar. Light, invigorating, and perfectly balanced — an eternal favorite.",
-				"cz": "Kubánská klasika s bílým rumem, čerstvou mátou, limetkou a trochou cukru. Lehké, povzbuzující a dokonale vyvážené — věčný favorit."
-			},
-			"price": "275 CZK",
-			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-drinks/5-mohito.jpg"
-		},
-		
-		{
-			"id": 7.6,
-			"name": {
-				"eng": "Juice",
-				"cz": "Džus"
-			},
-			"description": {
-				"eng": "Freshly squeezed or carefully selected fruit juices, bursting with natural flavor and vibrant color — a refreshing choice for every moment.",
-				"cz": "Čerstvě vymačkané nebo pečlivě vybrané ovocné šťávy, plné přirozené chuti a živé barvy — osvěžující volba pro každý okamžik."
-			},
-			"price": "375 CZK",
-			"weight": "1 wineglass",
-			"image": "img/menu-img/Drinks/Soft-drinks/6-dzus.jpg"
-		},
-
-		{
-			"id": 7.7,
-			"name": {
-				"eng": "Fanta",
-				"cz": "Fanta"
-			},
-			"description": {
-				"eng": "Refreshing orange soda with lively bubbles — a classic favorite for a light, uplifting drink.",
-				"cz": "Osvěžující pomerančová limonáda s živými bublinkami — klasický oblíbený nápoj pro lehké a povzbuzující osvěžení."
-			},
-			"price": "250 CZK",
-			"weight": "250ml",
-			"image": "img/menu-img/Drinks/Soft-drinks/7-fanta.webp"
-		},		
-		
-		{
-			"id": 7.8,
-			"name": {
-				"eng": "Matcha-Mango",
-				"cz": "Matča-mango"
-			},
-			"description": {
-				"eng": "A bold tropical cocktail bursting with mango flavor, enhanced by a hint of lime and subtle sweetness. A refreshing escape in every sip.",
-				"cz": "Odvážný tropický koktejl plný chuti manga, doplněný jemnou limetkou a mírnou sladkostí. Každý doušek je osvěžující útěk do tropů."
-			},
-			"price": "250 CZK",
-			"weight": "250ml",
-			"image": "img/menu-img/Drinks/Soft-drinks/8-matcha-mango.jpg"
-		},
-
-		{
-			"id": 7.9,
-			"name": {
-				"eng": "Aperol-Spritz",
-				"cz": "Aperol-Spritz"
-			},
-			"description": {
-				"eng": "A vibrant Italian classic, blending Aperol, prosecco, and a splash of soda. Refreshing and slightly bitter, garnished with an orange slice — perfect for a sunny, relaxed moment.",
-				"cz": "Živá italská klasika, kombinace Aperolu, prosecca a trochy sodovky. Osvěžující s jemně hořkou chutí, zdobené plátkem pomeranče — ideální pro slunečný, pohodový okamžik."
-			},
-			"price": "150 CZK",
-			"weight": "250ml",
-			"image": "img/menu-img/Drinks/Soft-drinks/9-Aperol-Spritz.jpg"
-		}
-
-	],
-
-	"Alcoholic-Beverages": [
-		{
-			"id": 8.1,
-			"name": {
-				"eng": "Becherovka",
-				"cz": "Becherovka"
-			},
-			"description": {
-				"eng": "Becherovka – the legendary elixir of Karlovy Vary. This noble herbal liqueur, first crafted in 1807, embodies the refined spirit of Bohemian elegance and ancient apothecary mastery. Its velvety bouquet reveals subtle notes of cinnamon, clove, and mountain herbs, unfolding into a lingering, warm finish. Once admired by European royals, it remains a symbol of timeless sophistication and aristocratic grace.",
-				"cz": "Becherovka – legendární elixír z Karlových Varů. Tento vznešený bylinný likér, poprvé vyrobený v roce 1807, ztělesňuje jemného ducha české elegance a dávného umění lékárníků. Jeho sametová vůně odhaluje jemné tóny skořice, hřebíčku a horských bylin a přechází v dlouhotrvající teplý závěr. Obdivovaná evropskými panovníky, zůstává symbolem nadčasové sofistikovanosti a aristokratického půvabu."
-			},
-			"price": "500 CZK",
-			"weight": "1 wineglass (500ml)",
-			"image": "img/menu-img/Drinks/Alcoholic-Beverages/1-Becherovka-1-1.jpg"
-		},
-		{
-			"id": 8.2,
-			"name": {
-				"eng": "Slivovice",
-				"cz": "Slivovice"
-			},
-			"description": {
-				"eng": "Slivovice – a noble Czech legend. An aged plum brandy crafted from ripe fruit following ancient Moravian traditions. Its rich bouquet reveals delicate layers of stone fruit, almond, and subtle smoky undertones. The smooth finish with hints of oak and caramel turns each sip into an elegant ritual of indulgence. Slivovice captures the very essence of Czech heritage — where craftsmanship and authenticity meet in perfect harmony.",
-				"cz": "Slivovice – vznešená česká legenda. Zrající švestková pálenka vyrobená z dozrálého ovoce podle starobylých moravských tradic. Její bohatá vůně odhaluje jemné vrstvy peckovin, mandle a lehké kouřové tóny. Hladký závěr s nádechem dubu a karamelu proměňuje každý doušek v elegantní rituál potěšení. Slivovice zachycuje samotnou podstatu českého dědictví — kde se řemeslo a autentičnost setkávají v dokonalé harmonii."
-			},
-			"price": "500 CZK",
-			"weight": "1 wineglass (500ml)",
-			"image": "img/menu-img/Drinks/Alcoholic-Beverages/2-Slivovice-4.jpg"
-		},
-		{
-			"id": 8.3,
-			"name": {
-				"eng": "Mead",
-				"cz": "Medovina"
-			},
-			"description": {
-				"eng": "Medovina – the elixir of ancient Bohemia. Crafted from pure honey and spring water through gentle fermentation, this mead unveils a refined bouquet of wild herbs, linden nectar, and a delicate hint of vanilla. Its velvety texture and golden glow evoke the splendor of medieval Czech feasts. Each sip of Medovina is a taste of history — imbued with the fragrance of honey and the grace of centuries-old tradition.",
-				"cz": "Medovina – elixír starých Čech. Vyrobena z čistého medu a pramenité vody jemnou fermentací, odhaluje vybranou vůni divokých bylin, lipového nektaru a jemný nádech vanilky. Její sametová textura a zlatavý lesk evokují nádheru středověkých českých hostin. Každý doušek Medoviny je ochutnávkou historie — naplněný vůní medu a půvabem stoletých tradic."
-			},
-			"price": "500 CZK",
-			"weight": "1 wineglass (500ml)",
-			"image": "img/menu-img/Drinks/Alcoholic-Beverages/3-Mead-3.jpg"
-		},
-		{
-			"id": 8.4,
-			"name": {
-				"eng": "Beer",
-				"cz": "České pivo"
-			},
-			"description": {
-				"eng": "Czech Beer – the heritage of kings and monasteries. Brewed following ancient monastic traditions, it harmoniously blends the gentle bitterness of Žatec hops, the purity of Moravian malt, and the crystal clarity of Bohemian springs. Its noble taste unfolds with delicate hints of honey and fresh bread, evoking the spirit of history and the dignity of centuries-old craftsmanship. More than a drink — it is a golden reflection of Czech legacy.",
-				"cz": "České pivo – dědictví králů a klášterů. Vařeno podle starobylých mnišských tradic, harmonicky spojuje jemnou hořkost žateckého chmele, čistotu moravského sladu a křišťálovou jasnost českých pramenů. Jeho vznešená chuť se odhaluje jemnými tóny medu a čerstvého chleba, evokující duch historie a důstojnost stoletého řemesla. Více než nápoj — je to zlatý odraz českého dědictví."
-			},
-			"price": "175 CZK",
-			"weight": "1 wineglass (250ml)",
-			"image": "img/menu-img/Drinks/Alcoholic-Beverages/4-Beer.jpg"
-		}
-	]
+    "Appetizers-and-Salads": [
+        {
+            "id": 1.1,
+            "name": {
+                "eng": "Meat skewers",
+                "cz": "Masové špízy"
+            },
+            "description": {
+                "eng": "Traditional Czech sausages, crafted from an authentic late 19th century recipe.",
+                "cz": "Tradiční české klobásy, připravené podle autentického receptu z konce 19. století."
+            },
+            "price": "890 CZK",
+            "weight": "540g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/1-Meat-skewers.png"
+        },
+        {
+            "id": 1.2,
+            "name": {
+                "eng": "Cucumber salad with cream and walnuts",
+                "cz": "Okurkový salát se smetanou a vlašskými ořechy"
+            },
+            "description": {
+                "eng": "A delicate harmony of fresh cucumbers, walnuts, and sour cream, accented with subtle notes of garlic and herbs, offering a timeless culinary elegance.",
+                "cz": "Jemná harmonie čerstvých okurek, vlašských ořechů a zakysané smetany, doplněná náznaky česneku a bylinek, nabízející nadčasovou kulinářskou eleganci."
+            },
+            "price": "270 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/2-Cucumber-salad-with-cream-and-walnuts.jpeg"
+        },
+        {
+            "id": 1.3,
+            "name": {
+                "eng": "Prague salad with chicken",
+                "cz": "Pražský salát s kuřecím masem"
+            },
+            "description": {
+                "eng": "The “Prague” Salad is a sophisticated composition of succulent chicken fillet sautéed with golden onions and crisp vegetables. The sweetness of bell pepper and apple is delicately balanced by the subtle tang of pickled cucumbers, while a silky mayonnaise dressing completes the ensemble with a touch of culinary harmony.",
+                "cz": "„Pražský“ salát je sofistikovaná kompozice šťavnatého kuřecího filé osmaženého se zlatou cibulkou a křupavou zeleninou. Sladkost papriky a jablek je jemně vyvážena lehkou kyselostí nakládaných okurek, zatímco hedvábná majonézová zálivka dotváří kulinářskou harmonii."
+            },
+            "price": "180 CZK",
+            "weight": "220g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/3-Prague-salad-with-chicken-1.jpg"
+        },
+        {
+            "id": 1.4,
+            "name": {
+                "eng": "Egg spread",
+                "cz": "Vaječná pomazánka"
+            },
+            "description": {
+                "eng": "A delicate ensemble of boiled eggs and pickled cucumbers, elegantly dressed in a silky mayonnaise–mustard sauce, offers a refined flavor that pairs exquisitely with artisanal fresh bread.",
+                "cz": "Jemná kombinace vařených vajec a nakládaných okurek, delikátně smíchaná v hedvábné majonézovo-hořčičné omáčce, nabízí vybranou chuť, která se dokonale hodí k řemeslnému čerstvému chlebu."
+            },
+            "price": "240 CZK",
+            "weight": "210g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/4-Egg-spread.jpg"
+        },
+        {
+            "id": 1.5,
+            "name": {
+                "eng": "Fried cheese",
+                "cz": "Smažený sýr"
+            },
+            "description": {
+                "eng": "The legendary Czech fried cheese — an embodiment of culinary tradition. The authentic “Smažák” is crafted from exquisite Hermelín cheese, whose gentle flavor and velvety texture lend the dish an air of refined elegance.",
+                "cz": "Legendární český smažený sýr — ztělesnění kulinářské tradice. Autentický „Smažák“ je připraven z vynikajícího sýra Hermelín, jehož jemná chuť a sametová textura propůjčují pokrmu vznešenou eleganci."
+            },
+            "price": "215 CZK",
+            "weight": "185g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/5-Fried-cheese.jpg"
+        },
+        {
+            "id": 1.6,
+            "name": {
+                "eng": "Mushroom salad",
+                "cz": "Houbový salát"
+            },
+            "description": {
+                "eng": "An elegant composition of fragrant wild mushrooms, lightly sautéed to perfection and adorned with fresh herbs. A delicate dressing unveils the rich harmony of flavors and textures.",
+                "cz": "Elegantní kompozice aromatických lesních hub, lehce osmažených do dokonalosti a zdobených čerstvými bylinkami. Jemná zálivka odhaluje bohatou harmonii chutí a textur."
+            },
+            "price": "200 CZK",
+            "weight": "150g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/6-Mushroom-salad.png"
+        },
+        {
+            "id": 1.7,
+            "name": {
+                "eng": "Retro egg salad according to 1976 standards",
+                "cz": "Retro vaječný salát podle standardů roku 1976"
+            },
+            "description": {
+                "eng": "A refined interpretation of the classic 1976 salad: tender potatoes boiled in their skins, crisp onions, and sweet-and-sour pickles, delicately dressed with creamy mayonnaise and full-bodied mustard — a nostalgic taste of an elegant era.",
+                "cz": "Vznešená interpretace klasického salátu z roku 1976: jemné brambory vařené ve slupce, křupavá cibule a sladkokyselé okurky, jemně dochucené krémovou majonézou a plnou chutí hořčice — nostalgická chuť elegantní éry."
+            },
+            "price": "250 CZK",
+            "weight": "150g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/7-Retro-egg-salad-according-to-1976-standards.jpg"
+        },
+        {
+            "id": 1.8,
+            "name": {
+                "eng": "Potato salad with lambs lettuce and bacon",
+                "cz": "Bramborový salát s hlávkovým salátem a slaninou"
+            },
+            "description": {
+                "eng": "Tender boiled potatoes, complemented by crisp smoked bacon and finely sliced onions, create a perfect balance of flavors. A subtle vinegar dressing unveils the dish with a delicate touch of acidity and freshness.",
+                "cz": "Jemné vařené brambory, doplněné křupavou uzenou slaninou a jemně nakrájenou cibulkou, vytvářejí dokonalou rovnováhu chutí. Lehce octová zálivka přidává pokrmu jemný nádech kyselosti a svěžesti."
+            },
+            "price": "275 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/8-Potato-salad-with-lambs-lettuce-and-bacon.jpg"
+        },
+        {
+            "id": 1.9,
+            "name": {
+                "eng": "Zucchini spread with cheese appetizer",
+                "cz": "Cuketová pomazánka se sýrem"
+            },
+            "description": {
+                "eng": "An exquisite light appetizer with the subtle aroma of fresh zucchini and sweet onion. Its velvety texture and rich flavor are elevated by a sophisticated blend of two fine cheeses.",
+                "cz": "Vynikající lehká předkrmová pomazánka s jemnou vůní čerstvé cukety a sladké cibule. Sametová textura a bohatá chuť jsou zvýrazněny sofistikovanou kombinací dvou vybraných sýrů."
+            },
+            "price": "560 CZK",
+            "weight": "210",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/9-Zucchini-spread-with-cheese-appetizer.jpg"
+        },
+        {
+            "id": 1.1,
+            "name": {
+                "eng": "Homemade beer cheese appetizer",
+                "cz": "Domácí pivní sýrový předkrm"
+            },
+            "description": {
+                "eng": "An exquisite homemade beer cheese appetizer, perfectly complementing the aroma of freshly baked bread or toasted brioche. Its light, creamy flavor and delicate texture create a true gourmet experience.",
+                "cz": "Vynikající domácí pivní sýrový předkrm, který dokonale doplňuje vůni čerstvě upečeného chleba nebo opečeného brioche. Lehká, krémová chuť a jemná textura vytvářejí opravdový gurmánský zážitek."
+            },
+            "price": "210 CZK",
+            "weight": "200g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/10-Homemade-beer-cheese-appetizer.jpg"
+        },
+        {
+            "id": 1.11,
+            "name": {
+                "eng": "Czech salad with chicken beans and mushrooms appetizer",
+                "cz": "Český salát s kuřetem, fazolemi a houbami"
+            },
+            "description": {
+                "eng": "Czech-style salad with chicken, beans, and marinated mushrooms. Tender chicken fillet, velvety red beans, and the tangy note of pickled mushrooms come together with marjoram and fresh lemon juice, creating a vibrant and perfectly balanced flavor.",
+                "cz": "Český salát s kuřetem, fazolemi a nakládanými houbami. Jemné kuřecí filé, sametové červené fazole a pikantní tón nakládaných hub se snoubí s majoránkou a čerstvou citronovou šťávou, vytvářejíc živou a dokonale vyváženou chuť."
+            },
+            "price": "300 CZK",
+            "weight": "220g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/11-Czech-salad-with-chicken-beans-and-mushrooms-appetizer.jpg"
+        },
+        {
+            "id": 1.12,
+            "name": {
+                "eng": "Seafood",
+                "cz": "Mořské plody"
+            },
+            "description": {
+                "eng": "A refined seafood selection — an elegant combination of red and white fish, delicately smoked specialties, and succulent shrimp. Beautifully garnished with orange slices, fresh salad leaves, and fragrant herbs.",
+                "cz": "Vznešený výběr mořských plodů — elegantní kombinace červené a bílé ryby, jemně uzených specialit a šťavnatých krevet. Krásně zdobené plátky pomeranče a čerstvými salátovými listy a aromatickými bylinkami."
+            },
+            "price": "850 CZK",
+            "weight": "450",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/12-Seafood.png"
+        },
+        {
+            "id": 1.13,
+            "name": {
+                "eng": "Ham spread with pickles and cream cheese appetizer",
+                "cz": "Šunková pomazánka s okurkou a tvarohovým sýrem"
+            },
+            "description": {
+                "eng": "A refined creamy spread made from tender ham, cheese, and green onion, enhanced with sour cream, butter, and a subtle touch of mustard. A hint of paprika adds a sophisticated note to its delicate flavor.",
+                "cz": "Vznešená krémová pomazánka z jemné šunky, sýra a zelené cibulky, doplněná zakysanou smetanou, máslem a jemným nádechem hořčice. Špetka papriky dodává jemné chuti sofistikovaný tón."
+            },
+            "price": "455 CZK",
+            "weight": "330g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/13-Ham-spread-with-pickles-and-cream-cheese-appetizer-2-obrezala.jpg"
+        },
+        {
+            "id": 1.14,
+            "name": {
+                "eng": "Olomouc curd cheese",
+                "cz": "Olomoucký tvarůžek"
+            },
+            "description": {
+                "eng": "The legendary Czech cheese from Olomouc — a true symbol of Moravian culinary tradition. Its refined aroma and intense flavor offer a distinctive and sophisticated tasting experience.",
+                "cz": "Legendární český sýr z Olomouce — skutečný symbol moravské kulinářské tradice. Jeho jemné aroma a intenzivní chuť nabízí výrazný a sofistikovaný chuťový zážitek."
+            },
+            "price": "250 CZK",
+            "weight": "100g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/14-Olomouc-curd-cheese.jpg"
+        },
+        {
+            "id": 1.15,
+            "name": {
+                "eng": "Salad with smoked duck cranberries and pomegranate caviar",
+                "cz": "Salát s uzenou kachnou, brusinkami a granátovým kaviárem"
+            },
+            "description": {
+                "eng": "An artisanal creation combining the freshness of citrus with the refined flavor of smoked duck. A delicate mix of greens, fennel, pomegranate caviar, and cranberries in syrup delivers perfect balance. Finished with a signature dressing of honey, mustard, and lemon juice.",
+                "cz": "Řemeslné dílo spojující svěžest citrusů s jemnou chutí uzené kachny. Jemná směs salátových listů, fenyklu, granátového kaviáru a brusinek v sirupu vytváří dokonalou rovnováhu. Dokončeno originální zálivkou z medu, hořčice a citronové šťávy."
+            },
+            "price": "400 CZK",
+            "weight": "375g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/15-Salad-with-smoked-duck-cranberries-and-pomegranate-caviar-4.jpg"
+        },
+        {
+            "id": 1.16,
+            "name": {
+                "eng": "Salad with roasted beetroot and goat cheese",
+                "cz": "Salát s pečenou řepou a kozím sýrem"
+            },
+            "description": {
+                "eng": "A well-balanced salad combining the sweetness of roasted beetroot with the freshness of seasonal vegetables — cherry tomatoes, cucumber, and parsnip. The aromatic honey–mustard Niçoise dressing enhances the greens, while goat cheese and almond crumble add a touch of elegance.",
+                "cz": "Vyvážený salát spojující sladkost pečené řepy s čerstvostí sezónní zeleniny — cherry rajčata, okurka a pastinák. Aromatická medovo-hořčičná zálivka Niçoise zvýrazňuje listovou zeleninu, zatímco kozí sýr a mandlová drobenka přidávají nádech elegance."
+            },
+            "price": "350 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/16-Salad-with-roasted-beetroot-and-goat-cheese.jpg"
+        },
+        {
+            "id": 1.17,
+            "name": {
+                "eng": "Salad with tiger prawns and eggplant",
+                "cz": "Salát s tygřími krevetami a lilkem"
+            },
+            "description": {
+                "eng": "A perfectly balanced salad combining the freshness of cherry tomatoes, greens, and a hint of chili with velvety ricotta cream and the aroma of grilled zucchini. Thin slices of tender roast beef, smooth avocado purée, and a delicate nut crumble complete the composition with depth and refinement.",
+                "cz": "Dokonale vyvážený salát spojující svěžest cherry rajčat, listové zeleniny a jemný nádech chilli s sametovým krémem z ricotty a vůní grilované cukety. Tenké plátky jemného roastbeefu, hladké avokádové pyré a křehká ořechová drobenka doplňují kompozici o hloubku a rafinovanost."
+            },
+            "price": "365 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/17-Salad-with-tiger-prawns-and-eggplant.jpg"
+        },
+        {
+            "id": 1.18,
+            "name": {
+                "eng": "Steak salad with avocado ricotta and cherry tomatoes",
+                "cz": "Steakový salát s avokádovou ricottou a cherry rajčaty"
+            },
+            "description": {
+                "eng": "An elegant composition of tiger prawns sautéed in garlic and olive oil, served on a bed of fresh greens, cherry tomatoes, eggplant, and Cipollini onions. Avocado cream and a light tempura provide subtle balance and sophisticated texture.",
+                "cz": "Elegantní kompozice tygřích krevet osmažených na česneku v olivovém oleji, podávaná na lůžku čerstvé zeleniny, cherry rajčat, lilku a cibulek Cipollini. Avokádový krém a lehká tempura dodávají pokrmu jemnou rovnováhu a sofistikovanou texturu."
+            },
+            "price": "450 CZK",
+            "weight": "380g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/18-Steak-salad-with-avocado-ricotta-and-cherry-tomatoes.jpg"
+        },
+        {
+            "id": 1.19,
+            "name": {
+                "eng": "eng-Kemyar",
+                "cz": "CZ-Kemyar"
+            },
+            "description": {
+                "eng": "ls -l img\/menu-imgls -l img\/menu-imgls -l img\/menu-img",
+                "cz": "ls -l img\/menu-imgls -l img\/menu-imgls -l img\/menu-img"
+            },
+            "price": "123123 CZK",
+            "weight": "400g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/19-engKemyar.jpg"
+        }
+    ],
+    "Soups": [
+        {
+            "id": 2.1,
+            "name": {
+                "eng": "Garlic soup",
+                "cz": "Česneková polévka"
+            },
+            "description": {
+                "eng": "Garlic soup with a rich texture, prepared with potatoes, smoked delicacies, aged cheese, and fresh herbs, served in a crisp rye bread bowl. The depth of flavors and contrasting textures deliver an unforgettable gourmet experience.",
+                "cz": "Česneková polévka s bohatou texturou, připravená z brambor, uzených specialit, zralého sýra a čerstvých bylinek, podávaná v křupavém žitném chlebu. Hloubka chutí a kontrastní textury odhalují nezapomenutelný gurmánský zážitek."
+            },
+            "price": "495 CZK",
+            "weight": "365g",
+            "image": "img\/menu-img\/Soups\/1-Garlic-soup.jpg"
+        },
+        {
+            "id": 2.2,
+            "name": {
+                "eng": "Goulash soup",
+                "cz": "Gulášová polévka"
+            },
+            "description": {
+                "eng": "A hearty beef soup, crafted according to a traditional 19th-century Czech recipe. Finely chopped onions and spices are sautéed to release their aromas, then select beef and potatoes are added. Slow simmering develops a rich flavor and velvety broth. Served piping hot with rye bread or golden croutons.",
+                "cz": "Sytá hovězí polévka připravená podle tradiční české receptury z 19. století. Jemně nasekaná cibule a koření se osmaží pro uvolnění vůní, poté se přidá vybrané hovězí maso a brambory. Pomalé vaření rozvíjí bohatou chuť a sametový vývar. Servírovaná horká s žitným chlebem nebo zlatavými krutony."
+            },
+            "price": "270 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Soups\/2-Goulash-soup.jpg"
+        },
+        {
+            "id": 2.3,
+            "name": {
+                "eng": "Krkonoše sour soup Kyselo",
+                "cz": "Krkonošské kyselo"
+            },
+            "description": {
+                "eng": "Traditional Krkonoše Kyselo, a soup with an unparalleled flavor and aroma, shaped by naturally fermented sourdough and dried forest mushrooms. Its delicate tang and profound depth of taste create a rich culinary harmony, reflecting centuries-old Czech traditions.",
+                "cz": "Tradiční krkonošské kyselo s nezaměnitelnou chutí a vůní, tvořené přírodně kvašeným kváskem a sušenými lesními houbami. Jemná kyselost a hluboká chuť vytvářejí bohatou kulinářskou harmonii, odrážející staleté české tradice."
+            },
+            "price": "265 CZK",
+            "weight": "345g",
+            "image": "img\/menu-img\/Soups\/3-Krkonoše-sour-soup-Kyselo.jpg"
+        },
+        {
+            "id": 2.4,
+            "name": {
+                "eng": "Thick soup made of sauerkraut Zelnacka",
+                "cz": "Zelná polévka Zelnáčka"
+            },
+            "description": {
+                "eng": "A hearty and robust sauerkraut soup with carefully selected meats, simmered to perfection. The harmony of the cabbage’s subtle tang and the rich depth of the meat broth creates a complex and refined flavor profile, celebrating the finest Czech culinary traditions.",
+                "cz": "Sytá a robustní zelňačka s pečlivě vybraným masem, pomalu vařená do dokonalosti. Harmonie jemné kyselosti zelí a bohaté chuti masového vývaru vytváří komplexní a vybraný chuťový profil, oslavující ty nejlepší české kulinářské tradice."
+            },
+            "price": "245 CZK",
+            "weight": "300g",
+            "image": "img\/menu-img\/Soups\/4-Thick-soup-made-of-sauerkraut-Zelnacka.jpg"
+        },
+        {
+            "id": 2.5,
+            "name": {
+                "eng": "Czech potato soup with mushrooms",
+                "cz": "Bramboračka s houbami"
+            },
+            "description": {
+                "eng": "Rich and noble Bramboračka soup with forest mushrooms, potatoes, and aromatic vegetables, slowly simmered to unveil every nuance of flavor. Each serving is a symphony of textures and aromas, transforming a traditional Czech recipe into a gourmet masterpiece for discerning connoisseurs.",
+                "cz": "Bohatá a vznešená bramboračka s lesními houbami, bramborami a aromatickou zeleninou, pomalu vařená, aby se odhalil každý odstín chutí. Každá porce je symfonií textur a vůní, proměňující tradiční český recept v gurmánské mistrovské dílo pro náročné znalce."
+            },
+            "price": "265 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Soups\/5-Czech-potato-soup-with-mushrooms.jpeg"
+        },
+        {
+            "id": 2.6,
+            "name": {
+                "eng": "Czech bread soup Celestina",
+                "cz": "Chlebová polévka Celestina"
+            },
+            "description": {
+                "eng": "Delicate Panadeľ Celestino soup on a fragrant broth, adorned with exquisitely thin pancake-style noodles that melt in the mouth. This culinary composition brings forth layers of subtle flavor, turning a classic Czech dish into a masterpiece for the most discerning palates.",
+                "cz": "Jemná polévka Panadeľ Celestino na voňavém vývaru, zdobená nádherně tenkými nudličkami ve stylu palačinek, které se rozplývají v ústech. Tato kulinářská kompozice odhaluje vrstvy jemné chuti a proměňuje klasické české jídlo v mistrovské dílo pro nejnáročnější chutě."
+            },
+            "price": "265 CZK",
+            "weight": "300g",
+            "image": "img\/menu-img\/Soups\/6-Czech-bread-soup-Celestina.jpg"
+        },
+        {
+            "id": 2.7,
+            "name": {
+                "eng": "Old Bohemian duck soup Kaldoun",
+                "cz": "Starobohémská kachní polévka Kaldoun"
+            },
+            "description": {
+                "eng": "A rich and hearty soup crafted from homemade duck stock, enhanced with aromatic roots and tender carrots. A subtle thickening lends the broth a velvety texture, creating a harmonious blend of flavors inherited from classic Czech culinary tradition.",
+                "cz": "Bohatá a sytá polévka připravená z domácího kachního vývaru, doplněná aromatickou kořenovou zeleninou a jemnou mrkví. Jemné zahuštění dodává vývaru sametovou texturu a vytváří harmonickou směs chutí děděnou z klasické české kulinářské tradice."
+            },
+            "price": "245 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Soups\/7-Old-Bohemian-duck-soup-Kaldoun.jpg"
+        },
+        {
+            "id": 2.8,
+            "name": {
+                "eng": "South Bohemian soup with mushrooms, potatoes, vinegar and dill Kulajda",
+                "cz": "Jihočeská kulajda s houbami, bramborami, octem a koprem"
+            },
+            "description": {
+                "eng": "Traditional South Bohemian Kulajda soup with a velvety cream base, aromatic forest mushrooms, tender potatoes, and fresh dill. A subtle tang of vinegar and a delicate poached egg create a perfect harmony of flavors, reflecting centuries-old traditions of South Bohemia.",
+                "cz": "Tradiční jihočeská kulajda s hedvábnou smetanovou základnou, aromatickými lesními houbami, jemnými bramborami a čerstvým koprem. Jemná kyselost octa a delikátně pošírované vejce vytvářejí dokonalou harmonii chutí, odrážející staleté tradice Jižních Čech."
+            },
+            "price": "340 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Soups\/8-South-Bohemian-soup-with-mushrooms-potatoes-vinegar-and-dill-Kulajda.jpg"
+        },
+        {
+            "id": 2.9,
+            "name": {
+                "eng": "Smoked soup with roasted semolina",
+                "cz": "Uzená polévka s praženou krupicí"
+            },
+            "description": {
+                "eng": "Noble smoked soup with delicately roasted semolina, gently enriching the velvety broth. Each presentation unveils the profound aroma of smoked ingredients and the refined texture of the grains, transforming an authentic Czech recipe into a haute cuisine masterpiece.",
+                "cz": "Vznešená uzená polévka s jemně praženou krupicí, která lehce obohacuje sametový vývar. Každá porce odhaluje hlubokou vůni uzených ingrediencí a jemnou texturu krupice, proměňující autentický český recept v mistrovské dílo haute cuisine."
+            },
+            "price": "345 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Soups\/9-Smoked-soup-with-roasted-semolina.jpg"
+        },
+        {
+            "id": 2.1,
+            "name": {
+                "eng": "Bean soup with smoked pork knuckle",
+                "cz": "Fazolová polévka s uzeným kolenem"
+            },
+            "description": {
+                "eng": "A classic Czech bean soup with smoked pork knuckle, simmered to perfection. The rich broth and velvety beans create a profound depth of flavor, highlighting the heritage of Czech cuisine and centuries-old culinary traditions.",
+                "cz": "Klasická česká fazolová polévka s uzeným kolenem, pomalu vařená do dokonalosti. Bohatý vývar a sametové fazole vytvářejí hlubokou chuť a zdůrazňují dědictví české kuchyně a staleté kulinářské tradice."
+            },
+            "price": "235 CZK",
+            "weight": "300g",
+            "image": "img\/menu-img\/Soups\/10-Bean-soup-with-smoked-pork-knuckle.jpg"
+        },
+        {
+            "id": 2.11,
+            "name": {
+                "eng": "Pea soup with leek",
+                "cz": "Hrášková polévka s pórkem"
+            },
+            "description": {
+                "eng": "Delicate Czech pea soup with the subtle aroma of fresh leek, slowly simmered to unveil every nuance of flavor. The light texture and gentle sweetness of the peas create a refined harmony, highlighting the rich heritage of Czech cuisine.",
+                "cz": "Jemná česká hrášková polévka s jemnou vůní čerstvého pórku, pomalu vařená, aby se odhalil každý odstín chuti. Lehká textura a jemná sladkost hrášku vytvářejí vybranou harmonii, zdůrazňující bohaté dědictví české kuchyně."
+            },
+            "price": "425 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Soups\/11-Pea-soup-with-leek-2.jpg"
+        },
+        {
+            "id": 2.12,
+            "name": {
+                "eng": "Seafood soup",
+                "cz": "Mořská polévka"
+            },
+            "description": {
+                "eng": "Majestic seafood soup featuring an assortment of fish and tender potatoes, garnished with lemon wedges and fresh herbs. The harmony of oceanic aromas and vegetable textures creates a refined flavor, highlighting the rich heritage of Czech and European culinary tradition.",
+                "cz": "Vznešená mořská polévka s výběrem ryb a jemných brambor, ozdobená plátky citronu a čerstvými bylinkami. Harmonie oceánských vůní a jemných chutí zeleniny vytváří vybranou chuť, zdůrazňující bohaté dědictví české a evropské kuchyně."
+            },
+            "price": "535 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Soups\/12-Seafood-soup.png"
+        },
+        {
+            "id": 2.13,
+            "name": {
+                "eng": "Bean soup",
+                "cz": "Fazolová polévka"
+            },
+            "description": {
+                "eng": "An age-old Czech bean soup, originating from the rustic kitchens of 19th-century Bohemia. The broth, enriched with velvety beans, unveils the profound flavors and culinary traditions passed down through generations.",
+                "cz": "Staletá česká fazolová polévka pocházející z venkovských kuchyní 19. století v Čechách. Vývar, obohacený sametovými fazolemi, odhaluje hluboké chutě a kulinářské tradice předávané z generace na generaci."
+            },
+            "price": "245 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Soups\/13-Bean-soup.jpg"
+        },
+        {
+            "id": 2.14,
+            "name": {
+                "eng": "Finnish fish soup with salmon and seafood",
+                "cz": "Finská rybí polévka s lososem a mořskými plody"
+            },
+            "description": {
+                "eng": "Delicate Finnish fish soup with house-smoked salmon, dorado, and shrimp, prepared on a base of fragrant fish stock and cream. The light, velvety texture and harmonious blend of seafood flavors reflect the rich heritage of Nordic cuisine.",
+                "cz": "Jemná finská rybí polévka s domácím uzeným lososem, doradem a krevetami, připravená na voňavém rybím vývaru se smetanou. Lehká, sametová textura a harmonická kombinace chutí mořských plodů odhaluje bohaté dědictví severské kuchyně."
+            },
+            "price": "205 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Soups\/14-Finnish-fish-soup-with-salmon-and-seafood.png"
+        },
+        {
+            "id": 2.15,
+            "name": {
+                "eng": "Borscht with pampushky",
+                "cz": "Boršč s pampuškami"
+            },
+            "description": {
+                "eng": "An authentic hearty borscht with the rich aroma of vegetables and spices, served with garlic pampushky, fragrant rendered lard, and red pepper. This borscht combines centuries-old Slavic culinary traditions with a deep, layered flavor passed down through generations.",
+                "cz": "Autentický sytý boršč s bohatou vůní zeleniny a koření, podávaný s česnekovými pampuškami, voňavou sádlem a červenou paprikou. Tento boršč spojuje staleté slovanské kulinářské tradice s hlubokou, vrstvenou chutí předávanou z generace na generaci."
+            },
+            "price": "345 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Soups\/15-Borscht-with-pampushky.png"
+        },
+        {
+            "id": 2.16,
+            "name": {
+                "eng": "Cream soup of broccoli and spinach",
+                "cz": "Krémová polévka z brokolice a špenátu"
+            },
+            "description": {
+                "eng": "A balanced and delicate broccoli and spinach cream soup, enriched with truffle oil and cream, with finely grated Parmesan. Served with homemade crispy grissini sticks, highlighting the harmony of flavors and the rich heritage of European culinary tradition.",
+                "cz": "Vyvážená a jemná krémová polévka z brokolice a špenátu, obohacená lanýžovým olejem a smetanou, s jemně strouhaným parmazánem. Podáváno s domácími křupavými grissini tyčinkami, zdůrazňující harmonii chutí a bohaté dědictví evropské kuchyně."
+            },
+            "price": "285 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Soups\/16-Cream-soup-of-broccoli-and-spinach.png"
+        }
+    ],
+    "Sides-Dishes": [
+        {
+            "id": 3.1,
+            "name": {
+                "eng": "Potato pancakes in Czech style",
+                "cz": "Bramboráky po česku"
+            },
+            "description": {
+                "eng": "Traditional Czech potato pancakes — golden, delicately textured fritters with a subtle aroma, prepared according to a classic recipe.",
+                "cz": "Tradiční české bramboráky – zlatavé, jemně texturované placičky s jemnou vůní, připravené podle klasického receptu."
+            },
+            "price": "325 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/1-Potato-pancakes-in-Czech-style.jpeg"
+        },
+        {
+            "id": 3.2,
+            "name": {
+                "eng": "Czech dumplings",
+                "cz": "České knedlíky"
+            },
+            "description": {
+                "eng": "Classic Czech dumplings made from yeast dough — light, airy, and perfectly balanced in flavor.",
+                "cz": "Klasické české knedlíky z kynutého těsta – lehké, nadýchané a dokonale vyvážené v chuti."
+            },
+            "price": "245 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/2-Czech-dumplings.jpg"
+        },
+        {
+            "id": 3.3,
+            "name": {
+                "eng": "Old Bohemian barley kuba with dried mushrooms",
+                "cz": "Starobohémský ječný kuba se sušenými houbami"
+            },
+            "description": {
+                "eng": "The historic Bohemian Barley Kuba with dried mushrooms — a dish traditionally served as a Lenten specialty in rural households. Its tender texture and deep mushroom aroma offer a true gourmet experience, embodying the richness of Old Bohemian cuisine.",
+                "cz": "Historický starobohémský ječný kuba se sušenými houbami – pokrm tradičně podávaný jako postní specialita na venkovských usedlostech. Jemná textura a hluboká houbová vůně nabízejí pravý gurmánský zážitek, odrážející bohatství starobohémské kuchyně."
+            },
+            "price": "265 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/3-Old-Bohemian-barley-kuba-with-dried-mushrooms.jpg"
+        },
+        {
+            "id": 3.4,
+            "name": {
+                "eng": "Bulgur",
+                "cz": "Bulgur"
+            },
+            "description": {
+                "eng": "Bulgur is a light, aromatic, and nourishing side. Its velvety texture and subtle nutty notes create a perfect pairing with refined dishes, transforming each serving into a haute cuisine experience.",
+                "cz": "Bulgur je lehká, aromatická a výživná příloha. Sametová textura a jemné ořechové tóny vytvářejí dokonalé spojení s jemnými pokrmy, proměňující každou porci v zážitek haute cuisine."
+            },
+            "price": "245 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/4-Bulgur.jpg"
+        },
+        {
+            "id": 3.5,
+            "name": {
+                "eng": "Grilled vegetables",
+                "cz": "Grilovaná zelenina"
+            },
+            "description": {
+                "eng": "A medley of fresh seasonal vegetables — tomatoes, bell peppers, mushrooms, zucchini, and eggplant — delicately grilled to a golden finish. Preserving the natural flavors and aromas of each ingredient, transforming a simple dish into a gourmet delight.",
+                "cz": "Směs čerstvé sezónní zeleniny – rajčata, papriky, houby, cuketa a lilek – jemně grilovaná do zlatova. Zachovává přirozené chutě a vůně každé ingredience, proměňující jednoduchý pokrm v gurmánskou lahůdku."
+            },
+            "price": "265 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/5-Grilled-vegetables.jpg"
+        },
+        {
+            "id": 3.6,
+            "name": {
+                "eng": "French fries",
+                "cz": "Hranolky"
+            },
+            "description": {
+                "eng": "Golden potato wedges, hand-fried in a skillet, as if following ancient ancestral recipes. A delicate hint of smoke and a tender crust tell the story of family traditions, transforming a simple potato into a culinary artifact for true connoisseurs.",
+                "cz": "Zlaté bramborové hranolky, ručně smažené na pánvi podle starých rodinných receptů. Jemný nádech kouře a křehká kůrka vyprávějí příběh rodinných tradic, proměňující obyčejnou bramboru v kulinářský artefakt pro opravdové znalce."
+            },
+            "price": "265 CZK",
+            "weight": "270g",
+            "image": "img\/menu-img\/Side-Dishes\/6-French-fries.jpg"
+        },
+        {
+            "id": 3.7,
+            "name": {
+                "eng": "Sweet potato fries",
+                "cz": "Hranolky ze sladkých brambor"
+            },
+            "description": {
+                "eng": "Tender sweet potatoes, deep-fried to a flawless golden texture, accompanied by the fiery “Dynamite” sauce — crafted from homemade mayonnaise, accented with lime, aromatic Togarashi, and Thai Sriracha. Each bite offers a perfect balance of crispiness and spice.",
+                "cz": "Jemné sladké brambory, smažené do dokonalé zlatavé barvy, doplněné pikantní omáčkou „Dynamite“ – připravenou z domácí majonézy s limetkou, aromatickým Togarashi a thajskou Srirachou. Každé sousto nabízí dokonalou rovnováhu křupavosti a kořeněnosti."
+            },
+            "price": "245 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/7-Sweet-potato-fries.png"
+        },
+        {
+            "id": 3.8,
+            "name": {
+                "eng": "Potatoes baked in salt on coals",
+                "cz": "Brambory pečené v soli na uhlí"
+            },
+            "description": {
+                "eng": "Potatoes, cooked to perfection and baked over charcoal embers, retain a velvety texture and rich flavor. Served with a sprig of fresh thyme, evoking ancient village traditions and imparting noble simplicity to the dish.",
+                "cz": "Brambory, perfektně uvařené a pečené na žhavém uhlí, si zachovávají sametovou texturu a bohatou chuť. Podáváno s větvičkou čerstvého tymiánu, evokující staré vesnické tradice a dodávající pokrmu ušlechtilou jednoduchost."
+            },
+            "price": "345 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/8-Potatoes-baked-in-salt-on-coals.png"
+        },
+        {
+            "id": 3.9,
+            "name": {
+                "eng": "Grilled vegetables",
+                "cz": "Grilovaná zelenina s bylinkami"
+            },
+            "description": {
+                "eng": "Zucchini, eggplant, bell peppers, red onion, mushrooms, and tomatoes are gently sautéed in olive oil with fresh herbs, a touch of pepper, and sea salt. This method preserves the natural juiciness and rich aroma of each vegetable, creating a harmonious combination of textures and flavors.",
+                "cz": "Cuketa, lilek, papriky, červená cibule, houby a rajčata jsou jemně restovány na olivovém oleji s čerstvými bylinkami, špetkou pepře a mořské soli. Tento způsob zachovává přirozenou šťavnatost a bohatou vůni každé zeleniny, vytvářející harmonickou kombinaci textur a chutí."
+            },
+            "price": "235 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/9-Grilled-vegetables.png"
+        },
+        {
+            "id": 3.1,
+            "name": {
+                "eng": "Asparagus with broccoli in cream sauce with bacon",
+                "cz": "Chřest s brokolicí v krémové omáčce s baconem"
+            },
+            "description": {
+                "eng": "Asparagus, seared to a delicate golden hue, and broccoli with a velvety texture, are paired with haute cuisine blue cheese sauce and crisp bacon. This dish showcases the chef’s mastery, transforming each ingredient into a gourmet masterpiece for an elite dining experience.",
+                "cz": "Chřest opečený do jemně zlatavé barvy a brokolice s sametovou texturou, doplněné omáčkou z modrého sýra haute cuisine a křupavou slaninou. Tento pokrm ukazuje mistrovství šéfkuchaře a proměňuje každou ingredienci v gurmánské mistrovské dílo pro elitní kulinářský zážitek."
+            },
+            "price": "235 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/10-Asparagus-with-broccoli-in-cream-sauce-with-bacon.jpeg"
+        },
+        {
+            "id": 3.11,
+            "name": {
+                "eng": "Spinach with garlic and parmesan",
+                "cz": "Špenát s česnekem a parmazánem"
+            },
+            "description": {
+                "eng": "Spinach gently braised in refined white wine with fragrant garlic, preserving a velvety texture and natural fresh flavor. Served with delicate shavings of Parmesan, the dish achieves a harmonious balance of aroma and elegance.",
+                "cz": "Špenát jemně dušený v kvalitním bílém víně s voňavým česnekem, zachovává sametovou texturu a přirozenou čerstvou chuť. Podáváno s jemnými hoblinami parmazánu, pokrm dosahuje harmonické rovnováhy vůně a elegance."
+            },
+            "price": "425 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/11-Spinach-with-garlic-and-parmesan-1.png"
+        },
+        {
+            "id": 3.12,
+            "name": {
+                "eng": "Pasta",
+                "cz": "Těstoviny"
+            },
+            "description": {
+                "eng": "Spaghetti, cooked al dente and gently boiled, are seasoned with a touch of salt and premium butter. This seemingly simple dish reveals a rich flavor and a velvety texture in every strand of pasta.",
+                "cz": "Špagety, uvařené al dente a jemně povařené, ochucené špetkou soli a prémiovým máslem. Tento zdánlivě jednoduchý pokrm odhaluje bohatou chuť a sametovou texturu v každém nudlovém proužku."
+            },
+            "price": "535 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Side-Dishes\/12-Pasta.png"
+        }
+    ],
+    "Main-Courses": [
+        {
+            "id": 4.1,
+            "name": {
+                "eng": "Pork knuckle",
+                "cz": "Vepřové koleno"
+            },
+            "description": {
+                "eng": "Slow-roasted pork knuckle with a crisp, golden crust, revealing the rich aroma of spices and subtle smokiness. Served with tender braised cabbage and fragrant herbs, highlighting the heritage of 19th-century Czech rustic cuisine.",
+                "cz": "Pomalu pečené vepřové koleno s křupavou zlatavou kůrkou, odhalující bohatou vůni koření a jemný kouřový nádech. Podáváno s jemně dušeným zelím a voňavými bylinkami, připomínající tradici české venkovské kuchyně 19. století."
+            },
+            "price": "595 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Main-Courses\/1-Pork-knuckle.jpg"
+        },
+        {
+            "id": 4.2,
+            "name": {
+                "eng": "Beef sirloin in cream sauce",
+                "cz": "Hovězí svíčková na smetaně"
+            },
+            "description": {
+                "eng": "Traditional 19th-century Czech dish of succulent beef with a delicate vegetable cream sauce. Each presentation reveals a refined balance of flavor and texture, transforming the classic national recipe into a haute cuisine masterpiece for discerning epicureans.",
+                "cz": "Tradiční český pokrm z šťavnatého hovězího masa s jemnou zeleninovou smetanovou omáčkou. Každé podání odhaluje vyváženou harmonii chuti a textury a proměňuje klasický národní recept v gurmánské mistrovské dílo."
+            },
+            "price": "645 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Main-Courses\/2-Beef-sirloin-in-cream-sauce.jpg"
+        },
+        {
+            "id": 4.3,
+            "name": {
+                "eng": "Steak tartare",
+                "cz": "Tatarský biftek"
+            },
+            "description": {
+                "eng": "Exquisite raw beef tartare with a delicate texture and rich flavor, introduced in the Czech Republic under the influence of 19th-century French cuisine. Each presentation transforms this classic recipe into a haute cuisine masterpiece for discerning epicureans.",
+                "cz": "Vynikající syrový hovězí tatarský biftek s jemnou strukturou a bohatou chutí, zavedený do české kuchyně pod vlivem francouzské kuchyně 19. století. Každé podání proměňuje klasický recept v gurmánské mistrovské dílo."
+            },
+            "price": "675 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Main-Courses\/3-Steak-tartare.jpg"
+        },
+        {
+            "id": 4.4,
+            "name": {
+                "eng": "Homemade meat aspic",
+                "cz": "Domácí masová aspik"
+            },
+            "description": {
+                "eng": "Homemade meat aspic, crafted according to traditional Czech culinary recipes. The tender texture and rich flavor of the meat blend highlight authenticity and centuries-old culinary traditions passed down through generations.",
+                "cz": "Domácí masová aspik, připravený podle tradičních českých receptů. Jemná textura a bohatá chuť masa zdůrazňují autenticitu a staleté kulinářské tradice předávané z generace na generaci."
+            },
+            "price": "595 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Main-Courses\/4-Homemade-beer-cheese-appetizer-1.jpg"
+        },
+        {
+            "id": 4.5,
+            "name": {
+                "eng": "Szegedin pork goulash with sauerkraut",
+                "cz": "Segedínský vepřový guláš s kysaným zelím"
+            },
+            "description": {
+                "eng": "Aromatic Szegedin pork goulash with the rich aroma of paprika and slowly braised sauerkraut. Each presentation highlights the depth of flavors and the velvety texture of the meat, transforming a historic Austro-Hungarian recipe into a haute cuisine masterpiece.",
+                "cz": "Aromatický segedínský vepřový guláš s bohatou vůní papriky a pomalu dušeným kysaným zelím. Každé podání zvýrazňuje hloubku chutí a sametovou texturu masa a proměňuje historický recept z Rakousko-Uherska v gurmánské mistrovské dílo."
+            },
+            "price": "685 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Main-Courses\/5-Szegedin-pork-goulash-with-sauerkraut.jpg"
+        },
+        {
+            "id": 4.6,
+            "name": {
+                "eng": "Roasted duck",
+                "cz": "Pečená kachna"
+            },
+            "description": {
+                "eng": "Exquisitely roasted duck with a rich aroma of spices and a golden crust. Each presentation is served with braised cabbage and delicate herbal accents, transforming a classic Czech recipe into a haute cuisine masterpiece for discerning epicureans.",
+                "cz": "Dokonale pečená kachna s bohatou vůní koření a zlatavou kůrkou. Podávána s dušeným zelím a jemnými bylinkovými akcenty a proměňuje klasický český recept v gurmánské mistrovské dílo."
+            },
+            "price": "635 CZK",
+            "weight": "300g",
+            "image": "img\/menu-img\/Main-Courses\/6-Roasted-duck.jpg"
+        },
+        {
+            "id": 4.7,
+            "name": {
+                "eng": "Chicken wings",
+                "cz": "Kuřecí křídla"
+            },
+            "description": {
+                "eng": "Delectable chicken wings, pan-seared to a golden crisp and served with tomato and teriyaki sauces. Garnished with fresh lemon wedges and herbs, this dish offers a refined freshness while highlighting the harmonious flavors and rich heritage of European cuisine.",
+                "cz": "Lahodná kuřecí křídla, opečená do zlatova, podávaná s rajčatovou a teriyaki omáčkou. Ozdobená čerstvými plátky citronu a bylinkami, pokrm nabízí jemnou svěžest a harmonii chutí evropské kuchyně."
+            },
+            "price": "565 CZK",
+            "weight": "300g",
+            "image": "img\/menu-img\/Main-Courses\/7-Chicken-wings.jpg"
+        },
+        {
+            "id": 4.8,
+            "name": {
+                "eng": "Quail schnitzel with quince chutney",
+                "cz": "Srnčí řízek z křepelky s chutney z kdoule"
+            },
+            "description": {
+                "eng": "Tender quail schnitzel, pan-seared to a golden crisp, served with aromatic quince chutney. The delicate balance of sweetness and subtle tang in the chutney highlights the refined flavor of the bird and the rich heritage of Central European cuisine.",
+                "cz": "Jemný řízek z křepelky, opečený do zlatova, podávaný s aromatickým chutney z kdoule. Jemná rovnováha sladkosti a mírné kyselosti zvýrazňuje rafinovanou chuť masa a bohaté dědictví středoevropské kuchyně."
+            },
+            "price": "210 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Main-Courses\/8-Quail-schnitzel-with-quince-chutney.png"
+        },
+        {
+            "id": 4.9,
+            "name": {
+                "eng": "Pork knuckle with coleslaw",
+                "cz": "Vepřové koleno s coleslawem"
+            },
+            "description": {
+                "eng": "Tender pork knuckle with a crispy crust, served with refined coleslaw that creates a harmonious balance of freshness and texture. Each presentation transforms this traditional Czech dish into a haute cuisine masterpiece for discerning epicureans.",
+                "cz": "Jemné vepřové koleno s křupavou kůrkou, podávané s jemným coleslawem, vytvářejícím harmonickou rovnováhu svěžesti a textury. Každé podání proměňuje tradiční český pokrm v gurmánské mistrovské dílo."
+            },
+            "price": "685 CZK",
+            "weight": "345g",
+            "image": "img\/menu-img\/Main-Courses\/9-Pork-knuckle-with-coleslaw.png"
+        },
+        {
+            "id": 4.1,
+            "name": {
+                "eng": "Pork belly with miso caramel and Borodinsky mayonnaise",
+                "cz": "Vepřové břicho s miso karamelem a borodinskou majonézou"
+            },
+            "description": {
+                "eng": "Delectable pork belly, roasted to perfection, served with miso caramel and Borodinsky mayonnaise. This dish unites traditional Czech flavors with Eastern nuances, creating a harmonious interplay of sweetness, umami, and subtle spiciness.",
+                "cz": "Lahodné vepřové břicho, dokonale pečené, podávané s miso karamelem a borodinskou majonézou. Pokrm spojuje tradiční české chutě s orientálními nuancemi a vytváří harmonii sladkosti, umami a jemné pikantnosti."
+            },
+            "price": "615 CZK",
+            "weight": "345g",
+            "image": "img\/menu-img\/Main-Courses\/10-Pork-belly-with-miso-caramel-and-Borodinsky-mayonnaise.png"
+        },
+        {
+            "id": 4.11,
+            "name": {
+                "eng": "Buffalo chicken wings",
+                "cz": "Buffalo kuřecí křídla"
+            },
+            "description": {
+                "eng": "Expertly prepared Buffalo chicken wings, caramelized in a rich cream-chili sauce with hints of peanut oil and lime. Each serving is adorned with crushed peanuts and fresh green onions, transforming a familiar dish into a haute cuisine masterpiece.",
+                "cz": "Odborně připravená Buffalo kuřecí křídla, karamelizovaná v bohaté smetanovo-chilli omáčce s nádechem arašídového oleje a limetky. Každé podání je zdobeno drcenými arašídy a čerstvou jarní cibulkou, proměňující známý pokrm v gurmánské mistrovské dílo."
+            },
+            "price": "635 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Main-Courses\/11-Buffalo-chicken-wings.png"
+        },
+        {
+            "id": 4.12,
+            "name": {
+                "eng": "Duck leg confit with mashed potatoes and Noilly Prat sauce",
+                "cz": "Konfitované kachní stehno s bramborovou kaší a omáčkou Noilly Prat"
+            },
+            "description": {
+                "eng": "Succulent duck leg confit, prepared using the traditional method of slow poaching in fat at low temperature, preserving its full aroma and texture. Served on a delicate cloud of mashed potatoes, with Noilly Prat sauce made from white vermouth, cane sugar, and spices, garnished with a sprig of thyme.",
+                "cz": "Šťavnaté konfitované kachní stehno, připravené tradiční metodou pomalého pošírování v tuku při nízké teplotě, zachovávající plnou vůni a texturu. Podáváno na jemné bramborové kaši s omáčkou Noilly Prat z bílého vermutu, třtinového cukru a koření, ozdobeno větvičkou tymiánu."
+            },
+            "price": "685 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Main-Courses\/12-Duck-leg-confit-with-mashed-potatoes-and-Noilly-Prat-sauce.png"
+        },
+        {
+            "id": 4.13,
+            "name": {
+                "eng": "Chicken lyulya kebab with tahini and eggplant",
+                "cz": "Kuřecí lula kebab s tahini a lilkem"
+            },
+            "description": {
+                "eng": "Fragrant chicken lula kebab, seasoned with garlic, cilantro, and shallots, grilled to a golden crust. Served with roasted eggplant, tahini cream made from sesame paste, and Kalamata olives, creating a harmonious interplay of spices, textures, and fresh notes.",
+                "cz": "Voňavý kuřecí lula kebab, ochucený česnekem, koriandrem a šalotkou, grilovaný do zlatova. Podáváno s pečeným lilkem, tahini krémem z sezamové pasty a olivami Kalamata, vytvářející harmonii koření, textur a svěžích chutí."
+            },
+            "price": "625 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Main-Courses\/13-Chicken-lyulya-kebab-with-tahini-and-eggplant.png"
+        },
+        {
+            "id": 4.14,
+            "name": {
+                "eng": "Duck breast with asparagus Brussels sprouts and date puree",
+                "cz": "Kachní prso s chřestem, růžičkovou kapustou a datlovým pyré"
+            },
+            "description": {
+                "eng": "Duck breast with asparagus, Brussels sprouts, and date purée. The dish balances the contrast of sweet and savory flavors, delicately revealing the richness and succulence of the tender duck breast. Served with Brussels sprouts, parsnip, asparagus, carrots, and a silky date purée. On the plate: Noilly Prat sauce — a refined blend of chicken stock, cane sugar, balsamic vinegar, and a subtle mix of spices.",
+                "cz": "Pokrm vyvažuje kontrast sladkých a slaných chutí, jemně odhaluje bohatost a šťavnatost jemného kachního masa. Podáváno s růžičkovou kapustou, pastinákem, chřestem, mrkví a hedvábným datlovým pyré. Na talíři: omáčka Noilly Prat — jemná směs kuřecího vývaru, třtinového cukru, balsamika a jemného koření."
+            },
+            "price": "645 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Main-Courses\/14-Duck-breast-with-asparagus-Brussels-sprouts-and-date-puree.png"
+        },
+        {
+            "id": 4.15,
+            "name": {
+                "eng": "New Zealand lamb rack with fig sauce and broccoli",
+                "cz": "Jehněčí hřbet z Nového Zélandu s fíkovou omáčkou a brokolicí"
+            },
+            "description": {
+                "eng": "Rack of New Zealand lamb, with a rich aroma and velvety texture, served alongside select vegetables including broccoli, carrot, parsnip, and aromatic garlic, garnished with a sprig of thyme. Celery cream and fig sauce impart depth of flavor, transforming this classic dish into a haute cuisine masterpiece.",
+                "cz": "Jehněčí hřbet z Nového Zélandu, s bohatou vůní a sametovou texturou, podávaný se vybranou zeleninou – brokolicí, mrkví, pastinákem a aromatickým česnekem, ozdobený větvičkou tymiánu. Celerový krém a fíková omáčka dodávají hloubku chuti a proměňují klasický pokrm v gurmánské mistrovské dílo."
+            },
+            "price": "655 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Main-Courses\/15-New-Zealand-lamb-rack-with-fig-sauce-and-broccoli.png"
+        },
+        {
+            "id": 4.16,
+            "name": {
+                "eng": "New Zealand lamb shank braised in red wine with mashed potatoes",
+                "cz": "Jehněčí kýta z Nového Zélandu dušená v červeném víně s bramborovou kaší"
+            },
+            "description": {
+                "eng": "New Zealand lamb shank slowly braised in a rich red wine sauce with onions, carrots, plum tomatoes, a blend of peppers, and aromatic herbs. Served with velvety creamy mashed potatoes and a tomato-wine vegetable sauce, offering a harmonious interplay of flavors and textures.",
+                "cz": "Jehněčí kýta z Nového Zélandu, pomalu dušená v bohaté červené vinné omáčce s cibulí, mrkví, švestkami, směsí paprik a aromatickými bylinkami. Podáváno s jemnou bramborovou kaší a rajčatovo-vinnou zeleninovou omáčkou, nabízející harmonii chutí a textur."
+            },
+            "price": "645 CZK",
+            "weight": "320g",
+            "image": "img\/menu-img\/Main-Courses\/16-New-Zealand-lamb-shank-braised-in-red-wine-with-mashed-potatoes.png"
+        },
+        {
+            "id": 4.17,
+            "name": {
+                "eng": "Pork ribs BBQ",
+                "cz": "Vepřová žebírka BBQ"
+            },
+            "description": {
+                "eng": "Juicy pork ribs, marinated in a blend of aromatic spices with garlic, mustard, paprika, and butter, grilled in a Josper over open coals. Served with delicate mustard accents and fresh microgreens, unveiling a rich flavor profile with smoky depth.",
+                "cz": "Šťavnatá vepřová žebírka, marinovaná v směsi aromatického koření s česnekem, hořčicí, paprikou a máslem, grilovaná v Josperu na otevřeném uhlí. Podáváno s jemnými hořčičnými akcenty a čerstvými mikrobylinkami, odhalující bohatou chuť s kouřovým nádechem."
+            },
+            "price": "685 CZK",
+            "weight": "350g",
+            "image": "img\/menu-img\/Main-Courses\/17-Pork-ribs-BBQ.png"
+        },
+        {
+            "id": 4.18,
+            "name": {
+                "eng": "Chicken schnitzel with cranberry sauce",
+                "cz": "Kuřecí řízek s brusinkovou omáčkou"
+            },
+            "description": {
+                "eng": "Golden chicken schnitzel, fried to a perfect crisp, retaining the succulence and natural aroma of the finest poultry. Served with a velvety cranberry sauce that delicately complements the meat, creating a harmonious balance of sweet and savory notes. A wedge of lemon adds subtle freshness and refined acidity, enhancing the dish’s elegance. Every cut reveals the tender texture of the schnitzel, transforming the dining experience into a true culinary delight.",
+                "cz": "Zlatavý kuřecí řízek, smažený do dokonalé křupavosti, zachovávající šťavnatost a přirozenou vůni kvalitního drůbežího masa. Podáváno s jemnou brusinkovou omáčkou, která dokonale doplňuje maso, vytvářející harmonii sladkých a slaných chutí. Plátek citronu dodává jemnou svěžest a elegantní kyselost, zvýrazňující celkovou eleganci pokrmu."
+            },
+            "price": "785 CZK",
+            "weight": "430g",
+            "image": "img\/menu-img\/Main-Courses\/18-Chicken-schnitzel-with-cranberry-sauce.png"
+        },
+        {
+            "id": 4.19,
+            "name": {
+                "eng": "Beef burger on homemade brioche bun",
+                "cz": "Hovězí burger na domácí brioche žemli"
+            },
+            "description": {
+                "eng": "A succulent beef patty, nestled within a delicate, freshly baked artisan bun, paired with a house-crafted burger sauce blending chili, soy, and a velvety homemade mayonnaise enriched with mustard, lemon juice, vinegar, oil, and egg. Complemented by a luxurious Chili-Cheddar sauce, marrying aged Cheddar, cream, cream cheese, adjika, butter, and a hint of paprika. Layered with ripe tomatoes, crisp lettuce, pickled cucumbers, and tender onions, each bite offers a symphony of textures and flavors. Served alongside golden, hand-cut French fries and a piquant Dynamite sauce—homemade mayonnaise infused with lime juice, Togarashi four-pepper blend, and Thai Sriracha—elevating this classic comfort dish into a refined gastronomic experience.",
+                "cz": "Šťavnatá hovězí placka, vložená do jemné, čerstvě upečené artisan žemle, doplněná domácí burgerovou omáčkou z chilli, sóji a sametové domácí majonézy s hořčicí, citronovou šťávou, octem, olejem a vejcem. Doplňováno luxusní omáčkou Chili-Cheddar z dozrálého Cheddaru, smetany, tvarohu, adjiky, másla a špetky papriky. S vrstvami zralých rajčat, křupavého salátu, nakládaných okurek a jemné cibule. Podáváno se zlatavými ručně krájenými hranolkami a pikantní omáčkou Dynamite – domácí majonéza s limetkovou šťávou, směsí Togarashi čtyř pepřů a thajskou Srirachou – povyšující tento klasický comfort food do elegantního gastronomického zážitku."
+            },
+            "price": "640 CZK",
+            "weight": "420g",
+            "image": "img\/menu-img\/Main-Courses\/19-Beef-burger-on-homemade-brioche-bun.png"
+        },
+        {
+            "id": 4.2,
+            "name": {
+                "eng": "Meat set No1",
+                "cz": "Masová sada č.1"
+            },
+            "description": {
+                "eng": "A refined meat selection for true connoisseurs, featuring chicken and lamb lula kebabs, signature Currywurst and Bratwurst sausages, succulent BBQ pork ribs, and freshly grilled vegetables. Each item is crafted with meticulous attention to texture and aroma, revealing a symphony of flavors with contrasting spice and smoky notes. Elegantly presented, this ensemble transforms the meal into a haute cuisine experience.",
+                "cz": "Vkusně sestavená masová sada pro opravdové znalce, obsahující kuřecí a jehněčí lula kebaby, typické klobásy Currywurst a Bratwurst, šťavnatá BBQ vepřová žebírka a čerstvě grilovanou zeleninu. Každá položka je připravena s pečlivou pozorností na texturu a vůni, odhalující symfonii chutí s kontrastními kořeněnými a kouřovými tóny. Elegantně podáno, toto sousto proměňuje jídlo v zážitek haute cuisine."
+            },
+            "price": "2650 CZK",
+            "weight": "1200g",
+            "image": "img\/menu-img\/Main-Courses\/20-Meat-set-No1.png"
+        },
+        {
+            "id": 4.21,
+            "name": {
+                "eng": "Meat set No2",
+                "cz": "Masová sada č.2"
+            },
+            "description": {
+                "eng": "A superb meat platter featuring a variety of delicacies: house-smoked pork knuckle, melt-in-the-mouth BBQ pork ribs, flavorful pork tenderloin, Currywurst and Bratwurst sausages, and grilled vegetables with smoky undertones. Each dish is presented with meticulous care, showcasing the chef’s expertise and transforming the meal into a unique gastronomic journey.",
+                "cz": "Vynikající masová mísa s různými delikatesami: domácí uzené vepřové koleno, BBQ vepřová žebírka rozpadající se na jazyku, šťavnatá vepřová svíčková, klobásy Currywurst a Bratwurst a grilovaná zelenina s kouřovými tóny. Každý pokrm je servírován s pečlivou precizností, ukazující šéfkuchařovo umění."
+            },
+            "price": "2500 CZK",
+            "weight": "1250g",
+            "image": "img\/menu-img\/Main-Courses\/21-Meat-set-No2.png"
+        }
+    ],
+    "Fish-and-Seafood": [
+        {
+            "id": 5.1,
+            "name": {
+                "eng": "Octopus baked on coals with vegetables",
+                "cz": "Chobotnice pečená na uhlí se zeleninou"
+            },
+            "description": {
+                "eng": "Tender octopus tentacles, marinated in aromatic herbs, are grilled over an open flame to a delicate golden finish. Served with succulent cherry tomatoes, carrot, parsnip, and asparagus, perfectly balanced to enhance natural flavors. Finished with a vibrant chimichurri sauce of fresh herbs, garlic, chili, and olive oil, this dish unveils layers of freshness and subtle spice—a true culinary delight for discerning seafood connoisseurs.",
+                "cz": "Jemná chapadla chobotnice, marinovaná v aromatických bylinkách, jsou grilována na otevřeném ohni do zlatavé křupavosti. Podávána s šťavnatými cherry rajčaty, mrkví, pastinákem a chřestem, dokonale vyvážená pro zvýraznění přirozených chutí. Dokončeno živou chimichurri omáčkou z čerstvých bylinek, česneku, chilli a olivového oleje — pokrm odhaluje vrstvy svěžesti a jemného koření, skutečný kulinářský zážitek pro znalce mořských plodů."
+            },
+            "price": "530 CZK",
+            "weight": "230g",
+            "image": "img\/menu-img\/Fish-and-Seafood\/1-Octopus-baked-on-coals-with-vegetables.png"
+        },
+        {
+            "id": 5.2,
+            "name": {
+                "eng": "Dorado fillet with spinach and lemon sauce",
+                "cz": "Filé z dorády se špenátem a citronovou omáčkou"
+            },
+            "description": {
+                "eng": "The exquisite dorado fillets, cooked to perfect tenderness, are served atop a bed of fresh spinach. The dish is enveloped in a delicate lemon-cream sauce, lending a subtle citrus freshness and velvety texture. The harmonious combination elevates a classic sea fillet into a refined gastronomic delight for aficionados of haute cuisine.",
+                "cz": "Vynikající filé z dorády, uvařené do dokonalé měkkosti, je servírováno na lůžku čerstvého špenátu. Pokrm je přelit jemnou citronovo-smotanovou omáčkou, která dodává lehkou citrusovou svěžest a hedvábnou texturu. Harmonická kombinace povyšuje klasické mořské filé na vybraný gastronomický zážitek pro milovníky haute cuisine."
+            },
+            "price": "485 CZK",
+            "weight": "210g",
+            "image": "img\/menu-img\/Fish-and-Seafood\/2-Dorado-fillet-with-spinach-and-lemon-sauce.png"
+        },
+        {
+            "id": 5.3,
+            "name": {
+                "eng": "Salmon fillet with asparagus and broccoli puree",
+                "cz": "Filé z lososa s chřestem a brokolicovým pyré"
+            },
+            "description": {
+                "eng": "Salmon fillet infused with the delicate flavors of miso and rice vinegar, accented with garlic, is gently grilled in a Josper oven. Accompanied by creamy broccoli purée, fresh asparagus, carrot, and green peas, the dish delivers a rich harmony of flavors and a visually sophisticated presentation worthy of haute cuisine.",
+                "cz": "Filé z lososa, prosycené jemnými chutěmi miso a rýžového octa a doplněné česnekem, je jemně grilováno v peci Josper. Podáváno s krémovým brokolicovým pyré, čerstvým chřestem, mrkví a zeleným hráškem. Pokrm přináší bohatou harmonii chutí a vizuálně sofistikovanou prezentaci hodnou haute cuisine."
+            },
+            "price": "490 CZK",
+            "weight": "210g",
+            "image": "img\/menu-img\/Fish-and-Seafood\/3-Salmon-fillet-with-asparagus-and-broccoli-puree.png"
+        },
+        {
+            "id": 5.4,
+            "name": {
+                "eng": "Mussels in garlic sauce",
+                "cz": "Slávky v česnekové omáčce"
+            },
+            "description": {
+                "eng": "Mytilus galloprovincialis are gently simmered in butter with onions and aromatic garlic, enhanced with white wine and a sprig of thyme. Served with a wedge of lemon and fresh ciabatta, this dish allows one to savor every nuance of the sea’s freshness and refined flavor—a perfect choice for discerning seafood connoisseurs.",
+                "cz": "Slávky Mytilus galloprovincialis jsou jemně dusené na másle s cibulí a aromatickým česnekem, doplněné bílým vínem a snítkou tymiánu. Podáváno s klínkem citronu a čerstvou ciabattou — pokrm umožňuje vychutnat každý nádech mořské svěžesti a jemné chuti, ideální volba pro znalce mořských plodů."
+            },
+            "price": "795 CZK",
+            "weight": "375g",
+            "image": "img\/menu-img\/Fish-and-Seafood\/4-Mussels-in-garlic-sauce.png"
+        }
+    ],
+    "Desserts": [
+        {
+            "id": 6.1,
+            "name": {
+                "eng": "Karlovy Vary wafers",
+                "cz": "Karlovarské oplatky"
+            },
+            "description": {
+                "eng": "Refined Karlovy Vary wafers — a delicate sweet composition hailing from the renowned spa town of Karlovy Vary, where the tradition of baking ultra-thin wafers dates back to the late 18th century. The confection is crafted from two near-transparent layers of batter bound by a hazelnut or vanilla filling, imbued with the essence of the region’s mineral springs. Presented with a subtle warm service touch — the perfect gastronomic finale to an exclusive evening.",
+                "cz": "Vynikající Karlovarské oplatky — jemná sladká kompozice pocházející z proslulého lázeňského města Karlovy Vary, kde tradice pečení extratenkých oplatků sahá až do konce 18. století. Oplatky jsou tvořeny dvěma téměř průhlednými vrstvami těsta spojenými lískovo-oříškovou nebo vanilkovou náplní, prosycené esencí místních minerálních pramenů. Servírováno s jemným teplým dotekem — dokonalý gastronomický závěr vytříbeného gurmánského večera."
+            },
+            "price": "90 CZK",
+            "weight": "60g",
+            "image": "img\/menu-img\/Desserts\/1-Karlovy-Vary-waffles-dessert.jpg"
+        },
+        {
+            "id": 6.2,
+            "name": {
+                "eng": "Bread pudding with apples and bananas",
+                "cz": "Zemlovka s jablky a banány"
+            },
+            "description": {
+                "eng": "Bread pudding with apples and bananas — a delicate dessert with a storied past, first appearing in 19th-century Czech households as a refined way to revive day-old bread. Layers of soft rolls, caramelized apples, and ripe banana are soaked in a vanilla-scented cream, creating a warm and aromatic harmony of comfort and nostalgia.",
+                "cz": "Zemlovka s jablky a banány — jemný dezert s bohatou historií, poprvé se objevující v českých domácnostech 19. století jako vytříbený způsob, jak oživit starší chleba. Vrstvy měkkých rohlíků, karamelizovaných jablek a zralého banánu jsou namočeny ve vanilkovém krému, vytvářející teplou, aromatickou harmonii pohodlí a nostalgie."
+            },
+            "price": "300 CZK",
+            "weight": "250g",
+            "image": "img\/menu-img\/Desserts\/2-Bread-pudding-with-apples-and-bananas-dessert.jpg"
+        },
+        {
+            "id": 6.3,
+            "name": {
+                "eng": "Trdelník",
+                "cz": "Trdelník"
+            },
+            "description": {
+                "eng": "An authentic trdelník made from yeast dough wrapped around a wooden rod and roasted over coals to a golden crisp. This dessert traces its origins to the late 18th–19th centuries in eastern Moravia and the South Bohemian region, where it was served at family festivities and fairs. Served warm, with subtle notes of cinnamon and walnut caramel — the perfect end to a refined gastronomic evening.",
+                "cz": "Autentický trdelník z kynutého těsta omotaného kolem dřevěné tyče a opékaného na uhlí do zlatova křupavého stavu. Tento dezert pochází z konce 18.–19. století z východní Moravy a jižních Čech, kde se podával na rodinných slavnostech a jarmarcích. Servírováno teplé, s jemnými tóny skořice a vlašského ořechu s karamelem — dokonalý závěr vytříbeného gurmánského večera."
+            },
+            "price": "370 CZK",
+            "weight": "345g",
+            "image": "img\/menu-img\/Desserts\/3-Trdelnik.jpg"
+        },
+        {
+            "id": 6.4,
+            "name": {
+                "eng": "Wholegrain bundt cake with carrots and walnuts",
+                "cz": "Celozrnná bábovka s mrkví a ořechy"
+            },
+            "description": {
+                "eng": "Carrot and walnut bábovka — a legendary Czech dessert once gracing the tables of nobles and bourgeois households during the Austro-Hungarian era. This modern whole-grain interpretation preserves its traditional soul: moist, subtly fragrant, with a tender crumb and nutty finish. Each slice pays homage to history — a taste of European elegance and timeless comfort.",
+                "cz": "Mrkvová a ořechová bábovka — legendární český dezert, který kdysi zdobil stoly šlechty a měšťanských domácností během období Rakousko-Uherska. Tato moderní celozrnná verze zachovává tradiční duši dezertu: vlhká, jemně vonící, s nadýchanou střídou a ořechovým závěrem. Každý plátek vzdává hold historii — chuť evropské elegance a nadčasového pohodlí."
+            },
+            "price": "160 CZK",
+            "weight": "100g",
+            "image": "img\/menu-img\/Desserts\/4-Wholegrain-bundt-cake-with-carrots-and-walnuts.jpg"
+        },
+        {
+            "id": 6.5,
+            "name": {
+                "eng": "Sweet buns with vanilla custard",
+                "cz": "Sladké housky se šodó"
+            },
+            "description": {
+                "eng": "Sweet buns with šodó sauce — a classic Czech dessert with origins in the culinary heritage of the 19th century. Golden, fluffy yeast buns are served with warm šodó — a delicate custard made from white wine, cream, egg yolks, and natural vanilla. The dish gracefully unites rustic comfort with the refined elegance of historic Prague.",
+                "cz": "Sladké housky se šodó — klasický český dezert s kořeny v kulinářském dědictví 19. století. Zlaté, nadýchané kynuté housky jsou servírovány s teplým šodó — jemným krémem z bílého vína, smetany, žloutků a přírodní vanilky. Pokrm elegantně spojuje rustikální pohodlí s vytříbenou elegancí historické Prahy."
+            },
+            "price": "260 CZK",
+            "weight": "235g",
+            "image": "img\/menu-img\/Desserts\/5-Sweet-buns-with-vanilla-custard-from-Mysak-Pastry-Shop.jpg"
+        },
+        {
+            "id": 6.6,
+            "name": {
+                "eng": "Homemade mole cake with curd and mascarpone",
+                "cz": "Domácí dort „Kopček“ s tvarohem a mascarpone"
+            },
+            "description": {
+                "eng": "Homemade “Molehill” Cake with Quark and Mascarpone — a refined interpretation of a beloved Czech classic, symbolizing comfort and sweet nostalgia. Beneath its cocoa “hill,” the tender sponge conceals a light, velvety cream made from mascarpone and fresh quark, delicately infused with fruit accents. A perfect harmony of tradition and modern culinary elegance.",
+                "cz": "Domácí dort „Kopček“ s tvarohem a mascarpone — vytříbená interpretace oblíbeného českého klasiku, symbolizujícího pohodlí a sladkou nostalgii. Pod jeho kakaovým „kopcem“ se ukrývá jemný piškot s lehkým, hedvábným krémem z mascarpone a čerstvého tvarohu, jemně dochucený ovocnými akcenty. Dokonalá harmonie tradice a moderní kulinářské elegance."
+            },
+            "price": "310 CZK",
+            "weight": "245g",
+            "image": "img\/menu-img\/Desserts\/6-Homemade-mole-cake-with-curd-and-mascarpone.webp"
+        },
+        {
+            "id": 6.7,
+            "name": {
+                "eng": "Poppy seed cake with cherries",
+                "cz": "Makovec s třešněmi"
+            },
+            "description": {
+                "eng": "Poppy Seed Cake with Cherries — a tribute to the timeless Czech baking heritage, once gracing festive tables across Bohemia. The buttery, tender dough embraces a rich poppy seed filling intertwined with juicy cherries. The subtle tartness of the fruit balances the smooth sweetness of the poppy seeds, offering a refined harmony where tradition meets contemporary elegance.",
+                "cz": "Makovec s třešněmi — pocta nadčasovému českému pekařskému dědictví, kdysi zdobící slavnostní stoly po celém Česku. Máslové, jemné těsto obejímá bohatou náplň z máku propojenou se šťavnatými třešněmi. Jemná kyselost ovoce vyvažuje hladkou sladkost máku a nabízí vytříbenou harmonii, kde se tradice setkává s moderní elegancí."
+            },
+            "price": "210 CZK",
+            "weight": "160g",
+            "image": "img\/menu-img\/Desserts\/7-Poppy-seed-cake-with-cherries.png"
+        },
+        {
+            "id": 6.8,
+            "name": {
+                "eng": "Punch cake",
+                "cz": "Punčový dort"
+            },
+            "description": {
+                "eng": "Punch Cake — a dessert with an aristocratic heritage, embodying the spirit of old Prague. Airy sponge layers soaked in rum syrup with a hint of fruit are complemented by a smooth cream and a refined pink glaze. Its flavor recalls the charm of 19th-century Prague cafés, where sweetness and subtle spice met in perfect harmony.",
+                "cz": "Punčový dort — dezert s aristokratickým dědictvím, ztělesňující duch staré Prahy. Nadýchané vrstvy piškotu namočené v rumovém sirupu s nádechem ovoce jsou doplněny hladkým krémem a jemnou růžovou polevou. Jeho chuť připomíná kouzlo pražských kaváren 19. století, kde se sladkost a jemné koření setkávaly v dokonalé harmonii."
+            },
+            "price": "210 CZK",
+            "weight": "120g",
+            "image": "img\/menu-img\/Desserts\/8-Punch-cake.png"
+        },
+        {
+            "id": 6.9,
+            "name": {
+                "eng": "Curd bundt cake with lemon glaze and blackberries",
+                "cz": "Tvarohová bábovka s citronovou polevou a ostružinami"
+            },
+            "description": {
+                "eng": "Cottage Cheese Bábovka with Lemon Glaze and Blackberries — a refined interpretation of an old Czech classic. The delicate curd-based dough remains moist and velvety, while the lemon glaze adds a subtle freshness. Adorned with ripe blackberries, this bábovka evokes the comforting warmth of home, elevated to the realm of haute pâtisserie.",
+                "cz": "Tvarohová bábovka s citronovou polevou a ostružinami — vytříbená interpretace starého českého klasiku. Jemné tvarohové těsto zůstává vlhké a hedvábné, zatímco citronová poleva přidává jemnou svěžest. Ozdobená zralými ostružinami, tato bábovka evokuje hřejivý pocit domova, povýšený do sféry gurmánské cukrařiny."
+            },
+            "price": "455 CZK",
+            "weight": "360g",
+            "image": "img\/menu-img\/Desserts\/9-Curd-bundt-cake-with-lemon-glaze-and-blackberries.jpg"
+        },
+        {
+            "id": 6.1,
+            "name": {
+                "eng": "Wallachian pear frgál from spelt flour with star anise",
+                "cz": "Valašský hruškový frgál ze špaldové mouky s badyánem"
+            },
+            "description": {
+                "eng": "Wallachian Pear Frgál from Spelt Flour with Star Anise — a delicate pastry hailing from the heart of Moravia. Soft spelt dough embraces a caramelized pear filling subtly perfumed with star anise. Its taste embodies a dialogue between rustic simplicity and noble refinement — a dessert that preserves the soul of Wallachian heritage and the warmth of the old countryside oven.",
+                "cz": "Valašský hruškový frgál ze špaldové mouky s badyánem — jemné pečivo pocházející ze srdce Moravy. Měkké špaldové těsto obaluje karamelizovanou hruškovou náplň jemně provoněnou badyánem. Jeho chuť představuje dialog mezi rustikální jednoduchostí a ušlechtilou elegancí — dezert, který zachovává duši valašského dědictví a teplo staré venkovské pece."
+            },
+            "price": "290 CZK",
+            "weight": "125g",
+            "image": "img\/menu-img\/Desserts\/10-Wallachian-pear-frgal-from-spelt-flour-with-star-anise.png"
+        }
+    ],
+    "Soft-Drinks": [
+        {
+            "id": 7.1,
+            "name": {
+                "eng": "Coca-Cola 0.25",
+                "cz": "Coca-Cola 0.25"
+            },
+            "description": {
+                "eng": "The timeless classic, sparkling and full of flavor. Refreshing, invigorating, and always satisfying.",
+                "cz": "Nadčasová klasika, perlivá a plná chuti. Osvěžující, povzbuzující a vždy uspokojivá."
+            },
+            "price": "75 CZK",
+            "weight": "1 wineglass",
+            "image": "img\/menu-img\/Drinks\/Soft-drinks\/1-Coca-Cola-0.25.jpeg"
+        },
+        {
+            "id": 7.2,
+            "name": {
+                "eng": "Coca-Cola Zero 0.25",
+                "cz": "Coca-Cola Zero 0.25"
+            },
+            "description": {
+                "eng": "The classic taste of Coca-Cola without sugar. Bold, refreshing, and perfectly balanced — enjoy every sip.",
+                "cz": "Klasická chuť Coca-Coly bez cukru. Odvážná, osvěžující a dokonale vyvážená — vychutnejte si každý doušek."
+            },
+            "price": "175 CZK",
+            "weight": "1 wineglass",
+            "image": "img\/menu-img\/Drinks\/Soft-drinks\/2-Coca-Cola-Zero-Sugar-0.25.jpeg"
+        },
+        {
+            "id": 7.3,
+            "name": {
+                "eng": "Perier",
+                "cz": "Perier"
+            },
+            "description": {
+                "eng": "Sparkling mineral water with a crisp, refreshing bite. Perfect to accompany any meal or enjoy on its own.",
+                "cz": "Perlivá minerální voda s osvěžující křupavostí. Ideální k jídlu nebo jen tak pro osvěžení."
+            },
+            "price": "275 CZK",
+            "weight": "1 wineglass",
+            "image": "img\/menu-img\/Drinks\/Soft-drinks\/3-Perrier-210-207.jpg"
+        },
+        {
+            "id": 7.4,
+            "name": {
+                "eng": "Tea",
+                "cz": "Čaj"
+            },
+            "description": {
+                "eng": "Carefully selected loose-leaf teas or infusions, brewed to perfection. Aromatic, soothing, and ideal for a moment of calm.",
+                "cz": "Pečlivě vybrané sypané čaje nebo bylinné nálevy, připravené k dokonalosti. Aromatické, uklidňující a ideální pro chvíli odpočinku."
+            },
+            "price": "100 CZK",
+            "weight": "1 wineglass",
+            "image": "img\/menu-img\/Drinks\/Soft-drinks\/4-Tea-1-207-210.jpg"
+        },
+        {
+            "id": 7.5,
+            "name": {
+                "eng": "Mojito",
+                "cz": "Mohito"
+            },
+            "description": {
+                "eng": "A Cuban classic with white rum, fresh mint, lime, and a touch of sugar. Light, invigorating, and perfectly balanced — an eternal favorite.",
+                "cz": "Kubánská klasika s bílým rumem, čerstvou mátou, limetkou a trochou cukru. Lehké, povzbuzující a dokonale vyvážené — věčný favorit."
+            },
+            "price": "275 CZK",
+            "weight": "1 wineglass",
+            "image": "img\/menu-img\/Drinks\/Soft-drinks\/5-mohito.jpg"
+        },
+        {
+            "id": 7.6,
+            "name": {
+                "eng": "Juice",
+                "cz": "Džus"
+            },
+            "description": {
+                "eng": "Freshly squeezed or carefully selected fruit juices, bursting with natural flavor and vibrant color — a refreshing choice for every moment.",
+                "cz": "Čerstvě vymačkané nebo pečlivě vybrané ovocné šťávy, plné přirozené chuti a živé barvy — osvěžující volba pro každý okamžik."
+            },
+            "price": "375 CZK",
+            "weight": "1 wineglass",
+            "image": "img\/menu-img\/Drinks\/Soft-drinks\/6-dzus.jpg"
+        },
+        {
+            "id": 7.7,
+            "name": {
+                "eng": "Fanta",
+                "cz": "Fanta"
+            },
+            "description": {
+                "eng": "Refreshing orange soda with lively bubbles — a classic favorite for a light, uplifting drink.",
+                "cz": "Osvěžující pomerančová limonáda s živými bublinkami — klasický oblíbený nápoj pro lehké a povzbuzující osvěžení."
+            },
+            "price": "250 CZK",
+            "weight": "250ml",
+            "image": "img\/menu-img\/Drinks\/Soft-drinks\/7-fanta.webp"
+        },
+        {
+            "id": 7.8,
+            "name": {
+                "eng": "Matcha-Mango",
+                "cz": "Matča-mango"
+            },
+            "description": {
+                "eng": "A bold tropical cocktail bursting with mango flavor, enhanced by a hint of lime and subtle sweetness. A refreshing escape in every sip.",
+                "cz": "Odvážný tropický koktejl plný chuti manga, doplněný jemnou limetkou a mírnou sladkostí. Každý doušek je osvěžující útěk do tropů."
+            },
+            "price": "250 CZK",
+            "weight": "250ml",
+            "image": "img\/menu-img\/Drinks\/Soft-drinks\/8-matcha-mango.jpg"
+        },
+        {
+            "id": 7.9,
+            "name": {
+                "eng": "Aperol-Spritz",
+                "cz": "Aperol-Spritz"
+            },
+            "description": {
+                "eng": "A vibrant Italian classic, blending Aperol, prosecco, and a splash of soda. Refreshing and slightly bitter, garnished with an orange slice — perfect for a sunny, relaxed moment.",
+                "cz": "Živá italská klasika, kombinace Aperolu, prosecca a trochy sodovky. Osvěžující s jemně hořkou chutí, zdobené plátkem pomeranče — ideální pro slunečný, pohodový okamžik."
+            },
+            "price": "150 CZK",
+            "weight": "250ml",
+            "image": "img\/menu-img\/Drinks\/Soft-drinks\/9-Aperol-Spritz.jpg"
+        }
+    ],
+    "Alcoholic-Beverages": [
+        {
+            "id": 8.1,
+            "name": {
+                "eng": "Becherovka",
+                "cz": "Becherovka"
+            },
+            "description": {
+                "eng": "Becherovka – the legendary elixir of Karlovy Vary. This noble herbal liqueur, first crafted in 1807, embodies the refined spirit of Bohemian elegance and ancient apothecary mastery. Its velvety bouquet reveals subtle notes of cinnamon, clove, and mountain herbs, unfolding into a lingering, warm finish. Once admired by European royals, it remains a symbol of timeless sophistication and aristocratic grace.",
+                "cz": "Becherovka – legendární elixír z Karlových Varů. Tento vznešený bylinný likér, poprvé vyrobený v roce 1807, ztělesňuje jemného ducha české elegance a dávného umění lékárníků. Jeho sametová vůně odhaluje jemné tóny skořice, hřebíčku a horských bylin a přechází v dlouhotrvající teplý závěr. Obdivovaná evropskými panovníky, zůstává symbolem nadčasové sofistikovanosti a aristokratického půvabu."
+            },
+            "price": "500 CZK",
+            "weight": "1 wineglass (500ml)",
+            "image": "img\/menu-img\/Drinks\/Alcoholic-Beverages\/1-Becherovka-1-1.jpg"
+        },
+        {
+            "id": 8.2,
+            "name": {
+                "eng": "Slivovice",
+                "cz": "Slivovice"
+            },
+            "description": {
+                "eng": "Slivovice – a noble Czech legend. An aged plum brandy crafted from ripe fruit following ancient Moravian traditions. Its rich bouquet reveals delicate layers of stone fruit, almond, and subtle smoky undertones. The smooth finish with hints of oak and caramel turns each sip into an elegant ritual of indulgence. Slivovice captures the very essence of Czech heritage — where craftsmanship and authenticity meet in perfect harmony.",
+                "cz": "Slivovice – vznešená česká legenda. Zrající švestková pálenka vyrobená z dozrálého ovoce podle starobylých moravských tradic. Její bohatá vůně odhaluje jemné vrstvy peckovin, mandle a lehké kouřové tóny. Hladký závěr s nádechem dubu a karamelu proměňuje každý doušek v elegantní rituál potěšení. Slivovice zachycuje samotnou podstatu českého dědictví — kde se řemeslo a autentičnost setkávají v dokonalé harmonii."
+            },
+            "price": "500 CZK",
+            "weight": "1 wineglass (500ml)",
+            "image": "img\/menu-img\/Drinks\/Alcoholic-Beverages\/2-Slivovice-4.jpg"
+        },
+        {
+            "id": 8.3,
+            "name": {
+                "eng": "Mead",
+                "cz": "Medovina"
+            },
+            "description": {
+                "eng": "Medovina – the elixir of ancient Bohemia. Crafted from pure honey and spring water through gentle fermentation, this mead unveils a refined bouquet of wild herbs, linden nectar, and a delicate hint of vanilla. Its velvety texture and golden glow evoke the splendor of medieval Czech feasts. Each sip of Medovina is a taste of history — imbued with the fragrance of honey and the grace of centuries-old tradition.",
+                "cz": "Medovina – elixír starých Čech. Vyrobena z čistého medu a pramenité vody jemnou fermentací, odhaluje vybranou vůni divokých bylin, lipového nektaru a jemný nádech vanilky. Její sametová textura a zlatavý lesk evokují nádheru středověkých českých hostin. Každý doušek Medoviny je ochutnávkou historie — naplněný vůní medu a půvabem stoletých tradic."
+            },
+            "price": "500 CZK",
+            "weight": "1 wineglass (500ml)",
+            "image": "img\/menu-img\/Drinks\/Alcoholic-Beverages\/3-Mead-3.jpg"
+        },
+        {
+            "id": 8.4,
+            "name": {
+                "eng": "Beer",
+                "cz": "České pivo"
+            },
+            "description": {
+                "eng": "Czech Beer – the heritage of kings and monasteries. Brewed following ancient monastic traditions, it harmoniously blends the gentle bitterness of Žatec hops, the purity of Moravian malt, and the crystal clarity of Bohemian springs. Its noble taste unfolds with delicate hints of honey and fresh bread, evoking the spirit of history and the dignity of centuries-old craftsmanship. More than a drink — it is a golden reflection of Czech legacy.",
+                "cz": "České pivo – dědictví králů a klášterů. Vařeno podle starobylých mnišských tradic, harmonicky spojuje jemnou hořkost žateckého chmele, čistotu moravského sladu a křišťálovou jasnost českých pramenů. Jeho vznešená chuť se odhaluje jemnými tóny medu a čerstvého chleba, evokující duch historie a důstojnost stoletého řemesla. Více než nápoj — je to zlatý odraz českého dědictví."
+            },
+            "price": "175 CZK",
+            "weight": "1 wineglass (250ml)",
+            "image": "img\/menu-img\/Drinks\/Alcoholic-Beverages\/4-Beer.jpg"
+        }
+    ]
 }
