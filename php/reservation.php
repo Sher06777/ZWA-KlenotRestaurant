@@ -8,6 +8,14 @@ if (!isset($conn)) {
     exit;
 }
 
+if (!$currentUserId) {
+    echo json_encode([
+        'success' => false,
+        'error' => 'Ошибка: вы не авторизованы.'
+    ]);
+    exit;
+}
+
 // Получаем данные из POST
 $name = trim($_POST['name'] ?? '');
 $phone = trim($_POST['phone'] ?? '');

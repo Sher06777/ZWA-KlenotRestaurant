@@ -13,6 +13,27 @@ let reservationsLoaded = false;
 let reservationsCache = {};
 let totalPages = 1;
 
+function adjustAccountSectionHeight() {
+    const adminUsersContent = document.getElementById('admin-users-content');
+    const adminReservationsContainer = document.getElementById('admin-reservations-container');
+    const defaultHeight = 950; // минимальная высота для Dashboard
+
+    let contentHeight = defaultHeight;
+
+    // Если таблица пользователей видима
+    if (adminUsersContent && adminUsersContent.offsetParent !== null) {
+        contentHeight = Math.max(contentHeight, adminUsersContent.offsetHeight + 200); 
+        // +200 для кнопок и паддингов
+    }
+
+    // Если таблица резерваций видима
+    if (adminReservationsContainer && adminReservationsContainer.offsetParent !== null) {
+        contentHeight = Math.max(contentHeight, adminReservationsContainer.offsetHeight + 200);
+    }
+
+    accountSection.style.height = contentHeight + 'px';
+}
+
 
 // --- Создаем контейнер для кнопок ---
 const btnWrapper = document.createElement('div');
@@ -36,12 +57,11 @@ async function translateControlButtons() {
 }
 
 showAllBtn.addEventListener('click', () => {
+    personalAccountSection.style.height = "fit-content";
     reservationContainer.style.display = 'block';
-    showAllBtn.style.marginBottom = '10px';
     hideAllBtn.style.marginBottom = '10px';
-    accountSection.style.height = 'fit-content';
+    showAllBtn.style.marginBottom = '10px';
 
-    // --- Используем кеш ---
     if (reservationsCache[currentPage]) {
         reservationContainer.innerHTML = renderReservationsHTML(reservationsCache[currentPage]);
         translateReservationTable();
@@ -49,16 +69,18 @@ showAllBtn.addEventListener('click', () => {
     } else {
         loadReservations(currentPage);
     }
+
 });
 
-// ==== Скрываем таблицу ====
 hideAllBtn.addEventListener('click', () => {
     reservationContainer.style.display = 'none';
     paginationContainer.innerHTML = '';
-    hideAllBtn.style.marginBottom = '50px'
-    showAllBtn.style.marginBottom = '50px'
-    accountSection.style.height = '950px';
+    hideAllBtn.style.marginBottom = '50px';
+    showAllBtn.style.marginBottom = '50px';
+
+    adjustAccountSectionHeight(); // <-- пересчитываем высоту
 });
+
 
 accountButtons.forEach(element => {
     element.addEventListener("click", () => {
@@ -80,13 +102,13 @@ reservationContainer.parentElement.insertBefore(paginationContainer, reservation
 reservationContainer.style.display = 'none';
 
 if (adminPanelButton) {
-        adminPanelButton.addEventListener('click', () => {
+    adminPanelButton.addEventListener('click', () => {
+        accountSection.style.width = '1600px';
+        accountSection.style.maxWidth = '100%';
+        personalAccountRight.style.padding = '0 10px 0 10px';
 
-            accountSection.style.width = '1600px';
-            accountSection.style.height = '950px';
-            accountSection.style.maxWidth = '100%';
-            personalAccountRight.style.padding = '0 10px 0 10px'
-        });
+        adjustAccountSectionHeight();
+    });
 }
 
 // ==== Существующая функция загрузки ====
@@ -220,17 +242,27 @@ reservationContainer.addEventListener("click", async e => {
     formData.append("id", id);
     formData.append("csrf_token", window.csrfToken);
 
-    const res = await fetch("./php/admin_delete_reservation.php", {
-        method: "POST",
-        body: formData,
-        credentials: "include"
-    });
+    try {
+        const res = await fetch("./php/admin_delete_reservation.php", {
+            method: "POST",
+            body: formData,
+            credentials: "include"
+        });
 
-    const data = await res.json();
-    if (data.success) {
-        loadReservations(currentPage);
-    } else {
-        alert("Ошибка: " + data.error);
+        const data = await res.json();
+
+        if (data.success) {
+            // Сбрасываем кеш для текущей страницы
+            delete reservationsCache[currentPage];
+
+            // Перезагружаем таблицу с сервера
+            loadReservations(currentPage);
+        } else {
+            alert("Ошибка: " + data.error);
+        }
+    } catch (err) {
+        console.error(err);
+        alert("Ошибка сервера при удалении резервации");
     }
 });
 

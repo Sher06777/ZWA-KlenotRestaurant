@@ -189,7 +189,6 @@ if (!reservationForm) {
         showGlobalMessage("❌ Ошибка: " + (result.error || "Что-то пошло не так."));
       }
     } catch (err) {
-      console.error(err);
       showGlobalMessage("⚠️ Ошибка при соединении с сервером.");
     } finally {
       if (reservationButton) reservationButton.disabled = false;
