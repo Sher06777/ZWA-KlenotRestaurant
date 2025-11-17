@@ -1,4 +1,4 @@
-// === Функция показа блоков с плавным исчезновением/появлением ===
+
 function showBlock(blockToShow, options = {}) {
   const allBlocks = [
     document.querySelector('.personal-account-content.dates'),
@@ -7,15 +7,26 @@ function showBlock(blockToShow, options = {}) {
     document.getElementById('admin-panel')
   ];
 
-  allBlocks.forEach(block => {
-    if (!block) return;
-    if (options.keepParent && block === options.keepParent) return;
+  let animationsCompleted = 0;
+  const blocksToAnimate = allBlocks.filter(block => block && (!options.keepParent || block !== options.keepParent));
+  const total = blocksToAnimate.length;
+
+  blocksToAnimate.forEach(block => {
     if (block === blockToShow) {
-      fadeIn(block);
+      fadeIn(block, () => {
+        animationsCompleted++;
+        if (animationsCompleted === total) adjustAccountSectionHeight();
+      });
     } else {
-      fadeOut(block);
+      fadeOut(block, () => {
+        animationsCompleted++;
+        if (animationsCompleted === total) adjustAccountSectionHeight();
+      });
     }
   });
+
+  // На случай, если нет блоков для анимации
+  if (total === 0) adjustAccountSectionHeight();
 }
 
 // === Кеш для пользователей, чтобы не перегружать сервер ===
@@ -124,7 +135,10 @@ function renderUsers(users, tableWrap) {
       })
         .then(r => r.json())
         .then(resp => {
-          if (resp.success) loadUsersPage(userCurrentPage);
+          if (resp.success) {
+            cachedUsersPages = {}; // 💥 очищаем кеш, чтобы подтянуть обновлённые данные
+            loadUsersPage(userCurrentPage); // 🔄 перерисовываем таблицу
+          }
           else alert("Error deleting user: " + (resp.error || 'Unknown'));
         })
         .catch(() => alert("Server error"));
@@ -188,10 +202,13 @@ function initAdminPanel(user) {
           });
       }
 
-      adminBtn.addEventListener('click', () => showBlock(adminPanel));
+      adminBtn.addEventListener('click', () => {
+        showBlock(adminPanel, { keepParent: adminUsersContent });
+      });
 
       adminUsersBtn.addEventListener('click', () => {
         showBlock(adminUsersContent, { keepParent: adminPanel });
+        personalAccountSection.style.height = "fit-content"
 
         const tableWrap = document.querySelector('#admin-users-table .admin-users-table-wrap');
         const paginationEl = document.getElementById('admin-users-table-pagination');

@@ -205,12 +205,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // ---------- Вход / регистрация ----------
   window.onLoginOrRegister = async (user) => {
+    // Игнорируем авто-вход
+    if (window._autoLoginDone) return;
+
     setLoggedIn(true);
     await updateLoginLabel();
 
     if (user) {
-      window.user = user; // сохраняем глобально
-      initPersonalAccount(user); // подставляем данные в Personal Account
+      window.user = user;
+      initPersonalAccount(user);
     }
 
     showSection(personalAccount);
@@ -222,17 +225,24 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
   // Инициализация сохранения входа в акаунт
-  try {
-    const res = await fetch('./php/check_session.php', { credentials: 'include' });
-    const data = await res.json();
+try {
+  const res = await fetch('./php/check_session.php', { credentials: 'include' });
+  const data = await res.json();
 
     if (data.loggedIn && data.user) {
       const user = { name: data.user.name || '', email: data.user.email || '' };
-      requestAnimationFrame(() => initPersonalAccount(user));
+      window.user = user; 
+      initPersonalAccount(user); 
       setLoggedIn(true);
 
       // Обновляем текст кнопки сразу
       await updateLoginLabel();
+
+      // --- Всегда показываем главную страницу после перезагрузки ---
+      showSection(mainContent); 
+
+      // Добавляем флаг, что автоматический вход уже обработан
+      window._autoLoginDone = true;
     }
   } catch (err) {
     console.error('[check_session] error', err);
