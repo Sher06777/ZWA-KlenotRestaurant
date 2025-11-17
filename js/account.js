@@ -52,9 +52,11 @@ function hideAdminTables() {
     const adminUsersPagination = document.getElementById('admin-users-table-pagination');
     const adminUsersContent = document.getElementById('admin-users-content');
 
-    if (adminUsersTableWrap) adminUsersTableWrap.innerHTML = '';
+    if (adminUsersTableWrap) {
+        adminUsersTableWrap.innerHTML = '';
+        delete adminUsersTableWrap.dataset.listenerAdded; // <--- Сбрасываем флаг
+    }
     if (adminUsersPagination) adminUsersPagination.innerHTML = '';
-    if (adminUsersContent) adminUsersContent.style.display = 'none';
 }
 
 async function translatePersonalAccount(section) {
