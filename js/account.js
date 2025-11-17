@@ -30,7 +30,8 @@ fetch('./php/get_csrf_token.php', { credentials: 'include' })
   .then(res => res.json())
   .then(data => {
     csrfToken = data.csrf_token; //def CSRF (Cross-Site Request Forgery) - attack
-    console.log('✅ CSRF Token получен:', csrfToken);
+    window.csrfToken = data.csrf_token;
+    console.log('✅ CSRF Token получен:', window.csrfToken);
   })
   .catch(err => {
     console.error('Не удалось получить CSRF токен:', err);
@@ -357,5 +358,33 @@ function loadUserReservations(userId, page = 1) {
       console.error(err);
       container.innerHTML = '<p class="empty-reservations" data-i18n="personal-account.error-loading">Error loading reservations.</p>';
       await translatePersonalAccount(container);
+    });
+}
+
+function cancelReservation(reservationId, userId) {
+  if (!confirm('Вы уверены, что хотите отменить эту резервацию?')) return;
+
+  // обязательно отправляем куки сессии и csrf токен
+  fetch('./php/cancel_reservation.php', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRF-Token': csrfToken // auth.php ищет этот заголовок //def CSRF (Cross-Site Request Forgery) - attack
+    },
+    body: JSON.stringify({ id: reservationId, csrf_token: csrfToken }) //def CSRF (Cross-Site Request Forgery) - attack
+  })
+    .then(res => res.json().catch(() => ({ success: false, error: 'invalid json' })))
+    .then(data => {
+      console.log('cancel_reservation response', data);
+      if (data.success) {
+        loadUserReservations(userId);
+      } else {
+        alert('Ошибка при отмене резервации: ' + (data.error || data.message || 'Неизвестная ошибка'));
+      }
+    })
+    .catch(err => {
+      console.error('Ошибка при запросе cancel_reservation:', err);
+      alert('Ошибка соединения с сервером.');
     });
 }
