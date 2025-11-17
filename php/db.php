@@ -31,3 +31,8 @@ function get_csrf_token() {
 function verify_csrf_token($token) {
     return !empty($token) && hash_equals($_SESSION['csrf_token'] ?? '', $token);
 }
+
+function getCzechTime() {
+    $dt = new DateTime("now", new DateTimeZone('Europe/Prague'));
+    return $dt->format('Y-m-d H:i:s');
+}

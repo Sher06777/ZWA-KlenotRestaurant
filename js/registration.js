@@ -94,7 +94,7 @@ if (!registerForm) {
       const formData = new FormData(registerForm);
       formData.append('csrf_token', window.csrfToken);
 
-      const response = await fetch('register.php', {
+      const response = await fetch('./php/register.php', {
         method: 'POST',
         body: formData,
         credentials: 'include'

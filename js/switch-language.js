@@ -98,6 +98,9 @@
 
   async function setLanguage(lang) {
     if (!lang) lang = DEFAULT_LANG;
+    const current = getSavedLang();
+    if (current === lang) return; // Язык не изменился — выходим
+
     try {
       const dict = await loadDict(lang);
       applyDictToDOM(dict);

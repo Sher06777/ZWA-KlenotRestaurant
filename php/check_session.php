@@ -1,8 +1,5 @@
 <?php
-require_once 'session_init.php';
-include 'security_headers.php';
-include 'db.php';
-header('Content-Type: application/json; charset=utf-8');
+include 'auth.php'; // подключаем для проверки авторизации и CSRF
 
 $response = [
   'loggedIn' => isset($_SESSION['user_id']),
