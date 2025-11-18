@@ -12,9 +12,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const tokenRes = await fetch('./php/get_csrf_token.php', { credentials: 'include' });
     const tokenData = await tokenRes.json();
     window.csrfToken = tokenData.csrf_token;
-    console.log('✅ CSRF Token получен при загрузке страницы:', window.csrfToken);
+    console.log('✅ CSRF token received on page load:', window.csrfToken);
 
   } catch (err) {
-    console.error('Ошибка при инициализации сессии/CSRF:', err);
+    console.error('Error initializing session/CSRF:', err);
   }
 });

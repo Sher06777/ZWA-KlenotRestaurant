@@ -38,14 +38,14 @@ if (!registerForm) {
     clearFieldError(input);
 
     if (input.required && !value) {
-      showFieldError(input, `Поле ${input.name} обязательно`);
+      showFieldError(input, `The ${input.name} field is required`);
       return false;
     }
 
     if (input.type === 'email' && value) {
       const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailReg.test(value)) {
-        showFieldError(input, 'Введите корректный email');
+        showFieldError(input, 'Please enter a valid email');
         return false;
       }
     }
@@ -80,7 +80,7 @@ if (!registerForm) {
     const confirmPassword = confirmInput ? confirmInput.value.trim() : '';
 
     if (passwordInput && confirmInput && password !== confirmPassword) {
-      showFieldError(confirmInput, 'Пароли не совпадают');
+      showFieldError(confirmInput, 'Passwords do not match');
       valid = false; // помечаем форму как невалидную
     }
 
@@ -103,7 +103,7 @@ if (!registerForm) {
       const result = await response.json();
 
       if (!window.csrfToken) {
-        showGlobalMessage("⚠️ CSRF токен ещё не получен, попробуйте чуть позже.");
+        showGlobalMessage("⚠️ CSRF token not yet received, please try again later.");
         return;
       }
 
@@ -130,7 +130,7 @@ if (!registerForm) {
         if (Array.isArray(result.fields) && result.fields.length) {
           result.fields.forEach(fieldName => {
             const input = registerForm.querySelector(`[name="${fieldName}"]`);
-            if (input) showFieldError(input, `Поле ${fieldName} обязательно`);
+            if (input) showFieldError(input, `The ${fieldName} field is required`);
           });
         } else if (result.field) {
           const input = registerForm.querySelector(`[name="${result.field}"]`);
@@ -138,7 +138,7 @@ if (!registerForm) {
           if (input && result.message) {
             showFieldError(input, result.message);
           } else if (input) {
-            showFieldError(input, 'Некорректное значение');
+            showFieldError(input, 'Invalid value');
           }
         } else if (result.message) {
           // Обработка специфических сообщений
@@ -159,7 +159,7 @@ if (!registerForm) {
     } catch (err) {
       console.error(err);
       const firstInput = registerForm.querySelector('input');
-      if (firstInput) showFieldError(firstInput, 'Ошибка сервера');
+      if (firstInput) showFieldError(firstInput, 'Server error');
     } finally {
       registering = false;
       registerButton.disabled = false;

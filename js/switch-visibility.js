@@ -252,7 +252,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     logoutButton.addEventListener('click', async (e) => {
       e.preventDefault();
 
-      if (!confirm('Вы действительно хотите выйти из аккаунта?')) return;
+      if (!confirm('Do you really want to log out of your account?')) return;
 
       // обязательно: credentials чтобы передать cookie сессии
       try {
@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const data = await resp.json();
 
         if (data.success) {
-          console.log('✅ Пользователь вышел из аккаунта');
+          console.log('✅The user has successfully logged out');
 
           try { localStorage.clear(); sessionStorage.clear(); } catch (e) { console.warn(e); }
           if (typeof window.setLoggedIn === 'function') window.setLoggedIn(false);

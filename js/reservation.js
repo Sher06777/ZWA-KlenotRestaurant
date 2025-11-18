@@ -85,7 +85,7 @@ if (!reservationForm) {
 
       // Проверка обязательного поля
       if (input.required && !value) {
-        showFieldError(input, 'Это поле обязательно');
+        showFieldError(input, 'This field is required');
         return;
       }
 
@@ -93,7 +93,7 @@ if (!reservationForm) {
       if (input.type === 'email') {
         const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailReg.test(value)) {
-          showFieldError(input, 'Введите корректный email');
+          showFieldError(input, 'Please enter a valid email');
         } else {
           clearFieldError(input);
         }
@@ -102,7 +102,7 @@ if (!reservationForm) {
       if (input.type === 'tel') {
         const phoneReg = /^[0-9+\s\-()]{7,20}$/u;
         if (!phoneReg.test(value)) {
-          showFieldError(input, 'Неверный формат телефона');
+          showFieldError(input, 'Invalid phone format');
         } else {
           clearFieldError(input);
         }
@@ -113,7 +113,7 @@ if (!reservationForm) {
         const min = input.min ? parseInt(input.min, 10) : 0;
         const max = input.max ? parseInt(input.max, 10) : Infinity;
         if (isNaN(num) || num < min || num > max) {
-          showFieldError(input, `Количество гостей должно быть от ${min} до ${max}`);
+          showFieldError(input, `The number of guests must be between ${min} and ${max}`);
         } else {
           clearFieldError(input);
         }
@@ -141,30 +141,30 @@ if (!reservationForm) {
     let valid = true;
 
     // Проверка всех обязательных полей
-    if (!name) { showFieldError(reservationForm.name, 'Введите имя'); valid = false; }
-    if (!phone) { showFieldError(reservationForm.phone, 'Введите телефон'); valid = false; }
-    if (!email) { showFieldError(reservationForm.email, 'Введите email'); valid = false; valid = false; }
-    if (!date) { showFieldError(reservationForm.date, 'Введите дату'); valid = false; }
-    if (!time) { showFieldError(reservationForm.time, 'Введите время'); valid = false; }
-    if (!peopleRaw || isNaN(people)) { showFieldError(reservationForm.people, 'Введите количество гостей'); valid = false; }
+    if (!name) { showFieldError(reservationForm.name, 'Enter the name'); valid = false; }
+    if (!phone) { showFieldError(reservationForm.phone, 'Enter the phone number'); valid = false; }
+    if (!email) { showFieldError(reservationForm.email, 'Enter the email'); valid = false; valid = false; }
+    if (!date) { showFieldError(reservationForm.date, 'Enter the date'); valid = false; }
+    if (!time) { showFieldError(reservationForm.time, 'Enter the time'); valid = false; }
+    if (!peopleRaw || isNaN(people)) { showFieldError(reservationForm.people, 'Enter the number of guests'); valid = false; }
 
     // Формат полей
     const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (email && !emailReg.test(email)) { showFieldError(reservationForm.email, 'Введите корректный email'); valid = false; }
+    if (email && !emailReg.test(email)) { showFieldError(reservationForm.email, 'Enter a valid email'); valid = false; }
 
     const phoneReg = /^[0-9+\s\-()]{7,20}$/u;
-    if (phone && !phoneReg.test(phone)) { showFieldError(reservationForm.phone, 'Неверный формат телефона'); valid = false; }
+    if (phone && !phoneReg.test(phone)) { showFieldError(reservationForm.phone, 'Invalid phone format'); valid = false; }
 
     const dateReg = /^\d{4}-\d{2}-\d{2}$/;
-    if (date && (!dateReg.test(date) || isNaN(Date.parse(date)))) { showFieldError(reservationForm.date, 'Неверная дата'); valid = false; }
+    if (date && (!dateReg.test(date) || isNaN(Date.parse(date)))) { showFieldError(reservationForm.date, 'Invalid date'); valid = false; }
 
     const timeReg = /^\d{2}:\d{2}$/;
-    if (time && !timeReg.test(time)) { showFieldError(reservationForm.time, 'Неверное время'); valid = false; }
+    if (time && !timeReg.test(time)) { showFieldError(reservationForm.time, 'Invalid time'); valid = false; }
 
-    if (people && (people < 1 || people > 20)) { showFieldError(reservationForm.people, 'Количество гостей должно быть от 1 до 20'); valid = false; }
+    if (people && (people < 1 || people > 20)) { showFieldError(reservationForm.people, 'The number of guests must be between 1 and 20'); valid = false; }
 
     if (!valid) {
-      showGlobalMessage('⚠️ Пожалуйста, исправьте ошибки в форме.');
+      showGlobalMessage('⚠️ Please correct the errors in the form.');
       return;
     }
 
@@ -183,13 +183,13 @@ if (!reservationForm) {
       const result = await response.json();
 
       if (result.success) {
-        showGlobalMessage("✅ Бронирование успешно добавлено!", 'success');
+        showGlobalMessage("✔️ Reservation has been successfully created!", 'success');
         reservationForm.reset();
       } else {
-        showGlobalMessage("❌ Ошибка: " + (result.error || "Что-то пошло не так."));
+        showGlobalMessage("❌ Error: " + (result.error || "Something went wrong."));
       }
     } catch (err) {
-      showGlobalMessage("⚠️ Ошибка при соединении с сервером.");
+      showGlobalMessage("⚠️ Failed to connect to the server.");
     } finally {
       if (reservationButton) reservationButton.disabled = false;
     }
