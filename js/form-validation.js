@@ -36,22 +36,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- BLUR validation ----------
   loginField?.addEventListener("blur", () => {
-    validateRequired(loginField, "Поле логина обязательно");
+    validateRequired(loginField, "Username field is required");
   });
 
   emailField?.addEventListener("blur", () => {
     const val = emailField.value.trim();
     if (!val) {
-      showError(emailField, "Поле Email обязательно");
+      showError(emailField, "Email field is required");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-      showError(emailField, "Введите корректный Email");
+      showError(emailField, "Please enter a valid email");
     } else {
       clearError(emailField);
     }
   });
 
   passwordField?.addEventListener("blur", () => {
-    validateRequired(passwordField, "Поле пароля обязательно");
+    validateRequired(passwordField, "Password field is required");
   });
 
   // ---------- Submit validation ----------
@@ -87,21 +87,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = form.querySelector('input[name="password"]');
 
         if (!login.value.trim()) {
-          showError(login, "Введите логин");
+          showError(login, "Please enter a login");
           isValid = false;
         }
 
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email.value.trim()) {
-          showError(email, "Введите email");
+          showError(email, "Please enter an email");
           isValid = false;
         } else if (!emailPattern.test(email.value.trim())) {
-          showError(email, "Введите корректный email");
+          showError(email, "Please enter a valid email");
           isValid = false;
         }
 
         if (!password.value.trim()) {
-          showError(password, "Введите пароль");
+          showError(password, "Please enter a password");
           isValid = false;
         }
       }
@@ -128,11 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function getErrorMessage(input) {
-    if (input.validity.valueMissing) return 'Это поле обязательно';
-    if (input.validity.typeMismatch && input.type === 'email') return 'Введите корректный email';
-    if (input.validity.patternMismatch) return 'Неверный формат';
-    if (input.validity.tooShort) return `Минимальная длина: ${input.minLength}`;
-    if (input.validity.tooLong) return `Максимальная длина: ${input.maxLength}`;
-    return 'Неверное значение';
+    if (input.validity.valueMissing) return 'This field is required';
+    if (input.validity.typeMismatch && input.type === 'email') return 'Please enter a valid email';
+    if (input.validity.patternMismatch) return 'Invalid format';
+    if (input.validity.tooShort) return `Minimum length: ${input.minLength}`;
+    if (input.validity.tooLong) return `Maximum length: ${input.maxLength}`;
+    return 'Invalid value';
   }
 });
