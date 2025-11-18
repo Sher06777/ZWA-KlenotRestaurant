@@ -1128,18 +1128,21 @@ button {
 .body-history {
   display: flex;
   flex-wrap: wrap;
-  /* делает блок адаптивным без media */
-  align-items: center;
-  justify-content: center;
+  align-items: stretch; 
+  justify-content: space-between; 
   background-color: #404040;
   color: #fff;
-  padding: clamp(30px, 5vw, 80px);
-  gap: clamp(20px, 4vw, 60px);
+}
+
+.body-history {
+  position: relative;
+  background: linear-gradient(90deg, #404040 50%, rgba(0,0,0,0.4));
 }
 
 .body-history-left-text {
   flex: 1 1 400px;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 
@@ -1147,6 +1150,22 @@ button {
   max-width: 600px;
   text-align: justify;
   padding: clamp(10px, 3vw, 40px);
+}
+
+.body-history-right-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 600px;
+}
+
+.body-history-img {
+  width: auto; /* ширина адаптивная */
+  max-width: 100%; /* не превышает блок */
+  height: 100%; /* тянем на всю высоту контейнера */
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 /* Заголовки и текст */
@@ -1168,25 +1187,6 @@ button {
   margin-bottom: 30px;
   line-height: 1.6;
   color: #e8e8e8;
-}
-
-.body-history-right-text {
-  flex: 1 1 400px;
-  display: flex;
-  justify-content: center;
-}
-
-.body-history-img {
-  width: 100%;
-  max-width: 700px;
-  height: auto;
-  aspect-ratio: 3 / 2;
-  /* делает изображение отзывчивым */
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  user-select: none;
-  pointer-events: none;
 }
 
 .body-history-menu-button {
@@ -1250,6 +1250,7 @@ button {
   opacity: 1;
   transform: translateY(0) scale(1.2);
 }
+
 
 
 /* Часть страницы с колонками */
@@ -4782,6 +4783,11 @@ label input:focus {
   z-index: 2000;
   mix-blend-mode: screen;
   filter: blur(2px);
+}
+
+.menu-admin-controls {
+  margin-top: 25px;
+  text-align: center;
 }
 
 /* крупные экраны — исходные размеры */

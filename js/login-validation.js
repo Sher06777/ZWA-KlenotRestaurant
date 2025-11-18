@@ -37,7 +37,7 @@ if (!loginForm) {
     const confirm = (confirmInput.value || '').trim();
 
     if (confirm && password !== confirm) {
-      showFieldError(confirmInput, 'Пароли не совпадают');
+      showFieldError(confirmInput, 'Passwords do not match');
       return false;
     } else {
       clearFieldError(confirmInput);
@@ -56,14 +56,14 @@ if (!loginForm) {
       const value = (input.value || '').trim();
 
       if (input.required && !value) {
-        showFieldError(input, `Поле ${input.name} обязательно`);
+        showFieldError(input, `The ${input.name} field is required`);
         return;
       }
 
       if (input.type === 'email' && value) {
         const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailReg.test(value)) {
-          showFieldError(input, 'Введите корректный email');
+          showFieldError(input, 'Please enter a valid email');
         } else {
           clearFieldError(input);
         }
@@ -93,14 +93,14 @@ if (!loginForm) {
       const value = (input.value || '').trim();
 
       if (input.required && !value) {
-        showFieldError(input, `Поле ${input.name} обязательно`);
+        showFieldError(input, `The ${input.name} field is required`);
         valid = false;
       }
 
       if (input.type === 'email' && value) {
         const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailReg.test(value)) {
-          showFieldError(input, 'Введите корректный email');
+          showFieldError(input, 'Please enter a valid email');
           valid = false;
         }
       }
@@ -137,14 +137,14 @@ if (!loginForm) {
           }
         } else {
           const passwordInput = loginForm.password;
-          showFieldError(passwordInput, result.message || "Неверный логин или пароль");
+          showFieldError(passwordInput, result.message || "Invalid login or password");
         }
       }
 
     } catch (err) {
       console.error(err);
       const passwordInput = loginForm.password;
-      showFieldError(passwordInput, "Ошибка сервера");
+      showFieldError(passwordInput, "Server error");
     } finally {
       loginInProgress = false;
       loginBtn.disabled = false;
