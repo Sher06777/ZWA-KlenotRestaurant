@@ -364,7 +364,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     try {
-      const response = await fetch('add_meal.php', {
+      const response = await fetch('./php/add_meal.php', {
         method: 'POST',
         body: formData
       });
