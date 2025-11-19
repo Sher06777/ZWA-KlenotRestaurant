@@ -1,7 +1,7 @@
 <?php
 // Настройки
-$jsonFile = 'data/menu.json';
-$uploadBaseDir = 'img/menu-img/';
+$jsonFile = '../data/menu.json';
+$uploadBaseDir = '../img/menu-img/';
 
 header('Content-Type: application/json');
 
