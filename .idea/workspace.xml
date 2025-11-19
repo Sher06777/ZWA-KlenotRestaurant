@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d0679ce1-cf2f-4959-8870-3eb8c603c2ef" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/add_meal.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/add_meal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/db.php" beforeDir="false" afterPath="$PROJECT_DIR$/php/db.php" afterDir="false" />
-    </list>
+    <list default="true" id="d0679ce1-cf2f-4959-8870-3eb8c603c2ef" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +82,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1763552471505</updated>
-      <workItem from="1763552473188" duration="2841000" />
+      <workItem from="1763552473188" duration="3194000" />
     </task>
     <servers />
   </component>
