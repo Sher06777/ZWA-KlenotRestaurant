@@ -2,8 +2,8 @@
 
 //def CSRF (Cross-Site Request Forgery) - attack
 $host   = 'localhost';
-$dbname = 'achilkem';
-$user   = 'achilkem';
+$dbname = 'abdimshe';
+$user   = 'abdimshe';
 $pass   = 'webove aplikace';
 $port   = 3306; // при необходимости поменяй
 
