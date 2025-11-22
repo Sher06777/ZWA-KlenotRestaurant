@@ -1,3 +1,5 @@
+// admin-reservations.js — безопасная версия
+
 const reservationContainer = document.getElementById("admin-reservations-container");
 const paginationContainer = document.getElementById("admin-reservations-pagination");
 const personalAccountRight = document.querySelector('.personal-account-right');
@@ -6,7 +8,7 @@ const accountSection = document.getElementById('personal-account');
 const accountButtonDate = document.querySelector('.personal-account-dates');
 const accountButtonReservation = document.querySelector('.personal-account-reservation');
 
-const accountButtons = [accountButtonDate, accountButtonReservation]
+const accountButtons = [accountButtonDate, accountButtonReservation];
 
 let currentPage = 1;
 let reservationsLoaded = false;
@@ -20,35 +22,28 @@ function adjustAccountSectionHeight() {
 
     let contentHeight = defaultHeight;
 
-    // Если таблица пользователей видима
     if (adminUsersContent && adminUsersContent.offsetParent !== null) {
-        contentHeight = Math.max(contentHeight, adminUsersContent.offsetHeight + 200); 
-        // +200 для кнопок и паддингов
+        contentHeight = Math.max(contentHeight, adminUsersContent.offsetHeight + 200);
     }
 
-    // Если таблица резерваций видима
     if (adminReservationsContainer && adminReservationsContainer.offsetParent !== null) {
         contentHeight = Math.max(contentHeight, adminReservationsContainer.offsetHeight + 200);
     }
 
-    accountSection.style.height = contentHeight + 'px';
+    if (accountSection) accountSection.style.height = contentHeight + 'px';
 }
 
-
-// --- Создаем контейнер для кнопок ---
+// --- UI: кнопки управления ---
 const btnWrapper = document.createElement('div');
 btnWrapper.style.display = 'flex';
 btnWrapper.style.alignItems = 'center';
 btnWrapper.style.gap = '10px';
 btnWrapper.classList.add('admin-reservations-btn-wrapper');
 
-// --- Создаем кнопки ---
 const showAllBtn = document.createElement('button');
-// showAllBtn.textContent = 'Все резервации';
 showAllBtn.classList.add('edit-account-btn', 'admin-show-all-reservations');
 
 const hideAllBtn = document.createElement('button');
-// hideAllBtn.textContent = 'Скрыть все резервации';
 hideAllBtn.classList.add('edit-account-btn', 'admin-hide-all-reservations');
 
 async function translateControlButtons() {
@@ -57,138 +52,205 @@ async function translateControlButtons() {
 }
 
 showAllBtn.addEventListener('click', () => {
-    personalAccountSection.style.height = "fit-content";
+    if (!reservationContainer) return;
+    if (accountSection) accountSection.style.height = "fit-content";
     reservationContainer.style.display = 'block';
     hideAllBtn.style.marginBottom = '10px';
     showAllBtn.style.marginBottom = '10px';
 
     if (reservationsCache[currentPage]) {
-        reservationContainer.innerHTML = renderReservationsHTML(reservationsCache[currentPage]);
+        // вставляем безопасно из кеша
+        reservationContainer.innerHTML = ''; // очищаем
+        reservationContainer.appendChild(renderReservationsTable(reservationsCache[currentPage]));
         translateReservationTable();
         renderPagination(currentPage, totalPages);
     } else {
         loadReservations(currentPage);
     }
-
 });
 
 hideAllBtn.addEventListener('click', () => {
+    if (!reservationContainer) return;
     reservationContainer.style.display = 'none';
-    paginationContainer.innerHTML = '';
+    if (paginationContainer) paginationContainer.innerHTML = '';
     hideAllBtn.style.marginBottom = '50px';
     showAllBtn.style.marginBottom = '50px';
 
-    adjustAccountSectionHeight(); // <-- пересчитываем высоту
+    adjustAccountSectionHeight();
 });
 
-
 accountButtons.forEach(element => {
+    if (!element) return;
     element.addEventListener("click", () => {
+        if (!accountSection) return;
         accountSection.style.width = '900px';
         accountSection.style.height = '800px';
         accountSection.style.maxWidth = "90%";
     });
-})
+});
 
+// Добавляем кнопки и вставляем в DOM (безопасно — проверим элементы)
+if (reservationContainer && reservationContainer.parentElement) {
+    btnWrapper.appendChild(showAllBtn);
+    btnWrapper.appendChild(hideAllBtn);
 
-// Добавляем кнопки в обёртку
-btnWrapper.appendChild(showAllBtn);
-btnWrapper.appendChild(hideAllBtn);
+    reservationContainer.parentElement.insertBefore(btnWrapper, reservationContainer);
+    if (paginationContainer) reservationContainer.parentElement.insertBefore(paginationContainer, reservationContainer);
+    reservationContainer.style.display = 'none';
+} else {
+    console.warn('Reservation container or its parent not found. Buttons not inserted.');
+}
 
-// Вставляем обёртку перед контейнером таблицы
-reservationContainer.parentElement.insertBefore(btnWrapper, reservationContainer);
-reservationContainer.parentElement.insertBefore(paginationContainer, reservationContainer);
-// Скрываем таблицу изначально
-reservationContainer.style.display = 'none';
-
-if (adminPanelButton) {
+if (typeof adminPanelButton !== 'undefined' && adminPanelButton) {
     adminPanelButton.addEventListener('click', () => {
+        if (!accountSection || !personalAccountRight) return;
         accountSection.style.width = '1600px';
         accountSection.style.maxWidth = '100%';
         personalAccountRight.style.padding = '0 10px 0 10px';
-
-        adjustAccountSectionHeight();
+        accountSection.style.height = 'fit-content';
     });
 }
 
-// ==== Существующая функция загрузки ====
-async function loadReservations(page = 1) {
-    currentPage = page;
 
-    // Если данные уже есть в кеше, используем их
-    if (reservationsCache[page]) {
-        reservationContainer.innerHTML = renderReservationsHTML(reservationsCache[page]);
+// ==== Загрузка записей ====
+async function loadReservations(page = 1) {
+    currentPage = Number.isInteger(page) ? page : parseInt(page, 10) || 1;
+
+    if (!reservationContainer) return;
+
+    // кеш
+    if (reservationsCache[currentPage]) {
+        reservationContainer.innerHTML = '';
+        reservationContainer.appendChild(renderReservationsTable(reservationsCache[currentPage]));
         await translateReservationTable();
-        renderPagination(page, totalPages);
+        renderPagination(currentPage, totalPages);
         return;
     }
 
-    // Показываем Loading только если данных нет
-    reservationContainer.innerHTML = await getTranslation('admin.loading-reservations') || 'Loading Reservations';
+    // Показываем loading (без innerHTML-рисков)
+    reservationContainer.textContent = (await getTranslation('admin.loading-reservations')) || 'Loading Reservations';
 
     try {
-        const res = await fetch(`./php/admin_get_reservations.php?page=${page}`, { credentials: "include" });
-        const data = await res.json();
+        const res = await fetch(`./php/admin_get_reservations.php?page=${encodeURIComponent(currentPage)}`, { credentials: "include" });
+        if (!res.ok) {
+            reservationContainer.textContent = "⚠️ Ошибка загрузки";
+            return;
+        }
+        const data = await res.json().catch(() => ({ success: false }));
 
-        if (!data.success) {
-            reservationContainer.innerHTML = "⚠️ Ошибка загрузки";
+        if (!data.success || !Array.isArray(data.reservations)) {
+            reservationContainer.textContent = "⚠️ Ошибка загрузки";
             return;
         }
 
-        reservationsCache[page] = data.reservations;
-        totalPages = data.pages;
+        reservationsCache[currentPage] = data.reservations;
+        totalPages = Number.isFinite(Number(data.pages)) ? Number(data.pages) : 1;
 
-        reservationContainer.innerHTML = renderReservationsHTML(data.reservations);
+        reservationContainer.innerHTML = '';
+        reservationContainer.appendChild(renderReservationsTable(data.reservations));
         await translateReservationTable();
-        renderPagination(page, totalPages);
+        renderPagination(currentPage, totalPages);
     } catch (err) {
         console.error(err);
-        reservationContainer.innerHTML = "⚠️ Ошибка загрузки";
+        reservationContainer.textContent = "⚠️ Ошибка загрузки";
     }
 }
 
-// ==== HTML для таблицы ====
-function renderReservationsHTML(list) {
-    if (!list.length) return "<p>Нет бронирований</p>";
 
-    let html = `
-        <table class="admin-table admin-reservations-table">
-            <thead>
-              <tr>
-                <th class="col-res-id">ID</th>
-                <th class="col-res-name">Name</th>
-                <th class="col-res-phone">Phone</th>
-                <th class="col-res-email">Email</th>
-                <th class="col-res-date">Date</th>
-                <th class="col-res-time">Time</th>
-                <th class="col-res-people">People</th>
-                <th class="col-res-msg">Msg</th>
-                <th class="col-res-userid">User ID</th>
-                <th class="col-res-delete" data-i18n="admin.delete">Remove?</th>
-              </tr>
-            </thead>
-            <tbody>
-    `;
+// ==== Безопасная генерация таблицы (убираем innerHTML с пользовательскими данными) ====
+function createTextWithBreaks(text) {
+    const frag = document.createDocumentFragment();
+    const parts = String(text || '').split(/\r?\n/);
+    parts.forEach((part, idx) => {
+        frag.appendChild(document.createTextNode(part));
+        if (idx < parts.length - 1) frag.appendChild(document.createElement('br'));
+    });
+    return frag;
+}
 
-    html += list.map(r => `
-        <tr class="reservation-row">
-           <td class="col-res-id">${r.id}</td>
-           <td class="col-res-name">${r.name}</td>
-           <td class="col-res-phone">${r.phone}</td>
-           <td class="col-res-email">${r.email}</td>
-           <td class="col-res-date">${r.date}</td>
-           <td class="col-res-time">${r.time}</td>
-           <td class="col-res-people">${r.people}</td>
-           <td class="col-res-msg">${r.message || ""}</td>
-           <td class="col-res-userid">${r.user_id}</td>
-           <td class="col-res-delete">
-              <button class="admin-delete-reservation-btn edit-account-btn" data-id="${r.id}" data-i18n="admin.delete-yes"></button>
-           </td>
-        </tr>
-    `).join("");
+function renderReservationsTable(list) {
+    const wrapper = document.createElement('div');
 
-    html += `</tbody></table>`;
-    return html;
+    if (!Array.isArray(list) || list.length === 0) {
+        const p = document.createElement('p');
+        p.textContent = 'Нет бронирований';
+        wrapper.appendChild(p);
+        return wrapper;
+    }
+
+    const table = document.createElement('table');
+    table.className = 'admin-table admin-reservations-table';
+
+    const thead = document.createElement('thead');
+    const headRow = document.createElement('tr');
+
+    const headings = [
+        { cls: 'col-res-id', text: 'ID' },
+        { cls: 'col-res-name', text: 'Name' },
+        { cls: 'col-res-phone', text: 'Phone' },
+        { cls: 'col-res-email', text: 'Email' },
+        { cls: 'col-res-date', text: 'Date' },
+        { cls: 'col-res-time', text: 'Time' },
+        { cls: 'col-res-people', text: 'People' },
+        { cls: 'col-res-msg', text: 'Msg' },
+        { cls: 'col-res-userid', text: 'User ID' },
+        { cls: 'col-res-delete', dataI18n: 'admin.delete', text: 'Remove?' }
+    ];
+
+    headings.forEach(h => {
+        const th = document.createElement('th');
+        th.className = h.cls;
+        if (h.dataI18n) th.setAttribute('data-i18n', h.dataI18n);
+        th.textContent = h.text;
+        headRow.appendChild(th);
+    });
+
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+
+    for (const r of list) {
+        const tr = document.createElement('tr');
+        tr.className = 'reservation-row';
+
+        // Helper to create td with safe text
+        const makeTd = (cls, value) => {
+            const td = document.createElement('td');
+            td.className = cls;
+            // вставляем текст безопасно (поддерживаем переносы)
+            td.appendChild(createTextWithBreaks(value));
+            return td;
+        };
+
+        tr.appendChild(makeTd('col-res-id', String(r.id ?? '')));
+        tr.appendChild(makeTd('col-res-name', String(r.name ?? '')));
+        tr.appendChild(makeTd('col-res-phone', String(r.phone ?? '')));
+        tr.appendChild(makeTd('col-res-email', String(r.email ?? '')));
+        tr.appendChild(makeTd('col-res-date', String(r.date ?? '')));
+        tr.appendChild(makeTd('col-res-time', String(r.time ?? '')));
+        tr.appendChild(makeTd('col-res-people', String(r.people ?? '')));
+        tr.appendChild(makeTd('col-res-msg', String(r.message ?? '')));
+        tr.appendChild(makeTd('col-res-userid', String(r.user_id ?? '')));
+
+        const tdDel = document.createElement('td');
+        tdDel.className = 'col-res-delete';
+
+        const btn = document.createElement('button');
+        btn.className = 'admin-delete-reservation-btn edit-account-btn';
+        // data-id — строка, но мы будем парсить на удалении
+        btn.dataset.id = String(r.id ?? '');
+        btn.setAttribute('data-i18n', 'admin.delete-yes');
+        // текст кнопки переведём позже через translateReservationTable
+        tdDel.appendChild(btn);
+        tr.appendChild(tdDel);
+
+        tbody.appendChild(tr);
+    }
+
+    table.appendChild(tbody);
+    wrapper.appendChild(table);
+    return wrapper;
 }
 
 async function translateReservationTable() {
@@ -199,89 +261,140 @@ async function translateReservationTable() {
     }
 }
 
-// ==== Pagination ====
+// ==== Пагинация (создаём кнопки DOM-узлами) ====
 function renderPagination(page, pages) {
-    paginationContainer.innerHTML = "";
+    if (!paginationContainer) return;
+    paginationContainer.innerHTML = ""; // контрольный очист (не с данными юзера)
+
+    const frag = document.createDocumentFragment();
     const maxButtons = 5;
     let start = Math.max(1, page - 2);
     let end = Math.min(pages, start + maxButtons - 1);
+    if (end - start < maxButtons - 1) start = Math.max(1, end - maxButtons + 1);
 
-    if (start > 1) paginationContainer.innerHTML += `<button class="edit-account-btn pg" data-page="${start-1}">⬅</button>`;
+    if (start > 1) {
+        const btn = document.createElement('button');
+        btn.className = 'edit-account-btn pg';
+        btn.dataset.page = String(start - 1);
+        btn.textContent = '⬅';
+        frag.appendChild(btn);
+    }
 
     for (let p = start; p <= end; p++) {
-        paginationContainer.innerHTML += `<button class="edit-account-btn pg ${p === page ? 'active' : ''}" data-page="${p}">${p}</button>`;
+        const btn = document.createElement('button');
+        btn.className = 'edit-account-btn pg' + (p === page ? ' active' : '');
+        btn.dataset.page = String(p);
+        btn.textContent = String(p);
+        frag.appendChild(btn);
     }
 
-    if (end < pages) paginationContainer.innerHTML += `<button class="edit-account-btn pg" data-page="${end+1}">➡</button>`;
+    if (end < pages) {
+        const btn = document.createElement('button');
+        btn.className = 'edit-account-btn pg';
+        btn.dataset.page = String(end + 1);
+        btn.textContent = '➡';
+        frag.appendChild(btn);
+    }
+
+    paginationContainer.appendChild(frag);
 }
 
-// Click pagination
-paginationContainer.addEventListener("click", e => {
-    if (!e.target.classList.contains("pg")) return;
+// Click pagination (делегируем обработку)
+if (paginationContainer) {
+    paginationContainer.addEventListener("click", e => {
+        const target = e.target;
+        if (!target || !target.classList.contains("pg")) return;
 
-    const page = parseInt(e.target.dataset.page);
-    if (reservationsCache[page]) {
-        reservationContainer.innerHTML = renderReservationsHTML(reservationsCache[page]);
-        translateReservationTable();
-        renderPagination(page, totalPages);
-        currentPage = page;
-    } else {
-        loadReservations(page);
-    }
-});
+        const page = parseInt(target.dataset.page, 10);
+        if (!Number.isInteger(page) || page <= 0) return;
 
-// ==== Delete reservation ====
-reservationContainer.addEventListener("click", async e => {
-    if (!e.target.classList.contains("admin-delete-reservation-btn")) return;
+        if (reservationsCache[page]) {
+            reservationContainer.innerHTML = '';
+            reservationContainer.appendChild(renderReservationsTable(reservationsCache[page]));
+            translateReservationTable();
+            renderPagination(page, totalPages);
+            currentPage = page;
+        } else {
+            loadReservations(page);
+        }
+    });
+}
 
-    const id = e.target.dataset.id;
-    const deleteConfirm = await getTranslation('admin.delete');
-    if (!confirm(`${deleteConfirm} #${id}?`)) return;
+// ==== Delete reservation (делегирование) ====
+if (reservationContainer) {
+    reservationContainer.addEventListener("click", async e => {
+      const target = e.target;
+      if (!target || !target.classList.contains("admin-delete-reservation-btn")) return;
 
-    const formData = new FormData();
-    formData.append("id", id);
-    formData.append("csrf_token", window.csrfToken);
+      // валидация id
+      const rawId = target.dataset.id;
+      const id = parseInt(rawId, 10);
+      if (!Number.isInteger(id) || id <= 0) {
+          alert('Invalid id');
+          return;
+      }
 
-    try {
-        const res = await fetch("./php/admin_delete_reservation.php", {
-            method: "POST",
-            body: formData,
-            credentials: "include"
-        });
+      const deleteConfirm = await getTranslation('admin.delete');
+      if (!confirm(`${deleteConfirm} #${id}?`)) return;
 
-        const data = await res.json();
+      try {
+        // убедимся, что CSRFManager инициализирован
+        if (window.CSRFManager) {
+          try {
+            if (!window.CSRFManager.isInitialized || !window.CSRFManager.isInitialized()) {
+              await window.CSRFManager.init();
+            }
+          } catch (err) {
+            console.warn('CSRFManager init failed before admin delete:', err);
+            // не прерываемся — сервер всё равно может отклонить
+          }
+        }
+
+        const formData = new FormData();
+        formData.append("id", String(id));
+        if (window.CSRFManager) {
+          await window.CSRFManager.appendToFormData(formData);
+        }
+
+        const res = await (window.CSRFManager ? window.CSRFManager.fetchWithCsrf("./php/admin_delete_reservation.php", {
+          method: "POST",
+          body: formData
+        }) : fetch("./php/admin_delete_reservation.php", {
+          method: "POST",
+          credentials: "include",
+          body: formData
+        }));
+
+        const data = await res.json().catch(() => ({ success: false, error: 'invalid json' }));
 
         if (data.success) {
-            // Сбрасываем кеш для текущей страницы
-            delete reservationsCache[currentPage];
-
-            // Перезагружаем таблицу с сервера
-            loadReservations(currentPage);
+          delete reservationsCache[currentPage];
+          loadReservations(currentPage);
         } else {
-            alert("Ошибка: " + data.error);
+          alert("Ошибка: " + (data.error || data.message || 'Не удалось удалить'));
         }
-    } catch (err) {
+
+      } catch (err) {
         console.error(err);
         alert("Ошибка сервера при удалении резервации");
-    }
-});
+      }
+    });
+}
 
+// debug helper
 function isVisible(el) {
-    const visible = el && window.getComputedStyle(el).display !== "none";
-    console.log("isVisible(table)? →", visible, "| inline:", el.style.display, "| computed:", window.getComputedStyle(el).display);
+    if (!el) return false;
+    const visible = window.getComputedStyle(el).display !== "none";
     return visible;
 }
 
 document.addEventListener('i18n:changed', async () => {
     await translateControlButtons();
-
-    // Перевод таблицы — только если она реально видима
     if (isVisible(reservationContainer)) {
         await translateReservationTable();
     }
 });
 
-// === Инициализация кнопок сразу после загрузки страницы и словаря ===
 document.addEventListener('DOMContentLoaded', async () => {
     await translateControlButtons();
 });

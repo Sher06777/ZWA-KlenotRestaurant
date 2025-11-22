@@ -3,9 +3,6 @@ require_once 'session_init.php';
 include 'security_headers.php';
 include 'db.php';
 
-header('Content-Type: application/json; charset=utf-8');
-
-
 // Разрешаем check_session.php работать без авторизации
 if (basename($_SERVER['PHP_SELF']) === 'check_session.php') {
     return; // ⬅️ просто выходим, не делаем проверок

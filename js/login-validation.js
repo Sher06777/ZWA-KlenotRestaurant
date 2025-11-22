@@ -6,6 +6,10 @@ if (!loginForm) {
   console.warn("login-form not found");
 } else {
 
+  if (window.CSRFManager) {
+    window.CSRFManager.init().catch(()=>{});
+  }
+
   // Показываем ошибку под input
   function showFieldError(input, message) {
     let errorEl = input.parentElement.querySelector('.error-message');
@@ -116,16 +120,30 @@ if (!loginForm) {
 
     try {
       const formData = new FormData(loginForm);
-      const res = await fetch("./php/login.php", {
-        method: "POST",
-        body: formData,
-        credentials: 'include'
-      });
+      try {
+        window.CSRFManager?.appendToFormData(formData);
+      } catch (err) {
+        console.warn('CSRF append failed for login:', err);
+      }
+
+      let res = await (window.CSRFManager
+        ? window.CSRFManager.fetchWithCsrf("./php/login.php", { method: "POST", body: formData, credentials: 'include' })
+        : fetch("./php/login.php", { method: "POST", body: formData, credentials: 'include' }));
+
+      if (res.status === 403) {
+        // попробуем обновить токен и повторить 1 раз
+        await window.CSRFManager?.refresh().catch(()=>{});
+        res = await (window.CSRFManager
+          ? window.CSRFManager.fetchWithCsrf("./php/login.php", { method: "POST", body: formData, credentials: 'include' })
+          : fetch("./php/login.php", { method: "POST", body: formData, credentials: 'include' }));
+      }
 
       const result = await res.json();
 
       if (result.success) {
         if (typeof window.onLoginOrRegister === "function") {
+          // После успешного логина обновляем CSRF (чтобы получить свежий токен для авторизованных запросов)
+          try { await window.CSRFManager?.refresh(); } catch (err) { console.warn('CSRF refresh after login failed', err); }
           window.onLoginOrRegister();
         }
         loginForm.reset();

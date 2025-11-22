@@ -1,3 +1,5 @@
+// signin.js — fixed: show 429 message + countdown and show messages next to signin button (form-submit-wrap)
+
 const signinForm = document.querySelector('#signin-form');
 const signinButton = document.querySelector('.form-submit-button--signin');
 let signingIn = false;
@@ -12,7 +14,6 @@ try {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
-    // Проверяем активную сессию
     const response = await fetch('./php/check_session.php', { credentials: 'include' });
     const data = await response.json();
 
@@ -20,7 +21,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       console.log('✅ Пользователь уже вошёл:', data.user.name);
       window.user = data.user;
       initPersonalAccount(data.user);
-      // Обновляем SPA
       if (typeof window.onLoginOrRegister === 'function') {
         window.onLoginOrRegister();
       }
@@ -32,35 +32,196 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-// ---------- ВАЖНО: запускаем fetch только при "valid-form-submit" ----------
+/* -------------------------
+   Helpers: local message area
+   ------------------------- */
+function getSubmitWrapEl() {
+  if (signinButton) {
+    return signinButton.closest('.form-submit-wrap') || signinButton.parentElement;
+  }
+  return null;
+}
+
+function getOrCreateSubmitMessageEl() {
+  const wrap = getSubmitWrapEl();
+  if (wrap) {
+    const next = wrap.nextElementSibling;
+    if (next && next.classList && next.classList.contains('form-submit-message')) {
+      return next;
+    }
+    const msg = document.createElement('p');
+    msg.className = 'form-submit-message error-message';
+    wrap.insertAdjacentElement('afterend', msg);
+    return msg;
+  }
+  let global = document.getElementById('reservation-message');
+  if (global) return global;
+  return null;
+}
+
+function showSubmitMessage(text, type = 'error') {
+  const el = getOrCreateSubmitMessageEl();
+  if (!el) return;
+  el.textContent = String(text || '');
+  el.style.display = 'block';
+  el.classList.remove('error', 'success');
+  el.classList.add(type === 'success' ? 'success' : 'error');
+}
+
+function clearSubmitMessage() {
+  const wrap = getSubmitWrapEl();
+  if (wrap) {
+    const next = wrap.nextElementSibling;
+    if (next && next.classList && next.classList.contains('form-submit-message')) {
+      next.textContent = '';
+      next.style.display = 'none';
+      next.classList.remove('error', 'success');
+    }
+    return;
+  }
+  const global = document.getElementById('reservation-message');
+  if (global) {
+    global.textContent = '';
+    global.style.display = 'none';
+    global.classList.remove('error', 'success');
+  }
+}
+
+/* -------------------------
+   Main submit handler
+   ------------------------- */
 signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
   e.preventDefault?.();
 
   if (signingIn) return;
   signingIn = true;
-  signinButton.disabled = true;
 
-  // очищаем предыдущие ошибки (на всякий случай)
+  // Блокируем кнопку, но НЕ меняем её текст (чтобы при блокировке было "SIGN IN")
+  if (signinButton) {
+    signinButton.disabled = true;
+    // сохраняем текст на всякий случай, но не изменяем сейчас
+    signinButton.dataset.oldText = signinButton.dataset.oldText || signinButton.textContent;
+  }
+
+  // очистим старые клиентские ошибки и локальное сообщение
   const clearAll = () => {
     const errors = signinForm.querySelectorAll('.error-message');
     errors.forEach(el => { el.textContent = ''; el.classList.remove('active'); });
+    clearSubmitMessage();
   };
   clearAll();
 
+  // формируем formData и добавляем CSRF (через менеджер)
   const formData = new FormData(signinForm);
-  formData.append('csrf_token', window.csrfToken);
+  try {
+    await window.CSRFManager?.appendToFormData(formData);
+  } catch (err) {
+    console.warn('CSRF append failed (will still try):', err);
+  }
+
+  let earlyHandled = false;
+  let countdownIntervalId = null;
+  let countdownTimeoutId = null;
 
   try {
-    const response = await fetch('./php/signin.php', {
+    const resp = await fetch('./php/signin.php', {
       method: 'POST',
       body: formData,
       credentials: 'include'
     });
 
-    const result = await response.json();
+    if (resp.status === 429) {
+      earlyHandled = true;
+
+      let json = null;
+      try {
+        json = await resp.json();
+      } catch (_) {
+        json = { message: 'Too many attempts. Try again later.' };
+      }
+
+      const message = json && json.message ? json.message : 'Too many attempts. Try again later.';
+
+      // предпочтительно используем retry_after из JSON, иначе из заголовка Retry-After, иначе fallback = 300
+      let retrySeconds = null;
+      if (json && typeof json.retry_after === 'number') {
+        retrySeconds = parseInt(json.retry_after, 10);
+      }
+      if (retrySeconds === null) {
+        const ra = resp.headers && resp.headers.get ? resp.headers.get('Retry-After') : null;
+        if (ra) {
+          const raInt = parseInt(ra, 10);
+          if (!Number.isNaN(raInt) && raInt > 0) retrySeconds = raInt;
+        }
+      }
+      if (retrySeconds === null) retrySeconds = 300;
+
+      const msgEl = getOrCreateSubmitMessageEl();
+      if (msgEl) {
+        let remaining = retrySeconds;
+        const format = (s) => {
+          const mm = Math.floor(s / 60).toString().padStart(2, '0');
+          const ss = (s % 60).toString().padStart(2, '0');
+          return `${mm}:${ss}`;
+        };
+
+        msgEl.textContent = `${message} Повтор через ${format(remaining)}.`;
+        msgEl.style.display = 'block';
+        msgEl.classList.remove('success');
+        msgEl.classList.add('error');
+
+        countdownIntervalId = setInterval(() => {
+          remaining -= 1;
+          if (remaining <= 0) {
+            clearInterval(countdownIntervalId);
+            countdownIntervalId = null;
+            msgEl.textContent = `${message} Попробуйте снова.`;
+          } else {
+            msgEl.textContent = `${message} Повтор через ${format(remaining)}.`;
+          }
+        }, 1000);
+
+        countdownTimeoutId = setTimeout(() => {
+          if (countdownIntervalId) { clearInterval(countdownIntervalId); countdownIntervalId = null; }
+          // восстановим кнопку и уберём сообщение
+          signingIn = false;
+          if (signinButton) {
+            signinButton.disabled = false;
+            if (signinButton.dataset.oldText) signinButton.textContent = signinButton.dataset.oldText;
+          }
+          msgEl.textContent = '';
+          msgEl.style.display = 'none';
+          msgEl.classList.remove('error');
+        }, retrySeconds * 1000);
+      } else {
+        alert(message);
+        signingIn = false;
+        if (signinButton) {
+          signinButton.disabled = false;
+          if (signinButton.dataset.oldText) signinButton.textContent = signinButton.dataset.oldText;
+        }
+      }
+
+      return;
+    }
+
+    if (resp.status === 403) {
+      earlyHandled = true;
+      let json = { success: false, message: 'Invalid CSRF token' };
+      try { json = await resp.json(); } catch (e) {}
+      showSubmitMessage(json.message || 'Security error. Please refresh the page.', 'error');
+
+      signingIn = false;
+      if (signinButton) {
+        signinButton.disabled = false;
+        if (signinButton.dataset.oldText) signinButton.textContent = signinButton.dataset.oldText;
+      }
+      return;
+    }
+
+    const result = await resp.json().catch(() => ({ success: false, message: 'Invalid server response' }));
 
     if (result.success) {
-      // Сохраняем глобально
       window.user = {
         id: result.user_id,
         name: result.user_name,
@@ -68,94 +229,65 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
         password_mask: result.password_mask
       };
 
-      // Инициализируем личный кабинет с данными
       initPersonalAccount(window.user);
 
       try {
-        const tokenRes = await fetch('./php/get_csrf_token.php', { credentials: 'include' });
-        const tokenData = await tokenRes.json();
-        window.csrfToken = tokenData.csrf_token;
-        console.log('✅ Новый CSRF Token получен после логина:', window.csrfToken);
+        await window.CSRFManager?.refresh();
       } catch (err) {
-        console.error('Ошибка получения CSRF после входа:', err);
+        console.warn('CSRF refresh after login failed:', err);
       }
 
+      clearSubmitMessage();
 
-      // Уведомляем SPA, что пользователь вошёл
       requestAnimationFrame(() => {
         if (typeof window.onLoginOrRegister === 'function') {
           window.onLoginOrRegister();
         }
       });
     } else {
-      // показываем ошибки под конкретными полями, если поле указано
-      if (result.field) {
-        const field = signinForm.querySelector(`[name="${result.field}"]`);
-        if (field) {
-          const errorEl = field.nextElementSibling;
-          if (errorEl && errorEl.classList.contains('error-message')) {
-            errorEl.textContent = result.message;
-            errorEl.classList.add('active');
-          }
-        } else {
-          // fallback: показываем в первом error-message
-          const firstError = signinForm.querySelector('.error-message');
-          if (firstError) {
-            firstError.textContent = result.message;
-            firstError.classList.add('active');
-          }
-        }
-      } else if (Array.isArray(result.fields) && result.fields.length) {
-        // сервер вернул массив пропущенных полей
+      if (Array.isArray(result.fields) && result.fields.length) {
         result.fields.forEach(fName => {
           const field = signinForm.querySelector(`[name="${fName}"]`);
           if (field) {
-            const errorEl = field.nextElementSibling;
-            if (errorEl && errorEl.classList.contains('error-message')) {
-              errorEl.textContent = 'Это поле обязательно';
-              errorEl.classList.add('active');
+            const errEl = field.parentElement.querySelector('.error-message');
+            if (errEl) {
+              errEl.textContent = result.message || 'This field is required';
+              errEl.classList.add('active');
             }
           }
         });
-      } else if (result.message && /все поля|обязател/i.test(result.message.toLowerCase())) {
-        // если сервер пишет "Все поля обязательны" — пометим все required поля
-        const reqs = signinForm.querySelectorAll('input[required]');
-        reqs.forEach(inp => {
-          const errorEl = inp.nextElementSibling;
-          if (errorEl && errorEl.classList.contains('error-message')) {
-            if (!errorEl.textContent) {
-              errorEl.textContent = 'Это поле обязательно';
-              errorEl.classList.add('active');
-            }
-          }
-        });
-      } else {
-        // универсальный fallback: показать сообщение в ближайшем .error-message под паролем (обычно это логичней)
-        const pwd = signinForm.querySelector('input[name="password"]');
-        if (pwd) {
-          const errorEl = pwd.nextElementSibling;
-          if (errorEl && errorEl.classList.contains('error-message')) {
-            errorEl.textContent = result.message || 'Ошибка входа';
-            errorEl.classList.add('active');
+      } else if (result.field) {
+        const field = signinForm.querySelector(`[name="${result.field}"]`);
+        if (field) {
+          const errEl = field.parentElement.querySelector('.error-message');
+          if (errEl) {
+            errEl.textContent = result.message || 'Invalid value';
+            errEl.classList.add('active');
           }
         } else {
-          const firstError = signinForm.querySelector('.error-message');
-          if (firstError) {
-            firstError.textContent = result.message || 'Ошибка входа';
-            firstError.classList.add('active');
-          }
+          showSubmitMessage(result.message || 'Login failed', 'error');
         }
+      } else if (result.message) {
+        showSubmitMessage(result.message, 'error');
+      } else {
+        showSubmitMessage('Login failed', 'error');
       }
     }
   } catch (err) {
-    console.error(err);
-    const firstError = signinForm.querySelector('.error-message');
-    if (firstError) {
-      firstError.textContent = 'Ошибка сервера. Попробуйте позже.';
-      firstError.classList.add('active');
-    }
+    console.error('Signin request failed:', err);
+    showSubmitMessage('Server error. Try later.', 'error');
   } finally {
+    if (earlyHandled) {
+      return;
+    }
+
     signingIn = false;
-    signinButton.disabled = false;
+    if (signinButton) {
+      signinButton.disabled = false;
+      if (signinButton.dataset.oldText) signinButton.textContent = signinButton.dataset.oldText;
+    }
+
+    if (countdownIntervalId) { clearInterval(countdownIntervalId); countdownIntervalId = null; }
+    if (countdownTimeoutId) { clearTimeout(countdownTimeoutId); countdownTimeoutId = null; }
   }
 });

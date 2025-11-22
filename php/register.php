@@ -13,6 +13,12 @@ $password = trim($_POST['password'] ?? '');
 $confirmPassword = trim($_POST['password_confirm'] ?? '');
 $createdAt = getCzechTime();
 
+if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
+    http_response_code(403);
+    echo json_encode(['success'=>false, 'message'=>'Invalid CSRF token']);
+    exit;
+}
+
 // Проверка обязательных полей
 $missing = [];
 if ($login === '') $missing[] = 'login';
@@ -82,8 +88,8 @@ try {
 
     // ==== Добавляем сессию для нового пользователя ====
     $_SESSION['user_id'] = $userId;
-    $_SESSION['user_email'] = $email;
-    $_SESSION['user_name'] = $login;
+    $_SESSION['user_name'] = htmlspecialchars($login, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $_SESSION['user_email'] = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
     echo json_encode([
         'success' => true,
