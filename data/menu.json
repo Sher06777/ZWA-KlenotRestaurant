@@ -1,7 +1,7 @@
 {
     "Appetizers-and-Salads": [
         {
-            "id": 1.1,
+            "id": "1.1",
             "name": {
                 "eng": "Meat skewers",
                 "cz": "Masové špízy"
@@ -15,7 +15,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/1-Meat-skewers.png"
         },
         {
-            "id": 1.2,
+            "id": "1.2",
             "name": {
                 "eng": "Cucumber salad with cream and walnuts",
                 "cz": "Okurkový salát se smetanou a vlašskými ořechy"
@@ -29,7 +29,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/2-Cucumber-salad-with-cream-and-walnuts.jpeg"
         },
         {
-            "id": 1.3,
+            "id": "1.3",
             "name": {
                 "eng": "Prague salad with chicken",
                 "cz": "Pražský salát s kuřecím masem"
@@ -43,7 +43,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/3-Prague-salad-with-chicken-1.jpg"
         },
         {
-            "id": 1.4,
+            "id": "1.4",
             "name": {
                 "eng": "Egg spread",
                 "cz": "Vaječná pomazánka"
@@ -57,7 +57,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/4-Egg-spread.jpg"
         },
         {
-            "id": 1.5,
+            "id": "1.5",
             "name": {
                 "eng": "Fried cheese",
                 "cz": "Smažený sýr"
@@ -71,7 +71,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/5-Fried-cheese.jpg"
         },
         {
-            "id": 1.6,
+            "id": "1.6",
             "name": {
                 "eng": "Mushroom salad",
                 "cz": "Houbový salát"
@@ -85,7 +85,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/6-Mushroom-salad.png"
         },
         {
-            "id": 1.7,
+            "id": "1.7",
             "name": {
                 "eng": "Retro egg salad according to 1976 standards",
                 "cz": "Retro vaječný salát podle standardů roku 1976"
@@ -99,7 +99,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/7-Retro-egg-salad-according-to-1976-standards.jpg"
         },
         {
-            "id": 1.8,
+            "id": "1.8",
             "name": {
                 "eng": "Potato salad with lambs lettuce and bacon",
                 "cz": "Bramborový salát s hlávkovým salátem a slaninou"
@@ -113,7 +113,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/8-Potato-salad-with-lambs-lettuce-and-bacon.jpg"
         },
         {
-            "id": 1.9,
+            "id": "1.9",
             "name": {
                 "eng": "Zucchini spread with cheese appetizer",
                 "cz": "Cuketová pomazánka se sýrem"
@@ -127,7 +127,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/9-Zucchini-spread-with-cheese-appetizer.jpg"
         },
         {
-            "id": 1.10,
+            "id": "1.10",
             "name": {
                 "eng": "Homemade beer cheese appetizer",
                 "cz": "Domácí pivní sýrový předkrm"
@@ -141,7 +141,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/10-Homemade-beer-cheese-appetizer.jpg"
         },
         {
-            "id": 1.11,
+            "id": "1.11",
             "name": {
                 "eng": "Czech salad with chicken beans and mushrooms appetizer",
                 "cz": "Český salát s kuřetem, fazolemi a houbami"
@@ -155,7 +155,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/11-Czech-salad-with-chicken-beans-and-mushrooms-appetizer.jpg"
         },
         {
-            "id": 1.12,
+            "id": "1.12",
             "name": {
                 "eng": "Seafood",
                 "cz": "Mořské plody"
@@ -169,7 +169,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/12-Seafood.png"
         },
         {
-            "id": 1.13,
+            "id": "1.13",
             "name": {
                 "eng": "Ham spread with pickles and cream cheese appetizer",
                 "cz": "Šunková pomazánka s okurkou a tvarohovým sýrem"
@@ -183,7 +183,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/13-Ham-spread-with-pickles-and-cream-cheese-appetizer-2-obrezala.jpg"
         },
         {
-            "id": 1.14,
+            "id": "1.14",
             "name": {
                 "eng": "Olomouc curd cheese",
                 "cz": "Olomoucký tvarůžek"
@@ -197,7 +197,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/14-Olomouc-curd-cheese.jpg"
         },
         {
-            "id": 1.15,
+            "id": "1.15",
             "name": {
                 "eng": "Salad with smoked duck cranberries and pomegranate caviar",
                 "cz": "Salát s uzenou kachnou, brusinkami a granátovým kaviárem"
@@ -211,7 +211,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/15-Salad-with-smoked-duck-cranberries-and-pomegranate-caviar-4.jpg"
         },
         {
-            "id": 1.16,
+            "id": "1.16",
             "name": {
                 "eng": "Salad with roasted beetroot and goat cheese",
                 "cz": "Salát s pečenou řepou a kozím sýrem"
@@ -225,7 +225,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/16-Salad-with-roasted-beetroot-and-goat-cheese.jpg"
         },
         {
-            "id": 1.17,
+            "id": "1.17",
             "name": {
                 "eng": "Salad with tiger prawns and eggplant",
                 "cz": "Salát s tygřími krevetami a lilkem"
@@ -239,7 +239,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/17-Salad-with-tiger-prawns-and-eggplant.jpg"
         },
         {
-            "id": 1.18,
+            "id": "1.18",
             "name": {
                 "eng": "Steak salad with avocado ricotta and cherry tomatoes",
                 "cz": "Steakový salát s avokádovou ricottou a cherry rajčaty"
@@ -253,7 +253,7 @@
             "image": "img\/menu-img\/Appetizers-and-Salads\/18-Steak-salad-with-avocado-ricotta-and-cherry-tomatoes.jpg"
         },
         {
-            "id": 1.19,
+            "id": "1.19",
             "name": {
                 "eng": "Cat Soup",
                 "cz": "Kočičí Polévka"
@@ -265,11 +265,53 @@
             "price": "100 CZK",
             "weight": "250",
             "image": "img\/menu-img\/Appetizers-and-Salads\/20-Cat-Soup.jpg"
+        },
+        {
+            "id": "1.20",
+            "name": {
+                "eng": "eng-Kemyar",
+                "cz": "cz-Kemyar"
+            },
+            "description": {
+                "eng": "eng-Kemyareng-Kemyar",
+                "cz": "czczczczcczc"
+            },
+            "price": "123 CZK",
+            "weight": "400g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/20-engKemyar.jpg"
+        },
+        {
+            "id": "1.21",
+            "name": {
+                "eng": "eng-KemyarCZ-KemyarCZ-Kemyar",
+                "cz": "CZ-KemyarCZ-KemyarCZ-Kemyar"
+            },
+            "description": {
+                "eng": "CZ-KemyarCZ-Kemyar",
+                "cz": "CZ-KemyarCZ-KemyarCZ-Kemyar"
+            },
+            "price": "123 CZK",
+            "weight": "400g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/21-eng-kemyarcz-kemyarcz-kemyar.jpg"
+        },
+        {
+            "id": "1.22",
+            "name": {
+                "eng": "CZ-KemyarCZ-KemyarCZ-KemyarCZ-KemyarCZ-Kemyar",
+                "cz": "MáriaržCZ-KemyarCZ-KemyarCZ-Kemyar"
+            },
+            "description": {
+                "eng": "CZ-KemyarCZ-KemyarCZ-Kemyar",
+                "cz": "CZ-KemyarCZ-Kemyar"
+            },
+            "price": "435 CZK",
+            "weight": "450g",
+            "image": "img\/menu-img\/Appetizers-and-Salads\/22-cz-kemyarcz-kemyarcz-kemyarcz-kemyarcz-kemyar.jpg"
         }
     ],
     "Soups": [
         {
-            "id": 2.1,
+            "id": "2.1",
             "name": {
                 "eng": "Garlic soup",
                 "cz": "Česneková polévka"
@@ -283,7 +325,7 @@
             "image": "img\/menu-img\/Soups\/1-Garlic-soup.jpg"
         },
         {
-            "id": 2.2,
+            "id": "2.2",
             "name": {
                 "eng": "Goulash soup",
                 "cz": "Gulášová polévka"
@@ -297,7 +339,7 @@
             "image": "img\/menu-img\/Soups\/2-Goulash-soup.jpg"
         },
         {
-            "id": 2.3,
+            "id": "2.3",
             "name": {
                 "eng": "Krkonoše sour soup Kyselo",
                 "cz": "Krkonošské kyselo"
@@ -311,7 +353,7 @@
             "image": "img\/menu-img\/Soups\/3-Krkonoše-sour-soup-Kyselo.jpg"
         },
         {
-            "id": 2.4,
+            "id": "2.4",
             "name": {
                 "eng": "Thick soup made of sauerkraut Zelnacka",
                 "cz": "Zelná polévka Zelnáčka"
@@ -325,7 +367,7 @@
             "image": "img\/menu-img\/Soups\/4-Thick-soup-made-of-sauerkraut-Zelnacka.jpg"
         },
         {
-            "id": 2.5,
+            "id": "2.5",
             "name": {
                 "eng": "Czech potato soup with mushrooms",
                 "cz": "Bramboračka s houbami"
@@ -339,7 +381,7 @@
             "image": "img\/menu-img\/Soups\/5-Czech-potato-soup-with-mushrooms.jpeg"
         },
         {
-            "id": 2.6,
+            "id": "2.6",
             "name": {
                 "eng": "Czech bread soup Celestina",
                 "cz": "Chlebová polévka Celestina"
@@ -353,7 +395,7 @@
             "image": "img\/menu-img\/Soups\/6-Czech-bread-soup-Celestina.jpg"
         },
         {
-            "id": 2.7,
+            "id": "2.7",
             "name": {
                 "eng": "Old Bohemian duck soup Kaldoun",
                 "cz": "Starobohémská kachní polévka Kaldoun"
@@ -367,7 +409,7 @@
             "image": "img\/menu-img\/Soups\/7-Old-Bohemian-duck-soup-Kaldoun.jpg"
         },
         {
-            "id": 2.8,
+            "id": "2.8",
             "name": {
                 "eng": "South Bohemian soup with mushrooms, potatoes, vinegar and dill Kulajda",
                 "cz": "Jihočeská kulajda s houbami, bramborami, octem a koprem"
@@ -381,7 +423,7 @@
             "image": "img\/menu-img\/Soups\/8-South-Bohemian-soup-with-mushrooms-potatoes-vinegar-and-dill-Kulajda.jpg"
         },
         {
-            "id": 2.9,
+            "id": "2.9",
             "name": {
                 "eng": "Smoked soup with roasted semolina",
                 "cz": "Uzená polévka s praženou krupicí"
@@ -395,7 +437,7 @@
             "image": "img\/menu-img\/Soups\/9-Smoked-soup-with-roasted-semolina.jpg"
         },
         {
-            "id": 2.10,
+            "id": "2.10",
             "name": {
                 "eng": "Bean soup with smoked pork knuckle",
                 "cz": "Fazolová polévka s uzeným kolenem"
@@ -409,7 +451,7 @@
             "image": "img\/menu-img\/Soups\/10-Bean-soup-with-smoked-pork-knuckle.jpg"
         },
         {
-            "id": 2.11,
+            "id": "2.11",
             "name": {
                 "eng": "Pea soup with leek",
                 "cz": "Hrášková polévka s pórkem"
@@ -423,7 +465,7 @@
             "image": "img\/menu-img\/Soups\/11-Pea-soup-with-leek-2.jpg"
         },
         {
-            "id": 2.12,
+            "id": "2.12",
             "name": {
                 "eng": "Seafood soup",
                 "cz": "Mořská polévka"
@@ -437,7 +479,7 @@
             "image": "img\/menu-img\/Soups\/12-Seafood-soup.png"
         },
         {
-            "id": 2.13,
+            "id": "2.13",
             "name": {
                 "eng": "Bean soup",
                 "cz": "Fazolová polévka"
@@ -451,7 +493,7 @@
             "image": "img\/menu-img\/Soups\/13-Bean-soup.jpg"
         },
         {
-            "id": 2.14,
+            "id": "2.14",
             "name": {
                 "eng": "Finnish fish soup with salmon and seafood",
                 "cz": "Finská rybí polévka s lososem a mořskými plody"
@@ -465,7 +507,7 @@
             "image": "img\/menu-img\/Soups\/14-Finnish-fish-soup-with-salmon-and-seafood.png"
         },
         {
-            "id": 2.15,
+            "id": "2.15",
             "name": {
                 "eng": "Borscht with pampushky",
                 "cz": "Boršč s pampuškami"
@@ -479,7 +521,7 @@
             "image": "img\/menu-img\/Soups\/15-Borscht-with-pampushky.png"
         },
         {
-            "id": 2.16,
+            "id": "2.16",
             "name": {
                 "eng": "Cream soup of broccoli and spinach",
                 "cz": "Krémová polévka z brokolice a špenátu"
@@ -491,11 +533,25 @@
             "price": "285 CZK",
             "weight": "320g",
             "image": "img\/menu-img\/Soups\/16-Cream-soup-of-broccoli-and-spinach.png"
+        },
+        {
+            "id": "2.17",
+            "name": {
+                "eng": "eng-Keevdsvmyar regf",
+                "cz": "cz-Kemsdvsdyar"
+            },
+            "description": {
+                "eng": "eng-Kemyareng-Kemyar",
+                "cz": "cz-Kemyarcz-Kesdvcz-Kemyarmyarcz-Kemyar"
+            },
+            "price": "123 CZK",
+            "weight": "450g",
+            "image": ".\/img\/menu-img\/Soups\/17-eng-keevdsvmyar-regf.png"
         }
     ],
     "Sides-Dishes": [
         {
-            "id": 3.1,
+            "id": "3.1",
             "name": {
                 "eng": "Potato pancakes in Czech style",
                 "cz": "Bramboráky po česku"
@@ -509,7 +565,7 @@
             "image": "img\/menu-img\/Side-Dishes\/1-Potato-pancakes-in-Czech-style.jpeg"
         },
         {
-            "id": 3.2,
+            "id": "3.2",
             "name": {
                 "eng": "Czech dumplings",
                 "cz": "České knedlíky"
@@ -523,7 +579,7 @@
             "image": "img\/menu-img\/Side-Dishes\/2-Czech-dumplings.jpg"
         },
         {
-            "id": 3.3,
+            "id": "3.3",
             "name": {
                 "eng": "Old Bohemian barley kuba with dried mushrooms",
                 "cz": "Starobohémský ječný kuba se sušenými houbami"
@@ -537,7 +593,7 @@
             "image": "img\/menu-img\/Side-Dishes\/3-Old-Bohemian-barley-kuba-with-dried-mushrooms.jpg"
         },
         {
-            "id": 3.4,
+            "id": "3.4",
             "name": {
                 "eng": "Bulgur",
                 "cz": "Bulgur"
@@ -551,7 +607,7 @@
             "image": "img\/menu-img\/Side-Dishes\/4-Bulgur.jpg"
         },
         {
-            "id": 3.5,
+            "id": "3.5",
             "name": {
                 "eng": "Grilled vegetables",
                 "cz": "Grilovaná zelenina"
@@ -565,7 +621,7 @@
             "image": "img\/menu-img\/Side-Dishes\/5-Grilled-vegetables.jpg"
         },
         {
-            "id": 3.6,
+            "id": "3.6",
             "name": {
                 "eng": "French fries",
                 "cz": "Hranolky"
@@ -579,7 +635,7 @@
             "image": "img\/menu-img\/Side-Dishes\/6-French-fries.jpg"
         },
         {
-            "id": 3.7,
+            "id": "3.7",
             "name": {
                 "eng": "Sweet potato fries",
                 "cz": "Hranolky ze sladkých brambor"
@@ -593,7 +649,7 @@
             "image": "img\/menu-img\/Side-Dishes\/7-Sweet-potato-fries.png"
         },
         {
-            "id": 3.8,
+            "id": "3.8",
             "name": {
                 "eng": "Potatoes baked in salt on coals",
                 "cz": "Brambory pečené v soli na uhlí"
@@ -607,7 +663,7 @@
             "image": "img\/menu-img\/Side-Dishes\/8-Potatoes-baked-in-salt-on-coals.png"
         },
         {
-            "id": 3.9,
+            "id": "3.9",
             "name": {
                 "eng": "Grilled vegetables",
                 "cz": "Grilovaná zelenina s bylinkami"
@@ -621,7 +677,7 @@
             "image": "img\/menu-img\/Side-Dishes\/9-Grilled-vegetables.png"
         },
         {
-            "id": 3.10,
+            "id": "3.10",
             "name": {
                 "eng": "Asparagus with broccoli in cream sauce with bacon",
                 "cz": "Chřest s brokolicí v krémové omáčce s baconem"
@@ -635,7 +691,7 @@
             "image": "img\/menu-img\/Side-Dishes\/10-Asparagus-with-broccoli-in-cream-sauce-with-bacon.jpeg"
         },
         {
-            "id": 3.11,
+            "id": "3.11",
             "name": {
                 "eng": "Spinach with garlic and parmesan",
                 "cz": "Špenát s česnekem a parmazánem"
@@ -649,7 +705,7 @@
             "image": "img\/menu-img\/Side-Dishes\/11-Spinach-with-garlic-and-parmesan-1.png"
         },
         {
-            "id": 3.12,
+            "id": "3.12",
             "name": {
                 "eng": "Pasta",
                 "cz": "Těstoviny"
@@ -665,7 +721,7 @@
     ],
     "Main-Courses": [
         {
-            "id": 4.1,
+            "id": "4.1",
             "name": {
                 "eng": "Pork knuckle",
                 "cz": "Vepřové koleno"
@@ -679,7 +735,7 @@
             "image": "img\/menu-img\/Main-Courses\/1-Pork-knuckle.jpg"
         },
         {
-            "id": 4.2,
+            "id": "4.2",
             "name": {
                 "eng": "Beef sirloin in cream sauce",
                 "cz": "Hovězí svíčková na smetaně"
@@ -693,7 +749,7 @@
             "image": "img\/menu-img\/Main-Courses\/2-Beef-sirloin-in-cream-sauce.jpg"
         },
         {
-            "id": 4.3,
+            "id": "4.3",
             "name": {
                 "eng": "Steak tartare",
                 "cz": "Tatarský biftek"
@@ -707,7 +763,7 @@
             "image": "img\/menu-img\/Main-Courses\/3-Steak-tartare.jpg"
         },
         {
-            "id": 4.4,
+            "id": "4.4",
             "name": {
                 "eng": "Homemade meat aspic",
                 "cz": "Domácí masová aspik"
@@ -721,7 +777,7 @@
             "image": "img\/menu-img\/Main-Courses\/4-Homemade-beer-cheese-appetizer-1.jpg"
         },
         {
-            "id": 4.5,
+            "id": "4.5",
             "name": {
                 "eng": "Szegedin pork goulash with sauerkraut",
                 "cz": "Segedínský vepřový guláš s kysaným zelím"
@@ -735,7 +791,7 @@
             "image": "img\/menu-img\/Main-Courses\/5-Szegedin-pork-goulash-with-sauerkraut.jpg"
         },
         {
-            "id": 4.6,
+            "id": "4.6",
             "name": {
                 "eng": "Roasted duck",
                 "cz": "Pečená kachna"
@@ -749,7 +805,7 @@
             "image": "img\/menu-img\/Main-Courses\/6-Roasted-duck.jpg"
         },
         {
-            "id": 4.7,
+            "id": "4.7",
             "name": {
                 "eng": "Chicken wings",
                 "cz": "Kuřecí křídla"
@@ -763,7 +819,7 @@
             "image": "img\/menu-img\/Main-Courses\/7-Chicken-wings.jpg"
         },
         {
-            "id": 4.8,
+            "id": "4.8",
             "name": {
                 "eng": "Quail schnitzel with quince chutney",
                 "cz": "Srnčí řízek z křepelky s chutney z kdoule"
@@ -777,7 +833,7 @@
             "image": "img\/menu-img\/Main-Courses\/8-Quail-schnitzel-with-quince-chutney.png"
         },
         {
-            "id": 4.9,
+            "id": "4.9",
             "name": {
                 "eng": "Pork knuckle with coleslaw",
                 "cz": "Vepřové koleno s coleslawem"
@@ -791,7 +847,7 @@
             "image": "img\/menu-img\/Main-Courses\/9-Pork-knuckle-with-coleslaw.png"
         },
         {
-            "id": 4.10,
+            "id": "4.10",
             "name": {
                 "eng": "Pork belly with miso caramel and Borodinsky mayonnaise",
                 "cz": "Vepřové břicho s miso karamelem a borodinskou majonézou"
@@ -805,7 +861,7 @@
             "image": "img\/menu-img\/Main-Courses\/10-Pork-belly-with-miso-caramel-and-Borodinsky-mayonnaise.png"
         },
         {
-            "id": 4.11,
+            "id": "4.11",
             "name": {
                 "eng": "Buffalo chicken wings",
                 "cz": "Buffalo kuřecí křídla"
@@ -819,7 +875,7 @@
             "image": "img\/menu-img\/Main-Courses\/11-Buffalo-chicken-wings.png"
         },
         {
-            "id": 4.12,
+            "id": "4.12",
             "name": {
                 "eng": "Duck leg confit with mashed potatoes and Noilly Prat sauce",
                 "cz": "Konfitované kachní stehno s bramborovou kaší a omáčkou Noilly Prat"
@@ -833,7 +889,7 @@
             "image": "img\/menu-img\/Main-Courses\/12-Duck-leg-confit-with-mashed-potatoes-and-Noilly-Prat-sauce.png"
         },
         {
-            "id": 4.13,
+            "id": "4.13",
             "name": {
                 "eng": "Chicken lyulya kebab with tahini and eggplant",
                 "cz": "Kuřecí lula kebab s tahini a lilkem"
@@ -847,7 +903,7 @@
             "image": "img\/menu-img\/Main-Courses\/13-Chicken-lyulya-kebab-with-tahini-and-eggplant.png"
         },
         {
-            "id": 4.14,
+            "id": "4.14",
             "name": {
                 "eng": "Duck breast with asparagus Brussels sprouts and date puree",
                 "cz": "Kachní prso s chřestem, růžičkovou kapustou a datlovým pyré"
@@ -861,7 +917,7 @@
             "image": "img\/menu-img\/Main-Courses\/14-Duck-breast-with-asparagus-Brussels-sprouts-and-date-puree.png"
         },
         {
-            "id": 4.15,
+            "id": "4.15",
             "name": {
                 "eng": "New Zealand lamb rack with fig sauce and broccoli",
                 "cz": "Jehněčí hřbet z Nového Zélandu s fíkovou omáčkou a brokolicí"
@@ -875,7 +931,7 @@
             "image": "img\/menu-img\/Main-Courses\/15-New-Zealand-lamb-rack-with-fig-sauce-and-broccoli.png"
         },
         {
-            "id": 4.16,
+            "id": "4.16",
             "name": {
                 "eng": "New Zealand lamb shank braised in red wine with mashed potatoes",
                 "cz": "Jehněčí kýta z Nového Zélandu dušená v červeném víně s bramborovou kaší"
@@ -889,7 +945,7 @@
             "image": "img\/menu-img\/Main-Courses\/16-New-Zealand-lamb-shank-braised-in-red-wine-with-mashed-potatoes.png"
         },
         {
-            "id": 4.17,
+            "id": "4.17",
             "name": {
                 "eng": "Pork ribs BBQ",
                 "cz": "Vepřová žebírka BBQ"
@@ -903,7 +959,7 @@
             "image": "img\/menu-img\/Main-Courses\/17-Pork-ribs-BBQ.png"
         },
         {
-            "id": 4.18,
+            "id": "4.18",
             "name": {
                 "eng": "Chicken schnitzel with cranberry sauce",
                 "cz": "Kuřecí řízek s brusinkovou omáčkou"
@@ -917,7 +973,7 @@
             "image": "img\/menu-img\/Main-Courses\/18-Chicken-schnitzel-with-cranberry-sauce.png"
         },
         {
-            "id": 4.19,
+            "id": "4.19",
             "name": {
                 "eng": "Beef burger on homemade brioche bun",
                 "cz": "Hovězí burger na domácí brioche žemli"
@@ -931,7 +987,7 @@
             "image": "img\/menu-img\/Main-Courses\/19-Beef-burger-on-homemade-brioche-bun.png"
         },
         {
-            "id": 4.20,
+            "id": "4.20",
             "name": {
                 "eng": "Meat set No1",
                 "cz": "Masová sada č.1"
@@ -945,7 +1001,7 @@
             "image": "img\/menu-img\/Main-Courses\/20-Meat-set-No1.png"
         },
         {
-            "id": 4.21,
+            "id": "4.21",
             "name": {
                 "eng": "Meat set No2",
                 "cz": "Masová sada č.2"
@@ -961,7 +1017,7 @@
     ],
     "Fish-and-Seafood": [
         {
-            "id": 5.1,
+            "id": "5.1",
             "name": {
                 "eng": "Octopus baked on coals with vegetables",
                 "cz": "Chobotnice pečená na uhlí se zeleninou"
@@ -975,7 +1031,7 @@
             "image": "img\/menu-img\/Fish-and-Seafood\/1-Octopus-baked-on-coals-with-vegetables.png"
         },
         {
-            "id": 5.2,
+            "id": "5.2",
             "name": {
                 "eng": "Dorado fillet with spinach and lemon sauce",
                 "cz": "Filé z dorády se špenátem a citronovou omáčkou"
@@ -989,7 +1045,7 @@
             "image": "img\/menu-img\/Fish-and-Seafood\/2-Dorado-fillet-with-spinach-and-lemon-sauce.png"
         },
         {
-            "id": 5.3,
+            "id": "5.3",
             "name": {
                 "eng": "Salmon fillet with asparagus and broccoli puree",
                 "cz": "Filé z lososa s chřestem a brokolicovým pyré"
@@ -1003,7 +1059,7 @@
             "image": "img\/menu-img\/Fish-and-Seafood\/3-Salmon-fillet-with-asparagus-and-broccoli-puree.png"
         },
         {
-            "id": 5.4,
+            "id": "5.4",
             "name": {
                 "eng": "Mussels in garlic sauce",
                 "cz": "Slávky v česnekové omáčce"
@@ -1019,7 +1075,7 @@
     ],
     "Desserts": [
         {
-            "id": 6.1,
+            "id": "6.1",
             "name": {
                 "eng": "Karlovy Vary wafers",
                 "cz": "Karlovarské oplatky"
@@ -1033,7 +1089,7 @@
             "image": "img\/menu-img\/Desserts\/1-Karlovy-Vary-waffles-dessert.jpg"
         },
         {
-            "id": 6.2,
+            "id": "6.2",
             "name": {
                 "eng": "Bread pudding with apples and bananas",
                 "cz": "Zemlovka s jablky a banány"
@@ -1047,7 +1103,7 @@
             "image": "img\/menu-img\/Desserts\/2-Bread-pudding-with-apples-and-bananas-dessert.jpg"
         },
         {
-            "id": 6.3,
+            "id": "6.3",
             "name": {
                 "eng": "Trdelník",
                 "cz": "Trdelník"
@@ -1061,7 +1117,7 @@
             "image": "img\/menu-img\/Desserts\/3-Trdelnik.jpg"
         },
         {
-            "id": 6.4,
+            "id": "6.4",
             "name": {
                 "eng": "Wholegrain bundt cake with carrots and walnuts",
                 "cz": "Celozrnná bábovka s mrkví a ořechy"
@@ -1075,7 +1131,7 @@
             "image": "img\/menu-img\/Desserts\/4-Wholegrain-bundt-cake-with-carrots-and-walnuts.jpg"
         },
         {
-            "id": 6.5,
+            "id": "6.5",
             "name": {
                 "eng": "Sweet buns with vanilla custard",
                 "cz": "Sladké housky se šodó"
@@ -1089,7 +1145,7 @@
             "image": "img\/menu-img\/Desserts\/5-Sweet-buns-with-vanilla-custard-from-Mysak-Pastry-Shop.jpg"
         },
         {
-            "id": 6.6,
+            "id": "6.6",
             "name": {
                 "eng": "Homemade mole cake with curd and mascarpone",
                 "cz": "Domácí dort „Kopček“ s tvarohem a mascarpone"
@@ -1103,7 +1159,7 @@
             "image": "img\/menu-img\/Desserts\/6-Homemade-mole-cake-with-curd-and-mascarpone.webp"
         },
         {
-            "id": 6.7,
+            "id": "6.7",
             "name": {
                 "eng": "Poppy seed cake with cherries",
                 "cz": "Makovec s třešněmi"
@@ -1117,7 +1173,7 @@
             "image": "img\/menu-img\/Desserts\/7-Poppy-seed-cake-with-cherries.png"
         },
         {
-            "id": 6.8,
+            "id": "6.8",
             "name": {
                 "eng": "Punch cake",
                 "cz": "Punčový dort"
@@ -1131,7 +1187,7 @@
             "image": "img\/menu-img\/Desserts\/8-Punch-cake.png"
         },
         {
-            "id": 6.9,
+            "id": "6.9",
             "name": {
                 "eng": "Curd bundt cake with lemon glaze and blackberries",
                 "cz": "Tvarohová bábovka s citronovou polevou a ostružinami"
@@ -1145,7 +1201,7 @@
             "image": "img\/menu-img\/Desserts\/9-Curd-bundt-cake-with-lemon-glaze-and-blackberries.jpg"
         },
         {
-            "id": 6.10,
+            "id": "6.10",
             "name": {
                 "eng": "Wallachian pear frgál from spelt flour with star anise",
                 "cz": "Valašský hruškový frgál ze špaldové mouky s badyánem"
@@ -1159,7 +1215,7 @@
             "image": "img\/menu-img\/Desserts\/10-Wallachian-pear-frgal-from-spelt-flour-with-star-anise.png"
         },
         {
-            "id": 6.11,
+            "id": "6.11",
             "name": {
                 "eng": "Mariarz",
                 "cz": "Máriarž"
@@ -1175,7 +1231,7 @@
     ],
     "Soft-Drinks": [
         {
-            "id": 7.1,
+            "id": "7.1",
             "name": {
                 "eng": "Coca-Cola 0.25",
                 "cz": "Coca-Cola 0.25"
@@ -1189,7 +1245,7 @@
             "image": "img\/menu-img\/Drinks\/Soft-drinks\/1-Coca-Cola-0.25.jpeg"
         },
         {
-            "id": 7.2,
+            "id": "7.2",
             "name": {
                 "eng": "Coca-Cola Zero 0.25",
                 "cz": "Coca-Cola Zero 0.25"
@@ -1203,7 +1259,7 @@
             "image": "img\/menu-img\/Drinks\/Soft-drinks\/2-Coca-Cola-Zero-Sugar-0.25.jpeg"
         },
         {
-            "id": 7.3,
+            "id": "7.3",
             "name": {
                 "eng": "Perier",
                 "cz": "Perier"
@@ -1217,7 +1273,7 @@
             "image": "img\/menu-img\/Drinks\/Soft-drinks\/3-Perrier-210-207.jpg"
         },
         {
-            "id": 7.4,
+            "id": "7.4",
             "name": {
                 "eng": "Tea",
                 "cz": "Čaj"
@@ -1231,7 +1287,7 @@
             "image": "img\/menu-img\/Drinks\/Soft-drinks\/4-Tea-1-207-210.jpg"
         },
         {
-            "id": 7.5,
+            "id": "7.5",
             "name": {
                 "eng": "Mojito",
                 "cz": "Mohito"
@@ -1245,7 +1301,7 @@
             "image": "img\/menu-img\/Drinks\/Soft-drinks\/5-mohito.jpg"
         },
         {
-            "id": 7.6,
+            "id": "7.6",
             "name": {
                 "eng": "Juice",
                 "cz": "Džus"
@@ -1259,7 +1315,7 @@
             "image": "img\/menu-img\/Drinks\/Soft-drinks\/6-dzus.jpg"
         },
         {
-            "id": 7.7,
+            "id": "7.7",
             "name": {
                 "eng": "Fanta",
                 "cz": "Fanta"
@@ -1273,7 +1329,7 @@
             "image": "img\/menu-img\/Drinks\/Soft-drinks\/7-fanta.webp"
         },
         {
-            "id": 7.8,
+            "id": "7.8",
             "name": {
                 "eng": "Matcha-Mango",
                 "cz": "Matča-mango"
@@ -1287,7 +1343,7 @@
             "image": "img\/menu-img\/Drinks\/Soft-drinks\/8-matcha-mango.jpg"
         },
         {
-            "id": 7.9,
+            "id": "7.9",
             "name": {
                 "eng": "Aperol-Spritz",
                 "cz": "Aperol-Spritz"
@@ -1303,7 +1359,7 @@
     ],
     "Alcoholic-Beverages": [
         {
-            "id": 8.1,
+            "id": "8.1",
             "name": {
                 "eng": "Becherovka",
                 "cz": "Becherovka"
@@ -1317,7 +1373,7 @@
             "image": "img\/menu-img\/Drinks\/Alcoholic-Beverages\/1-Becherovka-1-1.jpg"
         },
         {
-            "id": 8.2,
+            "id": "8.2",
             "name": {
                 "eng": "Slivovice",
                 "cz": "Slivovice"
@@ -1331,7 +1387,7 @@
             "image": "img\/menu-img\/Drinks\/Alcoholic-Beverages\/2-Slivovice-4.jpg"
         },
         {
-            "id": 8.3,
+            "id": "8.3",
             "name": {
                 "eng": "Mead",
                 "cz": "Medovina"
@@ -1345,7 +1401,7 @@
             "image": "img\/menu-img\/Drinks\/Alcoholic-Beverages\/3-Mead-3.jpg"
         },
         {
-            "id": 8.4,
+            "id": "8.4",
             "name": {
                 "eng": "Beer",
                 "cz": "České pivo"

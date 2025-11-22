@@ -147,6 +147,13 @@ function set3DMenuInvisible(value) {
 document.addEventListener('DOMContentLoaded', async () => {
   const logoutButton = document.querySelector('.logout-account-btn');
   // Начальное состояние: главная страница
+
+  if (window.CSRFManager) {
+    window.CSRFManager.init().catch(err => {
+      console.warn('CSRFManager init failed in switch-visibility:', err);
+    });
+  }
+
   fadeIn(mainContent);
   [menuSection, gallerySection, formMain, loginFormSection, personalAccount, reservationSection].forEach(makeInvisible);
 
@@ -231,17 +238,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (data.loggedIn && data.user) {
       const user = { name: data.user.name || '', email: data.user.email || '' };
-      window.user = user; 
-      initPersonalAccount(user); 
+      window.user = user;
+      initPersonalAccount(user);
       setLoggedIn(true);
 
-      // Обновляем текст кнопки сразу
       await updateLoginLabel();
-
-      // --- Всегда показываем главную страницу после перезагрузки ---
-      showSection(mainContent); 
-
-      // Добавляем флаг, что автоматический вход уже обработан
+      showSection(mainContent);
       window._autoLoginDone = true;
     }
   } catch (err) {
@@ -254,38 +256,45 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (!confirm('Do you really want to log out of your account?')) return;
 
-      // обязательно: credentials чтобы передать cookie сессии
       try {
-        const resp = await fetch('./php/logout.php', {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-Token': window.csrfToken || '' //def CSRF (Cross-Site Request Forgery) - attack
-          },
-          body: JSON.stringify({ csrf_token: window.csrfToken || '' }) //def CSRF (Cross-Site Request Forgery) - attack
-        });
+        // подготовим тело с csrf через менеджер
+        const bodyObj = window.CSRFManager ? window.CSRFManager.appendToJson({}) : {};
 
-        // если сервер вернул 403, покажем текст ответа для диагностики
+        // используем fetchWithCsrf, он добавит X-CSRF-Token автоматически
+        const resp = await (window.CSRFManager
+          ? window.CSRFManager.fetchWithCsrf('./php/logout.php', {
+              method: 'POST',
+              credentials: 'include',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(bodyObj)
+            })
+          : fetch('./php/logout.php', {
+              method: 'POST',
+              credentials: 'include',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(bodyObj)
+            }));
+
         if (!resp.ok) {
-          const text = await resp.text();
+          const text = await resp.text().catch(()=> '');
           console.error('Logout failed, status', resp.status, text);
           alert('Ошибка при выходе: сервер вернул ' + resp.status);
           return;
         }
 
-        const data = await resp.json();
+        const data = await resp.json().catch(()=>({ success: false }));
 
         if (data.success) {
-          console.log('✅The user has successfully logged out');
-
+          if (window.CSRFManager?.refresh) {
+            await window.CSRFManager.refresh();
+            console.log("🔄 Новый CSRF-токен получен после выхода");
+          }
           try { localStorage.clear(); sessionStorage.clear(); } catch (e) { console.warn(e); }
           if (typeof window.setLoggedIn === 'function') window.setLoggedIn(false);
           const loginText = document.querySelector('.login-text');
           if (loginText) {
             await updateLoginLabel();
           }
-
           window.location.reload();
         } else {
           alert('Ошибка при выходе: ' + (data.error || data.message || 'Попробуйте снова.'));

@@ -24,8 +24,8 @@ try {
 
     $users = [];
     while ($row = $result->fetch_assoc()) {
-        $row['name'] = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
-        $row['email'] = htmlspecialchars($row['email'], ENT_QUOTES, 'UTF-8');
+        $row['name'] = htmlspecialchars($row['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        $row['email'] = htmlspecialchars($row['email'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         $users[] = $row;
     }
 

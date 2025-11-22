@@ -1,22 +1,22 @@
-// menu.js — устойчивая версия для SPA + i18n
-let menuData = {};         // загруженные данные из data/menu.json
-let currentFilter = 'all'; // текущее правило фильтрации (ключ JSON или 'all')
-let currentLang = 'eng';   // текущий язык (используется как ключ в name/description)
+// menu.safe.js — безопасная версия menu.js для SPA + i18n
 
+let menuData = {};
+let currentFilter = 'all';
+let currentLang = 'eng';
+window.MenuStorage = { data: {} };
+
+// Helpers
 function normKey(s) {
   if (!s && s !== 0) return '';
   return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
 }
-
 function pickLocalizedText(field, lang) {
   if (field == null) return '';
   if (typeof field === 'object') {
-    // поддерживаем варианты: eng/cz
     return field[lang] || field.eng || field.cz || Object.values(field)[0] || '';
   }
   return String(field);
 }
-
 function pickLanguageFromI18n() {
   if (window.i18n && typeof window.i18n.getLang === 'function') {
     const raw = window.i18n.getLang();
@@ -24,46 +24,60 @@ function pickLanguageFromI18n() {
     const k = raw.toLowerCase();
     if (k === 'en') return 'eng';
     if (k === 'cz') return 'cz';
-    return raw; // e.g. 'eng'
+    return raw;
   }
   return currentLang || 'eng';
 }
 
-/**
- * Загрузка меню (глобально видимая функция)
- */
-async function loadMenu() {
+// Safety: sanitize image src to avoid javascript: URIs, allow same-origin & http/https
+function sanitizeImageSrc(src) {
+  if (!src) return '';
+  try {
+    // Use document.baseURI (includes any base path like /~achilkem/)
+    const base = (typeof document !== 'undefined' && document.baseURI) ? document.baseURI : window.location.href;
+    const url = new URL(src, base);
+
+    // Only allow http/https and same origin (or same-host path)
+    const protocol = url.protocol;
+    if ((protocol === 'http:' || protocol === 'https:')) {
+      // Accept same-origin or paths that resolve under the same host
+      if (url.origin === location.origin) {
+        return url.href;
+      }
+      // Optional: allow same-host with different origin (rare) — skip for security
+    }
+  } catch (e) {
+    // invalid URL -> return empty
+  }
+  return '';
+}
+
+// Init / load
+async function initMenu() {
   try {
     const res = await fetch('data/menu.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error('Ошибка загрузки menu.json: ' + res.status);
+    if (!res.ok) throw new Error('Failed to load menu.json');
     menuData = await res.json();
-
-    // Получаем текущий язык из i18n если есть
+    window.MenuStorage.data = menuData;
     currentLang = pickLanguageFromI18n();
-
-    // Рендерим (если currentFilter установлен — он сохранится)
     renderMenu(menuData, currentLang, currentFilter);
-
-    // Настраиваем обработчики кнопок (один раз; безопасно вызвать несколько раз)
-    setupMenuFilters();
+    setupMenuFilters(); // safe to call
   } catch (err) {
-    console.error('menu.js: loadMenu error', err);
+    console.error('menu.js initMenu error:', err);
   }
 }
 
-/**
- * Рендер меню
- * data — объект вида { "Category Name": [items], ... }
- * lang — 'eng' / 'cz' и т.д.
- * filter — 'all' или конкретный ключ (логика сравнения нормализует)
- */
+document.addEventListener('DOMContentLoaded', initMenu);
+
+// renderMenu — безопасно вставляет данные в DOM (textContent, sanitized src)
 function renderMenu(data, lang = 'eng', filter = 'all') {
   const container = document.querySelector('.menu-items');
   if (!container) {
     console.error('menu.js: .menu-items container not found');
     return;
   }
-  container.innerHTML = '';
+  // clear container safely
+  while (container.firstChild) container.removeChild(container.firstChild);
 
   const template = document.getElementById('menu-item-template');
   if (!template) {
@@ -73,15 +87,10 @@ function renderMenu(data, lang = 'eng', filter = 'all') {
 
   const wantedNorm = filter === 'all' ? null : normKey(filter);
 
-  Object.entries(data).forEach(([categoryKey, items]) => {
-    const categoryNorm = normKey(categoryKey);
-
-    if (wantedNorm && categoryNorm !== wantedNorm) {
-      // не та категория
-      return;
-    }
-
+  Object.entries(data || {}).forEach(([categoryKey, items]) => {
     if (!Array.isArray(items)) return;
+    const categoryNorm = normKey(categoryKey);
+    if (wantedNorm && categoryNorm !== wantedNorm) return;
 
     items.forEach(item => {
       const clone = template.content.cloneNode(true);
@@ -95,43 +104,43 @@ function renderMenu(data, lang = 'eng', filter = 'all') {
       if (article) article.dataset.category = categoryKey;
 
       if (img) {
-        img.src = item.image || '';
-        img.alt = pickLocalizedText(item.name || item.title || '', lang) || '';
+        const safeSrc = sanitizeImageSrc(item.image || '');
+        if (safeSrc) {
+          img.setAttribute('src', safeSrc);
+        } else {
+          img.removeAttribute('src');
+        }
+        img.setAttribute('alt', pickLocalizedText(item.name || item.title || '', lang) || '');
       }
       if (titleEl) titleEl.textContent = pickLocalizedText(item.name || item.title || '', lang);
       if (descEl) descEl.textContent = pickLocalizedText(item.description || item.desc || '', lang);
-      if (priceEl) priceEl.textContent = item.price || '';
-      if (weightEl) weightEl.textContent = item.weight || '';
+      if (priceEl) priceEl.textContent = String(item.price || '');
+      if (weightEl) weightEl.textContent = String(item.weight || '');
 
       container.appendChild(clone);
     });
   });
 }
 
-/**
- * Установка обработчиков фильтрующих кнопок
- * — кнопки должны иметь data-filter
- * — data-filter может быть коротким alias (salads/mains) или точным ключом JSON
- */
+// Filters: safe wiring
 function setupMenuFilters() {
   const buttons = Array.from(document.querySelectorAll('.menu-button'));
   if (!buttons.length) return;
 
-  // если currentFilter === 'all' — попробуем найти кнопку active, иначе синхронизируем UI
   const activeBtn = buttons.find(b => b.classList.contains('active'));
   if (activeBtn) {
-    const raw = (activeBtn.dataset.filter || 'all').toLowerCase();
-    currentFilter = mapFilterToCategory(raw);
+    currentFilter = mapFilterToCategory((activeBtn.dataset.filter || 'all').toLowerCase());
   } else {
-    // если нет активной кнопки — пометим первую как active
     buttons.forEach((b, i) => b.classList.toggle('active', i === 0));
     currentFilter = mapFilterToCategory((buttons[0] && buttons[0].dataset.filter) || 'all');
   }
 
-  // подписка на клики
+  // replace nodes to remove previous listeners safely
   buttons.forEach(btn => {
-    const newBtn = btn.cloneNode(true);
-    btn.parentNode.replaceChild(newBtn, btn);
+    const parent = btn.parentNode;
+    if (!parent) return;
+    const clone = btn.cloneNode(true);
+    parent.replaceChild(clone, btn);
   });
 
   const freshButtons = Array.from(document.querySelectorAll('.menu-button'));
@@ -140,68 +149,43 @@ function setupMenuFilters() {
       e.preventDefault();
       freshButtons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
       const raw = (btn.dataset.filter || 'all').toLowerCase();
       currentFilter = mapFilterToCategory(raw);
-
-      // подхватываем текущий язык (на случай, если сменили язык)
       currentLang = pickLanguageFromI18n();
-
       renderMenu(menuData, currentLang, currentFilter);
     });
   });
 }
 
-/**
- * Попытка перевести data-filter в ключ menu.json.
- * Логика:
- *  - если filterValue === 'all' => 'all'
- *  - если среди ключей menuData есть точный (case-insensitive) => возвращаем его
- *  - иначе ищем совпадение по нормализованной строке
- *  - иначе возвращаем исходное значение (может совпасть при рендере если ключ JSON совпадёт)
- */
 function mapFilterToCategory(filterValue) {
   if (!filterValue) return 'all';
   if (filterValue === 'all') return 'all';
-
-  // Попробуем точное совпадение ключа (case-insensitive)
   const keys = Object.keys(menuData || {});
   const lower = filterValue.toLowerCase();
   const exact = keys.find(k => k.toLowerCase() === lower);
   if (exact) return exact;
-
-  // Сопоставление по нормализованной форме
   const targetNorm = normKey(filterValue);
   const found = keys.find(k => normKey(k) === targetNorm);
   if (found) return found;
-
-  // Если ничего не найдено — возвращаем исходное (рендер попытается использовать его)
   return filterValue;
 }
 
-/**
- * Подписка на смену языка (вызывается i18n:changed event)
- */
-document.addEventListener('DOMContentLoaded', () => {
-  // когда i18n поменяет язык — перерендерим меню
-  window.addEventListener('i18n:changed', (e) => {
-    const lang = (e && e.detail && e.detail.lang) ? e.detail.lang : pickLanguageFromI18n();
-    // нормализуем en->eng
-    currentLang = (lang === 'en') ? 'eng' : lang;
-    if (Object.keys(menuData).length) {
-      renderMenu(menuData, currentLang, currentFilter);
-    }
-  });
-
-  // Если i18n уже загружен и вызвал setLanguage до нас, pickLanguageFromI18n корректно вернёт значение.
+// i18n change handling
+window.addEventListener('i18n:changed', (e) => {
+  const lang = (e && e.detail && e.detail.lang) ? e.detail.lang : pickLanguageFromI18n();
+  currentLang = (lang === 'en') ? 'eng' : lang;
+  if (Object.keys(menuData || {}).length) {
+    renderMenu(menuData, currentLang, currentFilter);
+  }
 });
 
-document.addEventListener("DOMContentLoaded", async () => {
-
-  const JSON_PATH = './data/menu.json';
-
-  // Элементы
+/* ------------------------
+   Add-item dialog & upload
+   ------------------------ */
+document.addEventListener('DOMContentLoaded', () => {
   const dialog = document.getElementById("add-item-dialog");
+  if (!dialog) return; // nothing to wire
+
   const openBtn = document.getElementById("menu-show-add-item-btn");
   const dialogContent = dialog.querySelector(".menu-add-dialog-content");
   const closeBtn = document.getElementById("close-dialog");
@@ -214,60 +198,50 @@ document.addEventListener("DOMContentLoaded", async () => {
   const dropZone = document.getElementById("drop-zone");
   const fileInput = document.getElementById("file-input");
   const previewImg = document.getElementById("preview-img");
-  const dropText = dropZone.querySelector("p");
+  const dropText = dropZone ? dropZone.querySelector("p") : null;
 
-
-  let menuData = {};
-  let currentFileExtension = ".jpg";
-  let currentFileObject = null; //Храним сам файл для отправки
-
-  // 1. Загрузка данных
-  async function fetchMenuData() {
-    try {
-      const response = await fetch(JSON_PATH);
-      if (!response.ok) throw new Error("Ошибка HTTP");
-      menuData = await response.json();
-    } catch (error) {
-      console.error(error);
-    }
+  if (!form || !categorySelect || !idField || !nameEngInput || !imgNameField) {
+    console.warn('menu.js: add-item form missing fields, skipping add-item wiring.');
+    return;
   }
-  await fetchMenuData();
 
-  // 2. Расчет ID
+  let currentFileExtension = ".jpg";
+  let currentFileObject = null;
+
   function calculateNextId(categoryKey) {
     const items = menuData[categoryKey] || [];
-    if (items.length === 0) {
-      const starters = {
-        "Appetizers-and-Salads": 1.1, "Soups": 2.1, "Sides-Dishes": 3.1,
-        "Main-Courses": 4.1, "Fish-and-Seafood": 5.1, "Desserts": 6.1,
-        "Soft-Drinks": 7.1, "Alcoholic-Beverages": 8.1
-      };
-      return starters[categoryKey] || 1.1;
+    // prefix fallback to 1
+    let prefix = 1;
+    if (items.length > 0 && typeof items[0].id === 'string') {
+      const p = parseInt(items[0].id.split(".")[0], 10);
+      if (!Number.isNaN(p)) prefix = p;
     }
-    const lastId = items[items.length - 1].id;
-    const idStr = String(lastId);
-    return idStr.includes('.')
-      ? `${idStr.split('.')[0]}.${parseInt(idStr.split('.')[1]) + 1}`
-      : `${lastId}.1`;
+    let maxSecond = 0;
+    items.forEach(it => {
+      if (!it || typeof it.id !== 'string') return;
+      const parts = it.id.split(".");
+      const second = parseInt(parts[1], 10);
+      if (!Number.isNaN(second) && second > maxSecond) maxSecond = second;
+    });
+    return `${prefix}.${maxSecond + 1}`;
   }
 
-  // 3. Обновление имени файла
   function updateFileName() {
-    const fullId = idField.value; // Например: "1.19"
-    const rawName = nameEngInput.value.trim();
+    const fullId = idField.value || '';
+    const rawName = (nameEngInput.value || '').trim();
 
     if (!fullId) return;
 
-    let shortId = fullId;
-    // Если в ID есть точка (1.19), берем только то, что после нее (19)
-    if (fullId.includes('.')) {
-      shortId = fullId.split('.')[1];
-    }
-    // -------------------------
+    let shortId = fullId.includes('.') ? fullId.split('.')[1] : fullId;
+    if (fullId.includes('.')) shortId = fullId.split('.')[1];
 
     let safeName = "item";
     if (rawName) {
-      safeName = rawName.replace(/[^a-zA-Z0-9\s]/g, "").trim().replace(/\s+/g, "-");
+      safeName = rawName
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+      if (!safeName) safeName = "item";
     }
 
     imgNameField.value = `${shortId}-${safeName}${currentFileExtension}`;
@@ -279,120 +253,156 @@ document.addEventListener("DOMContentLoaded", async () => {
     updateFileName();
   });
 
-  // 4. Drag & Drop
-  dropZone.addEventListener("click", () => fileInput.click());
-  fileInput.addEventListener("change", (e) => handleFiles(e.target.files));
+  // Drag & drop (guards for missing elements)
+  if (dropZone && fileInput) {
+    dropZone.addEventListener("click", () => fileInput.click());
+    fileInput.addEventListener("change", (e) => handleFiles(e.target.files));
 
-  ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    dropZone.addEventListener(eventName, (e) => {
-      e.preventDefault(); e.stopPropagation();
-    }, false);
-  });
-  ['dragenter', 'dragover'].forEach(ev => dropZone.addEventListener(ev, () => dropZone.classList.add('drag-over')));
-  ['dragleave', 'drop'].forEach(ev => dropZone.addEventListener(ev, () => dropZone.classList.remove('drag-over')));
-  dropZone.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
-
-  function handleFiles(files) {
-    if (files.length > 0) {
-      const file = files[0];
-      currentFileObject = file; //Сохраняем файл в переменную
-
-      const fileName = file.name;
-      const lastDotIndex = fileName.lastIndexOf('.');
-      if (lastDotIndex !== -1) {
-        currentFileExtension = fileName.substring(lastDotIndex).toLowerCase();
-      }
-
-      const reader = new FileReader();
-      reader.onloadend = function () {
-        previewImg.src = reader.result;
-        previewImg.style.display = "block";
-        dropText.style.display = "none";
-      }
-      reader.readAsDataURL(file);
-      updateFileName();
-    }
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+      dropZone.addEventListener(eventName, (e) => {
+        e.preventDefault(); e.stopPropagation();
+      }, false);
+    });
+    ['dragenter', 'dragover'].forEach(ev => dropZone.addEventListener(ev, () => dropZone.classList.add('drag-over')));
+    ['dragleave', 'drop'].forEach(ev => dropZone.addEventListener(ev, () => dropZone.classList.remove('drag-over')));
+    dropZone.addEventListener('drop', (e) => handleFiles(e.dataTransfer.files));
   }
 
-  // 5. Управление модалкой
+  function handleFiles(files) {
+    if (!files || files.length === 0) return;
+    const file = files[0];
+    // basic client checks: size limit (e.g. 5MB) and mime type prefix
+    const maxSize = 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert('File is too large (max 5MB).');
+      return;
+    }
+    if (!file.type.startsWith('image/')) {
+      alert('Only image files are allowed.');
+      return;
+    }
+
+    currentFileObject = file;
+    const fileName = file.name;
+    const lastDotIndex = fileName.lastIndexOf('.');
+    if (lastDotIndex !== -1) {
+      currentFileExtension = fileName.substring(lastDotIndex).toLowerCase().replace(/[^.\w-]/g,'');
+    }
+
+    const reader = new FileReader();
+    reader.onloadend = function () {
+      if (previewImg) {
+        previewImg.src = reader.result;
+        previewImg.style.display = "block";
+      }
+      if (dropText) dropText.style.display = "none";
+    };
+    reader.readAsDataURL(file);
+    updateFileName();
+  }
+
+  // modal controls
   if (openBtn) openBtn.addEventListener("click", () => {
     const currentCat = categorySelect.value;
     idField.value = calculateNextId(currentCat);
     updateFileName();
     dialog.classList.remove("menu-modal-hidden");
   });
+  if (closeBtn) closeBtn.addEventListener("click", () => dialog.classList.add("menu-modal-hidden"));
+  if (dialogContent) dialog.addEventListener("click", (e) => { if (!dialogContent.contains(e.target)) dialog.classList.add("menu-modal-hidden"); });
 
-  const closeModal = () => dialog.classList.add("menu-modal-hidden");
-  closeBtn.addEventListener("click", closeModal);
-  dialog.addEventListener("click", (e) => { if (!dialogContent.contains(e.target)) closeModal(); });
+  // Validate filename server-safe
+  function isValidFilename(name) {
+    return /^[A-Za-z0-9._-]+$/.test(name);
+  }
 
-  // 6. Отправка на сервер (PHP)
-
+  // Submit form (add meal)
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Сохранение...";
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Сохранение...";
+    }
 
     const category = categorySelect.value;
-    const finalFileName = imgNameField.value; // Имя, которое мы сгенерировали (4.22-Name.jpg)
+    const finalFileName = imgNameField.value;
 
-    // Объект данных блюда
+    if (!isValidFilename(finalFileName)) {
+      alert('Invalid file name.');
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Сохранить"; }
+      return;
+    }
+
     const newDish = {
-      "id": parseFloat(idField.value),
-      "name": {
-        "eng": nameEngInput.value,
-        "cz": nameCzInput.value
+      id: idField.value,
+      name: { eng: nameEngInput.value || '', cz: nameCzInput ? nameCzInput.value || '' : '' },
+      description: {
+        eng: document.getElementById("item-desc-eng") ? document.getElementById("item-desc-eng").value || '' : '',
+        cz: document.getElementById("item-desc-cz") ? document.getElementById("item-desc-cz").value || '' : ''
       },
-      "description": {
-        "eng": document.getElementById("item-desc-eng").value,
-        "cz": document.getElementById("item-desc-cz").value
-      },
-      "price": document.getElementById("item-price").value + " CZK",
-      "weight": document.getElementById("item-weight").value,
-      "image": `img/menu-img/${category}/${finalFileName}` // Путь для JSON
+      price: (document.getElementById("item-price") ? document.getElementById("item-price").value || '' : '') + " CZK",
+      weight: document.getElementById("item-weight") ? document.getElementById("item-weight").value || '' : '',
+      image: `./img/menu-img/${category}/${finalFileName}`
     };
 
-    // Готовим данные для отправки (FormData)
     const formData = new FormData();
     formData.append('category', category);
-    formData.append('itemJson', JSON.stringify(newDish)); // Отправляем JSON как строку
-    formData.append('imageName', finalFileName); // Имя, под которым сохранить файл
+    formData.append('itemJson', JSON.stringify(newDish));
+    formData.append('imageName', finalFileName);
+    if (currentFileObject) formData.append('imageFile', currentFileObject);
 
-    if (currentFileObject) {
-      formData.append('imageFile', currentFileObject); // Сам файл
+    // CSRF: ensure manager exists and is initialized
+    try {
+      if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
+        try { await window.CSRFManager.init(); } catch (e) { console.warn('CSRF init failed:', e); }
+      }
+      if (window.CSRFManager && typeof window.CSRFManager.appendToFormData === 'function') {
+        await window.CSRFManager.appendToFormData(formData);
+      }
+    } catch (err) {
+      console.warn('CSRF append failed (will still try request):', err);
     }
+
+    const headers = (window.CSRFManager && typeof window.CSRFManager.getHeader === 'function') ? window.CSRFManager.getHeader() : {};
 
     try {
       const response = await fetch('./php/add_meal.php', {
         method: 'POST',
-        body: formData
+        body: formData,
+        headers,
+        credentials: 'include'
       });
 
-      const text = await response.text();
-      console.log("Ответ сервера (raw):", text);
+      // prefer JSON
+      let result;
+      try {
+        result = await response.json();
+      } catch (err) {
+        // fallback: try text parse
+        const text = await response.text();
+        try { result = JSON.parse(text); } catch (e) { throw new Error('Invalid JSON from server'); }
+      }
 
-      const result = JSON.parse(text);
-
-      if (result.success) {
-        alert("✅ " + result.message);
+      if (result && result.success) {
+        alert("✅ " + (result.message || 'Added'));
         if (!menuData[category]) menuData[category] = [];
         menuData[category].push(newDish);
-        closeModal();
+        renderMenu(menuData, currentLang, currentFilter);
+        dialog.classList.add("menu-modal-hidden");
         form.reset();
-        previewImg.style.display = "none";
-        dropText.style.display = "block";
+        if (previewImg) previewImg.style.display = "none";
+        if (dropText) dropText.style.display = "block";
         currentFileObject = null;
       } else {
-        alert("❌ Ошибка сервера: " + result.message);
+        alert("❌ Ошибка сервера: " + (result && result.message ? result.message : 'Unknown'));
       }
 
     } catch (error) {
-      console.error('Ошибка JS:', error);
-      alert("Смотрите консоль (F12), там текст ошибки от PHP.");
+      console.error('Ошибка JS при отправке add_meal:', error);
+      alert('Server error — see console.');
     } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Сохранить";
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Сохранить"; }
     }
   });
 });

@@ -1,3 +1,4 @@
+// admin-users.js — безопасная версия
 
 function showBlock(blockToShow, options = {}) {
   const allBlocks = [
@@ -5,10 +6,10 @@ function showBlock(blockToShow, options = {}) {
     document.querySelector('.personal-account-content.reservation'),
     document.getElementById('admin-users-content'),
     document.getElementById('admin-panel')
-  ];
+  ].filter(Boolean);
 
   let animationsCompleted = 0;
-  const blocksToAnimate = allBlocks.filter(block => block && (!options.keepParent || block !== options.keepParent));
+  const blocksToAnimate = allBlocks.filter(block => !options.keepParent || block !== options.keepParent);
   const total = blocksToAnimate.length;
 
   blocksToAnimate.forEach(block => {
@@ -25,20 +26,18 @@ function showBlock(blockToShow, options = {}) {
     }
   });
 
-  // На случай, если нет блоков для анимации
   if (total === 0) adjustAccountSectionHeight();
 }
 
-// === Кеш для пользователей, чтобы не перегружать сервер ===
-let cachedUsers = null;
+// === Cache ===
 let cachedUsersPages = {};
 let userCurrentPage = 1;
 let userTotalPages = 1;
 const USERS_PER_PAGE = 4;
 
-
-// === Загрузка всех пользователей ===
+// === Load users page ===
 function loadUsersPage(page = 1) {
+  page = Number.isInteger(page) ? page : parseInt(page, 10) || 1;
   const tableWrap = document.querySelector('#admin-users-table .admin-users-table-wrap');
   if (!tableWrap) return;
 
@@ -52,12 +51,12 @@ function loadUsersPage(page = 1) {
     const usersContent = document.getElementById('admin-users-content');
     if (buttonsDiv && usersContent) {
       buttonsDiv.parentElement.insertBefore(paginationEl, usersContent);
-    } else {
+    } else if (tableWrap.parentElement) {
       tableWrap.parentElement.insertBefore(paginationEl, tableWrap.nextSibling);
     }
   }
 
-  // Если есть кеш для страницы, рендерим его и выходим
+  // if cached
   if (cachedUsersPages[page]) {
     userCurrentPage = page;
     renderUsers(cachedUsersPages[page], tableWrap);
@@ -65,25 +64,32 @@ function loadUsersPage(page = 1) {
     return;
   }
 
-  tableWrap.innerHTML = `<p>Loading users...</p>`;
-  paginationEl.innerHTML = '';
+  // show loading safely
+  tableWrap.textContent = (getTranslation ? (getTranslation('admin.loading-users') || 'Loading users...') : 'Loading users...');
+  if (paginationEl) paginationEl.textContent = '';
 
-  fetch(`./php/admin_get_users.php?page=${page}`, { credentials: 'include' })
-    .then(res => res.json())
+  fetch(`./php/admin_get_users.php?page=${encodeURIComponent(page)}`, { credentials: 'include' })
+    .then(res => {
+      if (!res.ok) throw new Error('Network response not ok');
+      return res.json().catch(() => ({ success: false }));
+    })
     .then(data => {
-      if (!data.success || !data.users) {
-        tableWrap.innerHTML = `<p>Failed to load users</p>`;
+      if (!data.success || !Array.isArray(data.users)) {
+        tableWrap.textContent = 'Failed to load users';
         return;
       }
 
-      cachedUsersPages[page] = data.users; // сохраняем в кеш
-      userCurrentPage = data.currentPage;
-      userTotalPages = data.totalPages;
+      cachedUsersPages[page] = data.users;
+      userCurrentPage = Number.isFinite(Number(data.currentPage)) ? Number(data.currentPage) : page;
+      userTotalPages = Number.isFinite(Number(data.totalPages)) ? Number(data.totalPages) : 1;
 
       renderUsers(cachedUsersPages[page], tableWrap);
       renderUserPagination(userCurrentPage, userTotalPages, paginationEl);
     })
-    .catch(() => tableWrap.innerHTML = `<p>Server error</p>`);
+    .catch((err) => {
+      console.error('Error loading users:', err);
+      tableWrap.textContent = 'Server error';
+    });
 }
 
 async function translateUserTable(tableWrap) {
@@ -95,147 +101,230 @@ async function translateUserTable(tableWrap) {
   }
 }
 
-// === Отрисовка таблицы пользователей ===
+// === Render users safely using DOM API ===
 function renderUsers(users, tableWrap) {
-  let html = `
-    <table class="admin-users-table">
-      <tr>
-        <th>ID</th>
-        <th>Login</th>
-        <th>Email</th>
-        <th data-i18n="admin.delete">Удалить?</th>
-      </tr>
-  `;
+  if (!Array.isArray(users)) users = [];
+
+  // Build table DOM
+  const table = document.createElement('table');
+  table.className = 'admin-users-table';
+
+  const thead = document.createElement('thead');
+  const headRow = document.createElement('tr');
+  ['ID', 'Login', 'Email', 'Удалить?'].forEach((h, idx) => {
+    const th = document.createElement('th');
+    if (idx === 3) th.setAttribute('data-i18n', 'admin.delete');
+    th.textContent = h;
+    headRow.appendChild(th);
+  });
+  thead.appendChild(headRow);
+  table.appendChild(thead);
+
+  const tbody = document.createElement('tbody');
 
   users.forEach(u => {
-    html += `
-      <tr data-user-id="${u.id}">
-        <td>${u.id}</td>
-        <td>${u.name}</td>
-        <td>${u.email}</td>
-        <td><button class="user-delete-yes edit-account-btn" data-i18n="admin.delete-yes" data-id="${u.id}">Да</button></td>
-      </tr>
-    `;
+    const tr = document.createElement('tr');
+    tr.dataset.userId = String(u.id ?? '');
+
+    const tdId = document.createElement('td');
+    tdId.textContent = String(u.id ?? '');
+    tr.appendChild(tdId);
+
+    const tdLogin = document.createElement('td');
+    tdLogin.textContent = String(u.name ?? '');
+    tr.appendChild(tdLogin);
+
+    const tdEmail = document.createElement('td');
+    tdEmail.textContent = String(u.email ?? '');
+    tr.appendChild(tdEmail);
+
+    const tdDelete = document.createElement('td');
+    const btn = document.createElement('button');
+    btn.className = 'user-delete-yes edit-account-btn';
+    btn.setAttribute('data-i18n', 'admin.delete-yes');
+    btn.dataset.id = String(u.id ?? '');
+    tdDelete.appendChild(btn);
+    tr.appendChild(tdDelete);
+
+    tbody.appendChild(tr);
   });
 
-  html += `</table>`;
-  tableWrap.innerHTML = html;
+  table.appendChild(tbody);
 
+  // Replace tableWrap content safely
+  tableWrap.innerHTML = ''; // allowed since we control wrapper, content inserted via DOM
+  tableWrap.appendChild(table);
+
+  // add single delegated listener once
   if (!tableWrap.dataset.listenerAdded) {
-    tableWrap.addEventListener('click', e => {
-      if (!e.target.classList.contains('user-delete-yes')) return;
-      const id = e.target.dataset.id;
-      if (!id) return;
+    tableWrap.addEventListener('click', async e => {
+      const target = e.target;
+      if (!target || !target.classList.contains('user-delete-yes')) return;
 
-      fetch("./php/admin_delete_user.php", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `id=${encodeURIComponent(id)}&csrf_token=${encodeURIComponent(csrfToken)}`
-      })
-        .then(r => r.json())
-        .then(resp => {
-          if (resp.success) {
-            cachedUsersPages = {}; // 💥 очищаем кеш, чтобы подтянуть обновлённые данные
-            loadUsersPage(userCurrentPage); // 🔄 перерисовываем таблицу
+      const rawId = target.dataset.id;
+      const id = parseInt(rawId, 10);
+      if (!Number.isInteger(id) || id <= 0) {
+        alert('Invalid user id');
+        return;
+      }
+
+      const confirmText = await getTranslation('admin.delete');
+      if (!confirm(`${confirmText} #${id}?`)) return;
+
+      try {
+        // ensure CSRF manager present and initialized
+        if (window.CSRFManager) {
+          try {
+            if (!window.CSRFManager.isInitialized || !window.CSRFManager.isInitialized()) {
+              await window.CSRFManager.init();
+            }
+          } catch (err) {
+            console.warn('CSRFManager init failed before delete user:', err);
           }
-          else alert("Error deleting user: " + (resp.error || 'Unknown'));
-        })
-        .catch(() => alert("Server error"));
+        }
+
+        const formData = new FormData();
+        formData.append('id', String(id));
+        if (window.CSRFManager) {
+          await window.CSRFManager.appendToFormData(formData);
+        }
+
+        const fetchOpts = window.CSRFManager ? await window.CSRFManager.fetchWithCsrf("./php/admin_delete_user.php", {
+          method: 'POST',
+          body: formData
+        }) : await fetch("./php/admin_delete_user.php", {
+          method: 'POST',
+          credentials: 'include',
+          body: formData
+        });
+
+        const resp = await fetchOpts.json().catch(() => ({ success: false }));
+
+        if (resp.success) {
+          cachedUsersPages = {}; // clear cache
+          loadUsersPage(userCurrentPage);
+        } else {
+          alert("Error deleting user: " + (resp.error || resp.message || 'Unknown'));
+        }
+      } catch (err) {
+        console.error('Error deleting user:', err);
+        alert("Server error при удалении пользователя");
+      }
     });
+
     tableWrap.dataset.listenerAdded = 'true';
   }
+
   translateUserTable(tableWrap);
 }
 
-
+// === Pagination — build via DOM ===
 function renderUserPagination(current, total, container) {
+  if (!container) return;
   container.innerHTML = '';
 
   const maxButtons = 5;
   let start = Math.max(1, current - 2);
   let end = Math.min(total, start + maxButtons - 1);
+  if (end - start < maxButtons - 1) start = Math.max(1, end - maxButtons + 1);
 
-  if (start > 1) container.innerHTML += `<button class="user-pg-btn edit-account-btn" data-page="${start-1}">⬅</button>`;
-  for (let p = start; p <= end; p++) {
-    container.innerHTML += `<button class="user-pg-btn edit-account-btn ${p===current?'active':''}" data-page="${p}">${p}</button>`;
+  const frag = document.createDocumentFragment();
+
+  if (start > 1) {
+    const btn = document.createElement('button');
+    btn.className = 'user-pg-btn edit-account-btn';
+    btn.dataset.page = String(start - 1);
+    btn.textContent = '⬅';
+    frag.appendChild(btn);
   }
-  if (end < total) container.innerHTML += `<button class="user-pg-btn edit-account-btn" data-page="${end+1}">➡</button>`;
+
+  for (let p = start; p <= end; p++) {
+    const btn = document.createElement('button');
+    btn.className = 'user-pg-btn edit-account-btn' + (p === current ? ' active' : '');
+    btn.dataset.page = String(p);
+    btn.textContent = String(p);
+    frag.appendChild(btn);
+  }
+
+  if (end < total) {
+    const btn = document.createElement('button');
+    btn.className = 'user-pg-btn edit-account-btn';
+    btn.dataset.page = String(end + 1);
+    btn.textContent = '➡';
+    frag.appendChild(btn);
+  }
+
+  container.appendChild(frag);
 
   container.onclick = e => {
-    if (!e.target.classList.contains('user-pg-btn')) return;
-    const page = Number(e.target.dataset.page);
+    const t = e.target;
+    if (!t || !t.classList.contains('user-pg-btn')) return;
+    const page = Number(t.dataset.page);
     if (!isNaN(page) && page >= 1 && page <= userTotalPages) loadUsersPage(page);
   };
 }
 
-// === Инициализация админ-панели ===
+// === Admin panel init ===
 function initAdminPanel(user) {
   const adminBtn = document.querySelector('.personal-account-admin-panel');
   const adminPanel = document.getElementById('admin-panel');
   const adminUsersBtn = document.getElementById('admin-users-btn');
   const hideAdminUsersBtn = document.getElementById('hide-admin-users-btn');
   const adminUsersContent = document.getElementById('admin-users-content');
-  const adminUsersTable = document.getElementById('admin-users-table');
 
   const datesBtn = document.querySelector('.personal-account-dates');
   const reservationBtn = document.querySelector('.personal-account-reservation');
 
-  const datesContent = document.querySelector('.personal-account-content.dates');
-  const reservationContent = document.querySelector('.personal-account-content.reservation');
-
   if (!adminBtn || !adminPanel) return;
 
   fetch('./php/check_role.php', { credentials: 'include' })
-    .then(res => res.json())
+    .then(res => res.json().catch(() => ({})))
     .then(data => {
       if (data.isAdmin != 1) return;
 
       fadeIn(adminBtn);
 
-      if (hideAdminUsersBtn) {
-          hideAdminUsersBtn.addEventListener('click', () => {
-              fadeOut(adminUsersContent);
-
-              const paginationEl = document.getElementById('admin-users-table-pagination');
-              if (paginationEl) fadeOut(paginationEl);
-          });
+      if (hideAdminUsersBtn && adminUsersContent) {
+        hideAdminUsersBtn.addEventListener('click', () => {
+          fadeOut(adminUsersContent);
+          const paginationEl = document.getElementById('admin-users-table-pagination');
+          if (paginationEl) fadeOut(paginationEl);
+        });
       }
 
-      adminBtn.addEventListener('click', () => {
-        showBlock(adminPanel, { keepParent: adminUsersContent });
-      });
+      if (adminBtn) {
+        adminBtn.addEventListener('click', () => {
+          showBlock(adminPanel, { keepParent: adminUsersContent });
+        });
+      }
 
-      adminUsersBtn.addEventListener('click', () => {
-        showBlock(adminUsersContent, { keepParent: adminPanel });
-        personalAccountSection.style.height = "fit-content"
+      if (adminUsersBtn) {
+        adminUsersBtn.addEventListener('click', () => {
+          showBlock(adminUsersContent, { keepParent: adminPanel });
+          if (document.getElementById('admin-users-table-pagination')) fadeIn(document.getElementById('admin-users-table-pagination'));
 
-        const tableWrap = document.querySelector('#admin-users-table .admin-users-table-wrap');
-        const paginationEl = document.getElementById('admin-users-table-pagination');
+          const tableWrap = document.querySelector('#admin-users-table .admin-users-table-wrap');
+          const paginationEl = document.getElementById('admin-users-table-pagination');
 
-        if (paginationEl) {
-            fadeIn(paginationEl); // <- снимает invisible
-        }
-
-        if (!cachedUsersPages[1]) {
+          if (!cachedUsersPages[1]) {
             loadUsersPage(1);
-        } else {
+          } else {
             renderUsers(cachedUsersPages[1], tableWrap);
             renderUserPagination(1, userTotalPages, paginationEl);
-        }
-    });
+          }
+        });
+      }
 
-      datesBtn.addEventListener('click', () => showBlock(datesContent));
-      reservationBtn.addEventListener('click', () => showBlock(reservationContent));
+      if (datesBtn) datesBtn.addEventListener('click', () => showBlock(document.querySelector('.personal-account-content.dates')));
+      if (reservationBtn) reservationBtn.addEventListener('click', () => showBlock(document.querySelector('.personal-account-content.reservation')));
     })
     .catch(err => console.error('Ошибка проверки роли:', err));
 }
 
-// === Инициализация личного кабинета ===
+// === init personal account ===
 function initPersonalAccount(user) {
   const accountWrapper = document.getElementById('account-wrapper');
   if (!accountWrapper) return;
-
   fadeIn(accountWrapper);
 
   const datesContent = document.querySelector('.personal-account-content.dates');
@@ -258,9 +347,7 @@ function initPersonalAccount(user) {
     reservation: document.querySelector('.personal-account-reservation')
   };
 
-  if (personalAccountButtons.dates) {
-    personalAccountButtons.dates.onclick = () => showBlock(datesContent);
-  }
+  if (personalAccountButtons.dates) personalAccountButtons.dates.onclick = () => showBlock(datesContent);
   if (personalAccountButtons.reservation) {
     personalAccountButtons.reservation.onclick = () => {
       showBlock(document.querySelector('.personal-account-content.reservation'));
