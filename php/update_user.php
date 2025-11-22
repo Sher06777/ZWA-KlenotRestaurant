@@ -23,10 +23,15 @@ if (!$stmt) {
     exit;
 }
 
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    echo json_encode(['success' => false, 'message' => 'Неверный email']);
+    exit;
+}
+
 // Выполняем
 if ($stmt->execute()) {
-    $_SESSION['user_name'] = $login;
-    $_SESSION['user_email'] = $email;
+    $_SESSION['user_name'] = htmlspecialchars($login, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $_SESSION['user_email'] = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     echo json_encode(['success' => true]);
 } else {
     echo json_encode(['success' => false, 'message' => 'Ошибка при обновлении: ' . $stmt->error]);

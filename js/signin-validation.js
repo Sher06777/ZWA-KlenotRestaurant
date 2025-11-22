@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const forms = document.querySelectorAll('form');
+  const forms = Array.from(document.querySelectorAll('form'));
   const globalErrorBox = document.getElementById('reservation-message');
 
   const loginField = document.getElementById('main-name');
@@ -8,17 +8,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Helpers ----------
   function getErrorEl(input) {
+    if (!input || !input.parentElement) return null;
     return input.parentElement.querySelector(".error-message");
   }
 
   function showError(input, message) {
+    if (!input) return;
     const errorEl = getErrorEl(input);
     if (!errorEl) return;
-    errorEl.textContent = message;
+    errorEl.textContent = String(message || '');
     errorEl.classList.add('active');
   }
 
   function clearError(input) {
+    if (!input) return;
     const errorEl = getErrorEl(input);
     if (!errorEl) return;
     errorEl.textContent = "";
@@ -26,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function validateRequired(input, message) {
-    if (!input.value.trim()) {
+    if (!input) return true;
+    if (!String(input.value || '').trim()) {
       showError(input, message);
       return false;
     }
@@ -40,7 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   emailField?.addEventListener("blur", () => {
-    const val = emailField.value.trim();
+    if (!emailField) return;
+    const val = String(emailField.value || '').trim();
     if (!val) {
       showError(emailField, "Email field is required");
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
@@ -56,23 +61,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ---------- Submit validation ----------
   forms.forEach(form => {
+    if (!form) return;
+
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
       clearErrors(form);
-
       let isValid = true;
-      const inputs = form.querySelectorAll('input, textarea');
+
+      const inputs = Array.from(form.querySelectorAll('input, textarea'));
 
       if (globalErrorBox) {
         globalErrorBox.style.display = 'none';
         globalErrorBox.textContent = '';
       }
 
+      // HTML5 validity (если атрибуты стоят)
       inputs.forEach(input => {
-        const errorEl = getErrorEl(input);
-        if (!input.checkValidity()) {
+        if (!input || !input.checkValidity()) {
           isValid = false;
+          const errorEl = getErrorEl(input);
           if (errorEl) {
             errorEl.textContent = getErrorMessage(input);
             errorEl.classList.add('active');
@@ -80,47 +88,66 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // SIGN-IN form extra validation
+      // 🔥 SIGN-IN строгая логика: login + email + password обязательны
       if (form.id === 'signin-form') {
         const login = form.querySelector('input[name="login"]');
         const email = form.querySelector('input[name="email"]');
         const password = form.querySelector('input[name="password"]');
 
-        if (!login.value.trim()) {
+        const loginVal = login ? String(login.value || '').trim() : '';
+        const emailVal = email ? String(email.value || '').trim() : '';
+        const passwordVal = password ? String(password.value || '').trim() : '';
+
+        if (!loginVal) {
           showError(login, "Please enter a login");
           isValid = false;
         }
 
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email.value.trim()) {
+        if (!emailVal) {
           showError(email, "Please enter an email");
           isValid = false;
-        } else if (!emailPattern.test(email.value.trim())) {
-          showError(email, "Please enter a valid email");
-          isValid = false;
+        } else {
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(emailVal)) {
+            showError(email, "Please enter a valid email");
+            isValid = false;
+          }
         }
 
-        if (!password.value.trim()) {
+        if (!passwordVal) {
           showError(password, "Please enter a password");
           isValid = false;
-        }
+        } 
+        // else if (passwordVal.length < 6) {
+        //   showError(password, "Password is too short (min 6 characters)");
+        //   isValid = false;
+        // }
       }
 
       if (isValid) {
-        form.dispatchEvent(new Event("valid-form-submit", { cancelable: true }));
+        const evt = new CustomEvent("valid-form-submit", { bubbles: true, cancelable: true });
+        form.dispatchEvent(evt);
+      } else {
+        if (globalErrorBox) {
+          globalErrorBox.style.display = 'block';
+          globalErrorBox.textContent = 'Please correct the highlighted errors.';
+        }
       }
     });
 
-    // Очистка ошибки при вводе текста
+    // Очистка ошибки при вводе
     form.addEventListener('input', (e) => {
       const input = e.target;
+      if (!input || !(input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement)) return;
+      if (!form.contains(input)) return;
       clearError(input);
     });
   });
 
-  // ---------- Utility funcs ----------
+  // ---------- Utility ----------
   function clearErrors(form) {
-    const errors = form.querySelectorAll('.error-message');
+    if (!form) return;
+    const errors = Array.from(form.querySelectorAll('.error-message'));
     errors.forEach(el => {
       el.textContent = '';
       el.classList.remove('active');
@@ -128,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function getErrorMessage(input) {
+    if (!input || !input.validity) return 'Invalid value';
     if (input.validity.valueMissing) return 'This field is required';
     if (input.validity.typeMismatch && input.type === 'email') return 'Please enter a valid email';
     if (input.validity.patternMismatch) return 'Invalid format';

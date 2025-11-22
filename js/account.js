@@ -23,19 +23,11 @@ personalAccountButton.forEach(btn => {
   });
 });
 
-let csrfToken = ''; //def CSRF (Cross-Site Request Forgery) - attack
-
-// Получаем токен с сервера
-fetch('./php/get_csrf_token.php', { credentials: 'include' })
-  .then(res => res.json())
-  .then(data => {
-    csrfToken = data.csrf_token; //def CSRF (Cross-Site Request Forgery) - attack
-    window.csrfToken = data.csrf_token;
-    console.log('✅ CSRF Token получен:', window.csrfToken);
-  })
-  .catch(err => {
-    console.error('Не удалось получить CSRF токен:', err);
+if (window.CSRFManager) {
+  window.CSRFManager.init().catch(err => {
+    console.warn('CSRFManager init failed in account.js:', err);
   });
+}
 
 const logoutButton = datesContent.querySelector('.logout-account-btn');
 
@@ -60,6 +52,7 @@ function hideAdminTables() {
     if (adminUsersPagination) adminUsersPagination.innerHTML = '';
 }
 
+// --- переводит элементы в секции ---
 async function translatePersonalAccount(section) {
   if (!section) return;
   const elements = section.querySelectorAll('[data-i18n]');
@@ -92,21 +85,21 @@ function initPersonalAccount(user) {
   // Показываем секцию Personal Account
   personalAccountSection.classList.remove('invisible');
 
-  // Подставляем имя пользователя
+  // Подставляем имя пользователя — безопасно через textContent (нет XSS)
   const welcomeUserName = document.querySelector('.personal-account-welcome .user-name');
-  if (welcomeUserName) welcomeUserName.textContent = user.name; //def XSS - attack
+  if (welcomeUserName) welcomeUserName.textContent = user.name;
 
   // Подставляем login и email
   const loginSpan = datesContent.querySelector('.user-login');
   const emailSpan = datesContent.querySelector('.user-email');
   const passwordSpan = datesContent.querySelector('.user-password');
 
-  if (loginSpan) loginSpan.textContent = user.name; //def XSS - attack
-  if (emailSpan) emailSpan.textContent = user.email; //def XSS - attack
+  if (loginSpan) loginSpan.textContent = user.name;
+  if (emailSpan) emailSpan.textContent = user.email;
   if (passwordSpan) {
-    passwordSpan.textContent = maskPassword(); //def XSS - attack
+    passwordSpan.textContent = maskPassword();
     passwordSpan.classList.add('user-password--styled');
-  };
+  }
 
   const passwordLabel = datesContent.querySelector('.user-password-label');
   if (passwordLabel) {
@@ -126,7 +119,10 @@ function initPersonalAccount(user) {
   };
 
   if (user.isAdmin) {
-    initAdminPanel(user); // вызываем сразу, без import/export
+    window.isAdmin = true;  // <<< ЭТО НУЖНО
+    initAdminPanel(user);
+  } else {
+    window.isAdmin = false;
   }
 }
 
@@ -179,7 +175,7 @@ if (editButton) {
     saveBtn.type = 'button';
     saveBtn.classList.add('edit-account-btn');
     saveBtn.setAttribute('data-i18n', 'personal-account.save'); // просто добавляем data-i18n
-    saveBtn.textContent = '💾 Save'; 
+    saveBtn.textContent = '💾 Save';
 
     const cancelBtn = document.createElement('button');
     cancelBtn.type = 'button';
@@ -192,58 +188,78 @@ if (editButton) {
     buttonContainer.insertBefore(saveBtn, logoutButton);
     buttonContainer.insertBefore(cancelBtn, logoutButton);
 
-// вызываем перевод для новых кнопок
-translatePersonalAccount(buttonContainer);
+    // вызываем перевод для новых кнопок
+    translatePersonalAccount(buttonContainer);
 
     // --- Сохранение ---
-    saveBtn.addEventListener('click', () => {
+    saveBtn.addEventListener('click', async () => {
       const newLogin = loginInput.value.trim();
       const newEmail = emailInput.value.trim();
       const newPassword = passwordInput.value.trim();
 
+      // Простая валидация на клиенте (не заменяет серверную валидацию!)
+      if (!newLogin || newLogin.length < 2) {
+        alert('Login too short.');
+        return;
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newEmail)) {
+        alert('Invalid email.');
+        return;
+      }
+
       const formData = new FormData();
       formData.append('login', newLogin);
       formData.append('email', newEmail);
-      formData.append('password', newPassword);
-      formData.append('csrf_token', csrfToken);
+      // если пользователь оставил пароль пустым — не отправляем пустое поле (сервер решает, оставлять ли старый)
+      if (newPassword.length > 0) {
+        formData.append('password', newPassword);
+      }
 
-      fetch('./php/update_user.php', {
-        method: 'POST',
-        credentials: 'include',
-        body: formData
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            const newLoginSpan = document.createElement('span');
-            newLoginSpan.className = 'user-login';
-            newLoginSpan.textContent = newLogin;
+      try {
+        if (window.CSRFManager) {
+          await window.CSRFManager.appendToFormData(formData);
+        }
+      } catch (err) {
+        console.warn('CSRF append failed for update_user:', err);
+      }
 
-            const newEmailSpan = document.createElement('span');
-            newEmailSpan.className = 'user-email';
-            newEmailSpan.textContent = newEmail;
-
-            const newPasswordSpan = document.createElement('span');
-            newPasswordSpan.className = 'user-password user-password--styled';
-            newPasswordSpan.textContent = maskPassword();
-
-            loginInput.replaceWith(newLoginSpan);
-            emailInput.replaceWith(newEmailSpan);
-            passwordInput.replaceWith(newPasswordSpan);
-
-            userNameEl.textContent = newLogin;
-
-            saveBtn.remove();
-            cancelBtn.remove();
-            editButton.style.display = 'inline-block';
-          } else {
-            alert('Ошибка: ' + (data.message || 'Failed to update data.'));
-          }
-        })
-        .catch(err => {
-          console.error('Failed to update data:', err);
-          alert('Server connection error.');
+      try {
+        const res = await fetch('./php/update_user.php', {
+          method: 'POST',
+          credentials: 'include',
+          body: formData
         });
+        const data = await res.json().catch(() => ({ success: false, message: 'Invalid JSON from server' }));
+
+        if (data.success) {
+          const newLoginSpan = document.createElement('span');
+          newLoginSpan.className = 'user-login';
+          newLoginSpan.textContent = newLogin;
+
+          const newEmailSpan = document.createElement('span');
+          newEmailSpan.className = 'user-email';
+          newEmailSpan.textContent = newEmail;
+
+          const newPasswordSpan = document.createElement('span');
+          newPasswordSpan.className = 'user-password user-password--styled';
+          newPasswordSpan.textContent = maskPassword();
+
+          loginInput.replaceWith(newLoginSpan);
+          emailInput.replaceWith(newEmailSpan);
+          passwordInput.replaceWith(newPasswordSpan);
+
+          if (userNameEl) userNameEl.textContent = newLogin;
+
+          saveBtn.remove();
+          cancelBtn.remove();
+          editButton.style.display = 'inline-block';
+        } else {
+          alert('Ошибка: ' + (data.message || 'Failed to update data.'));
+        }
+      } catch (err) {
+        console.error('Failed to update data:', err);
+        alert('Server connection error.');
+      }
     });
 
     // --- Отмена ---
@@ -271,10 +287,34 @@ translatePersonalAccount(buttonContainer);
   });
 }
 
-
 let currentUserReservationsPage = 1;
 
-function loadUserReservations(userId, page = 1) {
+// Вспомогательная: безопасно создаёт элемент <p><strong>label</strong> value</p>.
+// valueText — строка (будет безопасно записана через textContent). Если valueText содержит переводы строк, они будут преврашены в <br>.
+function createLabeledParagraph(labelKey, valueText) {
+  const p = document.createElement('p');
+  const strong = document.createElement('strong');
+  strong.setAttribute('data-i18n', labelKey);
+  // label (текст в <strong>) будет заполнен translatePersonalAccount позже
+  p.appendChild(strong);
+  p.appendChild(document.createTextNode(' ')); // пробел между label и value
+
+  if (typeof valueText !== 'string' || valueText.length === 0) {
+    p.appendChild(document.createTextNode(''));
+    return p;
+  }
+
+  // поддержка переносов: вставляем текст + <br> как элементы, но текст вставляется через textContent
+  const parts = valueText.split(/\r?\n/);
+  parts.forEach((part, idx) => {
+    p.appendChild(document.createTextNode(part));
+    if (idx < parts.length - 1) p.appendChild(document.createElement('br'));
+  });
+
+  return p;
+}
+
+async function loadUserReservations(userId, page = 1) {
   const container = document.getElementById('user-reservations');
   const pagination = document.getElementById('user-reservations-pagination');
   if (!container) return;
@@ -282,109 +322,155 @@ function loadUserReservations(userId, page = 1) {
   container.innerHTML = '<p data-i18n="personal-account.loading">Loading your reservations...</p>';
   translatePersonalAccount(container);
 
-  fetch(`./php/get_user_reservations.php?page=${page}`, {
-    method: 'GET',
-    credentials: 'include'
-  })
-    .then(res => res.json())
-    .then(async data => {
-      container.innerHTML = '';
+  try {
+    const resp = await fetch(`./php/get_user_reservations.php?page=${encodeURIComponent(page)}`, {
+      method: 'GET',
+      credentials: 'include'
+    });
 
-      if (!data.success || !data.reservations.length) {
-        container.innerHTML = '<p class="empty-reservations" data-i18n="personal-account.no-reservations">You have no active reservations.</p>';
-        translatePersonalAccount(container);
-        pagination.innerHTML = '';
-        return;
+    const data = await resp.json().catch(() => ({ success: false, reservations: [] }));
+    container.innerHTML = '';
+
+    if (!data.success || !Array.isArray(data.reservations) || data.reservations.length === 0) {
+      container.innerHTML = '<p class="empty-reservations" data-i18n="personal-account.no-reservations">You have no active reservations.</p>';
+      translatePersonalAccount(container);
+      if (pagination) pagination.innerHTML = '';
+      return;
+    }
+
+    currentUserReservationsPage = data.page || 1;
+
+    for (const r of data.reservations) {
+      const item = document.createElement('div');
+      item.className = 'reservation-item';
+
+      // Заголовок: безопасно через textContent
+      const h4 = document.createElement('h4');
+      h4.textContent = `${r.date} в ${r.time}`;
+      item.appendChild(h4);
+
+      // Name
+      item.appendChild(createLabeledParagraph('personal-account.name', String(r.name || '')));
+
+      // Phone
+      item.appendChild(createLabeledParagraph('personal-account.phone', String(r.phone || '')));
+
+      // Email
+      item.appendChild(createLabeledParagraph('personal-account.email', String(r.email || '')));
+
+      // Guests
+      item.appendChild(createLabeledParagraph('personal-account.guest', String(r.people || '')));
+
+      // Message / comment (безопасно)
+      if (r.message && String(r.message).trim().length > 0) {
+        item.appendChild(createLabeledParagraph('personal-account.comment', String(r.message)));
       }
 
-      currentUserReservationsPage = data.page;
+      container.appendChild(item);
 
-      for (const r of data.reservations) {
-        const item = document.createElement('div');
-        item.className = 'reservation-item';
-        item.innerHTML = `
-          <h4>${r.date} в ${r.time}</h4>
-          <p><strong data-i18n="personal-account.name">Name:</strong> ${r.name}</p>
-          <p><strong data-i18n="personal-account.phone">Phone number:</strong> ${r.phone}</p>
-          <p><strong data-i18n="personal-account.email">Email:</strong> ${r.email}</p>
-          <p><strong data-i18n="personal-account.guest">Guests:</strong> ${r.people}</p>
-          ${r.message ? `<p><strong data-i18n="personal-account.comment">Comment:</strong> ${r.message}</p>` : ''}
-        `;
-        container.appendChild(item);
+      // Cancel button (валидация id, безопасное присваивание)
+      const cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.className = 'cancel-reservation-btn';
+      // приводим id к числу и сохраняем как строку
+      const rid = Number(r.id);
+      cancelBtn.dataset.id = Number.isFinite(rid) ? String(rid) : '';
+      cancelBtn.textContent = '❌';
+      cancelBtn.setAttribute('data-i18n', 'personal-account.cancel');
+      cancelBtn.addEventListener('click', () => cancelReservation(cancelBtn.dataset.id, userId));
+      item.appendChild(cancelBtn);
 
-        const cancelBtn = document.createElement('button');
-        cancelBtn.type = 'button';
-        cancelBtn.className = 'cancel-reservation-btn';
-        cancelBtn.dataset.id = r.id;
-        cancelBtn.textContent = '❌';
-        cancelBtn.setAttribute('data-i18n', 'personal-account.cancel');
-        cancelBtn.addEventListener('click', () => cancelReservation(r.id, userId));
-        item.appendChild(cancelBtn);
+      // Переводим новый элемент
+      await translatePersonalAccount(item);
+    }
 
-        // Переводим новый элемент
-        await translatePersonalAccount(item);
-      }
-
-      // PAGINATION BUTTONS
+    // PAGINATION BUTTONS
+    if (pagination) {
       pagination.innerHTML = '';
 
       const prev = document.createElement('button');
       prev.textContent = '←';
-      prev.disabled = data.page <= 1;
-      prev.onclick = () => loadUserReservations(userId, data.page - 1);
+      prev.disabled = (data.page || 1) <= 1;
+      prev.onclick = () => loadUserReservations(userId, (data.page || 1) - 1);
       pagination.appendChild(prev);
 
       const maxButtons = 3;
-      let start = Math.max(1, data.page - 1);
-      let end = Math.min(data.totalPages, start + maxButtons - 1);
+      let start = Math.max(1, (data.page || 1) - 1);
+      let end = Math.min(data.totalPages || 1, start + maxButtons - 1);
 
       if (end - start < maxButtons - 1) start = Math.max(1, end - maxButtons + 1);
 
       for (let i = start; i <= end; i++) {
         const btn = document.createElement('button');
         btn.textContent = i;
-        btn.className = (i === data.page) ? 'active-page' : '';
+        if (i === (data.page || 1)) btn.className = 'active-page';
         btn.onclick = () => loadUserReservations(userId, i);
         pagination.appendChild(btn);
       }
 
       const next = document.createElement('button');
       next.textContent = '→';
-      next.disabled = data.page >= data.totalPages;
-      next.onclick = () => loadUserReservations(userId, data.page + 1);
+      next.disabled = (data.page || 1) >= (data.totalPages || 1);
+      next.onclick = () => loadUserReservations(userId, (data.page || 1) + 1);
       pagination.appendChild(next);
-    })
-    .catch(async err => {
-      console.error(err);
-      container.innerHTML = '<p class="empty-reservations" data-i18n="personal-account.error-loading">Error loading reservations.</p>';
-      await translatePersonalAccount(container);
-    });
+    }
+
+  } catch (err) {
+    console.error(err);
+    container.innerHTML = '<p class="empty-reservations" data-i18n="personal-account.error-loading">Error loading reservations.</p>';
+    await translatePersonalAccount(container);
+  }
 }
 
-function cancelReservation(reservationId, userId) {
+async function cancelReservation(reservationId, userId) {
+  // reservationId должен быть положительным целым числом
+  const id = parseInt(reservationId, 10);
+  if (!Number.isInteger(id) || id <= 0) {
+    alert('Invalid reservation id.');
+    return;
+  }
+
   if (!confirm('Вы уверены, что хотите отменить эту резервацию?')) return;
 
-  // обязательно отправляем куки сессии и csrf токен
-  fetch('./php/cancel_reservation.php', {
-    method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-CSRF-Token': csrfToken // auth.php ищет этот заголовок //def CSRF (Cross-Site Request Forgery) - attack
-    },
-    body: JSON.stringify({ id: reservationId, csrf_token: csrfToken }) //def CSRF (Cross-Site Request Forgery) - attack
-  })
-    .then(res => res.json().catch(() => ({ success: false, error: 'invalid json' })))
-    .then(data => {
-      console.log('cancel_reservation response', data);
-      if (data.success) {
-        loadUserReservations(userId);
-      } else {
-        alert('Ошибка при отмене резервации: ' + (data.error || data.message || 'Неизвестная ошибка'));
+  // Подготовим полезад (сервер будет проверять CSRF)
+  const payload = { id };
+
+  // Если CSRFManager есть, убедимся что он инициализирован и добавим токен
+  try {
+    if (window.CSRFManager) {
+      // ensure token is present
+      if (!window.CSRFManager.isInitialized || !window.CSRFManager.isInitialized()) {
+        await window.CSRFManager.init();
       }
-    })
-    .catch(err => {
-      console.error('Ошибка при запросе cancel_reservation:', err);
-      alert('Ошибка соединения с сервером.');
+    }
+  } catch (err) {
+    console.warn('Failed to init CSRFManager before cancelReservation:', err);
+  }
+
+  const payloadWithCsrf = window.CSRFManager ? window.CSRFManager.appendToJson(payload) : payload;
+
+  const headers = Object.assign(
+    { 'Content-Type': 'application/json' },
+    window.CSRFManager ? window.CSRFManager.getHeader() : {}
+  );
+
+  try {
+    const res = await fetch('./php/cancel_reservation.php', {
+      method: 'POST',
+      credentials: 'include',
+      headers,
+      body: JSON.stringify(payloadWithCsrf)
     });
+
+    const data = await res.json().catch(() => ({ success: false, error: 'invalid json' }));
+    console.log('cancel_reservation response', data);
+    if (data.success) {
+      loadUserReservations(userId);
+    } else {
+      alert('Ошибка при отмене резервации: ' + (data.error || data.message || 'Неизвестная ошибка'));
+    }
+  } catch (err) {
+    console.error('Ошибка при запросе cancel_reservation:', err);
+    alert('Ошибка соединения с сервером.');
+  }
 }
