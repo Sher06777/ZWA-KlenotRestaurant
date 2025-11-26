@@ -46,33 +46,37 @@
         </button>
 
         <!-- Overlay меню (role="dialog" для доступности) -->
-        <nav class="mobile-menu-overlay" id="mobile-menu" role="dialog"
-          aria-modal="true" aria-hidden="true" tabindex="-1">
-          <button class="mobile-menu-close" aria-label="Close menu"
-            id="mobile-menu-close">&times;</button>
+        <div class="mobile-menu-overlay" id="mobile-menu" role="dialog"
+          aria-modal="true" tabindex="-1">
+          <nav>
 
-          <ul class="mobile-menu-list" role="menu">
-            <li class="menu-btn" role="menuitem"
-              data-i18n="main.menu-about-us">About Us</li>
-            <li class="menu-btn" role="menuitem"
-              data-i18n="main.menu-menu">Menu</li>
-            <li class="gallery-btn" role="menuitem"
-              data-i18n="main.menu-gallery-btn">Gallery</li>
-            <li class="reservation-btn" role="menuitem"
-              data-i18n="main.menu-reservation-btn">Reservation</li>
-          </ul>
+            <button class="mobile-menu-close" aria-label="Close menu"
+              id="mobile-menu-close">&times;</button>
 
-          <div class="mobile-language" aria-label="Language selection">
-            <span data-i18n="main.menu-language-button">Language</span>
-            <div class="mobile-language-options" role="radiogroup"
-              aria-label="Choose language">
-              <button type="button" class="lang-btn" data-lang="cz" role="radio"
-                aria-checked="false">CZ</button>
-              <button type="button" class="lang-btn" data-lang="eng"
-                role="radio" aria-checked="true">ENG</button>
+            <ul class="mobile-menu-list" role="menu">
+              <li class="menu-btn" role="menuitem"
+                data-i18n="main.menu-about-us">About Us</li>
+              <li class="menu-btn" role="menuitem"
+                data-i18n="main.menu-menu">Menu</li>
+              <li class="gallery-btn" role="menuitem"
+                data-i18n="main.menu-gallery-btn">Gallery</li>
+              <li class="reservation-btn" role="menuitem"
+                data-i18n="main.menu-reservation-btn">Reservation</li>
+            </ul>
+
+            <div class="mobile-language" aria-label="Language selection">
+              <span data-i18n="main.menu-language-button">Language</span>
+              <div class="mobile-language-options" role="radiogroup"
+                aria-label="Choose language">
+                <button type="button" class="lang-btn" data-lang="cz"
+                  role="radio"
+                  aria-checked="false">CZ</button>
+                <button type="button" class="lang-btn" data-lang="eng"
+                  role="radio" aria-checked="true">ENG</button>
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        </div>
 
         <!-- Центр: desktop меню -->
         <nav class="menu-center" aria-label="Main navigation">
@@ -837,7 +841,7 @@
             data-i18n-alt="gallery.soft-first"
             alt="Soft lighting and intimate ambience for unforgettable evenings."></div>
         <div class="gallery-item"><img loading="lazy"
-            decoding="async" src="img/klenot balcony.png"
+            decoding="async" src="img/klenot-balcony.png"
             data-i18n-alt="gallery.second"
             alt="Open-air terrace perfect for warm evenings and city views."></div>
         <div class="gallery-item"><img loading="lazy"
@@ -845,11 +849,11 @@
             data-i18n-alt="gallery.third"
             alt="Elegant bar with crafted cocktails and a curated wine selection."></div>
         <div class="gallery-item"><img loading="lazy"
-            decoding="async" src="img/klenot kitchen.png"
+            decoding="async" src="img/klenot-kitchen.png"
             data-i18n-alt="gallery.fourth"
             alt="Behind the scenes of our culinary artistry – where every dish begins."></div>
         <div class="gallery-item"><img loading="lazy"
-            decoding="async" src="img/klenot party.png"
+            decoding="async" src="img/klenot-party.png"
             data-i18n-alt="gallery.fifth"
             alt="Spacious hall designed for celebrations, receptions and special occasions."></div>
         <div class="gallery-item"><img loading="lazy"
@@ -871,12 +875,13 @@
       <button id="zoom-next" class="zoom-nav zoom-next"
         aria-label="Next image">&gt;</button>
 
-      <img id="zoom-img" src alt="zoom">
+      <img id="zoom-img"
+        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRA=="
+        alt="zoom">
       <p id="zoom-description"></p>
     </div>
 
     <!-- ===== FORM MAIN (signin) ===== -->
-
 
     <section class="form-main invisible" id="signin-section">
       <form id="signin-form" method="post" class="form" novalidate>
@@ -889,21 +894,21 @@
               <span data-i18n="signing-form.login">Login</span>
               <input type="text" id="main-name" name="login" autocomplete="on"
                 required>
-              <p class="error-message"></p>
+              <span class="error-message"></span>
             </label>
 
             <label for="main-email" class="form-signin">
               <span data-i18n="signing-form.email">Email</span>
               <input type="email" placeholder="example@gmail.com"
                 id="main-email" name="email" autocomplete="email" required>
-              <p class="error-message"></p>
+              <span class="error-message"></span>
             </label>
 
             <label for="main-password" class="form-password">
               <span data-i18n="signing-form.password">Password</span>
               <input type="password" id="main-password" name="password"
                 autocomplete="current-password" required>
-              <p class="error-message"></p>
+              <span class="error-message"></span>
             </label>
 
             <div class="form-reg-wrap">
@@ -1010,15 +1015,21 @@
     <!-- ===== PERSONAL ACCOUNT (placeholder) ===== -->
     <section class="main-content-wrapper invisible" id="account-wrapper">
       <div class="personal-account" id="personal-account">
-        <div class="personal-account-title" data-i18n="personal-account.your-account">My Account</div>
+        <div class="personal-account-title"
+          data-i18n="personal-account.your-account">My Account</div>
         <div class="personal-account-wrap">
           <div class="personal-account-left">
-            <button class="personal-account-btn personal-account-dates" data-i18n="personal-account.button-your-dates">Profile 
+            <button class="personal-account-btn personal-account-dates"
+              data-i18n="personal-account.button-your-dates">Profile
               Details</button>
             <button
-              class="personal-account-btn personal-account-reservation" data-i18n="personal-account.button-your-reservations">My Reservation</button>
+              class="personal-account-btn personal-account-reservation"
+              data-i18n="personal-account.button-your-reservations">My
+              Reservation</button>
             <button
-              class="personal-account-btn personal-account-admin-panel invisible" data-i18n="personal-account.button-your-admin-panel">Admin Dashboard</button>
+              class="personal-account-btn personal-account-admin-panel invisible"
+              data-i18n="personal-account.button-your-admin-panel">Admin
+              Dashboard</button>
           </div>
 
           <div class="personal-account-divider"></div>
@@ -1026,31 +1037,41 @@
           <div class="personal-account-right">
             <!-- Личные данные -->
             <div class="personal-account-content dates visible">
-              <h3 class="personal-account-welcome"><span data-i18n="personal-account.welcome">Welcome</span>, <span
+              <h3 class="personal-account-welcome"><span
+                  data-i18n="personal-account.welcome">Welcome</span>, <span
                   class="user-name">User</span>!</h3>
               <div class="account-info">
                 <p class="personal-account-data">Login: <span
                     class="user-login"></span></p>
                 <p class="personal-account-data">Email: <span
                     class="user-email"></span></p>
-                <p class="personal-account-data" data-i18n="personal-account.password"><span class="user-password-label">Password:</span>  <span
+                <p class="personal-account-data"
+                  data-i18n="personal-account.password"><span
+                    class="user-password-label">Password:</span> <span
                     class="user-password"></span></p>
 
               </div>
               <div class="personal-account-dates-buttons">
-                <button class="edit-account-btn" data-i18n="personal-account.edit-dates">Edit Profile</button>
-                <button class="logout-account-btn" data-i18n="personal-account.logout">Log Out</button>
+                <button class="edit-account-btn"
+                  data-i18n="personal-account.edit-dates">Edit Profile</button>
+                <button class="logout-account-btn"
+                  data-i18n="personal-account.logout">Log Out</button>
               </div>
             </div>
 
             <!-- Резервация -->
             <div class="personal-account-content reservation invisible">
-              <h3 class="personal-account-reservation-title" data-i18n="personal-account.your-reservations">Your Reservations</h3>
-              <p class="reservation-info-text" data-i18n="personal-account.your-reservations-text">
+              <h3 class="personal-account-reservation-title"
+                data-i18n="personal-account.your-reservations">Your
+                Reservations</h3>
+              <p class="reservation-info-text"
+                data-i18n="personal-account.your-reservations-text">
                 View your current and past reservations here.
               </p>
               <div id="user-reservations" class="reservation-list">
-                <p class="empty-reservations" data-i18n="personal-account.no-your-reservations">You have no active reservations at the moment.</p>
+                <p class="empty-reservations"
+                  data-i18n="personal-account.no-your-reservations">You have no
+                  active reservations at the moment.</p>
               </div>
 
               <div id="user-reservations-pagination" class="pagination">
@@ -1059,21 +1080,26 @@
 
             </div>
 
-          <!-- Админская панель -->
-          <div id="admin-panel" class="personal-account-content admin invisible">
-            <div class="admin-static-text">
-              <h3 data-i18n="personal-account.admin-panel" class="admin-dashboard">Admin Dashboard</h3>
-              <h3 data-i18n="personal-account.admin-reservation-list">Reservation List</h3>
-            </div>
-            <!-- Список резерваций будет рендериться сюда -->
-            <div id="admin-reservations-container" class="reservation-list" >
-              <p data-i18n="personal-account.admin-panel-reservations">Loading reservations…</p>
-            </div>
-            <div class="menu-admin-controls">
-              <button id="menu-show-add-item-btn" class="menu-admin-button">
-                ✚ Добавить элемент меню
-              </button>
-            </div>
+            <!-- Админская панель -->
+            <div id="admin-panel"
+              class="personal-account-content admin invisible">
+              <div class="admin-static-text">
+                <h3 data-i18n="personal-account.admin-panel"
+                  class="admin-dashboard">Admin Dashboard</h3>
+                <h3
+                  data-i18n="personal-account.admin-reservation-list">Reservation
+                  List</h3>
+              </div>
+              <!-- Список резерваций будет рендериться сюда -->
+              <div id="admin-reservations-container" class="reservation-list">
+                <p data-i18n="personal-account.admin-panel-reservations">Loading
+                  reservations…</p>
+              </div>
+              <div class="menu-admin-controls">
+                <button id="menu-show-add-item-btn" class="menu-admin-button">
+                  ✚ Добавить элемент меню
+                </button>
+              </div>
 
               <div id="add-item-dialog"
                 class="menu-add-dialog menu-modal-hidden">
@@ -1087,6 +1113,8 @@
                     <div class="menu-add-form__field">
                       <label for="item-category">Категория</label>
                       <select id="item-category" required>
+                        <option value disabled selected>Choose a
+                          category</option>
                         <option value="Appetizers-and-Salads">Appetizers &
                           Salads</option>
                         <option value="Soups">Soups</option>
@@ -1153,7 +1181,9 @@
                         <p>Перетащите фото сюда или кликните</p>
                         <input type="file" id="file-input" hidden
                           accept="image/*">
-                        <img id="preview-img" src alt="Preview"
+                        <img id="preview-img"
+                          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRA=="
+                          alt="Preview"
                           style="display: none;">
                       </div>
 
@@ -1177,169 +1207,197 @@
                 </div>
               </div>
 
-            <!-- Пагинация -->
-            <div id="admin-reservations-pagination" class="admin-pagination">
-              
-            </div>
-            <!-- === конец блока бронирований === -->
+              <!-- Пагинация -->
+              <div id="admin-reservations-pagination" class="admin-pagination">
 
-            <h3 data-i18n="personal-account.admin-reservation-list" class="admin-static-text">Guest List</h3>
+              </div>
+              <!-- === конец блока бронирований === -->
 
-            <div class="admin-users-buttons">
-              <button id="admin-users-btn" class="edit-account-btn personal-account-users-list" data-i18n="personal-account.admin-panel-all-users">All Users</button>
-              <button id="hide-admin-users-btn" class="edit-account-btn personal-account-users-list" data-i18n="personal-account.admin-panel-hide-users">Hide Users</button>
-            </div>
-            
-            <div id="admin-users-content" class="personal-account-content admin-users invisible">
-              <div id="admin-users-table">
-                <div class="admin-users-table-wrap">
-                  <table class="admin-users-table">
-                    <!-- ... строки ... -->
-                  </table>
+              <h3 data-i18n="personal-account.admin-reservation-list"
+                class="admin-static-text">Guest List</h3>
+
+              <div class="admin-users-buttons">
+                <button id="admin-users-btn"
+                  class="edit-account-btn personal-account-users-list"
+                  data-i18n="personal-account.admin-panel-all-users">All
+                  Users</button>
+                <button id="hide-admin-users-btn"
+                  class="edit-account-btn personal-account-users-list"
+                  data-i18n="personal-account.admin-panel-hide-users">Hide
+                  Users</button>
+              </div>
+
+              <div id="admin-users-content"
+                class="personal-account-content admin-users invisible">
+                <div id="admin-users-table">
+                  <div class="admin-users-table-wrap">
+                    <table class="admin-users-table">
+                      <!-- ... строки ... -->
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <!-- ======================== RESERVATION ======================== -->
 
-  <!-- ======================== RESERVATION ======================== -->
-
-  <section id="reservation-section" class="reservation-section invisible">
-    <div class="reservation-container">
-      <form class="reservation-form" id="reservation-form" method="post" novalidate>
-        <fieldset class="reservation-form-fieldset">
-          <legend class="form-legend" data-i18n="reservation.title">Table Reservation</legend>
-          <div class="reservation-login-warning" id="reservation-login-warning" data-i18n="reservation.login-warning">
-            Please sign in before making a table reservation.
-          </div>
-          <div class="form-group">
-            <label for="reservation-name">
-              <span data-i18n="reservation.name">Full Name</span>
-              <input type="text" name="name" data-i18n-placeholder="reservation.placeholder-name" placeholder="e.g. John Smith"
-                required>
-            </label>
-          </div>
-          <div class="form-group">
-            <label for="reservation-phone">
-              <span data-i18n="reservation.number">Phone number</span>
-              <input type="tel" name="phone" placeholder="+420 123 456 789"
-                required>
-            </label>
-          </div>
-          <div class="form-group">
-            <label for="reservation-email">
-              <span data-i18n="signin-form.email">Email</span>
-              <input type="email" name="email" placeholder="example@gmail.com"
-                required>
-            </label>
-          </div>
-          <div class="form-two-cols">
-            <label for="dateInput">
-              <span data-i18n="reservation.date">Date</span>
-              <input type="date" id="dateInput" name="date" required>
-            </label>
-            <label for="timeInput">
-              <span data-i18n="reservation.time">Time</span>
-              <input type="time" id="timeInput" name="time" required>
-            </label>
-          </div>
-          <div class="form-group">
-            <label for="peopleInput">
-              <span data-i18n="reservation.guests">Number of guests(max. 20)</span>
+    <section id="reservation-section" class="reservation-section invisible">
+      <div class="reservation-container">
+        <form class="reservation-form" id="reservation-form" method="post"
+          novalidate>
+          <fieldset class="reservation-form-fieldset">
+            <legend class="form-legend" data-i18n="reservation.title">Table
+              Reservation</legend>
+            <div class="reservation-login-warning"
+              id="reservation-login-warning"
+              data-i18n="reservation.login-warning">
+              Please sign in before making a table reservation.
+            </div>
+            <div class="form-group">
+              <label for="reservation-name">
+                <span data-i18n="reservation.name">Full Name</span>
+                <input type="text" name="name" id="reservation-name"
+                  data-i18n-placeholder="reservation.placeholder-name"
+                  placeholder="e.g. John Smith"
+                  required>
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="reservation-phone">
+                <span data-i18n="reservation.number">Phone number</span>
+                <input type="tel" name="phone" id="reservation-phone"
+                  placeholder="+420 123 456 789"
+                  required>
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="reservation-email">
+                <span data-i18n="signin-form.email">Email</span>
+                <input type="email" name="email" id="reservation-email"
+                  placeholder="example@gmail.com"
+                  required>
+              </label>
+            </div>
+            <div class="form-two-cols">
+              <label for="dateInput">
+                <span data-i18n="reservation.date">Date</span>
+                <input type="date" id="dateInput" name="date" required>
+              </label>
+              <label for="timeInput">
+                <span data-i18n="reservation.time">Time</span>
+                <input type="time" id="timeInput" name="time" required>
+              </label>
+            </div>
+            <div class="form-group">
               <div class="custom-number-inline">
-                <input type="number" name="people" min="1" max="20" value="2" required>
-                <div class="number-btns">
-                  <button type="button" class="number-btn up">▲</button>
-                  <button type="button" class="number-btn down">▼</button>
+                <label for="peopleInput">
+                  <span data-i18n="reservation.guests">
+                    Number of guests(max. 20)
+                  </span>
+                </label>
+
+                <div class="input-with-buttons">
+                  <input id="peopleInput" type="number" name="people" min="1"
+                    max="20" value="2" required>
+
+                  <div class="number-btns">
+                    <button type="button" class="number-btn up">▲</button>
+                    <button type="button" class="number-btn down">▼</button>
+                  </div>
                 </div>
               </div>
-          </div>
-          <div class="form-group">
-            <label for="messageInput">
-              <span data-i18n="reservation.comment">Comment (optional)</span>
-              <textarea name="message" data-i18n-placeholder="reservation.placeholder-message"
-                placeholder="Special requests or preferences"></textarea>
-            </label>
-          </div>
-          <div class="reservation-message" id="reservation-message"></div>
-          <div class="reservation-submit-wrap">
-            <button class="reservation-submit-btn"
-              type="submit" data-i18n="reservation.reservation" name="action">Reserve</button>
-          </div>
-        </fieldset>
-      </form>
-    </div>
-  </section>
-
-  <!-- =========================== MENU =========================== -->
-
-  <section class="menu-all" id="menu-all">
-    <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
-    <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false"
-      data-bg="img/menu-hero.jpg">
-      <div class="menu-3d-container" id="menu-3d-container">
-        <!-- задний фон -->
-        <div class="menu-layer layer-1"
-          style="background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');"></div>
-        <!-- средние слои (могут быть PNG с прозрачностью) -->
-        <div class="menu-layer layer-3">
-          <div class="menu-3d-center">
-            <h1 class="menu-3d-title">Menu</h1>
-            <p class="menu-3d-sub" data-i18n="menu.menu-3d-sub">Taste our seasonal selection — inspired by
-              tradition, crafted with love</p>
-          </div>
-        </div>
+            </div>
+            <div class="form-group">
+              <label for="messageInput">
+                <span data-i18n="reservation.comment">Comment
+                  (optional)</span>
+                <textarea name="message" id="messageInput" rows="4"
+                  data-i18n-placeholder="reservation.placeholder-message"
+                  placeholder="Special requests or preferences"></textarea>
+              </label>
+            </div>
+            <div class="reservation-message" id="reservation-message"></div>
+            <div class="reservation-submit-wrap">
+              <button class="reservation-submit-btn"
+                type="submit" data-i18n="reservation.reservation"
+                name="action">Reserve</button>
+            </div>
+          </fieldset>
+        </form>
       </div>
-      <div class="menu-smoke" aria-hidden="true"
-        style="background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')"></div>
-      <div class="menu-sun" aria-hidden="true"
-        style="background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')"></div>
-    </div>
+    </section>
 
-    <!-- Кнопки-фильтры -->
-    <div class="menu-all-btn" role="tablist" aria-label="Menu categories">
-      <button class="menu-button" data-filter="all">All</button>
-      <button class="menu-button"
-        data-filter="Appetizers-and-Salads">Appetizers &amp; Salads</button>
-      <button class="menu-button" data-filter="Soups">Soups</button>
-      <button class="menu-button" data-filter="Sides-Dishes">Side
-        Dishes</button>
-      <button class="menu-button" data-filter="Main-Courses">Main
-        Courses</button>
-      <button class="menu-button" data-filter="Fish-and-Seafood">Fish &amp;
-        Seafood</button>
-      <button class="menu-button" data-filter="Desserts">Desserts</button>
-      <button class="menu-button" data-filter="Soft-Drinks">Soft
-        Drinks</button>
-      <button class="menu-button" data-filter="Alcoholic-Beverages">Alcoholic
-        Beverages</button>
-    </div>
+    <!-- =========================== MENU =========================== -->
 
-    <template id="menu-item-template">
-      <article class="menu-first-position menu-item" data-category>
-        <img loading="lazy"
-          decoding="async" src alt class="menu-first-food-img">
-        <div class="menu-first-info">
-          <h3 class="menu-first-text"></h3>
-          <p class="menu-first-desc"></p>
+    <section class="menu-all" id="menu-all">
+      <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
+      <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false"
+        data-bg="img/menu-hero.jpg">
+        <div class="menu-3d-container" id="menu-3d-container">
+          <!-- задний фон -->
+          <div class="menu-layer layer-1"
+            style="background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');"></div>
+          <!-- средние слои (могут быть PNG с прозрачностью) -->
+          <div class="menu-layer layer-3">
+            <div class="menu-3d-center">
+              <h1 class="menu-3d-title">Menu</h1>
+              <p class="menu-3d-sub" data-i18n="menu.menu-3d-sub">Taste our
+                seasonal selection — inspired by
+                tradition, crafted with love</p>
+            </div>
+          </div>
         </div>
-        <div class="menu-first-meta">
-          <div class="menu-first-price"></div>
-          <p class="menu-order-weight"></p>
-        </div>
-      </article>
-    </template>
+        <div class="menu-smoke" aria-hidden="true"
+          style="background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')"></div>
+        <div class="menu-sun" aria-hidden="true"
+          style="background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')"></div>
+      </div>
 
-    <!-- Список блюд — каждая карточка -->
-    <div class="menu-items">
+      <!-- Кнопки-фильтры -->
+      <div class="menu-all-btn" role="tablist" aria-label="Menu categories">
+        <button class="menu-button" data-filter="all">All</button>
+        <button class="menu-button"
+          data-filter="Appetizers-and-Salads">Appetizers &amp; Salads</button>
+        <button class="menu-button" data-filter="Soups">Soups</button>
+        <button class="menu-button" data-filter="Sides-Dishes">Side
+          Dishes</button>
+        <button class="menu-button" data-filter="Main-Courses">Main
+          Courses</button>
+        <button class="menu-button" data-filter="Fish-and-Seafood">Fish &amp;
+          Seafood</button>
+        <button class="menu-button" data-filter="Desserts">Desserts</button>
+        <button class="menu-button" data-filter="Soft-Drinks">Soft
+          Drinks</button>
+        <button class="menu-button"
+          data-filter="Alcoholic-Beverages">Alcoholic
+          Beverages</button>
+      </div>
 
-    </div>
+      <template id="menu-item-template">
+        <article class="menu-first-position menu-item" data-category>
+          <img loading="lazy"
+            decoding="async" src alt class="menu-first-food-img">
+          <div class="menu-first-info">
+            <h3 class="menu-first-text"></h3>
+            <p class="menu-first-desc"></p>
+          </div>
+          <div class="menu-first-meta">
+            <div class="menu-first-price"></div>
+            <p class="menu-order-weight"></p>
+          </div>
+        </article>
+      </template>
 
-  </section>
+      <!-- Список блюд — каждая карточка -->
+      <div class="menu-items">
+
+      </div>
+
+    </section>
 
     <footer class="footer">
       <div class="footer-box">
@@ -1350,7 +1408,8 @@
             <li class="footer-button-aboutus"><a href="#about-us"
                 class="footer-button-aboutus">About Us</a></li>
             <li><button type="button" class="menu-btn">Menu</button></li>
-            <li><button type="button" class="gallery-btn">Gallery</button></li>
+            <li><button type="button"
+                class="gallery-btn">Gallery</button></li>
             <li><button type="button"
                 class="reservation-btn">Reservations</button></li>
           </ul>
@@ -1367,7 +1426,8 @@
           <h4>Follow Us</h4>
           <div class="media-icons">
             <a href="#"><img loading="lazy"
-                decoding="async" src="img/facebook-logo.svg" alt="Facebook"></a>
+                decoding="async" src="img/facebook-logo.svg"
+                alt="Facebook"></a>
             <a href="#"><img loading="lazy"
                 decoding="async" src="img/insta-logo.svg" alt="Instagram"></a>
             <a href="#"><img loading="lazy"
