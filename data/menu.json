@@ -265,48 +265,6 @@
             "price": "100 CZK",
             "weight": "250",
             "image": "img\/menu-img\/Appetizers-and-Salads\/20-Cat-Soup.jpg"
-        },
-        {
-            "id": "1.20",
-            "name": {
-                "eng": "eng-Kemyar",
-                "cz": "cz-Kemyar"
-            },
-            "description": {
-                "eng": "eng-Kemyareng-Kemyar",
-                "cz": "czczczczcczc"
-            },
-            "price": "123 CZK",
-            "weight": "400g",
-            "image": "img\/menu-img\/Appetizers-and-Salads\/20-engKemyar.jpg"
-        },
-        {
-            "id": "1.21",
-            "name": {
-                "eng": "eng-KemyarCZ-KemyarCZ-Kemyar",
-                "cz": "CZ-KemyarCZ-KemyarCZ-Kemyar"
-            },
-            "description": {
-                "eng": "CZ-KemyarCZ-Kemyar",
-                "cz": "CZ-KemyarCZ-KemyarCZ-Kemyar"
-            },
-            "price": "123 CZK",
-            "weight": "400g",
-            "image": "img\/menu-img\/Appetizers-and-Salads\/21-eng-kemyarcz-kemyarcz-kemyar.jpg"
-        },
-        {
-            "id": "1.22",
-            "name": {
-                "eng": "CZ-KemyarCZ-KemyarCZ-KemyarCZ-KemyarCZ-Kemyar",
-                "cz": "MáriaržCZ-KemyarCZ-KemyarCZ-Kemyar"
-            },
-            "description": {
-                "eng": "CZ-KemyarCZ-KemyarCZ-Kemyar",
-                "cz": "CZ-KemyarCZ-Kemyar"
-            },
-            "price": "435 CZK",
-            "weight": "450g",
-            "image": "img\/menu-img\/Appetizers-and-Salads\/22-cz-kemyarcz-kemyarcz-kemyarcz-kemyarcz-kemyar.jpg"
         }
     ],
     "Soups": [
@@ -533,20 +491,6 @@
             "price": "285 CZK",
             "weight": "320g",
             "image": "img\/menu-img\/Soups\/16-Cream-soup-of-broccoli-and-spinach.png"
-        },
-        {
-            "id": "2.17",
-            "name": {
-                "eng": "eng-Keevdsvmyar regf",
-                "cz": "cz-Kemsdvsdyar"
-            },
-            "description": {
-                "eng": "eng-Kemyareng-Kemyar",
-                "cz": "cz-Kemyarcz-Kesdvcz-Kemyarmyarcz-Kemyar"
-            },
-            "price": "123 CZK",
-            "weight": "450g",
-            "image": ".\/img\/menu-img\/Soups\/17-eng-keevdsvmyar-regf.png"
         }
     ],
     "Sides-Dishes": [
@@ -1213,20 +1157,6 @@
             "price": "290 CZK",
             "weight": "125g",
             "image": "img\/menu-img\/Desserts\/10-Wallachian-pear-frgal-from-spelt-flour-with-star-anise.png"
-        },
-        {
-            "id": "6.11",
-            "name": {
-                "eng": "Mariarz",
-                "cz": "Máriarž"
-            },
-            "description": {
-                "eng": "Its delisious",
-                "cz": "To je dort"
-            },
-            "price": "250 CZK",
-            "weight": "400g",
-            "image": "img\/menu-img\/Desserts\/2-Mariarz.jpg"
         }
     ],
     "Soft-Drinks": [

@@ -1,33 +1,55 @@
 <?php
-include 'auth.php'; // авторизация + защита CSRF
+// admin_get_users.php — получение списка пользователей (admin only)
+declare(strict_types=1);
 
-if (!isset($_SESSION['user_id']) || $_SESSION['isAdmin'] != 1) {
+require_once __DIR__ . '/auth.php'; // обеспечивает сессию и авторизацию
+header('Content-Type: application/json; charset=utf-8');
+
+// Проверка прав администратора
+$currentIsAdmin = $GLOBALS['currentUserIsAdmin'] ?? ($_SESSION['isAdmin'] ?? 0);
+if ((int)$currentIsAdmin !== 1) {
+    http_response_code(403);
     echo json_encode(['success' => false, 'error' => 'Access denied']);
     exit;
 }
 
-$limit = 5; // === 5 пользователей на страницу ===
-$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+// Параметры пагинации — защищённо: целые числа, лимит ограничен
+$limit = 5;
+$maxLimit = 100;
+$page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+if ($page < 1) $page = 1;
 $offset = ($page - 1) * $limit;
 
 try {
-    // считаем общее количество пользователей
-    $countResult = $conn->query("SELECT COUNT(*) AS total FROM users");
-    $total = $countResult->fetch_assoc()['total'];
-    $totalPages = ceil($total / $limit);
+    // total count
+    $countRes = $conn->query("SELECT COUNT(*) AS total FROM users");
+    if (!$countRes) {
+        throw new Exception('Count query failed: ' . $conn->error);
+    }
+    $countRow = $countRes->fetch_assoc();
+    $total = intval($countRow['total'] ?? 0);
+    $totalPages = $total > 0 ? (int)ceil($total / $limit) : 1;
 
-    // получаем текущую страницу
-    $stmt = $conn->prepare("SELECT id, name, email, created_at FROM users ORDER BY id ASC LIMIT ? OFFSET ?");
-    $stmt->bind_param("ii", $limit, $offset);
+    // Safe: use integers injected (already validated) for LIMIT/OFFSET to avoid binding pitfalls
+    $sql = sprintf("SELECT id, name, email, created_at FROM users ORDER BY id ASC LIMIT %d OFFSET %d", $limit, $offset);
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        throw new Exception('DB prepare failed: ' . $conn->error);
+    }
     $stmt->execute();
-    $result = $stmt->get_result();
+    $res = $stmt->get_result();
 
     $users = [];
-    while ($row = $result->fetch_assoc()) {
-        $row['name'] = htmlspecialchars($row['name'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-        $row['email'] = htmlspecialchars($row['email'], ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-        $users[] = $row;
+    while ($row = $res->fetch_assoc()) {
+        // НЕ экранируем HTML — JSON сериализация безопасно экранирует строки.
+        $users[] = [
+            'id' => (int)($row['id'] ?? 0),
+            'name' => (string)($row['name'] ?? ''),
+            'email' => (string)($row['email'] ?? ''),
+            'created_at' => (string)($row['created_at'] ?? '')
+        ];
     }
+    $stmt->close();
 
     echo json_encode([
         'success' => true,
@@ -35,7 +57,11 @@ try {
         'totalPages' => $totalPages,
         'currentPage' => $page
     ]);
+    exit;
+
 } catch (Throwable $e) {
+    error_log('admin_get_users error: ' . $e->getMessage());
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => 'DB Error']);
+    exit;
 }

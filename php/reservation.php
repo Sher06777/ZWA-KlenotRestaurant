@@ -59,8 +59,8 @@ $stmt = $conn->prepare("
 ");
 
 if (!$stmt) {
-    echo json_encode(['success' => false, 'error' => $conn->error]);
-    exit;
+    error_log('reservation insert failed: ' . $conn->error);
+    echo json_encode(['success' => false, 'error' => 'Server error']);
 }
 //def SQL-injection - attack
 $stmt->bind_param("isssssiss", $user_id, $name, $phone, $email, $date, $time, $people, $message, $createdAt);
