@@ -334,6 +334,16 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    let rawWeight = (document.getElementById("item-weight") ? (document.getElementById("item-weight").value || '') : '').toString().trim();
+    if (rawWeight.length > 0) {
+      if (/^\d+$/.test(rawWeight)) {
+        rawWeight = rawWeight + ' g';
+      } else if (!/g$/.test(rawWeight)) {
+        // если не заканчивается на 'g' — добавим через пробел
+        rawWeight = rawWeight + ' g';
+      }
+    }
+
     const newDish = {
       id: idField.value,
       name: { eng: nameEngInput.value || '', cz: nameCzInput ? nameCzInput.value || '' : '' },
@@ -342,7 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cz: document.getElementById("item-desc-cz") ? document.getElementById("item-desc-cz").value || '' : ''
       },
       price: (document.getElementById("item-price") ? document.getElementById("item-price").value || '' : '') + " CZK",
-      weight: document.getElementById("item-weight") ? document.getElementById("item-weight").value || '' : '',
+      weight: rawWeight,
       image: `./img/menu-img/${category}/${finalFileName}`
     };
 

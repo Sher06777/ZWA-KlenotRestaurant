@@ -113,6 +113,7 @@ function renderUsers(users, tableWrap) {
   const headRow = document.createElement('tr');
   ['ID', 'Login', 'Email', 'Удалить?'].forEach((h, idx) => {
     const th = document.createElement('th');
+    // Переносим data-i18n для перевода (если нужно)
     if (idx === 3) th.setAttribute('data-i18n', 'admin.delete');
     th.textContent = h;
     headRow.appendChild(th);
@@ -122,32 +123,53 @@ function renderUsers(users, tableWrap) {
 
   const tbody = document.createElement('tbody');
 
-  users.forEach(u => {
+  // Если нет пользователей — покажем строку "нет данных"
+  if (users.length === 0) {
     const tr = document.createElement('tr');
-    tr.dataset.userId = String(u.id ?? '');
-
-    const tdId = document.createElement('td');
-    tdId.textContent = String(u.id ?? '');
-    tr.appendChild(tdId);
-
-    const tdLogin = document.createElement('td');
-    tdLogin.textContent = String(u.name ?? '');
-    tr.appendChild(tdLogin);
-
-    const tdEmail = document.createElement('td');
-    tdEmail.textContent = String(u.email ?? '');
-    tr.appendChild(tdEmail);
-
-    const tdDelete = document.createElement('td');
-    const btn = document.createElement('button');
-    btn.className = 'user-delete-yes edit-account-btn';
-    btn.setAttribute('data-i18n', 'admin.delete-yes');
-    btn.dataset.id = String(u.id ?? '');
-    tdDelete.appendChild(btn);
-    tr.appendChild(tdDelete);
-
+    const td = document.createElement('td');
+    td.colSpan = 4;
+    td.textContent = (typeof getTranslation === 'function') ? (getTranslation('admin.no-users') || 'No users') : 'No users';
+    tr.appendChild(td);
     tbody.appendChild(tr);
-  });
+  } else {
+    users.forEach(u => {
+      const tr = document.createElement('tr');
+      tr.dataset.userId = String(u.id ?? '');
+
+      const tdId = document.createElement('td');
+      tdId.textContent = String(u.id ?? '');
+      tr.appendChild(tdId);
+
+      const tdLogin = document.createElement('td');
+      tdLogin.textContent = String(u.name ?? '');
+      tr.appendChild(tdLogin);
+
+      const tdEmail = document.createElement('td');
+      tdEmail.textContent = String(u.email ?? '');
+      tr.appendChild(tdEmail);
+
+      const tdDelete = document.createElement('td');
+      tdDelete.className = 'admin-users-delete-cell';
+
+      // Если запись — это текущий администратор, не показываем кнопку удаления
+      const currentUserId = Number(window.currentUserId || 0);
+      if (Number(u.id) !== currentUserId) {
+        const btn = document.createElement('button');
+        btn.className = 'user-delete-yes edit-account-btn';
+        btn.setAttribute('data-i18n', 'admin.delete-yes');
+        btn.dataset.id = String(u.id ?? '');
+        // Добавим понятный label для accessibility
+        btn.setAttribute('aria-label', `Delete user ${u.id}`);
+        tdDelete.appendChild(btn);
+      } else {
+        tdDelete.textContent = ''; // оставляем пустой
+      }
+      tr.appendChild(tdDelete);
+
+      // --- ВАЖНО: добавление строки в tbody ---
+      tbody.appendChild(tr);
+    });
+  }
 
   table.appendChild(tbody);
 
@@ -168,7 +190,7 @@ function renderUsers(users, tableWrap) {
         return;
       }
 
-      const confirmText = await getTranslation('admin.delete');
+      const confirmText = (typeof getTranslation === 'function') ? (await getTranslation('admin.delete') || 'Delete') : 'Delete';
       if (!confirm(`${confirmText} #${id}?`)) return;
 
       try {
@@ -189,16 +211,11 @@ function renderUsers(users, tableWrap) {
           await window.CSRFManager.appendToFormData(formData);
         }
 
-        const fetchOpts = window.CSRFManager ? await window.CSRFManager.fetchWithCsrf("./php/admin_delete_user.php", {
-          method: 'POST',
-          body: formData
-        }) : await fetch("./php/admin_delete_user.php", {
-          method: 'POST',
-          credentials: 'include',
-          body: formData
-        });
+        const fetchResp = window.CSRFManager
+          ? await window.CSRFManager.fetchWithCsrf("./php/admin_delete_user.php", { method: 'POST', body: formData })
+          : await fetch("./php/admin_delete_user.php", { method: 'POST', credentials: 'include', body: formData });
 
-        const resp = await fetchOpts.json().catch(() => ({ success: false }));
+        const resp = await fetchResp.json().catch(() => ({ success: false }));
 
         if (resp.success) {
           cachedUsersPages = {}; // clear cache
@@ -215,6 +232,7 @@ function renderUsers(users, tableWrap) {
     tableWrap.dataset.listenerAdded = 'true';
   }
 
+  // Перевод (если используется i18n)
   translateUserTable(tableWrap);
 }
 
@@ -276,6 +294,8 @@ function initAdminPanel(user) {
   const reservationBtn = document.querySelector('.personal-account-reservation');
 
   if (!adminBtn || !adminPanel) return;
+
+  window.currentUserId = Number(user && user.id ? user.id : 0);
 
   fetch('./php/check_role.php', { credentials: 'include' })
     .then(res => res.json().catch(() => ({})))

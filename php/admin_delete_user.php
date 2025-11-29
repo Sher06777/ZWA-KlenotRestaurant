@@ -1,39 +1,27 @@
 <?php
-include 'auth.php'; // подключаем для проверки авторизации и CSRF
+// admin_delete_user.php — удаление пользователя (admin only)
+declare(strict_types=1);
 
-// === Проверка авторизации ===
-$currentUserId = $_SESSION['user_id'] ?? 0;
-$currentUserIsAdmin = $_SESSION['isAdmin'] ?? 0;
+require_once __DIR__ . '/auth.php';
+header('Content-Type: application/json; charset=utf-8');
 
-if (!$currentUserId || $currentUserIsAdmin != 1) {
+// Проверка прав администратора
+$currentUserId = $GLOBALS['currentUserId'] ?? ($_SESSION['user_id'] ?? 0);
+$currentIsAdmin = $GLOBALS['currentUserIsAdmin'] ?? ($_SESSION['isAdmin'] ?? 0);
+if (!$currentUserId || (int)$currentIsAdmin !== 1) {
     http_response_code(403);
     echo json_encode(['success' => false, 'error' => 'Access denied']);
     exit;
 }
 
-// === Проверка CSRF (как в auth.php) ===
-$csrf_token = $_POST['csrf_token'] ?? '';
-
-if (empty($csrf_token)) {
-    $raw = file_get_contents('php://input');
-    $json = json_decode($raw, true);
-    if (json_last_error() === JSON_ERROR_NONE && is_array($json)) {
-        $csrf_token = $json['csrf_token'] ?? $json['csrf'] ?? '';
-    }
-}
-
-if (empty($csrf_token) && function_exists('getallheaders')) {
-    $headers = getallheaders();
-    $csrf_token = $headers['X-CSRF-Token'] ?? $headers['x-csrf-token'] ?? $headers['X-Csrf-Token'] ?? '';
-}
-
-if (!verify_csrf_token($csrf_token)) {
-    http_response_code(403);
-    echo json_encode(['success' => false, 'error' => 'Invalid CSRF token']);
+// Метод — только POST
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'error' => 'Method not allowed']);
     exit;
 }
 
-// === ID пользователя для удаления ===
+// Считываем id и валидируем
 $userIdToDelete = intval($_POST['id'] ?? 0);
 if ($userIdToDelete <= 0) {
     http_response_code(400);
@@ -42,34 +30,46 @@ if ($userIdToDelete <= 0) {
 }
 
 // Нельзя удалить самого себя
-if ($userIdToDelete == $currentUserId) {
-    echo json_encode(['success' => false, 'error' => 'Нельзя удалить свой аккаунт']);
+if ($userIdToDelete === (int)$currentUserId) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Cannot delete your own account']);
     exit;
 }
 
-// === Проверка существования пользователя ===
-$stmtCheck = $conn->prepare("SELECT id FROM users WHERE id = ?");
-$stmtCheck->bind_param("i", $userIdToDelete);
-$stmtCheck->execute();
-$resultCheck = $stmtCheck->get_result();
-if ($resultCheck->num_rows === 0) {
-    echo json_encode(['success' => false, 'error' => 'User not found']);
-    exit;
-}
-
-// === Удаление ===
 try {
+    // Проверка существования
+    $stmtCheck = $conn->prepare("SELECT id FROM users WHERE id = ?");
+    if (!$stmtCheck) throw new Exception('DB prepare failed: ' . $conn->error);
+    $stmtCheck->bind_param("i", $userIdToDelete);
+    $stmtCheck->execute();
+    $res = $stmtCheck->get_result();
+    if ($res->num_rows === 0) {
+        $stmtCheck->close();
+        http_response_code(404);
+        echo json_encode(['success' => false, 'error' => 'User not found']);
+        exit;
+    }
+    $stmtCheck->close();
+
+    // Удаляем (c подготовкой)
     $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
+    if (!$stmt) throw new Exception('DB prepare failed: ' . $conn->error);
     $stmt->bind_param("i", $userIdToDelete);
     $stmt->execute();
+    $affected = $stmt->affected_rows;
+    $stmt->close();
 
-    if ($stmt->affected_rows > 0) {
+    if ($affected > 0) {
         echo json_encode(['success' => true]);
     } else {
+        http_response_code(404);
         echo json_encode(['success' => false, 'error' => 'User not found']);
     }
+    exit;
+
 } catch (Throwable $e) {
+    error_log('admin_delete_user error: ' . $e->getMessage());
     http_response_code(500);
     echo json_encode(['success' => false, 'error' => 'Database error']);
+    exit;
 }
-exit;
