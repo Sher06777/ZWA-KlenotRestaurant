@@ -4,13 +4,13 @@ const signinForm = document.querySelector('#signin-form');
 const signinButton = document.querySelector('.form-submit-button--signin');
 let signingIn = false;
 
-try {
-  localStorage.clear();
-  sessionStorage.clear();
-  console.log("🧹 LocalStorage и SessionStorage очищены");
-} catch (e) {
-  console.warn("Не удалось очистить localStorage:", e);
-}
+// try {
+//   localStorage.removeItem('myApp:tempData');
+//   sessionStorage.removeItem('myApp:tempSession');
+//   console.log("🧹 LocalStorage и SessionStorage очищены");
+// } catch (e) {
+//   console.warn("Не удалось очистить localStorage:", e);
+// }
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
@@ -194,7 +194,7 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
           msgEl.classList.remove('error');
         }, retrySeconds * 1000);
       } else {
-        alert(message);
+        console.log(message);
         signingIn = false;
         if (signinButton) {
           signinButton.disabled = false;
@@ -206,11 +206,33 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
     }
 
     if (resp.status === 403) {
-      earlyHandled = true;
       let json = { success: false, message: 'Invalid CSRF token' };
       try { json = await resp.json(); } catch (e) {}
+
+      // Показываем сообщение
       showSubmitMessage(json.message || 'Security error. Please refresh the page.', 'error');
 
+      // Обновим CSRF: сначала попробуем CSRFManager.refresh(), иначе запросим get_csrf_token.php
+      try {
+        if (window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
+          await window.CSRFManager.refresh();
+        } else {
+          const tokenResp = await fetch('./php/get_csrf_token.php', { credentials: 'include' });
+          const tok = await tokenResp.json().catch(()=>null);
+          // если есть у вас CSRFManager API для установки токена, можно его вызвать тут, например:
+          // if (tok && tok.csrf_token && window.CSRFManager && typeof window.CSRFManager.setToken === 'function') {
+          //   window.CSRFManager.setToken(tok.csrf_token);
+          // }
+          // иначе — просто сохраняем в переменную, CSRFManager.appendToFormData должно заново запросить токен или использовать refresh
+          if (tok && tok.csrf_token) {
+            window.__csrf_token = tok.csrf_token;
+          }
+        }
+      } catch (err) {
+        console.warn('Failed to refresh CSRF after 403:', err);
+      }
+
+      // разблокируем кнопку (и не скрываем сообщение)
       signingIn = false;
       if (signinButton) {
         signinButton.disabled = false;
@@ -222,6 +244,7 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
     const result = await resp.json().catch(() => ({ success: false, message: 'Invalid server response' }));
 
     if (result.success) {
+      // Устанавливаем глобального пользователя и инициализируем UI
       window.user = {
         id: result.user_id,
         name: result.user_name,
@@ -239,11 +262,33 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
 
       clearSubmitMessage();
 
-      requestAnimationFrame(() => {
-        if (typeof window.onLoginOrRegister === 'function') {
-          window.onLoginOrRegister();
+      // ---- НОВОЕ: явно скрываем форму входа и показываем секцию аккаунта ----
+      try {
+        // Скрыть секцию входа (если есть)
+        const signinSection = document.getElementById('signin-section') || signinForm.closest('section') || document.querySelector('.form-main');
+        if (signinSection) {
+          signinSection.classList.remove('visible');
+          signinSection.classList.add('invisible');
+          signinSection.style.pointerEvents = 'none';
+          signinSection.style.opacity = 0;
         }
-      });
+
+        // Показать секцию личного кабинета (если есть)
+        const personalEl = document.querySelector('.main-content-wrapper') || document.getElementById('personal-account') || document.getElementById('account-section');
+        if (personalEl) {
+          personalEl.classList.remove('invisible');
+          personalEl.classList.add('visible');
+          personalEl.style.pointerEvents = 'auto';
+          personalEl.style.opacity = 1;
+          // чуть прокручиваем наверх
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Попробуем вызвать глобальный хук (если есть) — всё равно безопасно
+        window.dispatchEvent(new CustomEvent('user:loggedin', { detail: window.user }));
+      } catch (e) {
+        try { if (typeof window.onLoginOrRegister === 'function') window.onLoginOrRegister(window.user); } catch (ee) { console.warn('onLogin fallback failed', ee); }
+      }
     } else {
       if (Array.isArray(result.fields) && result.fields.length) {
         result.fields.forEach(fName => {
@@ -277,6 +322,7 @@ signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
     console.error('Signin request failed:', err);
     showSubmitMessage('Server error. Try later.', 'error');
   } finally {
+    // если ранняя обработка была выполнена, не стираем сообщение (earlyHandled блокирует "финальный" сброс)
     if (earlyHandled) {
       return;
     }

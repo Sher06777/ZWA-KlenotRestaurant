@@ -117,11 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!passwordVal) {
           showError(password, "Please enter a password");
           isValid = false;
-        } 
-        // else if (passwordVal.length < 6) {
-        //   showError(password, "Password is too short (min 6 characters)");
-        //   isValid = false;
-        // }
+        }
       }
 
       if (isValid) {

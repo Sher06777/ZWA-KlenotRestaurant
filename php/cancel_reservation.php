@@ -6,6 +6,7 @@ $id = intval($data['id'] ?? 0);
 $user_id = $currentUserId;
 
 $stmt = $conn->prepare("DELETE FROM reservations WHERE id = ? AND user_id = ?");
+if (!$stmt) { error_log('cancel_res prepare failed: ' . $conn->error); echo json_encode(['success'=>false]); exit; }
 $stmt->bind_param("ii", $id, $user_id);
 $success = $stmt->execute();
 

@@ -217,7 +217,8 @@ if (editButton) {
 
       try {
         if (window.CSRFManager) {
-          await window.CSRFManager.appendToFormData(formData);
+          try { await window.CSRFManager.init(); } catch (e) { console.warn('CSRF init failed:', e); }
+          await window.CSRFManager.appendToFormData(formData).catch(e => console.warn('CSRF append failed:', e));
         }
       } catch (err) {
         console.warn('CSRF append failed for update_user:', err);

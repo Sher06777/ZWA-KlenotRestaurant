@@ -1,6 +1,6 @@
 <?php
-error_reporting(0);
 require_once 'session_init.php';
+error_reporting(0);
 ini_set('display_errors', 0);
 include 'security_headers.php'; 
 include 'db.php';
