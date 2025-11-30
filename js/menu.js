@@ -307,13 +307,115 @@ document.addEventListener('DOMContentLoaded', () => {
     idField.value = calculateNextId(currentCat);
     updateFileName();
     dialog.classList.remove("menu-modal-hidden");
+    if (nameEngInput) nameEngInput.focus();
   });
   if (closeBtn) closeBtn.addEventListener("click", () => dialog.classList.add("menu-modal-hidden"));
-  if (dialogContent) dialog.addEventListener("click", (e) => { if (!dialogContent.contains(e.target)) dialog.classList.add("menu-modal-hidden"); });
+
+  // НЕ закрываем модал по клику вне content (удалили обработчик).
+  // Закрытие только по Escape (и крестик).
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" || e.key === "Esc") {
+      // закрываем только если диалог открыт
+      if (dialog && !dialog.classList.contains('menu-modal-hidden')) {
+        dialog.classList.add('menu-modal-hidden');
+      }
+    }
+  });
 
   // Validate filename server-safe
   function isValidFilename(name) {
     return /^[A-Za-z0-9._-]+$/.test(name);
+  }
+
+  const priceInput = document.getElementById('item-price');
+  const weightInput = document.getElementById('item-weight');
+
+  // универсальная функция: вставляет очищенный текст (только цифры) в текущую позицию каретки
+  function insertOnlyDigitsAtCaret(el, text) {
+    const cleaned = (text || '').replace(/[^\d]+/g, '');
+    try {
+      const start = typeof el.selectionStart === 'number' ? el.selectionStart : el.value.length;
+      const end = typeof el.selectionEnd === 'number' ? el.selectionEnd : el.value.length;
+
+      if (typeof el.setRangeText === 'function') {
+        el.setRangeText(cleaned, start, end, 'end'); // вставить и поместить курсор после вставки
+        el.selectionStart = el.selectionEnd = start + cleaned.length;
+      } else {
+        const val = el.value || '';
+        el.value = val.slice(0, start) + cleaned + val.slice(end);
+        el.selectionStart = el.selectionEnd = start + cleaned.length;
+      }
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    } catch (err) {
+      // fallback: просто оставить только цифры во всём значении
+      el.value = (el.value || '').replace(/[^\d]+/g, '');
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  }
+
+  // обработчик input: немедленная очистка любых недопустимых символов
+  function onlyDigitsInputHandler(e) {
+    const el = e.target;
+    const old = el.value || '';
+    const cleaned = old.replace(/[^\d]+/g, '');
+    if (cleaned !== old) {
+      // сохраняем позицию курсора относительно конца очищённой строки
+      const pos = (el.selectionStart || 0) - (old.length - cleaned.length);
+      el.value = cleaned;
+      // корректируем позицию курсора в допустимые границы
+      const newPos = Math.max(0, Math.min(el.value.length, pos));
+      try { el.setSelectionRange(newPos, newPos); } catch(_) {}
+      el.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  }
+
+  // на keydown разрешаем управляющие клавиши, запрещаем ввод букв/знаков с клавиатуры
+  function onlyDigitsKeydownHandler(e) {
+    // разрешённые: цифры и numpad цифры (0-9), навигация и combo клавиши
+    // но проще: если это Ctrl/Meta/Alt сочетание — разрешаем (копирование и т.д.)
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    const allowedKeys = [
+      'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+      'Home', 'End', 'Tab', 'Enter'
+    ];
+    if (allowedKeys.indexOf(e.key) !== -1) return;
+    // цифры 0-9
+    if (/^[0-9]$/.test(e.key)) return;
+    // otherwise prevent
+    e.preventDefault();
+  }
+
+  // paste — используем insertOnlyDigitsAtCaret
+  function onlyDigitsPasteHandler(e) {
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData('text') || '';
+    insertOnlyDigitsAtCaret(e.target, text);
+  }
+
+  // attach listeners (если элементы присутствуют)
+  if (priceInput) {
+    // use input (handles typing + IME fallback), keydown (filters non-digit keys), paste
+    priceInput.addEventListener('input', onlyDigitsInputHandler);
+    priceInput.addEventListener('keydown', onlyDigitsKeydownHandler);
+    priceInput.addEventListener('paste', onlyDigitsPasteHandler);
+
+    // optional: ещё жестче — убираем возможный ведущий ноль при потере фокуса
+    priceInput.addEventListener('blur', () => {
+      if (priceInput.value === '') return;
+      // удалим ведущие нули (оставим хотя бы '0' если поле пусто)
+      priceInput.value = priceInput.value.replace(/^0+(?=\d)/, '');
+    });
+  }
+
+  if (weightInput) {
+    weightInput.addEventListener('input', onlyDigitsInputHandler);
+    weightInput.addEventListener('keydown', onlyDigitsKeydownHandler);
+    weightInput.addEventListener('paste', onlyDigitsPasteHandler);
+
+    weightInput.addEventListener('blur', () => {
+      if (weightInput.value === '') return;
+      weightInput.value = weightInput.value.replace(/^0+(?=\d)/, '');
+    });
   }
 
   // Submit form (add meal)
@@ -334,15 +436,27 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    let rawWeight = (document.getElementById("item-weight") ? (document.getElementById("item-weight").value || '') : '').toString().trim();
-    if (rawWeight.length > 0) {
-      if (/^\d+$/.test(rawWeight)) {
-        rawWeight = rawWeight + ' g';
-      } else if (!/g$/.test(rawWeight)) {
-        // если не заканчивается на 'g' — добавим через пробел
-        rawWeight = rawWeight + ' g';
+
+    let rawWeight = '';
+    if (weightInput && weightInput.value !== '') {
+      const parsedW = parseFloat(String(weightInput.value).replace(',', '.'));
+      if (Number.isFinite(parsedW) && parsedW >= 0) {
+        // если хочешь целые — Math.round(parsedW)
+        rawWeight = String(parsedW) + ' g';
       }
     }
+
+    let priceNum = 0;
+    const rawPrice = (document.getElementById("item-price") ? (document.getElementById("item-price").value || '') : '').toString().trim();
+    if (rawPrice.length > 0) {
+      const parsed = parseFloat(rawPrice.replace(',', '.'));
+      if (Number.isFinite(parsed) && parsed >= 0) {
+        priceNum = parsed;
+      } else {
+        priceNum = 0;
+      }
+    }
+    
 
     const newDish = {
       id: idField.value,
@@ -351,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
         eng: document.getElementById("item-desc-eng") ? document.getElementById("item-desc-eng").value || '' : '',
         cz: document.getElementById("item-desc-cz") ? document.getElementById("item-desc-cz").value || '' : ''
       },
-      price: (document.getElementById("item-price") ? document.getElementById("item-price").value || '' : '') + " CZK",
+      price: String(priceNum) + " CZK",
       weight: rawWeight,
       image: `./img/menu-img/${category}/${finalFileName}`
     };

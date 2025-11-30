@@ -5179,10 +5179,35 @@ label input:focus {
 .menu-add-form__group {
     display: flex;
     gap: 15px;
+    text-align: center;
 }
 
 .menu-add-form__group .menu-add-form__field {
     flex: 1;
+}
+
+.input-with-suffix {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center
+}
+
+.input-with-suffix input {
+  padding-right: 0.25rem;
+  width: 100px;
+}
+
+small {
+    display:block; 
+    color:#666; 
+    font-size:12px; 
+    margin-top:4px;
+}
+
+.input-with-suffix .suffix {
+  color: #333;
+  font-size: 0.95em;
+  user-select: none;
 }
 
 .menu-add-form__fieldset {
