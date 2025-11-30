@@ -1097,7 +1097,7 @@
               </div>
               <div class="menu-admin-controls">
                 <button id="menu-show-add-item-btn" class="menu-admin-button">
-                  ✚ Добавить элемент меню
+                  ✚ Add menu item
                 </button>
               </div>
 
@@ -1106,12 +1106,12 @@
                 <div class="menu-add-dialog-content">
                   <button id="close-dialog"
                     class="menu-close-btn">&times;</button>
-                  <h2>Добавить новое блюдо</h2>
+                  <h2>Add a new dish</h2>
 
                   <form id="menu-add-item-form">
 
                     <div class="menu-add-form__field">
-                      <label for="item-category">Категория</label>
+                      <label for="item-category">Category</label>
                       <select id="item-category" required>
                         <option value disabled selected>Choose a
                           category</option>
@@ -1129,13 +1129,13 @@
                     </div>
 
                     <div class="menu-add-form__field">
-                      <label for="item-id">ID (Автоматически)</label>
+                      <label for="item-id">ID (Automatically)</label>
                       <input type="text" id="item-id" readonly
                         style="background: #f0f0f0; cursor: not-allowed; color: #555;">
                     </div>
 
                     <fieldset class="menu-add-form__fieldset">
-                      <legend>Название (Name)</legend>
+                      <legend>Name</legend>
                       <div class="menu-add-form__field">
                         <label for="item-name-eng">English</label>
                         <input type="text" id="item-name-eng" required
@@ -1149,7 +1149,7 @@
                     </fieldset>
 
                     <fieldset class="menu-add-form__fieldset">
-                      <legend>Описание (Description)</legend>
+                      <legend>Description</legend>
                       <div class="menu-add-form__field">
                         <label for="item-desc-eng">English</label>
                         <textarea id="item-desc-eng" required
@@ -1164,21 +1164,45 @@
 
                     <div class="menu-add-form__group">
                       <div class="menu-add-form__field">
-                        <label for="item-price">Price (число)</label>
-                        <input type="number" id="item-price" required
-                          placeholder="250">
+                        <label for="item-price">Price</label>
+                        <div class="input-with-suffix">
+                          <input 
+                          type="text" 
+                          id="item-price" 
+                          required 
+                          placeholder="250" 
+                          inputmode="numeric"
+                          pattern="\d*"
+                          min="0" 
+                          step="1">
+                          <span class="suffix" aria-hidden="true" style="margin-left:6px;">CZT</span>
+                        </div>
+
+                        <small>
+                          Enter only the number — <strong>CZT</strong> will be added automatically
+                        </small>
                       </div>
+
                       <div class="menu-add-form__field">
                         <label for="item-weight">Weight</label>
-                        <input type="text" id="item-weight" placeholder="300g">
+
+                        <!-- input + видимая буква "g" справа -->
+                        <div class="input-with-suffix">
+                          <input type="text" id="item-weight" placeholder="300" min="0" step="1" required>
+                          <span class="suffix" aria-hidden="true" style="margin-left:6px;">g</span>
+                        </div>
+
+                        <small>
+                          Enter only the number — the letter <strong>g</strong> will be added automatically.
+                        </small>
                       </div>
                     </div>
 
                     <div class="menu-add-form__field" style="margin-top: 15px;">
-                      <label>Изображение</label>
+                      <label>Image</label>
 
                       <div id="drop-zone" class="menu-drop-zone">
-                        <p>Перетащите фото сюда или кликните</p>
+                        <p>Drag a photo here or click</p>
                         <input type="file" id="file-input" hidden
                           accept="image/*">
                         <img id="preview-img"
@@ -1188,20 +1212,19 @@
                       </div>
 
                       <label for="item-image-name"
-                        style="margin-top: 10px; font-size: 12px;">Имя
-                        файла:</label>
+                        style="margin-top: 10px; font-size: 12px;">File name:</label>
                       <input type="text" id="item-image-name"
                         placeholder="steak.jpg" readonly
                         style="background:#f9f9f9;">
                       <small
                         style="color:#888; font-size: 11px; display:block; margin-top:4px;">
-                        Путь в JSON будет: img/menu-img/Категория/Имя_файла
+                        The path in JSON will be: img/menu-img/Category/File_name
                       </small>
                     </div>
 
                     <button type="submit"
                       class="menu-admin-button menu-admin-button--submit">
-                      Сформировать JSON в консоль
+                      Generate new dish
                     </button>
                   </form>
                 </div>
@@ -1446,20 +1469,23 @@
     <script src="js/csrf.js"></script>
     <script src="js/main.js"></script>
     <script src="js/switch-language.js"></script>
+    <script src="js/logout.js"></script>
     <script src="js/language-dropdown.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/gallery.js"></script>
     <script src="js/switch-visibility.js"></script>
     <script src="js/registration.js"></script>
+    <script src="js/account.js"></script>
+    <script src="js/admin-users.js"></script>
     <script src="js/signin.js"></script>
     <script src="js/reservation.js"></script>
     <script src="js/signin-validation.js"></script>
     <script src="js/menu.js"></script>
-    <script src="js/account.js"></script>
+    
     <script src="js/login-validation.js"></script>
     <script src="js/mobile/menu-dropdown.js"></script>
     <script src="js/review.js"></script>
-    <script src="js/admin-users.js"></script>
+    
     <script src="js/admin-reservations.js"></script>
 
   </body>

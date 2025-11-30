@@ -1,5 +1,4 @@
 // switch-visibility.js — безопасная, устойчиво-анимированная логика SPA (updated)
-// Автор: assistant — исправлена обработка случая, когда login произошёл ДО загрузки этого скрипта
 
 const $ = (sel, root = document) => root ? root.querySelector(sel) : null;
 const $$ = (sel, root = document) => Array.from((root || document).querySelectorAll(sel || ''));
@@ -274,58 +273,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('[check_session] error', err);
   }
 
-  if (logoutButton) {
-    safeAdd(logoutButton, 'click', async (e) => {
-      e.preventDefault();
-      if (!confirm('Do you really want to log out of your account?')) return;
-
-      try {
-        const bodyObj = (window.CSRFManager && typeof window.CSRFManager.appendToJson === 'function')
-          ? window.CSRFManager.appendToJson({})
-          : {};
-
-        const doFetch = window.CSRFManager && typeof window.CSRFManager.fetchWithCsrf === 'function'
-          ? window.CSRFManager.fetchWithCsrf
-          : fetch;
-
-        const resp = await (doFetch === fetch
-          ? fetch('./php/logout.php', {
-              method: 'POST',
-              credentials: 'include',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(bodyObj)
-            })
-          : window.CSRFManager.fetchWithCsrf('./php/logout.php', {
-              method: 'POST',
-              credentials: 'include',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(bodyObj)
-            }));
-
-        if (!resp || !resp.ok) {
-          const text = await (resp && resp.text ? resp.text().catch(()=> '') : '');
-          console.error('Logout failed, status', resp && resp.status, text);
-          alert('Ошибка при выходе: сервер вернул ' + (resp && resp.status || 'error'));
-          return;
-        }
-
-        const data = await resp.json().catch(()=>({ success: false }));
-        if (data.success) {
-          if (window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
-            try { await window.CSRFManager.refresh(); } catch (_) {}
-          }
-          try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}
-          setLoggedIn(false);
-          await updateLoginLabel();
-          window.location.reload();
-        } else {
-          alert('Ошибка при выходе: ' + (data.error || data.message || 'Попробуйте снова.'));
-        }
-      } catch (err) {
-        console.error('Ошибка при выходе из аккаунта:', err);
-        alert('Ошибка соединения при выходе.');
-      }
-    });
+  if (window.AuthManager && typeof window.AuthManager.attachLogoutButton === 'function') {
+    try { window.AuthManager.attachLogoutButton('.logout-account-btn'); } catch (e) { console.warn('AuthManager.attachLogoutButton failed', e); }
   }
 
   const aboutUsLink = document.querySelector('a[href="#about-us"]');

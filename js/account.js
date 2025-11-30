@@ -1,27 +1,26 @@
 const personalAccountSection = document.getElementById('personal-account');
 const editButton = document.querySelector('.edit-account-btn');
 const userNameEl = document.querySelector('.user-name');
-const datesContent = personalAccountSection.querySelector('.personal-account-content.dates');
-const reservationContent = personalAccountSection.querySelector('.personal-account-content.reservation');
+
+const datesContent = personalAccountSection ? personalAccountSection.querySelector('.personal-account-content.dates') : null;
+const reservationContent = personalAccountSection ? personalAccountSection.querySelector('.personal-account-content.reservation') : null;
+
 const adminPanelButton = document.querySelector('.personal-account-admin-panel');
 const adminPanelSection = document.getElementById('admin-panel');
 
+
 const personalAccountButtons = {
-  dates: personalAccountSection.querySelector('.personal-account-dates'),
-  reservation: personalAccountSection.querySelector('.personal-account-reservation'),
+  dates: personalAccountSection ? personalAccountSection.querySelector('.personal-account-dates') : null,
+  reservation: personalAccountSection ? personalAccountSection.querySelector('.personal-account-reservation') : null,
 };
 
-const personalAccountButton = [
-  document.querySelector('.personal-account-dates'),
-  document.querySelector('.personal-account-reservation')
-];
 
-personalAccountButton.forEach(btn => {
-  if (!btn) return;
-  btn.addEventListener('click', () => {
-    hideAdminTables(); // скрываем все админ-таблицы
-  });
-});
+const logoutButton = datesContent ? datesContent.querySelector('.logout-account-btn') : null;
+
+for (const btn of Object.values(personalAccountButtons)) {
+  if (!btn) continue;
+  btn.addEventListener('click', hideAdminTables);
+}
 
 if (window.CSRFManager) {
   window.CSRFManager.init().catch(err => {
@@ -29,7 +28,6 @@ if (window.CSRFManager) {
   });
 }
 
-const logoutButton = datesContent.querySelector('.logout-account-btn');
 
 function hideAdminTables() {
     // Скрываем все таблицы админ-панели
@@ -65,6 +63,7 @@ async function translatePersonalAccount(section) {
 // --- Функция для показа только одного блока ---
 function showAccountBlock(block) {
   [datesContent, reservationContent].forEach(el => {
+    if (!el) return;
     if (el === block) {
       el.classList.remove('invisible');
       el.classList.add('visible');
@@ -82,17 +81,24 @@ function maskPassword() {
 
 // --- Инициализация Personal Account ---
 function initPersonalAccount(user) {
+  if (!personalAccountSection) {
+    console.warn('initPersonalAccount: #personal-account not found, aborting');
+    return;
+  }
   // Показываем секцию Personal Account
+  if (window.AuthManager && typeof window.AuthManager.attachLogoutButton === 'function') {
+    try { window.AuthManager.attachLogoutButton('.logout-account-btn'); } catch (e) { console.warn('attachLogoutButton error', e); }
+  }
   personalAccountSection.classList.remove('invisible');
 
   // Подставляем имя пользователя — безопасно через textContent (нет XSS)
   const welcomeUserName = document.querySelector('.personal-account-welcome .user-name');
   if (welcomeUserName) welcomeUserName.textContent = user.name;
+  const loginSpan = datesContent ? datesContent.querySelector('.user-login') : null;
+  const emailSpan = datesContent ? datesContent.querySelector('.user-email') : null;
+  const passwordSpan = datesContent ? datesContent.querySelector('.user-password') : null;
+  const passwordLabel = datesContent ? datesContent.querySelector('.user-password-label') : null;
 
-  // Подставляем login и email
-  const loginSpan = datesContent.querySelector('.user-login');
-  const emailSpan = datesContent.querySelector('.user-email');
-  const passwordSpan = datesContent.querySelector('.user-password');
 
   if (loginSpan) loginSpan.textContent = user.name;
   if (emailSpan) emailSpan.textContent = user.email;
@@ -101,7 +107,6 @@ function initPersonalAccount(user) {
     passwordSpan.classList.add('user-password--styled');
   }
 
-  const passwordLabel = datesContent.querySelector('.user-password-label');
   if (passwordLabel) {
     getTranslation('personal-account.password').then(txt => {
       passwordLabel.textContent = txt || 'Heslo:';
@@ -112,11 +117,15 @@ function initPersonalAccount(user) {
   showAccountBlock(datesContent);
 
   // --- Кнопки для переключения между блоками ---
-  personalAccountButtons.dates.onclick = () => showAccountBlock(datesContent);
-  personalAccountButtons.reservation.onclick = () => {
-    showAccountBlock(reservationContent);
-    loadUserReservations(user.id);
-  };
+  if (personalAccountButtons.dates) {
+    personalAccountButtons.dates.onclick = () => showAccountBlock(datesContent);
+  }
+  if (personalAccountButtons.reservation) {
+    personalAccountButtons.reservation.onclick = () => {
+      showAccountBlock(reservationContent);
+      loadUserReservations(user.id);
+    };
+  }
 
   if (user.isAdmin) {
     window.isAdmin = true;  // <<< ЭТО НУЖНО
@@ -185,8 +194,15 @@ if (editButton) {
 
     const buttonContainer = editButton.parentElement;
     editButton.style.display = 'none';
-    buttonContainer.insertBefore(saveBtn, logoutButton);
-    buttonContainer.insertBefore(cancelBtn, logoutButton);
+
+    // Вставляем перед logoutButton если он есть, иначе добавляем в конец
+    if (logoutButton && logoutButton.parentElement === buttonContainer) {
+      buttonContainer.insertBefore(saveBtn, logoutButton);
+      buttonContainer.insertBefore(cancelBtn, logoutButton);
+    } else {
+      buttonContainer.appendChild(saveBtn);
+      buttonContainer.appendChild(cancelBtn);
+    }
 
     // вызываем перевод для новых кнопок
     translatePersonalAccount(buttonContainer);
