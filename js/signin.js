@@ -1,49 +1,14 @@
-// signin.js — fixed: show 429 message + countdown and show messages next to signin button (form-submit-wrap)
+// signin.js — module version
 
-const signinForm = document.querySelector('#signin-form');
-const signinButton = document.querySelector('.form-submit-button--signin');
-let signingIn = false;
-
-// try {
-//   localStorage.removeItem('myApp:tempData');
-//   sessionStorage.removeItem('myApp:tempSession');
-//   console.log("🧹 LocalStorage и SessionStorage очищены");
-// } catch (e) {
-//   console.warn("Не удалось очистить localStorage:", e);
-// }
-
-document.addEventListener('DOMContentLoaded', async () => {
-  try {
-    const response = await fetch('./php/check_session.php', { credentials: 'include' });
-    const data = await response.json();
-
-    if (data.loggedIn) {
-      console.log('✅ Пользователь уже вошёл:', data.user.name);
-      window.user = data.user;
-      initPersonalAccount(data.user);
-      if (typeof window.onLoginOrRegister === 'function') {
-        window.onLoginOrRegister();
-      }
-    } else {
-      console.log('👤 Пользователь не вошёл');
-    }
-  } catch (err) {
-    console.error('Ошибка при проверке сессии:', err);
-  }
-});
-
-/* -------------------------
-   Helpers: local message area
-   ------------------------- */
-function getSubmitWrapEl() {
+export function getSubmitWrapEl(signinButton) {
   if (signinButton) {
     return signinButton.closest('.form-submit-wrap') || signinButton.parentElement;
   }
   return null;
 }
 
-function getOrCreateSubmitMessageEl() {
-  const wrap = getSubmitWrapEl();
+export function getOrCreateSubmitMessageEl(signinButton) {
+  const wrap = getSubmitWrapEl(signinButton);
   if (wrap) {
     const next = wrap.nextElementSibling;
     if (next && next.classList && next.classList.contains('form-submit-message')) {
@@ -59,8 +24,8 @@ function getOrCreateSubmitMessageEl() {
   return null;
 }
 
-function showSubmitMessage(text, type = 'error') {
-  const el = getOrCreateSubmitMessageEl();
+export function showSubmitMessage(text, type = 'error', signinButton) {
+  const el = getOrCreateSubmitMessageEl(signinButton);
   if (!el) return;
   el.textContent = String(text || '');
   el.style.display = 'block';
@@ -68,8 +33,8 @@ function showSubmitMessage(text, type = 'error') {
   el.classList.add(type === 'success' ? 'success' : 'error');
 }
 
-function clearSubmitMessage() {
-  const wrap = getSubmitWrapEl();
+export function clearSubmitMessage(signinButton) {
+  const wrap = getSubmitWrapEl(signinButton);
   if (wrap) {
     const next = wrap.nextElementSibling;
     if (next && next.classList && next.classList.contains('form-submit-message')) {
@@ -87,253 +52,239 @@ function clearSubmitMessage() {
   }
 }
 
-/* -------------------------
-   Main submit handler
-   ------------------------- */
-signinForm && signinForm.addEventListener('valid-form-submit', async (e) => {
-  e.preventDefault?.();
+let signingIn = false;
 
-  if (signingIn) return;
-  signingIn = true;
-
-  // Блокируем кнопку, но НЕ меняем её текст (чтобы при блокировке было "SIGN IN")
-  if (signinButton) {
-    signinButton.disabled = true;
-    // сохраняем текст на всякий случай, но не изменяем сейчас
-    signinButton.dataset.oldText = signinButton.dataset.oldText || signinButton.textContent;
-  }
-
-  // очистим старые клиентские ошибки и локальное сообщение
-  const clearAll = () => {
-    const errors = signinForm.querySelectorAll('.error-message');
-    errors.forEach(el => { el.textContent = ''; el.classList.remove('active'); });
-    clearSubmitMessage();
-  };
-  clearAll();
-
-  // формируем formData и добавляем CSRF (через менеджер)
-  const formData = new FormData(signinForm);
+export async function autologinCheck() {
   try {
-    await window.CSRFManager?.appendToFormData(formData);
+    const response = await fetch('./php/check_session.php', { credentials: 'include' });
+    const data = await response.json();
+    console.log('[SIGNIN] initial check_session result:', data);
+    if (data.loggedIn) {
+      window.user = data.user;
+      if (typeof window.onLoginOrRegister === 'function') {
+        try { await window.onLoginOrRegister(data.user); } catch (e) { console.warn('[SIGNIN] onLoginOrRegister failed', e); }
+      } else {
+        try { if (typeof initPersonalAccount === 'function') initPersonalAccount(data.user); } catch (e) { console.warn('[SIGNIN] initPersonalAccount failed', e); }
+      }
+    } else {
+      console.log('[SIGNIN] autologin: user not logged in');
+    }
   } catch (err) {
-    console.warn('CSRF append failed (will still try):', err);
+    console.error('[SIGNIN] Ошибка при проверке сессии:', err);
   }
+}
 
-  let earlyHandled = false;
-  let countdownIntervalId = null;
-  let countdownTimeoutId = null;
+export function initSignin() {
+  const signinForm = document.querySelector('#signin-form');
+  const signinButton = document.querySelector('.form-submit-button--signin');
 
-  try {
-    const resp = await fetch('./php/signin.php', {
-      method: 'POST',
-      body: formData,
-      credentials: 'include'
-    });
+  if (!signinForm) return;
 
-    if (resp.status === 429) {
-      earlyHandled = true;
+  signinForm.addEventListener('valid-form-submit', async (e) => {
+    e.preventDefault?.();
 
-      let json = null;
-      try {
-        json = await resp.json();
-      } catch (_) {
-        json = { message: 'Too many attempts. Try again later.' };
-      }
+    if (signingIn) return;
+    signingIn = true;
 
-      const message = json && json.message ? json.message : 'Too many attempts. Try again later.';
+    if (signinButton) {
+      signinButton.disabled = true;
+      signinButton.dataset.oldText = signinButton.dataset.oldText || signinButton.textContent;
+    }
 
-      // предпочтительно используем retry_after из JSON, иначе из заголовка Retry-After, иначе fallback = 300
-      let retrySeconds = null;
-      if (json && typeof json.retry_after === 'number') {
-        retrySeconds = parseInt(json.retry_after, 10);
-      }
-      if (retrySeconds === null) {
-        const ra = resp.headers && resp.headers.get ? resp.headers.get('Retry-After') : null;
-        if (ra) {
-          const raInt = parseInt(ra, 10);
-          if (!Number.isNaN(raInt) && raInt > 0) retrySeconds = raInt;
-        }
-      }
-      if (retrySeconds === null) retrySeconds = 300;
+    const clearAll = () => {
+      const errors = signinForm.querySelectorAll('.error-message');
+      errors.forEach(el => { el.textContent = ''; el.classList.remove('active'); });
+      clearSubmitMessage(signinButton);
+    };
+    clearAll();
 
-      const msgEl = getOrCreateSubmitMessageEl();
-      if (msgEl) {
-        let remaining = retrySeconds;
-        const format = (s) => {
-          const mm = Math.floor(s / 60).toString().padStart(2, '0');
-          const ss = (s % 60).toString().padStart(2, '0');
-          return `${mm}:${ss}`;
-        };
+    const formData = new FormData(signinForm);
+    try { await window.CSRFManager?.appendToFormData(formData); } catch (err) { console.warn('CSRF append failed (will still try):', err); }
 
-        msgEl.textContent = `${message} Повтор через ${format(remaining)}.`;
-        msgEl.style.display = 'block';
-        msgEl.classList.remove('success');
-        msgEl.classList.add('error');
+    let earlyHandled = false;
+    let countdownIntervalId = null;
+    let countdownTimeoutId = null;
 
-        countdownIntervalId = setInterval(() => {
-          remaining -= 1;
-          if (remaining <= 0) {
-            clearInterval(countdownIntervalId);
-            countdownIntervalId = null;
-            msgEl.textContent = `${message} Попробуйте снова.`;
-          } else {
-            msgEl.textContent = `${message} Повтор через ${format(remaining)}.`;
+    try {
+      const resp = await fetch('./php/signin.php', {
+        method: 'POST',
+        body: formData,
+        credentials: 'include'
+      });
+
+      if (resp.status === 429) {
+        earlyHandled = true;
+        let json = null;
+        try { json = await resp.json(); } catch (_) { json = { message: 'Too many attempts. Try again later.' }; }
+
+        const message = json && json.message ? json.message : 'Too many attempts. Try again later.';
+        let retrySeconds = null;
+        if (json && typeof json.retry_after === 'number') retrySeconds = parseInt(json.retry_after, 10);
+        if (retrySeconds === null) {
+          const ra = resp.headers && resp.headers.get ? resp.headers.get('Retry-After') : null;
+          if (ra) {
+            const raInt = parseInt(ra, 10);
+            if (!Number.isNaN(raInt) && raInt > 0) retrySeconds = raInt;
           }
-        }, 1000);
+        }
+        if (retrySeconds === null) retrySeconds = 300;
 
-        countdownTimeoutId = setTimeout(() => {
-          if (countdownIntervalId) { clearInterval(countdownIntervalId); countdownIntervalId = null; }
-          // восстановим кнопку и уберём сообщение
+        const msgEl = getOrCreateSubmitMessageEl(signinButton);
+        if (msgEl) {
+          let remaining = retrySeconds;
+          const format = (s) => {
+            const mm = Math.floor(s / 60).toString().padStart(2, '0');
+            const ss = (s % 60).toString().padStart(2, '0');
+            return `${mm}:${ss}`;
+          };
+
+          msgEl.textContent = `${message} Повтор через ${format(remaining)}.`;
+          msgEl.style.display = 'block';
+          msgEl.classList.remove('success');
+          msgEl.classList.add('error');
+
+          countdownIntervalId = setInterval(() => {
+            remaining -= 1;
+            if (remaining <= 0) {
+              clearInterval(countdownIntervalId);
+              countdownIntervalId = null;
+              msgEl.textContent = `${message} Попробуйте снова.`;
+            } else {
+              msgEl.textContent = `${message} Повтор через ${format(remaining)}.`;
+            }
+          }, 1000);
+
+          countdownTimeoutId = setTimeout(() => {
+            if (countdownIntervalId) { clearInterval(countdownIntervalId); countdownIntervalId = null; }
+            signingIn = false;
+            if (signinButton) {
+              signinButton.disabled = false;
+              if (signinButton.dataset.oldText) signinButton.textContent = signinButton.dataset.oldText;
+            }
+            msgEl.textContent = '';
+            msgEl.style.display = 'none';
+            msgEl.classList.remove('error');
+          }, retrySeconds * 1000);
+        } else {
+          console.log(message);
           signingIn = false;
           if (signinButton) {
             signinButton.disabled = false;
             if (signinButton.dataset.oldText) signinButton.textContent = signinButton.dataset.oldText;
           }
-          msgEl.textContent = '';
-          msgEl.style.display = 'none';
-          msgEl.classList.remove('error');
-        }, retrySeconds * 1000);
-      } else {
-        console.log(message);
+        }
+        return;
+      }
+
+      if (resp.status === 403) {
+        let json = { success: false, message: 'Invalid CSRF token' };
+        try { json = await resp.json(); } catch (e) {}
+        showSubmitMessage(json.message || 'Security error. Please refresh the page.', 'error', signinButton);
+
+        try {
+          if (window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
+            await window.CSRFManager.refresh();
+          } else {
+            const tokenResp = await fetch('./php/get_csrf_token.php', { credentials: 'include' });
+            const tok = await tokenResp.json().catch(()=>null);
+            if (tok && tok.csrf_token) window.__csrf_token = tok.csrf_token;
+          }
+        } catch (err) { console.warn('Failed to refresh CSRF after 403:', err); }
+
         signingIn = false;
         if (signinButton) {
           signinButton.disabled = false;
           if (signinButton.dataset.oldText) signinButton.textContent = signinButton.dataset.oldText;
         }
+        return;
       }
 
-      return;
-    }
+      const result = await resp.json().catch(() => ({ success: false, message: 'Invalid server response' }));
 
-    if (resp.status === 403) {
-      let json = { success: false, message: 'Invalid CSRF token' };
-      try { json = await resp.json(); } catch (e) {}
+      if (result.success) {
+        window.user = {
+          id: result.user_id,
+          name: result.user_name,
+          email: result.user_email,
+          password_mask: result.password_mask
+        };
 
-      // Показываем сообщение
-      showSubmitMessage(json.message || 'Security error. Please refresh the page.', 'error');
+        try { await window.CSRFManager?.refresh(); } catch (err) { console.warn('[SIGNIN] CSRF refresh after login failed:', err); }
 
-      // Обновим CSRF: сначала попробуем CSRFManager.refresh(), иначе запросим get_csrf_token.php
-      try {
-        if (window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
-          await window.CSRFManager.refresh();
-        } else {
-          const tokenResp = await fetch('./php/get_csrf_token.php', { credentials: 'include' });
-          const tok = await tokenResp.json().catch(()=>null);
-          // если есть у вас CSRFManager API для установки токена, можно его вызвать тут, например:
-          // if (tok && tok.csrf_token && window.CSRFManager && typeof window.CSRFManager.setToken === 'function') {
-          //   window.CSRFManager.setToken(tok.csrf_token);
-          // }
-          // иначе — просто сохраняем в переменную, CSRFManager.appendToFormData должно заново запросить токен или использовать refresh
-          if (tok && tok.csrf_token) {
-            window.__csrf_token = tok.csrf_token;
+        clearSubmitMessage(signinButton);
+
+        try {
+          const signinSection = document.getElementById('signin-section') || signinForm.closest('section') || document.querySelector('.form-main');
+          if (signinSection) {
+            signinSection.classList.remove('visible');
+            signinSection.classList.add('invisible');
+            signinSection.style.pointerEvents = 'none';
+            signinSection.style.opacity = 0;
           }
-        }
-      } catch (err) {
-        console.warn('Failed to refresh CSRF after 403:', err);
-      }
 
-      // разблокируем кнопку (и не скрываем сообщение)
+          const personalEl = document.getElementById('account-wrapper') || document.querySelector('.main-content-wrapper') || document.getElementById('personal-account') || document.getElementById('account-section');
+          if (personalEl) {
+            // Сначала делаем wrapper видимым
+            personalEl.classList.remove('invisible');
+            personalEl.classList.add('visible');
+            personalEl.style.pointerEvents = 'auto';
+            personalEl.style.opacity = 1;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Затем вызываем initPersonalAccount, чтобы он увидел, что wrapper уже видим
+            try { if (typeof initPersonalAccount === 'function') await initPersonalAccount(window.user); } catch (e) { console.warn('[SIGNIN] initPersonalAccount after show failed', e); }
+          }
+
+          // уведомляем систему — теперь wrapper уже видим и глобальные обработчики (если зарегистрированы) корректно отработают
+          window.dispatchEvent(new CustomEvent('user:loggedin', { detail: window.user }));
+
+          if (typeof window.onLoginOrRegister === 'function') {
+            try { await window.onLoginOrRegister(window.user); } catch (e) { console.warn('[SIGNIN] direct onLoginOrRegister call failed', e); }
+          }
+        } catch (e) {
+          console.warn('[SIGNIN] post-login UI switch failed', e);
+        }
+      } else {
+        if (Array.isArray(result.fields) && result.fields.length) {
+          result.fields.forEach(fName => {
+            const field = signinForm.querySelector(`[name="${fName}"]`);
+            if (field) {
+              const errEl = field.parentElement.querySelector('.error-message');
+              if (errEl) {
+                errEl.textContent = result.message || 'This field is required';
+                errEl.classList.add('active');
+              }
+            }
+          });
+        } else if (result.field) {
+          const field = signinForm.querySelector(`[name="${result.field}"]`);
+          if (field) {
+            const errEl = field.parentElement.querySelector('.error-message');
+            if (errEl) {
+              errEl.textContent = result.message || 'Invalid value';
+              errEl.classList.add('active');
+            }
+          } else {
+            showSubmitMessage(result.message || 'Login failed', 'error', signinButton);
+          }
+        } else if (result.message) {
+          showSubmitMessage(result.message, 'error', signinButton);
+        } else {
+          showSubmitMessage('Login failed', 'error', signinButton);
+        }
+      }
+    } catch (err) {
+      console.error('Signin request failed:', err);
+      showSubmitMessage('Server error. Try later.', 'error', signinButton);
+    } finally {
+      if (earlyHandled) return;
       signingIn = false;
       if (signinButton) {
         signinButton.disabled = false;
         if (signinButton.dataset.oldText) signinButton.textContent = signinButton.dataset.oldText;
       }
-      return;
+      if (countdownIntervalId) { clearInterval(countdownIntervalId); countdownIntervalId = null; }
+      if (countdownTimeoutId) { clearTimeout(countdownTimeoutId); countdownTimeoutId = null; }
     }
-
-    const result = await resp.json().catch(() => ({ success: false, message: 'Invalid server response' }));
-
-    if (result.success) {
-      // Устанавливаем глобального пользователя и инициализируем UI
-      window.user = {
-        id: result.user_id,
-        name: result.user_name,
-        email: result.user_email,
-        password_mask: result.password_mask
-      };
-
-      initPersonalAccount(window.user);
-
-      try {
-        await window.CSRFManager?.refresh();
-      } catch (err) {
-        console.warn('CSRF refresh after login failed:', err);
-      }
-
-      clearSubmitMessage();
-
-      // ---- НОВОЕ: явно скрываем форму входа и показываем секцию аккаунта ----
-      try {
-        // Скрыть секцию входа (если есть)
-        const signinSection = document.getElementById('signin-section') || signinForm.closest('section') || document.querySelector('.form-main');
-        if (signinSection) {
-          signinSection.classList.remove('visible');
-          signinSection.classList.add('invisible');
-          signinSection.style.pointerEvents = 'none';
-          signinSection.style.opacity = 0;
-        }
-
-        // Показать секцию личного кабинета (если есть)
-        const personalEl = document.querySelector('.main-content-wrapper') || document.getElementById('personal-account') || document.getElementById('account-section');
-        if (personalEl) {
-          personalEl.classList.remove('invisible');
-          personalEl.classList.add('visible');
-          personalEl.style.pointerEvents = 'auto';
-          personalEl.style.opacity = 1;
-          // чуть прокручиваем наверх
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Попробуем вызвать глобальный хук (если есть) — всё равно безопасно
-        window.dispatchEvent(new CustomEvent('user:loggedin', { detail: window.user }));
-      } catch (e) {
-        try { if (typeof window.onLoginOrRegister === 'function') window.onLoginOrRegister(window.user); } catch (ee) { console.warn('onLogin fallback failed', ee); }
-      }
-    } else {
-      if (Array.isArray(result.fields) && result.fields.length) {
-        result.fields.forEach(fName => {
-          const field = signinForm.querySelector(`[name="${fName}"]`);
-          if (field) {
-            const errEl = field.parentElement.querySelector('.error-message');
-            if (errEl) {
-              errEl.textContent = result.message || 'This field is required';
-              errEl.classList.add('active');
-            }
-          }
-        });
-      } else if (result.field) {
-        const field = signinForm.querySelector(`[name="${result.field}"]`);
-        if (field) {
-          const errEl = field.parentElement.querySelector('.error-message');
-          if (errEl) {
-            errEl.textContent = result.message || 'Invalid value';
-            errEl.classList.add('active');
-          }
-        } else {
-          showSubmitMessage(result.message || 'Login failed', 'error');
-        }
-      } else if (result.message) {
-        showSubmitMessage(result.message, 'error');
-      } else {
-        showSubmitMessage('Login failed', 'error');
-      }
-    }
-  } catch (err) {
-    console.error('Signin request failed:', err);
-    showSubmitMessage('Server error. Try later.', 'error');
-  } finally {
-    // если ранняя обработка была выполнена, не стираем сообщение (earlyHandled блокирует "финальный" сброс)
-    if (earlyHandled) {
-      return;
-    }
-
-    signingIn = false;
-    if (signinButton) {
-      signinButton.disabled = false;
-      if (signinButton.dataset.oldText) signinButton.textContent = signinButton.dataset.oldText;
-    }
-
-    if (countdownIntervalId) { clearInterval(countdownIntervalId); countdownIntervalId = null; }
-    if (countdownTimeoutId) { clearTimeout(countdownTimeoutId); countdownTimeoutId = null; }
-  }
-});
+  });
+}

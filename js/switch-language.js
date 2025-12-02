@@ -1,19 +1,14 @@
-(() => {
+// switch-language.js
+export async function initI18n() {
   const DEFAULT_LANG = 'eng';
   const STORAGE_KEY = 'site_lang';
-  // JSON-файлы лежат в папке i18n
   const TRANSLATIONS_BASE = 'i18n/';
-  const FILE_BY_LANG = (lang) => `${TRANSLATIONS_BASE}${lang}.json`; // ./i18n/en.json, ./i18n/cz.json
+  const FILE_BY_LANG = (lang) => `${TRANSLATIONS_BASE}${lang}.json`;
 
   const cache = {};
 
-  function getSavedLang() {
-    try { return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG; }
-    catch (e) { return DEFAULT_LANG; }
-  }
-  function saveLang(lang) {
-    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* ignore */ }
-  }
+  function getSavedLang() { try { return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG; } catch (e) { return DEFAULT_LANG; } }
+  function saveLang(lang) { try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* ignore */ } }
 
   async function fetchJson(path) {
     const res = await fetch(path, { cache: 'no-store' });
@@ -54,7 +49,7 @@
         firstSpan.textContent = text;
         return;
       }
-    } catch (e) { /* ignore */ }
+    } catch (e) {}
     el.textContent = text;
   }
 
@@ -64,31 +59,26 @@
       const value = lookup(dict, key);
       if (value != null) applyText(el, value);
     });
-
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
       const key = el.getAttribute('data-i18n-placeholder');
       const value = lookup(dict, key);
       if (value != null) el.setAttribute('placeholder', value);
     });
-
     document.querySelectorAll('[data-i18n-alt]').forEach(el => {
       const key = el.getAttribute('data-i18n-alt');
       const value = lookup(dict, key);
       if (value != null) el.setAttribute('alt', value);
     });
-
     document.querySelectorAll('[data-i18n-title]').forEach(el => {
       const key = el.getAttribute('data-i18n-title');
       const value = lookup(dict, key);
       if (value != null) el.setAttribute('title', value);
     });
-
     document.querySelectorAll('[data-i18n-value]').forEach(el => {
       const key = el.getAttribute('data-i18n-value');
       const value = lookup(dict, key);
       if (value != null) el.value = value;
     });
-
     document.querySelectorAll('[data-i18n-aria]').forEach(el => {
       const key = el.getAttribute('data-i18n-aria');
       const value = lookup(dict, key);
@@ -98,9 +88,6 @@
 
   async function setLanguage(lang) {
     if (!lang) lang = DEFAULT_LANG;
-    const current = getSavedLang();
-    if (current === lang) return; // Язык не изменился — выходим
-
     try {
       const dict = await loadDict(lang);
       applyDictToDOM(dict);
@@ -108,73 +95,49 @@
       window.dispatchEvent(new CustomEvent('i18n:changed', { detail: { lang } }));
       updateLangButtonsUI(lang);
       console.info(`i18n: language set to ${lang}`);
+      return dict;
     } catch (err) {
       console.error('i18n: failed to set language', err);
+      return null;
     }
   }
 
-  // Поддерживаем поиск переключателей двумя способами:
-  // 1) элементы с data-lang (data-lang="en" / "cz")
-  // 2) кнопки с классами .lang-eng и .lang-cz
   function initLangButtons() {
-    // кнопки, использующие data-lang (CZ/ENG или др.)
     const dataLangBtns = Array.from(document.querySelectorAll('[data-lang]'));
 
     dataLangBtns.forEach(btn => {
-      // явные атрибуты для доступности
       btn.setAttribute('role', 'button');
       btn.setAttribute('tabindex', btn.getAttribute('tabindex') || '0');
-
-      // клик
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const chosen = btn.getAttribute('data-lang');
-        if (chosen) setLanguage(chosen);
-      });
-
-      // клавиатура (Enter / Space)
-      btn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const chosen = btn.getAttribute('data-lang');
-          if (chosen) setLanguage(chosen);
-        }
-      });
+      btn.addEventListener('click', (e) => { e.preventDefault(); const chosen = btn.getAttribute('data-lang'); if (chosen) setLanguage(chosen); });
+      btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); const chosen = btn.getAttribute('data-lang'); if (chosen) setLanguage(chosen); } });
     });
 
-    // Совместимость: также поддерживаем .lang-eng / .lang-cz классы (если где-то ещё используются)
-    document.querySelectorAll('.lang-eng').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.preventDefault(); setLanguage('en'); });
-    });
-    document.querySelectorAll('.lang-cz').forEach(btn => {
-      btn.addEventListener('click', (e) => { e.preventDefault(); setLanguage('cz'); });
-    });
+    document.querySelectorAll('.lang-eng').forEach(btn => btn.addEventListener('click', (e)=>{ e.preventDefault(); setLanguage('en'); }));
+    document.querySelectorAll('.lang-cz').forEach(btn => btn.addEventListener('click', (e)=>{ e.preventDefault(); setLanguage('cz'); }));
 
-    // Обновим UI (на случай, если уже выбран язык в localStorage)
     updateLangButtonsUI(getSavedLang());
   }
 
   function updateLangButtonsUI(activeLang) {
-    
     document.querySelectorAll('[data-lang]').forEach(el => el.classList.toggle('active-i18n', el.getAttribute('data-lang') === activeLang));
     document.querySelectorAll('.lang-eng').forEach(el => el.classList.toggle('active-i18n', activeLang === 'en'));
     document.querySelectorAll('.lang-cz').forEach(el => el.classList.toggle('active-i18n', activeLang === 'cz'));
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    initLangButtons();
-    const lang = getSavedLang() || DEFAULT_LANG;
-    // асинхронно подгружаем словарь
-    setLanguage(lang).catch(() => {
-      console.warn('i18n: initial load failed');
-    });
-  });
-
-  // API
+  // expose API
   window.i18n = {
     setLanguage,
     getLang: getSavedLang,
     _loadDict: loadDict,
     _cache: cache
   };
-})();
+
+  // init on call
+  try {
+    initLangButtons();
+    const lang = getSavedLang() || DEFAULT_LANG;
+    await setLanguage(lang);
+  } catch (e) {
+    console.warn('i18n init failed', e);
+  }
+}

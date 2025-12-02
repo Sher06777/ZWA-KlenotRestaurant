@@ -53,136 +53,163 @@ function sanitizeImageSrc(src) {
 }
 
 // Init / load
-async function initMenu() {
-  try {
-    const res = await fetch('data/menu.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error('Failed to load menu.json');
-    menuData = await res.json();
-    window.MenuStorage.data = menuData;
-    currentLang = pickLanguageFromI18n();
-    renderMenu(menuData, currentLang, currentFilter);
-    setupMenuFilters(); // safe to call
-  } catch (err) {
-    console.error('menu.js initMenu error:', err);
+export async function initMenu() {
+  let menuData = {};
+  let currentFilter = 'all';
+  let currentLang = 'eng';
+  window.MenuStorage = { data: {} };
+
+  function normKey(s) {
+    if (!s && s !== 0) return '';
+    return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
   }
-}
-
-document.addEventListener('DOMContentLoaded', initMenu);
-
-// renderMenu — безопасно вставляет данные в DOM (textContent, sanitized src)
-function renderMenu(data, lang = 'eng', filter = 'all') {
-  const container = document.querySelector('.menu-items');
-  if (!container) {
-    console.error('menu.js: .menu-items container not found');
-    return;
+  function pickLocalizedText(field, lang) {
+    if (field == null) return '';
+    if (typeof field === 'object') {
+      return field[lang] || field.eng || field.cz || Object.values(field)[0] || '';
+    }
+    return String(field);
   }
-  // clear container safely
-  while (container.firstChild) container.removeChild(container.firstChild);
-
-  const template = document.getElementById('menu-item-template');
-  if (!template) {
-    console.error('menu.js: #menu-item-template not found');
-    return;
+  function pickLanguageFromI18n() {
+    if (window.i18n && typeof window.i18n.getLang === 'function') {
+      const raw = window.i18n.getLang();
+      if (!raw) return 'eng';
+      const k = raw.toLowerCase();
+      if (k === 'en') return 'eng';
+      if (k === 'cz') return 'cz';
+      return raw;
+    }
+    return currentLang || 'eng';
   }
 
-  const wantedNorm = filter === 'all' ? null : normKey(filter);
-
-  Object.entries(data || {}).forEach(([categoryKey, items]) => {
-    if (!Array.isArray(items)) return;
-    const categoryNorm = normKey(categoryKey);
-    if (wantedNorm && categoryNorm !== wantedNorm) return;
-
-    items.forEach(item => {
-      const clone = template.content.cloneNode(true);
-      const article = clone.querySelector('.menu-item');
-      const img = clone.querySelector('img');
-      const titleEl = clone.querySelector('.menu-first-text');
-      const descEl = clone.querySelector('.menu-first-desc');
-      const priceEl = clone.querySelector('.menu-first-price');
-      const weightEl = clone.querySelector('.menu-order-weight');
-
-      if (article) article.dataset.category = categoryKey;
-
-      if (img) {
-        const safeSrc = sanitizeImageSrc(item.image || '');
-        if (safeSrc) {
-          img.setAttribute('src', safeSrc);
-        } else {
-          img.removeAttribute('src');
+  function sanitizeImageSrc(src) {
+    if (!src) return '';
+    try {
+      const base = (typeof document !== 'undefined' && document.baseURI) ? document.baseURI : window.location.href;
+      const url = new URL(src, base);
+      const protocol = url.protocol;
+      if ((protocol === 'http:' || protocol === 'https:')) {
+        if (url.origin === location.origin) {
+          return url.href;
         }
-        img.setAttribute('alt', pickLocalizedText(item.name || item.title || '', lang) || '');
       }
-      if (titleEl) titleEl.textContent = pickLocalizedText(item.name || item.title || '', lang);
-      if (descEl) descEl.textContent = pickLocalizedText(item.description || item.desc || '', lang);
-      if (priceEl) priceEl.textContent = String(item.price || '');
-      if (weightEl) weightEl.textContent = String(item.weight || '');
-
-      container.appendChild(clone);
-    });
-  });
-}
-
-// Filters: safe wiring
-function setupMenuFilters() {
-  const buttons = Array.from(document.querySelectorAll('.menu-button'));
-  if (!buttons.length) return;
-
-  const activeBtn = buttons.find(b => b.classList.contains('active'));
-  if (activeBtn) {
-    currentFilter = mapFilterToCategory((activeBtn.dataset.filter || 'all').toLowerCase());
-  } else {
-    buttons.forEach((b, i) => b.classList.toggle('active', i === 0));
-    currentFilter = mapFilterToCategory((buttons[0] && buttons[0].dataset.filter) || 'all');
+    } catch (e) {}
+    return '';
   }
 
-  // replace nodes to remove previous listeners safely
-  buttons.forEach(btn => {
-    const parent = btn.parentNode;
-    if (!parent) return;
-    const clone = btn.cloneNode(true);
-    parent.replaceChild(clone, btn);
-  });
-
-  const freshButtons = Array.from(document.querySelectorAll('.menu-button'));
-  freshButtons.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      freshButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const raw = (btn.dataset.filter || 'all').toLowerCase();
-      currentFilter = mapFilterToCategory(raw);
+  async function loadMenuData() {
+    try {
+      const res = await fetch('data/menu.json', { cache: 'no-store' });
+      if (!res.ok) throw new Error('Failed to load menu.json');
+      menuData = await res.json();
+      window.MenuStorage.data = menuData;
       currentLang = pickLanguageFromI18n();
       renderMenu(menuData, currentLang, currentFilter);
-    });
-  });
-}
-
-function mapFilterToCategory(filterValue) {
-  if (!filterValue) return 'all';
-  if (filterValue === 'all') return 'all';
-  const keys = Object.keys(menuData || {});
-  const lower = filterValue.toLowerCase();
-  const exact = keys.find(k => k.toLowerCase() === lower);
-  if (exact) return exact;
-  const targetNorm = normKey(filterValue);
-  const found = keys.find(k => normKey(k) === targetNorm);
-  if (found) return found;
-  return filterValue;
-}
-
-// i18n change handling
-window.addEventListener('i18n:changed', (e) => {
-  const lang = (e && e.detail && e.detail.lang) ? e.detail.lang : pickLanguageFromI18n();
-  currentLang = (lang === 'en') ? 'eng' : lang;
-  if (Object.keys(menuData || {}).length) {
-    renderMenu(menuData, currentLang, currentFilter);
+      setupMenuFilters();
+    } catch (err) {
+      console.error('menu.js initMenu error:', err);
+    }
   }
-});
 
-/* ------------------------
-   Add-item dialog & upload
-   ------------------------ */
-document.addEventListener('DOMContentLoaded', () => {
+  function renderMenu(data, lang = 'eng', filter = 'all') {
+    const container = document.querySelector('.menu-items');
+    if (!container) {
+      console.error('menu.js: .menu-items container not found');
+      return;
+    }
+    while (container.firstChild) container.removeChild(container.firstChild);
+
+    const template = document.getElementById('menu-item-template');
+    if (!template) { console.error('menu.js: #menu-item-template not found'); return; }
+
+    const wantedNorm = filter === 'all' ? null : normKey(filter);
+
+    Object.entries(data || {}).forEach(([categoryKey, items]) => {
+      if (!Array.isArray(items)) return;
+      const categoryNorm = normKey(categoryKey);
+      if (wantedNorm && categoryNorm !== wantedNorm) return;
+
+      items.forEach(item => {
+        const clone = template.content.cloneNode(true);
+        const article = clone.querySelector('.menu-item');
+        const img = clone.querySelector('img');
+        const titleEl = clone.querySelector('.menu-first-text');
+        const descEl = clone.querySelector('.menu-first-desc');
+        const priceEl = clone.querySelector('.menu-first-price');
+        const weightEl = clone.querySelector('.menu-order-weight');
+
+        if (article) article.dataset.category = categoryKey;
+
+        if (img) {
+          const safeSrc = sanitizeImageSrc(item.image || '');
+          if (safeSrc) img.setAttribute('src', safeSrc);
+          else img.removeAttribute('src');
+          img.setAttribute('alt', pickLocalizedText(item.name || item.title || '', lang) || '');
+        }
+        if (titleEl) titleEl.textContent = pickLocalizedText(item.name || item.title || '', lang);
+        if (descEl) descEl.textContent = pickLocalizedText(item.description || item.desc || '', lang);
+        if (priceEl) priceEl.textContent = String(item.price || '');
+        if (weightEl) weightEl.textContent = String(item.weight || '');
+
+        container.appendChild(clone);
+      });
+    });
+  }
+
+  function setupMenuFilters() {
+    const buttons = Array.from(document.querySelectorAll('.menu-button'));
+    if (!buttons.length) return;
+
+    const activeBtn = buttons.find(b => b.classList.contains('active'));
+    if (activeBtn) {
+      currentFilter = mapFilterToCategory((activeBtn.dataset.filter || 'all').toLowerCase());
+    } else {
+      buttons.forEach((b, i) => b.classList.toggle('active', i === 0));
+      currentFilter = mapFilterToCategory((buttons[0] && buttons[0].dataset.filter) || 'all');
+    }
+
+    buttons.forEach(btn => {
+      const parent = btn.parentNode;
+      if (!parent) return;
+      const clone = btn.cloneNode(true);
+      parent.replaceChild(clone, btn);
+    });
+
+    const freshButtons = Array.from(document.querySelectorAll('.menu-button'));
+    freshButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        freshButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const raw = (btn.dataset.filter || 'all').toLowerCase();
+        currentFilter = mapFilterToCategory(raw);
+        currentLang = pickLanguageFromI18n();
+        renderMenu(menuData, currentLang, currentFilter);
+      });
+    });
+  }
+
+  function mapFilterToCategory(filterValue) {
+    if (!filterValue) return 'all';
+    if (filterValue === 'all') return 'all';
+    const keys = Object.keys(menuData || {});
+    const lower = filterValue.toLowerCase();
+    const exact = keys.find(k => k.toLowerCase() === lower);
+    if (exact) return exact;
+    const targetNorm = normKey(filterValue);
+    const found = keys.find(k => normKey(k) === targetNorm);
+    if (found) return found;
+    return filterValue;
+  }
+
+  window.addEventListener('i18n:changed', (e) => {
+    const lang = (e && e.detail && e.detail.lang) ? e.detail.lang : pickLanguageFromI18n();
+    currentLang = (lang === 'en') ? 'eng' : lang;
+    if (Object.keys(menuData || {}).length) {
+      renderMenu(menuData, currentLang, currentFilter);
+    }
+  });
+
   const dialog = document.getElementById("add-item-dialog");
   if (!dialog) return; // nothing to wire
 
@@ -529,4 +556,5 @@ document.addEventListener('DOMContentLoaded', () => {
       if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Сохранить"; }
     }
   });
-});
+  loadMenuData();
+}

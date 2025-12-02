@@ -1,20 +1,15 @@
 // auth-ui.js — управление сессией / logout / checkSession на клиенте
 // Зависимости: window.CSRFManager (опционально). Экспортирует window.AuthManager
 
-(function () {
+export function initAuthManager() {
   const safeCall = (fn, ...args) => { try { return fn && fn(...args); } catch (e) { console.error(e); } };
 
-  // helper: show simple alert/confirm wrappers (можно заменить i18n)
-  function confirmDialog(text) {
-    return confirm(text);
-  }
+  function confirmDialog(text) { return confirm(text); }
 
   async function fetchJson(url, opts = {}) {
     const options = Object.assign({}, opts);
-    // default credential include — server session relies on it
     options.credentials = options.credentials || 'include';
     const res = await fetch(url, options);
-    // try to parse json safely
     let json = null;
     try { json = await res.json(); } catch (e) { json = null; }
     return { ok: res.ok, status: res.status, body: json, raw: res };
@@ -25,17 +20,14 @@
     if (!confirmDialog(conf)) return { success: false, cancelled: true };
 
     try {
-      // Ensure CSRF present if manager exists
       if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
         try { await window.CSRFManager.init(); } catch (e) { console.warn('CSRFManager init before logout failed', e); }
       }
 
-      // Best-effort include CSRF token in POST body using manager or simple JSON
       const bodyObj = (window.CSRFManager && typeof window.CSRFManager.appendToJson === 'function')
         ? window.CSRFManager.appendToJson({})
         : {};
 
-      // prefer fetchWithCsrf if available (adds header), otherwise plain fetch with credentials
       const doFetch = (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrf === 'function')
         ? window.CSRFManager.fetchWithCsrf
         : fetch;
@@ -54,16 +46,12 @@
       }
 
       if (data && data.success) {
-        // attempt to refresh CSRF token if available
         if (window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
           try { await window.CSRFManager.refresh(); } catch (_) { /* ignore */ }
         }
-        // clear client storages
         try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}
-        // reset client state
         if (typeof window.setLoggedIn === 'function') safeCall(window.setLoggedIn, false);
         if (typeof window.updateLoginLabel === 'function') safeCall(window.updateLoginLabel);
-        // reload page to reflect logged-out state
         window.location.reload();
         return { success: true };
       } else {
@@ -78,7 +66,6 @@
   async function checkSession() {
     try {
       const r = await fetchJson('./php/check_session.php', { method: 'GET' });
-      // Return parsed body even if !ok
       return { ok: r.ok, status: r.status, body: r.body };
     } catch (e) {
       console.error('checkSession error', e);
@@ -86,11 +73,9 @@
     }
   }
 
-  // utility to attach logout button(s) automatically
   function attachLogoutButton(selector = '.logout-account-btn') {
     const btn = document.querySelector(selector);
     if (!btn) return;
-    // remove prior listeners if needed by using a data attribute
     if (btn.dataset.authAttach === 'true') return;
     btn.addEventListener('click', async (e) => {
       e.preventDefault();
@@ -102,7 +87,6 @@
     btn.dataset.authAttach = 'true';
   }
 
-  // init: attach to existing logout buttons and optionally run checkSession auto handling
   async function init({ autoCheckSession = false, attachToLogout = true } = {}) {
     if (attachToLogout) attachLogoutButton('.logout-account-btn');
 
@@ -110,7 +94,6 @@
       try {
         const s = await checkSession();
         if (s && s.body && s.body.loggedIn && s.body.user) {
-          // return the body so caller can use it
           return { loggedIn: true, user: s.body.user };
         }
       } catch (e) { /* ignore */ }
@@ -118,11 +101,14 @@
     return { loggedIn: false, user: null };
   }
 
-  // Expose on window
+  // expose
   window.AuthManager = {
     init,
     checkSession,
     logout: logoutFlow,
     attachLogoutButton
   };
-})();
+
+  // optionally auto-attach to current logout button immediately
+  try { attachLogoutButton('.logout-account-btn'); } catch (_) {}
+}
