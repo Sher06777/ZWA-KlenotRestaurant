@@ -1,12 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // --- Конфигурация ---
+// gallery.js — экспортируем initGallery
+
+export function initGallery() {
     const DRAG_SENSITIVITY = 0.4;
     const INERTIA_DAMPING = 0.98;
     const BASE_AUTOROTATE_SPEED = 0.05;
     const ZOOM_TRANSITION_DURATION = 400;
     const KEYBOARD_NUDGE = 2;
 
-    // --- Выборка DOM-элементов ---
     const gallerySection = document.getElementById("gallery-section");
     const ring = document.querySelector(".gallery-ring");
     const items = document.querySelectorAll(".gallery-item");
@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // --- Состояние (State) ---
     let radius = 450;
     const total = items.length;
     const itemData = [];
@@ -33,13 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let autoRotate = true;
     let isPaused = false;
     let currentZoomIndex = 0;
-
-    // ID для старта/остановки анимации
     let animationFrameId = null;
-
-    // Состояния для Observer'ов (для остановки анимации)
-    let isIntersecting = false; // Виден ли во вьюпорте
-    let isVisible = !gallerySection.classList.contains('invisible'); // Нет ли класса invisible
+    let isIntersecting = false;
+    let isVisible = !gallerySection.classList.contains('invisible');
 
     const RAD_FACTOR = Math.PI / 180;
     const roundTo = v => Math.round(v * 2) / 2;
@@ -51,9 +46,6 @@ document.addEventListener("DOMContentLoaded", () => {
         };
     }
 
-    // --- Инициализация ---
-
-    // Адаптивный радиус
     const updateRadius = () => {
         const w = window.innerWidth;
         if (w <= 480) radius = 230;
@@ -64,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
     updateRadius();
     window.addEventListener("resize", debounce(updateRadius));
 
-    //  Кэширование данных элементов (включая src и alt для лайтбокса)
     items.forEach((item, i) => {
         const angle = (i / total) * 360;
         const img = item.querySelector("img");
@@ -76,16 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // --- Логика Анимации ---
-
     function animate() {
         animationFrameId = requestAnimationFrame(animate);
-
         if (isPaused) { velocity = 0; }
-        else if (isDragging) { /* Cкорость обновляется в moveDrag */ }
+        else if (isDragging) { }
         else if (autoRotate) { velocity = BASE_AUTOROTATE_SPEED; }
         else {
-            velocity *= INERTIA_DAMPING; // Затухание
+            velocity *= INERTIA_DAMPING;
             if (Math.abs(velocity) < 0.01) {
                 velocity = 0;
                 autoRotate = true;
@@ -95,12 +83,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         itemData.forEach(itemInfo => {
             const angle = itemInfo.angle;
-            const totalAngle = angle + currentRotation; // Полный угол
+            const totalAngle = angle + currentRotation;
             const rad = totalAngle * RAD_FACTOR;
-
             const x = roundTo(radius * Math.sin(rad));
             const z = roundTo(radius * Math.cos(rad));
-
             itemInfo.el.style.transform = `translate3d(${x}px, 0, ${z}px)`;
         });
     }
@@ -110,24 +96,17 @@ document.addEventListener("DOMContentLoaded", () => {
             animate();
         }
     }
-
     function stopAnimation() {
         if (animationFrameId) {
             cancelAnimationFrame(animationFrameId);
             animationFrameId = null;
         }
     }
-
-    // Центральная функция для принятия решения
     function checkAnimationState() {
-        if (isIntersecting && isVisible) {
-            startAnimation();
-        } else {
-            stopAnimation();
-        }
+        if (isIntersecting && isVisible) startAnimation();
+        else stopAnimation();
     }
 
-    // --- Обработчики Перетаскивания (Drag) ---
     const startDrag = (x) => {
         isDragging = true;
         autoRotate = false;
@@ -148,31 +127,23 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("mousemove", e => moveDrag(e.clientX));
     window.addEventListener("mouseup", endDrag);
     ring.addEventListener("touchstart", e => startDrag(e.touches[0].clientX), { passive: true });
-    ring.addEventListener("touchmove", e => { e.preventDefault(); moveDrag(e.touches[0].clientX); }, { passive: false });
+    ring.addEventListener("touchmove", e => { if (e.touches) { e.preventDefault(); moveDrag(e.touches[0].clientX); } }, { passive: false });
     ring.addEventListener("touchend", endDrag);
 
-    // --- Обработчики Zoom ---
-
-    // Функция для отображения/смены картинки в зуме
     const showZoomedImage = (index) => {
         if (index < 0 || index >= total) return;
-
         const item = itemData[index];
         currentZoomIndex = index;
-
-        // Плавная смена через opacity (убедитесь, что в CSS есть transition)
         zoomImg.style.opacity = 0;
         zoomDesc.style.opacity = 0;
-
         setTimeout(() => {
             zoomImg.src = item.src;
             zoomDesc.textContent = item.alt;
             zoomImg.style.opacity = 1;
             zoomDesc.style.opacity = 1;
-        }, 150); // Чуть меньше, чем transition duration
+        }, 150);
     };
 
-    // Закрытие
     const closeZoom = () => {
         zoom.classList.remove("visible");
         zoomImg.style.transform = "scale(1)";
@@ -182,98 +153,65 @@ document.addEventListener("DOMContentLoaded", () => {
         }, ZOOM_TRANSITION_DURATION);
     };
 
-    // Открытие (назначаем на кэшированные данные)
     itemData.forEach((itemInfo, index) => {
         itemInfo.el.addEventListener("click", (e) => {
             e.stopPropagation();
-            showZoomedImage(index); // Открываем по индексу
-
+            showZoomedImage(index);
             zoomImg.style.transform = "scale(1)";
             zoom.style.display = "flex";
             requestAnimationFrame(() => zoom.classList.add("visible"));
         });
     });
 
-    // Обработчики закрытия и навигации в зуме
     zoom.addEventListener("click", closeZoom);
-    zoomClose.addEventListener("click", closeZoom);
+    if (zoomClose) zoomClose.addEventListener("click", closeZoom);
 
     zoomNext.addEventListener("click", (e) => {
         e.stopPropagation();
-        const nextIndex = (currentZoomIndex + 1) % total; // Зацикливание
+        const nextIndex = (currentZoomIndex + 1) % total;
         showZoomedImage(nextIndex);
     });
 
     zoomPrev.addEventListener("click", (e) => {
         e.stopPropagation();
-        const prevIndex = (currentZoomIndex - 1 + total) % total; // Зацикливание
+        const prevIndex = (currentZoomIndex - 1 + total) % total;
         showZoomedImage(prevIndex);
     });
 
-    // --- Обработчики Доступности (A11y) ---
-
     window.addEventListener("keydown", (e) => {
-        // Сначала проверяем, открыт ли зум
         if (zoom.classList.contains("visible")) {
-            if (e.key === "ArrowRight") {
-                e.preventDefault();
-                const nextIndex = (currentZoomIndex + 1) % total;
-                showZoomedImage(nextIndex);
-            } else if (e.key === "ArrowLeft") {
-                e.preventDefault();
-                const prevIndex = (currentZoomIndex - 1 + total) % total;
-                showZoomedImage(prevIndex);
-            } else if (e.key === "Escape") {
-                closeZoom();
-            }
-            return; // Не даем управлять кольцом, пока открыт зум
+            if (e.key === "ArrowRight") { e.preventDefault(); const nextIndex = (currentZoomIndex + 1) % total; showZoomedImage(nextIndex); }
+            else if (e.key === "ArrowLeft") { e.preventDefault(); const prevIndex = (currentZoomIndex - 1 + total) % total; showZoomedImage(prevIndex); }
+            else if (e.key === "Escape") closeZoom();
+            return;
         }
-
-        // Если зум не открыт, управляем кольцом
-        if (e.key === "ArrowRight") {
-            autoRotate = false;
-            velocity = -KEYBOARD_NUDGE;
-        } else if (e.key === "ArrowLeft") {
-            autoRotate = false;
-            velocity = KEYBOARD_NUDGE;
-        }
+        if (e.key === "ArrowRight") { autoRotate = false; velocity = -KEYBOARD_NUDGE; }
+        else if (e.key === "ArrowLeft") { autoRotate = false; velocity = KEYBOARD_NUDGE; }
     });
 
     const pauseBtn = document.getElementById("gallery-pause-btn");
-
     if (pauseBtn) {
         pauseBtn.addEventListener("click", () => {
             isPaused = !isPaused;
             autoRotate = !isPaused;
-
             pauseBtn.classList.toggle('is-paused', isPaused);
-
             pauseBtn.setAttribute("aria-label", isPaused ? "Возобновить анимацию" : "Приостановить анимацию");
-
-
         });
     }
 
-    // --- Intersection & Mutation Observers (Запуск/Остановка анимации) ---
-
-    // 1. Intersection Observer (Следит за Скроллом)
     const galleryObserver = new IntersectionObserver((entries) => {
         const entry = entries[0];
-        isIntersecting = entry.isIntersecting; // Обновляем состояние
-        checkAnimationState(); // Вызываем проверку
-    }, {
-        threshold: 0
-    });
+        isIntersecting = entry.isIntersecting;
+        checkAnimationState();
+    }, { threshold: 0 });
     galleryObserver.observe(gallerySection);
 
-    // 2. Mutation Observer (Следит за классом 'invisible')
     const mutationObserver = new MutationObserver((mutations) => {
-        isVisible = !gallerySection.classList.contains('invisible'); // Обновляем состояние
-        checkAnimationState(); // Вызываем проверку
+        isVisible = !gallerySection.classList.contains('invisible');
+        checkAnimationState();
     });
+    mutationObserver.observe(gallerySection, { attributes: true, attributeFilter: ['class'] });
 
-    mutationObserver.observe(gallerySection, {
-        attributes: true,
-        attributeFilter: ['class'] // Следим только за изменениями атрибута 'class'
-    });
-});
+    // start if visible now
+    checkAnimationState();
+}

@@ -1,6 +1,28 @@
-// admin-users.js — безопасная версия
+// admin-users.js — module version (exports)
 
-function showBlock(blockToShow, options = {}) {
+/* showBlock */
+export function showBlock(blockToShow, options = {}) {
+  console.log('[ADMIN] showBlock called with:', blockToShow);
+  console.trace('[ADMIN] showBlock trace');
+
+  if (typeof blockToShow === 'string') {
+    const key = blockToShow.toLowerCase();
+    if (key === 'dates' || key === 'datescontent' || key === 'personal-account-content.dates') {
+      blockToShow = document.querySelector('.personal-account-content.dates');
+    } else if (key === 'reservation' || key === 'reservationcontent') {
+      blockToShow = document.querySelector('.personal-account-content.reservation');
+    } else if (key === 'admin-panel' || key === 'adminpanel') {
+      blockToShow = document.getElementById('admin-panel');
+    } else if (key === 'admin-users-content' || key === 'admin-users') {
+      blockToShow = document.getElementById('admin-users-content');
+    }
+  }
+
+  if (!blockToShow || !(blockToShow instanceof Element)) {
+    console.log('[ADMIN] showBlock: blockToShow is falsy or not an Element — skipping.');
+    return;
+  }
+
   const allBlocks = [
     document.querySelector('.personal-account-content.dates'),
     document.querySelector('.personal-account-content.reservation'),
@@ -12,31 +34,36 @@ function showBlock(blockToShow, options = {}) {
   const blocksToAnimate = allBlocks.filter(block => !options.keepParent || block !== options.keepParent);
   const total = blocksToAnimate.length;
 
+  const onAnimDone = () => {
+    animationsCompleted++;
+    if (animationsCompleted === total) {
+      try { adjustAccountSectionHeight(); } catch (e) { console.warn('adjustAccountSectionHeight failed', e); }
+    }
+  };
+
   blocksToAnimate.forEach(block => {
     if (block === blockToShow) {
-      fadeIn(block, () => {
-        animationsCompleted++;
-        if (animationsCompleted === total) adjustAccountSectionHeight();
-      });
+      fadeIn(block);
+      setTimeout(onAnimDone, 520);
     } else {
-      fadeOut(block, () => {
-        animationsCompleted++;
-        if (animationsCompleted === total) adjustAccountSectionHeight();
-      });
+      fadeOut(block);
+      setTimeout(onAnimDone, 520);
     }
   });
 
-  if (total === 0) adjustAccountSectionHeight();
+  if (total === 0) {
+    try { adjustAccountSectionHeight(); } catch (e) { console.warn('adjustAccountSectionHeight failed', e); }
+  }
 }
 
-// === Cache ===
-let cachedUsersPages = {};
-let userCurrentPage = 1;
-let userTotalPages = 1;
-const USERS_PER_PAGE = 4;
+/* остальные функции — просто добавляем export где нужно */
 
-// === Load users page ===
-function loadUsersPage(page = 1) {
+export let cachedUsersPages = {};
+export let userCurrentPage = 1;
+export let userTotalPages = 1;
+export const USERS_PER_PAGE = 4;
+
+export function loadUsersPage(page = 1) {
   page = Number.isInteger(page) ? page : parseInt(page, 10) || 1;
   const tableWrap = document.querySelector('#admin-users-table .admin-users-table-wrap');
   if (!tableWrap) return;
@@ -56,7 +83,6 @@ function loadUsersPage(page = 1) {
     }
   }
 
-  // if cached
   if (cachedUsersPages[page]) {
     userCurrentPage = page;
     renderUsers(cachedUsersPages[page], tableWrap);
@@ -64,8 +90,7 @@ function loadUsersPage(page = 1) {
     return;
   }
 
-  // show loading safely
-  tableWrap.textContent = (getTranslation ? (getTranslation('admin.loading-users') || 'Loading users...') : 'Loading users...');
+  tableWrap.textContent = (typeof getTranslation === 'function') ? (getTranslation('admin.loading-users') || 'Loading users...') : 'Loading users...';
   if (paginationEl) paginationEl.textContent = '';
 
   fetch(`./php/admin_get_users.php?page=${encodeURIComponent(page)}`, { credentials: 'include' })
@@ -92,20 +117,20 @@ function loadUsersPage(page = 1) {
     });
 }
 
-async function translateUserTable(tableWrap) {
+export async function translateUserTable(tableWrap) {
   if (!tableWrap) return;
   const elements = tableWrap.querySelectorAll('[data-i18n]');
   for (const el of elements) {
     const key = el.getAttribute('data-i18n');
-    await translateElement(el, key);
+    if (typeof getTranslation === 'function') {
+      await getTranslation(key).then(txt => { if (txt) el.textContent = txt; });
+    }
   }
 }
 
-// === Render users safely using DOM API ===
-function renderUsers(users, tableWrap) {
+export function renderUsers(users, tableWrap) {
   if (!Array.isArray(users)) users = [];
 
-  // Build table DOM
   const table = document.createElement('table');
   table.className = 'admin-users-table';
 
@@ -113,7 +138,6 @@ function renderUsers(users, tableWrap) {
   const headRow = document.createElement('tr');
   ['ID', 'Login', 'Email', 'Удалить?'].forEach((h, idx) => {
     const th = document.createElement('th');
-    // Переносим data-i18n для перевода (если нужно)
     if (idx === 3) th.setAttribute('data-i18n', 'admin.delete');
     th.textContent = h;
     headRow.appendChild(th);
@@ -123,7 +147,6 @@ function renderUsers(users, tableWrap) {
 
   const tbody = document.createElement('tbody');
 
-  // Если нет пользователей — покажем строку "нет данных"
   if (users.length === 0) {
     const tr = document.createElement('tr');
     const td = document.createElement('td');
@@ -151,33 +174,27 @@ function renderUsers(users, tableWrap) {
       const tdDelete = document.createElement('td');
       tdDelete.className = 'admin-users-delete-cell';
 
-      // Если запись — это текущий администратор, не показываем кнопку удаления
       const currentUserId = Number(window.currentUserId || 0);
       if (Number(u.id) !== currentUserId) {
         const btn = document.createElement('button');
         btn.className = 'user-delete-yes edit-account-btn';
         btn.setAttribute('data-i18n', 'admin.delete-yes');
         btn.dataset.id = String(u.id ?? '');
-        // Добавим понятный label для accessibility
         btn.setAttribute('aria-label', `Delete user ${u.id}`);
         tdDelete.appendChild(btn);
       } else {
-        tdDelete.textContent = ''; // оставляем пустой
+        tdDelete.textContent = '';
       }
       tr.appendChild(tdDelete);
 
-      // --- ВАЖНО: добавление строки в tbody ---
       tbody.appendChild(tr);
     });
   }
 
   table.appendChild(tbody);
-
-  // Replace tableWrap content safely
-  tableWrap.innerHTML = ''; // allowed since we control wrapper, content inserted via DOM
+  tableWrap.innerHTML = '';
   tableWrap.appendChild(table);
 
-  // add single delegated listener once
   if (!tableWrap.dataset.listenerAdded) {
     tableWrap.addEventListener('click', async e => {
       const target = e.target;
@@ -194,7 +211,6 @@ function renderUsers(users, tableWrap) {
       if (!confirm(`${confirmText} #${id}?`)) return;
 
       try {
-        // ensure CSRF manager present and initialized
         if (window.CSRFManager) {
           try {
             if (!window.CSRFManager.isInitialized || !window.CSRFManager.isInitialized()) {
@@ -218,7 +234,7 @@ function renderUsers(users, tableWrap) {
         const resp = await fetchResp.json().catch(() => ({ success: false }));
 
         if (resp.success) {
-          cachedUsersPages = {}; // clear cache
+          cachedUsersPages = {};
           loadUsersPage(userCurrentPage);
         } else {
           alert("Error deleting user: " + (resp.error || resp.message || 'Unknown'));
@@ -232,12 +248,10 @@ function renderUsers(users, tableWrap) {
     tableWrap.dataset.listenerAdded = 'true';
   }
 
-  // Перевод (если используется i18n)
   translateUserTable(tableWrap);
 }
 
-// === Pagination — build via DOM ===
-function renderUserPagination(current, total, container) {
+export function renderUserPagination(current, total, container) {
   if (!container) return;
   container.innerHTML = '';
 
@@ -282,8 +296,7 @@ function renderUserPagination(current, total, container) {
   };
 }
 
-// === Admin panel init ===
-function initAdminPanel(user) {
+export function initAdminPanel(user) {
   const adminBtn = document.querySelector('.personal-account-admin-panel');
   const adminPanel = document.getElementById('admin-panel');
   const adminUsersBtn = document.getElementById('admin-users-btn');
@@ -341,11 +354,10 @@ function initAdminPanel(user) {
     .catch(err => console.error('Ошибка проверки роли:', err));
 }
 
-// === init personal account ===
-function initPersonalAccount(user) {
+/* initPersonalAccount for backwards compatibility with older scripts — exports available */
+export function initPersonalAccount(user) {
   const accountWrapper = document.getElementById('account-wrapper');
   if (!accountWrapper) return;
-  fadeIn(accountWrapper);
 
   const datesContent = document.querySelector('.personal-account-content.dates');
   if (datesContent) {
@@ -360,14 +372,27 @@ function initPersonalAccount(user) {
     if (passwordSpan) passwordSpan.textContent = maskPassword();
   }
 
-  showBlock(datesContent);
+  const localDates = document.querySelector('.personal-account-content.dates');
+  if (accountWrapper.classList.contains('visible') && localDates) {
+    showBlock(localDates);
+  } else {
+    if (localDates) {
+      localDates.classList.remove('visible');
+      localDates.classList.add('invisible');
+    }
+    const localRes = document.querySelector('.personal-account-content.reservation');
+    if (localRes) {
+      localRes.classList.remove('visible');
+      localRes.classList.add('invisible');
+    }
+  }
 
   const personalAccountButtons = {
     dates: document.querySelector('.personal-account-dates'),
     reservation: document.querySelector('.personal-account-reservation')
   };
 
-  if (personalAccountButtons.dates) personalAccountButtons.dates.onclick = () => showBlock(datesContent);
+  if (personalAccountButtons.dates) personalAccountButtons.dates.onclick = () => showBlock(document.querySelector('.personal-account-content.dates'));
   if (personalAccountButtons.reservation) {
     personalAccountButtons.reservation.onclick = () => {
       showBlock(document.querySelector('.personal-account-content.reservation'));

@@ -1,4 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+// language-dropdown.js
+
+export function initLanguageDropdown() {
   const languageBtn = document.querySelector('.language-btn');
   if (!languageBtn) return;
 
@@ -10,4 +12,4 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('click', () => {
     languageBtn.classList.remove('active');
   });
-});
+}
