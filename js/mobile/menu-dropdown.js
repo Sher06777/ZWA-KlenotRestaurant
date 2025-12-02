@@ -1,37 +1,23 @@
-document.addEventListener('DOMContentLoaded', () => {
+// mobile/menu-dropdown.js
+export function initMobileMenu() {
   const toggle = document.getElementById('mobile-menu-toggle') || document.querySelector('.menu-mobile-toggle');
   const overlay = document.getElementById('mobile-menu') || document.querySelector('.mobile-menu-overlay');
-  const mainEl = document.getElementById('main');
   const focusableSelector = 'a, button, input, [tabindex]:not([tabindex="-1"]), .mobile-menu-list li, .mobile-language-options button';
+  if (!toggle || !overlay) { console.warn('⚠️ Mobile menu: not found toggle/overlay'); return; }
+
   let previouslyFocused = null;
   let isAnimating = false;
   const ANIM_DUR = 220;
 
-  if (!toggle || !overlay) {
-    console.warn('⚠️ Mobile menu: не найдены необходимые элементы (toggle/overlay).');
-    return;
-  }
-
   const extraClose = overlay.querySelector('.mobile-menu-close');
-  if (extraClose) {
-    try { extraClose.remove(); } catch (e) { extraClose.style.display = 'none'; }
-  }
+  if (extraClose) { try { extraClose.remove(); } catch (e) { extraClose.style.display = 'none'; } }
 
   function setOpenState(open) {
-    console.log(`📱 setOpenState(${open}) вызван`);
     toggle.classList.toggle('open', open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     overlay.classList.toggle('active', open);
     overlay.setAttribute('aria-hidden', open ? 'false' : 'true');
-
-    if (open) {
-      console.log('🔒 Меню открывается → блокируем scroll и скрываем main');
-      document.body.style.overflow = 'hidden';
-
-    } else {
-      console.log('🔓 Меню закрывается → возвращаем scroll и показываем main');
-      document.body.style.overflow = '';
-    }
+    document.body.style.overflow = open ? 'hidden' : '';
   }
 
   function trapFocus(e) {
@@ -43,7 +29,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function openMenu() {
-    console.log('🟢 openMenu()');
     if (isAnimating || overlay.classList.contains('active')) return;
     isAnimating = true;
     previouslyFocused = document.activeElement;
@@ -55,40 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function closeMenu() {
-    console.log('🔴 closeMenu()');
-    if (isAnimating || !overlay.classList.contains('active')) {
-      console.log('⚠️ Пропуск закрытия — isAnimating или overlay не активен');
-      setOpenState(false);
-      return;
-    }
+    if (isAnimating || !overlay.classList.contains('active')) { setOpenState(false); return; }
     isAnimating = true;
     setOpenState(false);
     document.removeEventListener('focus', trapFocus, true);
-    if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
-      try { previouslyFocused.focus(); } catch (err) {}
-    }
+    if (previouslyFocused && typeof previouslyFocused.focus === 'function') { try { previouslyFocused.focus(); } catch (err) {} }
     setTimeout(() => { isAnimating = false; }, ANIM_DUR);
   }
 
   toggle.addEventListener('click', (e) => {
     e.preventDefault();
-    console.log('👆 Клик по toggle');
     if (isAnimating) return;
     if (overlay.classList.contains('active')) closeMenu(); else openMenu();
   });
 
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) {
-      console.log('👆 Клик по фону overlay → закрываем меню');
-      closeMenu();
-    }
-  });
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeMenu(); });
 
   overlay.querySelectorAll('.mobile-menu-list li, .mobile-menu-list a').forEach(item => {
-    item.addEventListener('click', (e) => {
-      console.log(`📋 Клик по пункту меню: ${e.target.textContent.trim()}`);
-      setTimeout(() => closeMenu(), 200);
-    });
+    item.addEventListener('click', (e) => { setTimeout(() => closeMenu(), 200); });
   });
 
   overlay.querySelectorAll('.lang-btn').forEach(btn => {
@@ -96,13 +65,12 @@ document.addEventListener('DOMContentLoaded', () => {
       overlay.querySelectorAll('.lang-btn').forEach(b => b.setAttribute('aria-checked', 'false'));
       btn.setAttribute('aria-checked', 'true');
       const lang = btn.dataset.lang;
-      console.log(`🌐 Язык выбран: ${lang}`);
+      if (lang && window.i18n && typeof window.i18n.setLanguage === 'function') window.i18n.setLanguage(lang).catch(()=>{});
     });
   });
 
   const observer = new MutationObserver(() => {
     const isActive = overlay.classList.contains('active');
-    console.log(`👁 MutationObserver → overlay.active = ${isActive}`);
     if (!isActive) {
       document.body.style.overflow = '';
       toggle.classList.remove('open');
@@ -116,4 +84,4 @@ document.addEventListener('DOMContentLoaded', () => {
     document.removeEventListener('focus', trapFocus, true);
     observer.disconnect();
   });
-});
+}
