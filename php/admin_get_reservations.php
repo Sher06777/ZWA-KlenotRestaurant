@@ -1,11 +1,27 @@
 <?php
-// admin_get_reservations.php — пагинация резерваций (admin only)
+/**
+ * admin_get_reservations.php
+ *
+ * Vrací stránkovaný seznam rezervací pro administrátora.
+ * Parametry: GET page (integer, nepovinné).
+ *
+ * Formát odpovědi:
+ * {
+ *   success: true,
+ *   reservations: [...],
+ *   page: n,
+ *   pages: m,
+ *   total: t
+ * }
+ *
+ * @package AdminAPI
+ */
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/auth.php';
 header('Content-Type: application/json; charset=utf-8');
 
-// Права
 $currentIsAdmin = $GLOBALS['currentUserIsAdmin'] ?? ($_SESSION['isAdmin'] ?? 0);
 if ((int)$currentIsAdmin !== 1) {
     http_response_code(403);
@@ -13,13 +29,11 @@ if ((int)$currentIsAdmin !== 1) {
     exit;
 }
 
-// Пагинация (безопасные целые)
 $page = max(1, intval($_GET['page'] ?? 1));
 $limit = 5;
 $offset = ($page - 1) * $limit;
 
 try {
-    // total count
     $countRes = $conn->query("SELECT COUNT(*) AS c FROM reservations");
     if (!$countRes) {
         throw new Exception('Count query failed: ' . $conn->error);
@@ -28,7 +42,6 @@ try {
     $total = intval($countRow['c'] ?? 0);
     $pages = $total > 0 ? (int)ceil($total / $limit) : 1;
 
-    // SELECT with validated integers injected
     $sql = sprintf(
         "SELECT id, name, phone, email, date, time, people, message, user_id
          FROM reservations

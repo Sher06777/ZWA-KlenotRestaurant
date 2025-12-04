@@ -1,6 +1,14 @@
 <?php
-require_once 'session_init.php'; 
-include 'security_headers.php'; 
+/**
+ * logout.php
+ *
+ * Odhlášení uživatele: vyčistí session a smaže session cookie.
+ *
+ * @package Auth
+ */
+
+require_once 'session_init.php';
+include 'security_headers.php';
 include 'db.php';
 session_unset();
 session_destroy();

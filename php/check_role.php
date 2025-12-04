@@ -1,5 +1,15 @@
 <?php
-// check_role.php — возвращает базовую информацию о сессии/правах (публичный endpoint)
+/**
+ * check_role.php
+ *
+ * Jednoduchý endpoint pro frontend: vrací, zda je uživatel přihlášen
+ * a zda je administrátor.
+ *
+ * Odpověď: { logged: bool, isAdmin: 0|1 }
+ *
+ * @package Auth
+ */
+
 require 'session_init.php';
 header('Content-Type: application/json; charset=utf-8');
 

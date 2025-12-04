@@ -1,8 +1,17 @@
 <?php
+/**
+ * get_user.php
+ *
+ * Vrací informace o aktuálním uživateli ze session.
+ * Odpověď: { success: true|false, user: { id, name, email, isAdmin } }
+ *
+ * @package Auth
+ */
+
 require_once 'session_init.php';
 error_reporting(0);
 ini_set('display_errors', 0);
-include 'security_headers.php'; 
+include 'security_headers.php';
 include 'db.php';
 header('Content-Type: application/json');
 
