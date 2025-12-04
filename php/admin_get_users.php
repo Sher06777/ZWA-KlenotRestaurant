@@ -1,11 +1,19 @@
 <?php
-// admin_get_users.php — получение списка пользователей (admin only)
-declare(strict_types=1);
+/**
+ * admin_get_users.php
+ *
+ * Vrací seznam uživatelů (stránkování) — dostupné pouze administrátorovi.
+ * GET parametr: page (volitelný).
+ *
+ * Odpověď: { success: true, users: [...], totalPages: n, currentPage: m }
+ *
+ * @package AdminAPI
+ */
 
-require_once __DIR__ . '/auth.php'; // обеспечивает сессию и авторизацию
+declare(strict_types=1);
+require_once __DIR__ . '/auth.php';
 header('Content-Type: application/json; charset=utf-8');
 
-// Проверка прав администратора
 $currentIsAdmin = $GLOBALS['currentUserIsAdmin'] ?? ($_SESSION['isAdmin'] ?? 0);
 if ((int)$currentIsAdmin !== 1) {
     http_response_code(403);
@@ -13,7 +21,6 @@ if ((int)$currentIsAdmin !== 1) {
     exit;
 }
 
-// Параметры пагинации — защищённо: целые числа, лимит ограничен
 $limit = 5;
 $maxLimit = 100;
 $page = isset($_GET['page']) ? intval($_GET['page']) : 1;
@@ -21,7 +28,6 @@ if ($page < 1) $page = 1;
 $offset = ($page - 1) * $limit;
 
 try {
-    // total count
     $countRes = $conn->query("SELECT COUNT(*) AS total FROM users");
     if (!$countRes) {
         throw new Exception('Count query failed: ' . $conn->error);
@@ -30,7 +36,6 @@ try {
     $total = intval($countRow['total'] ?? 0);
     $totalPages = $total > 0 ? (int)ceil($total / $limit) : 1;
 
-    // Safe: use integers injected (already validated) for LIMIT/OFFSET to avoid binding pitfalls
     $sql = sprintf("SELECT id, name, email, created_at FROM users ORDER BY id ASC LIMIT %d OFFSET %d", $limit, $offset);
     $stmt = $conn->prepare($sql);
     if (!$stmt) {
@@ -41,7 +46,6 @@ try {
 
     $users = [];
     while ($row = $res->fetch_assoc()) {
-        // НЕ экранируем HTML — JSON сериализация безопасно экранирует строки.
         $users[] = [
             'id' => (int)($row['id'] ?? 0),
             'name' => (string)($row['name'] ?? ''),

@@ -1,11 +1,18 @@
 <?php
-// admin_delete_user.php — удаление пользователя (admin only)
+/**
+ * admin_delete_user.php
+ *
+ * Administrátorský endpoint pro smazání uživatele dle id.
+ * Vyžaduje POST a práva administrátora.
+ *
+ * @package AdminAPI
+ */
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/auth.php';
 header('Content-Type: application/json; charset=utf-8');
 
-// Проверка прав администратора
 $currentUserId = $GLOBALS['currentUserId'] ?? ($_SESSION['user_id'] ?? 0);
 $currentIsAdmin = $GLOBALS['currentUserIsAdmin'] ?? ($_SESSION['isAdmin'] ?? 0);
 if (!$currentUserId || (int)$currentIsAdmin !== 1) {
@@ -14,14 +21,12 @@ if (!$currentUserId || (int)$currentIsAdmin !== 1) {
     exit;
 }
 
-// Метод — только POST
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'error' => 'Method not allowed']);
     exit;
 }
 
-// Считываем id и валидируем
 $userIdToDelete = intval($_POST['id'] ?? 0);
 if ($userIdToDelete <= 0) {
     http_response_code(400);
@@ -29,7 +34,6 @@ if ($userIdToDelete <= 0) {
     exit;
 }
 
-// Нельзя удалить самого себя
 if ($userIdToDelete === (int)$currentUserId) {
     http_response_code(400);
     echo json_encode(['success' => false, 'error' => 'Cannot delete your own account']);
@@ -37,7 +41,6 @@ if ($userIdToDelete === (int)$currentUserId) {
 }
 
 try {
-    // Проверка существования
     $stmtCheck = $conn->prepare("SELECT id FROM users WHERE id = ?");
     if (!$stmtCheck) throw new Exception('DB prepare failed: ' . $conn->error);
     $stmtCheck->bind_param("i", $userIdToDelete);
@@ -51,7 +54,6 @@ try {
     }
     $stmtCheck->close();
 
-    // Удаляем (c подготовкой)
     $stmt = $conn->prepare("DELETE FROM users WHERE id = ?");
     if (!$stmt) throw new Exception('DB prepare failed: ' . $conn->error);
     $stmt->bind_param("i", $userIdToDelete);

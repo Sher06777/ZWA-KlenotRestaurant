@@ -41,7 +41,6 @@ export function initRegistration() {
     const confirmPassword = confirmInput ? confirmInput.value.trim() : '';
 
     if (passwordInput && confirmInput && password !== confirmPassword) { showFieldError(confirmInput, 'Passwords do not match'); valid = false; }
-    if (passwordInput && password.length > 0 && password.length < 8) { showFieldError(passwordInput, 'Password must be at least 8 characters'); valid = false; }
     if (!valid) return;
 
     registering = true;

@@ -1,6 +1,14 @@
 <?php
-// db.php — безопасное подключение к БД и CSRF-утилиты.
-// В production лучше получать креды из окружения (getenv) — здесь использованы значения, которые ты отдавал.
+/**
+ * db.php
+ *
+ * Připojení k MySQL databázi (mysqli) a pomocné utility.
+ * Konfigurace je čtena z environment proměnných DB_HOST, DB_NAME, DB_USER, DB_PASS, DB_PORT.
+ *
+ * Dále exportuje pomocnou funkci getCzechTime().
+ *
+ * @package Database
+ */
 
 $host   = getenv('DB_HOST') ?: 'localhost';
 $dbname = getenv('DB_NAME') ?: 'achilkem';
@@ -16,16 +24,18 @@ try {
     $conn = new mysqli($host, $user, $pass, $dbname, $port);
     $conn->set_charset('utf8mb4');
 } catch (Throwable $e) {
-    // логируем детальную ошибку, но пользователю даём нейтральный ответ
     error_log('DB connection error: ' . $e->getMessage());
     http_response_code(500);
-    // не выводим детали пароля/хоста на клиент
     echo json_encode(['success' => false, 'message' => 'DB connection failed.']);
     exit;
 }
 
 /**
- * Utility: Czech time
+ * Utility: český čas
+ *
+ * Vrací aktuální datum/čas v časové zóně Europe/Prague ve formátu 'Y-m-d H:i:s'.
+ *
+ * @return string Aktuální čas v české časové zóně.
  */
 function getCzechTime() {
     $dt = new DateTime("now", new DateTimeZone('Europe/Prague'));
