@@ -1,12 +1,16 @@
 <?php
-// session_init.php — безопасный и корректный старт сессии.
-// ВАЖНО: никакого echo, var_dump, пробелов и BOM до этого файла!
+/**
+ * session_init.php
+ *
+ * Inicializace session s bezpečnými parametry cookie.
+ * Dále poskytuje funkci get_csrf_token() pro generování / získání CSRF tokenu.
+ *
+ * @package Session
+ */
 
-// 1) Если сессия ещё НЕ запущена — задаём параметры
 if (session_status() !== PHP_SESSION_ACTIVE) {
     $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || ($_SERVER['SERVER_PORT'] ?? '') == 443;
 
-    // НЕ указываем 'domain' — делаем host-only cookie (это предотвратит дублировние)
     session_set_cookie_params([
         'lifetime' => 0,
         'path'     => '/',
@@ -24,8 +28,12 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-// 4) Функция выдачи токена (если используешь её здесь)
 if (!function_exists('get_csrf_token')) {
+    /**
+     * Vrací (a pokud je potřeba vytvoří) CSRF token uložený v session.
+     *
+     * @return string CSRF token (hex)
+     */
     function get_csrf_token() {
         if (empty($_SESSION['csrf_token'])) {
             try {

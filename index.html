@@ -2,6 +2,7 @@
 <html lang="en">
 
   <head>
+    <base href="/~achilkem/">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&family=Roboto+Slab:wght@100..900&display=swap"
       rel="stylesheet">
+
   </head>
 
   <body>
@@ -124,14 +126,6 @@
     <main id="main" class="visible">
       <section class="slider-wrapper">
         <div class="slider">
-          <!-- Радиокнопки -->
-          <input type="radio" name="slider" id="slider-switch-1"
-            class="slider-radio" checked>
-          <input type="radio" name="slider" id="slider-switch-2"
-            class="slider-radio">
-          <input type="radio" name="slider" id="slider-switch-3"
-            class="slider-radio">
-
           <!-- Слайды -->
           <div class="slider-slides">
             <div class="slider-images">
@@ -1422,6 +1416,22 @@
 
     </section>
 
+    
+      <!-- 404 overlay / card — по умолчанию скрыта -->
+    <section id="not-found" class="not-found invisible" aria-hidden="true" aria-labelledby="nf-title">
+      <div class="nf-card" role="alert">
+        <div class="nf-illustration" aria-hidden="true">🚧</div>
+        <h1 id="nf-title">404 — Page not found</h1>
+        <p class="nf-desc">Извините, запрошенная страница не найдена.</p>
+        <p class="nf-sub">Адрес был очищён, вы можете продолжить с главной страницы.</p>
+
+        <div class="nf-actions">
+          <button id="nf-home" class="btn">Перейти на главную</button>
+          <button id="nf-back" class="btn btn-ghost">Назад</button>
+        </div>
+      </div>
+    </section>
+
     <footer class="footer">
       <div class="footer-box">
 
@@ -1466,27 +1476,7 @@
       </div>
     </footer>
 
-    <script src="js/csrf.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/switch-language.js"></script>
-    <script src="js/logout.js"></script>
-    <script src="js/language-dropdown.js"></script>
-    <script src="js/animations.js"></script>
-    <script src="js/gallery.js"></script>
-    <script src="js/switch-visibility.js"></script>
-    <script src="js/registration.js"></script>
-    <script src="js/account.js"></script>
-    <script src="js/admin-users.js"></script>
-    <script src="js/signin.js"></script>
-    <script src="js/reservation.js"></script>
-    <script src="js/signin-validation.js"></script>
-    <script src="js/menu.js"></script>
-    
-    <script src="js/login-validation.js"></script>
-    <script src="js/mobile/menu-dropdown.js"></script>
-    <script src="js/review.js"></script>
-    
-    <script src="js/admin-reservations.js"></script>
+    <script type="module" src="js/main.js"></script>
 
   </body>
 

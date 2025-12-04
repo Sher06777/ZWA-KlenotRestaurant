@@ -2,6 +2,7 @@
 // Подключается в HTML единственным тегом: <script type="module" src="js/main.js"></script>
 
 import CSRFManager from './csrf.js';
+import initNotFoundHandler from './handle-404.js';
 
 import { initI18n } from './switch-language.js';
 import { initSwitchVisibility } from './switch-visibility.js';
@@ -31,6 +32,7 @@ async function boot() {
       console.log('✅ i18n initialized');
     } catch (e) { console.warn('initI18n failed', e); }
 
+
     // 1) init CSRF early (best-effort)
     try {
       await CSRFManager.init();
@@ -44,6 +46,17 @@ async function boot() {
       // инициализируем переключатель видимости (восстанавливает onLoginOrRegister и слушатели)
       initSwitchVisibility({ autoCheckSession: false }); // или true, если хотите автопроверку сессии
     } catch (e) { console.warn('initSwitchVisibility failed', e); }
+
+    // 2.1 error-404
+    try {
+      initNotFoundHandler({
+        basePath: '/~achilkem/',
+        cleanTo: '/~achilkem/',
+        autoClear: true
+      });
+    } catch (e) {
+      console.warn('initNotFoundHandler failed', e);
+    }
 
     // 3) init visual/animations
     try { initAnimations(); } catch (e) { console.warn('initAnimations failed', e); }

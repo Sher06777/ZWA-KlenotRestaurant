@@ -1,11 +1,21 @@
 <?php
-// admin_delete_reservation.php — удаление резервации (admin only)
+/**
+ * admin_delete_reservation.php
+ *
+ * Odstranění rezervace administrátorem.
+ * Očekává POST s polem id (integer).
+ *
+ * Vrací JSON { success: true } při úspěšném smazání,
+ * nebo HTTP chybový kód + { success: false, error: "..."}.
+ *
+ * @package AdminAPI
+ */
+
 declare(strict_types=1);
 
 require_once __DIR__ . '/auth.php';
 header('Content-Type: application/json; charset=utf-8');
 
-// Проверка прав администратора
 $currentIsAdmin = $GLOBALS['currentUserIsAdmin'] ?? ($_SESSION['isAdmin'] ?? 0);
 if ((int)$currentIsAdmin !== 1) {
     http_response_code(403);
@@ -13,16 +23,12 @@ if ((int)$currentIsAdmin !== 1) {
     exit;
 }
 
-// Метод — POST
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'error' => 'Method not allowed']);
     exit;
 }
 
-// CSRF проверка выполняется централизованно (verify_csrf_token.php)
-
-// Валидируем id
 $id = intval($_POST['id'] ?? 0);
 if ($id <= 0) {
     http_response_code(400);
