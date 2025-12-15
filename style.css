@@ -51,6 +51,17 @@ main {
         transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
+.personal-account-right .personal-account-content.invisible {
+  left: auto !important;
+  top: auto !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  pointer-events: none;
+}
+
 
 header {
     z-index: 10;

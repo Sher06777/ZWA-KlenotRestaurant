@@ -42,6 +42,17 @@ if (!function_exists('get_csrf_token')) {
                 $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(32));
             }
         }
+
+        // выставляем cookie доступное JS (double-submit)
+        $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || ($_SERVER['SERVER_PORT'] ?? '') == 443;
+        setcookie('XSRF-TOKEN', $_SESSION['csrf_token'], [
+            'expires' => 0,
+            'path' => '/',
+            'secure' => $isHttps,
+            'httponly' => false, // JS должен уметь читать cookie
+            'samesite' => 'Lax'
+        ]);
+
         return $_SESSION['csrf_token'];
     }
 }

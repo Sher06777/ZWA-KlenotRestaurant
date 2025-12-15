@@ -1,4 +1,4 @@
-// login-validation.js
+
 export function initLoginValidation() {
   const loginForm = document.querySelector('.login-form');
   const loginBtn = document.querySelector('.form-submit-button--register');

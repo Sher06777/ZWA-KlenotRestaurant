@@ -1,4 +1,4 @@
-// signin-validation.js
+
 export function initSigninValidation() {
   const forms = Array.from(document.querySelectorAll('form'));
   const globalErrorBox = document.getElementById('reservation-message');

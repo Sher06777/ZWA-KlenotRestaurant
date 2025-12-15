@@ -13,9 +13,9 @@
 error_reporting(E_ALL & ~E_NOTICE & ~E_WARNING);
 ini_set('display_errors', 0);
 
-require_once 'session_init.php';
-include 'security_headers.php';
-include 'db.php';
+require_once __DIR__ . '/session_init.php';
+require_once __DIR__ . '/security_headers.php';
+require_once __DIR__ . '/db.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -59,8 +59,8 @@ if ($password !== $confirmPassword) {
     exit;
 }
 
-if (mb_strlen($login) < 3 || mb_strlen($login) > 80) {
-    echo json_encode(['success' => false, 'field' => 'login', 'message' => 'Login must be 3..80 chars']);
+if (mb_strlen($login) <= 1 || mb_strlen($login) > 80) {
+    echo json_encode(['success' => false, 'field' => 'login', 'message' => 'Login must be 1..80 chars']);
     exit;
 }
 if (!preg_match('/^[\p{L}\p{N}_\.\-]+$/u', $login)) {
