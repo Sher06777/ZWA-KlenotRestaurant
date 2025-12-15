@@ -7,9 +7,9 @@
  * @package Auth
  */
 
-require_once 'session_init.php';
-include 'security_headers.php';
-include 'db.php';
+require_once __DIR__ . '/session_init.php';
+require_once __DIR__ . '/security_headers.php';
+require_once __DIR__ . '/db.php';
 session_unset();
 session_destroy();
 $params = session_get_cookie_params();

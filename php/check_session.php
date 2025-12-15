@@ -12,8 +12,8 @@
  * @package Auth
  */
 
-require 'session_init.php';
-require 'db.php';
+require_once __DIR__ . '/session_init.php';
+require_once __DIR__ . '/db.php';
 header('Content-Type: application/json; charset=utf-8');
 
 $response = [

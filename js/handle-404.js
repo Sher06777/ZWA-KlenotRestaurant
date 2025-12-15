@@ -1,23 +1,23 @@
-// js/handle-404.js
-// ES module — безопасный (без innerHTML). Возвращает объект с init().
-// Использование: import initNotFoundHandler from './handle-404.js'; initNotFoundHandler(options);
+
+
+
 
 export default function initNotFoundHandler(options = {}) {
   const {
-    basePath = '/~achilkem/',   // базовый путь сайта (должен завершаться /)
-    cleanTo = '/~achilkem/',    // куда очищать URL
-    autoClear = true,           // выполнять history.replaceState
-    createIfMissing = true      // создавать блок, если его нет
+    basePath = '/~achilkem/',   
+    cleanTo = '/~achilkem/',    
+    autoClear = true,           
+    createIfMissing = true      
   } = options;
 
   const ensureSlash = p => (p && p.endsWith('/') ? p : (p || '/') + '/');
   const BASE = ensureSlash(basePath);
   const CLEAN_TO = ensureSlash(cleanTo);
 
-  // не трогаем очевидные ассеты (css/js/img.ext)
+  
     const looksLikeAsset = p => /\.(?:js|mjs|css|html|c|png|jpg|jpeg|gif|webp|ico|ttf|woff2?)$/i.test(p);
 
-  // безопасный запрос перевода (если есть глобальная функция getTranslation)
+  
   async function safeTranslate(key, fallback) {
     try {
       if (typeof window.getTranslation === 'function') {
@@ -25,7 +25,7 @@ export default function initNotFoundHandler(options = {}) {
         if (v) return String(v);
       }
     } catch (e) {
-      // ignore
+      
     }
     return fallback || '';
   }
@@ -39,7 +39,7 @@ export default function initNotFoundHandler(options = {}) {
   }
 
   function createNotFoundNode() {
-    // если уже есть — вернуть
+    
     const ex = document.getElementById('not-found');
     if (ex) return ex;
 
@@ -57,7 +57,7 @@ export default function initNotFoundHandler(options = {}) {
     const ill = document.createElement('div');
     ill.className = 'nf-illustration';
     ill.setAttribute('aria-hidden', 'true');
-    // emoji — безопасно через textContent
+    
     ill.textContent = '🚧';
 
     const title = document.createElement('h1');
@@ -92,7 +92,7 @@ export default function initNotFoundHandler(options = {}) {
 
     section.appendChild(wrapper);
 
-    // вставка перед футером, если есть, иначе в body
+    
     const footer = document.querySelector('footer');
     if (footer && footer.parentNode) {
       footer.parentNode.insertBefore(section, footer);
@@ -108,7 +108,7 @@ export default function initNotFoundHandler(options = {}) {
     section.classList.remove('invisible');
     section.classList.add('visible');
     section.setAttribute('aria-hidden', 'false');
-    // фокусируем карточку для доступности
+    
     const card = section.querySelector('.nf-card');
     if (card) card.focus();
   }
@@ -141,14 +141,14 @@ export default function initNotFoundHandler(options = {}) {
       if (desc) desc.textContent = tDesc;
       if (sub) sub.textContent = tSub;
     } catch (e) {
-      // ignore translation errors
+      
     }
   }
 
-  // попытка аккуратно скрыть "обычные" секции через public API switchVisibility,
-  // иначе — применяем локальное скрытие (без innerHTML).
+  
+  
   function hideAppSectionsGracefully() {
-    // список селекторов, которые обычно показывает switch-visibility
+    
     const selectors = [
       '#main',
       '.menu-all',
@@ -159,7 +159,7 @@ export default function initNotFoundHandler(options = {}) {
       '.login-form-section'
     ];
 
-    // use switchVisibility API if available
+    
     if (window.switchVisibility && typeof window.switchVisibility.makeInvisible === 'function') {
       for (const sel of selectors) {
         try {
@@ -168,21 +168,21 @@ export default function initNotFoundHandler(options = {}) {
             try {
               window.switchVisibility.makeInvisible(el);
             } catch (e) {
-              // fallback to class manipulation
+              
               el.classList.remove('visible');
               el.classList.add('invisible');
             }
           }
-        } catch (e) { /* ignore individual errors */ }
+        } catch (e) { }
       }
-      // also hide possible 3D menu
+      
       if (typeof window.switchVisibility.set3DMenuInvisible === 'function') {
         try { window.switchVisibility.set3DMenuInvisible(true); } catch (e) {}
       }
       return;
     }
 
-    // fallback: if fadeOut helper exists, use it; otherwise apply class toggles
+    
     const fadeOut = window.fadeOut;
     for (const sel of selectors) {
       try {
@@ -197,7 +197,7 @@ export default function initNotFoundHandler(options = {}) {
       } catch (e) {}
     }
 
-    // try to stop 3d menu if present
+    
     try {
       if (window.menu3D && typeof window.menu3D.stop === 'function') window.menu3D.stop();
     } catch (e) {}
@@ -205,50 +205,50 @@ export default function initNotFoundHandler(options = {}) {
 
   async function handleOnce() {
     const path = decodePathSafe(location.pathname || '/');
-    if (path === BASE) return;               // уже на корне — ничего не делаем
-    if (looksLikeAsset(path)) return;        // ресурс — не вмешиваемся
+    if (path === BASE) return;               
+    if (looksLikeAsset(path)) return;        
 
     const section = document.getElementById('not-found') || (createIfMissing ? createNotFoundNode() : null);
     if (!section) return;
 
-    // локализация карточки
+    
     await localizeNode(section);
 
-    // скрываем обычные секции (через switchVisibility, если есть)
+    
     hideAppSectionsGracefully();
 
-    // навесим обработчики idempotently
+    
     const homeBtn = section.querySelector('#nf-home');
     const backBtn = section.querySelector('#nf-back');
 
     if (homeBtn && !homeBtn._bound) {
       homeBtn.addEventListener('click', async (e) => {
         e.preventDefault();
-        // сначала скрываем карточку
+        
         hideNotFound(section);
 
-        // если есть switchVisibility, используем её showSection для main
+        
         if (window.switchVisibility && typeof window.switchVisibility.showSection === 'function') {
           try {
-            // prefer passing element
+            
             const mainEl = document.getElementById('main') || 'main';
             window.switchVisibility.showSection(mainEl);
           } catch (err) {
-            // fallback to changing URL
+            
             window.location.href = CLEAN_TO;
           }
         } else {
-          // fallback: делаем навигацию на главную (посредством replace/location)
+          
           try {
-            // коротко обновим URL и оставим страницу (без перехода)
+            
             history.replaceState({}, document.title, CLEAN_TO);
-            // try to show main if present
+            
             const mainEl = document.getElementById('main');
             if (mainEl) {
               mainEl.classList.remove('invisible');
               mainEl.classList.add('visible');
             } else {
-              // если main отсутствует — делаем переход
+              
               window.location.href = CLEAN_TO;
             }
           } catch (err) {
@@ -266,7 +266,7 @@ export default function initNotFoundHandler(options = {}) {
         if (history.length > 1) {
           try { history.back(); } catch (err) { window.location.href = CLEAN_TO; }
         } else {
-          // no history -> go to home via switchVisibility or direct
+          
           if (window.switchVisibility && typeof window.switchVisibility.showSection === 'function') {
             try { window.switchVisibility.showSection(document.getElementById('main') || 'main'); } catch (e) { window.location.href = CLEAN_TO; }
           } else {
@@ -277,14 +277,14 @@ export default function initNotFoundHandler(options = {}) {
       backBtn._bound = true;
     }
 
-    // показать карточку (сохранить заменённый URL ниже)
+    
     showNotFound(section);
 
-    // опционально очистить URL (replaceState не создаёт новую запись в истории)
+    
     if (autoClear) {
       try {
         history.replaceState({}, document.title, CLEAN_TO);
-        // опционально изменить title коротко
+        
         document.title = (await safeTranslate('error.404.title', '404 — Not found')) || document.title;
       } catch (err) {
         console.warn('handle404.replaceState failed', err);
@@ -300,15 +300,15 @@ export default function initNotFoundHandler(options = {}) {
     }
   }
 
-  // запуск при DOMContentLoaded или сразу если DOM уже готов
+  
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => { setTimeout(handleOnce, 0); }, { once: true });
   } else {
-    // небольшой timeout чтобы дать другим init'ам шанс выполниться
+    
     setTimeout(handleOnce, 0);
   }
 
-  // API
+  
   return {
     init: handleOnce,
     base: BASE,
