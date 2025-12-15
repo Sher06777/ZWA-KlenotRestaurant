@@ -4,10 +4,10 @@
 
 export default function initNotFoundHandler(options = {}) {
   const {
-    basePath = '/~achilkem/',   
-    cleanTo = '/~achilkem/',    
-    autoClear = true,           
-    createIfMissing = true      
+    basePath = '/~abdimshe/',   // базовый путь сайта (должен завершаться /)
+    cleanTo = '/~abdimshe/',    // куда очищать URL
+    autoClear = true,           // выполнять history.replaceState
+    createIfMissing = true      // создавать блок, если его нет
   } = options;
 
   const ensureSlash = p => (p && p.endsWith('/') ? p : (p || '/') + '/');

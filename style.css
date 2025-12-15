@@ -10,11 +10,11 @@ body {
 
 
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
-  font-family: "Montserrat Alternates", sans-serif !important;
+    display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        font-family: "Montserrat Alternates", sans-serif !important;
 }
 
 
@@ -23,32 +23,32 @@ html {
 }
 
 main {
-  flex: 1;
-  overflow: hidden;
-  transition: opacity 0.45s ease, max-height 0.45s ease, visibility 0s linear 0.45s;
+    flex: 1;
+        overflow: hidden;
+        transition: opacity 0.45s ease, max-height 0.45s ease, visibility 0s linear 0.45s;
 }
 
 
 .invisible {
-  opacity: 0;
-  visibility: hidden;
-  position: fixed;
-  left: auto;
-  top: auto;
-  max-width: 0;
-  max-height: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
-  pointer-events: none;
+    opacity: 0;
+        visibility: hidden;
+        position: fixed;
+        left: 0;
+        top: 0;
+        max-width: 0;
+        max-height: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+        pointer-events: none;
 }
 
 .visible {
-  opacity: 1;
-  visibility: visible;
-  position: relative;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+    opacity: 1;
+        visibility: visible;
+        position: relative;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .personal-account-right .personal-account-content.invisible {
@@ -72,48 +72,29 @@ button {
 }
 
 #dropped-menu {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 120px;
-  font-family: "Montserrat Alternates", serif !important;
-  font-size: 18px;
-  font-weight: bold;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  color: #fff;
-  background: linear-gradient(to bottom,
-      rgb(255 255 255 / 75%),
-      rgb(255 255 255 / 0%));
-  backdrop-filter: blur(6px);
-  transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
-  padding: 0;
-  box-sizing: border-box;
+    position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 120px;
+        font-family: "Montserrat Alternates", serif !important;
+        font-size: 18px;
+        font-weight: bold;
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        color: #fff;
+        background: linear-gradient(to bottom,
+                rgb(255 255 255 / 75%),
+                rgb(255 255 255 / 0%));
+        backdrop-filter: blur(6px);
+        transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+        padding: 0;
+        box-sizing: border-box;
 }
 
 /* Эффект блюра для хэдера */
 
-
-@media (max-width: 768px) {
-    #dropped-menu {
-        height: 95px;
-        /* уменьшаем высоту */
-        padding: 0 10px;
-        /* небольшой горизонтальный padding */
-    }
-}
-
-/* Очень маленькие экраны — телефоны с узкой шириной */
-@media (max-width: 480px) {
-    #dropped-menu {
-        height: 95px;
-        /* ещё ниже, чтобы не занимать слишком много места */
-        padding: 0 8px;
-        /* минимальные отступы */
-    }
-}
 
 .menu-dropdown {
     display: flex;
@@ -228,25 +209,7 @@ button {
 }
 
 
-@media (max-width: 1024px) {
-    .menu-center {
-        display: none;
-    }
 
-    .menu-center.visible .main-menu {
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .menu-mobile-toggle {
-        display: flex;
-    }
-
-    .language-btn {
-        display: none;
-    }
-}
 
 .main-menu-button {
     display: inline-flex;
@@ -425,19 +388,7 @@ button {
 }
 
 /* Адаптация на маленьких экранах */
-@media (max-width: 800px) {
-    .language-btn .language-options {
-        left: auto;
-        right: 0;
-    }
-}
 
-@media (max-width: 720px) {
-    .language-options .lang-btn {
-        padding: 6px 10px;
-        font-size: .92rem;
-    }
-}
 
 
 .login-btn {
@@ -571,33 +522,14 @@ button {
     cursor: pointer;
 }
 
-@media (max-width: 1024px) {
-    .menu-mobile-toggle {
-        display: flex;
-    }
 
-    .menu-center {
-        display: none;
-    }
-
-    /* если у тебя есть desktop nav */
-}
 
 .mobile-menu-overlay .mobile-menu-list,
 .mobile-menu-overlay .mobile-language {
     max-width: 94vw;
 }
 
-/* reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
-    .menu-mobile-toggle span {
-        transition: none;
-    }
 
-    .mobile-menu-overlay {
-        animation: none;
-    }
-}
 
 .mobile-language {
     display: flex;
@@ -646,145 +578,6 @@ button {
     border-radius: 2px;
 }
 
-/* =========== Media Queries =========== */
-@media (max-width: 1024px) {
-    .menu-center {
-        display: none;
-        /* скрываем desktop меню */
-    }
-
-    .menu-mobile-toggle {
-        display: flex;
-    }
-}
-
-@media (min-width: 1024px) and (max-width: 1499px) {
-    #dropped-menu {
-        height: 96px;
-        /* чуть ниже, чем на крупных экранах */
-        padding: 0 18px;
-        background: linear-gradient(to bottom,
-        rgb(255 255 255 / 85%),
-        rgb(255 255 255 / 0%));
-        backdrop-filter: blur(6px);
-        display: flex;
-        align-items: center;
-    }
-
-    /* уменьшение логотипа, чтобы освободить место для меню */
-    .logo-wrap img {
-        width: 100px;
-        height: auto;
-    }
-
-    /* сужаем минимальную ширину блоков слева/справа */
-    .menu-left,
-    .menu-right {
-        min-width: 96px;
-        padding: 0 6px;
-    }
-
-    /* делаем центральное меню компактнее */
-    .menu-center {
-        display: flex;
-        justify-content: center;
-        flex: 1 1 auto;
-        margin: 0 8px;
-    }
-
-    /* общий gap между пунктами меньше */
-    .main-menu {
-        gap: 18px;
-        /* меньше чем на больших экранах */
-    }
-
-    /* общая кнопка меню — чуть компактнее */
-    .main-menu-button {
-        padding: 10px 12px;
-        font-size: 0.98rem;
-    }
-
-    /* Специально: сводим Gallery и Reservation вместе */
-    /* убираем большой gap между ними и делаем их сгруппированными */
-    .gallery-btn,
-    .reservation-btn {
-        padding-left: 8px;
-        padding-right: 8px;
-    }
-
-    /* сокращаем расстояние именно между этими двумя элементами.
-     это делается через отрицательный margin-right у Gallery или margin-left у Reservation. */
-    .gallery-btn {
-        margin-right: 2px;
-        /* почти прилегают к следующему элементу */
-    }
-
-    .reservation-btn {
-        margin-left: 2px;
-    }
-
-    /* (Альтернатива) если ты используешь порядок <... gallery ... reservation ...>
-     и хочешь их визуально группировать — можно дать им тонкую рамку общего контейнера */
-    .main-menu .grouped {
-        display: inline-flex;
-        gap: 4px;
-        align-items: center;
-    }
-
-    /* делаем кнопку входа компактнее */
-    .login-btn {
-        padding: 8px 16px;
-        font-size: 16px;
-    }
-
-    /* подстраиваем мобильный toggle — показываем его (если хочешь мобильный overlay на этих ширинах) */
-    .menu-mobile-toggle {
-        display: none;
-        /* оставляем скрытым по умолчанию; включи ниже если хочешь overlay также для 1024-1499 */
-    }
-}
-
-@media (max-width: 1024px) {
-    .menu-left .logo img {
-        width: 90px;
-        height: auto;
-    }
-
-    .menu-right .login-btn {
-        padding: 8px 16px;
-    }
-
-    .menu-center {
-        display: none;
-        /* скрываем основной nav */
-    }
-
-    .menu-mobile-toggle {
-        display: flex;
-        z-index: 100000;
-        /* выше overlay */
-    }
-}
-
-@media (max-width: 1024px) {
-    #dropped-menu .menu-dropdown.layout-left-logo {
-        padding: 0 20px;
-    }
-
-    .menu-left,
-    .menu-right {
-        min-width: 96px;
-    }
-
-    .main-menu {
-        gap: 18px;
-    }
-
-    .menu-left {
-        justify-content: center;
-        padding: 0;
-    }
-}
 
 
 /* ======================= Слайдер ===========================*/
@@ -873,9 +666,9 @@ button {
     gap: 25px;
 }
 
-#slider-switch-1:checked ~ .slider-slides .slider-pagination #line-1,
-#slider-switch-2:checked ~ .slider-slides .slider-pagination #line-2,
-#slider-switch-3:checked ~ .slider-slides .slider-pagination #line-3 {
+#slider-switch-1:checked~.slider-slides .slider-pagination #line-1,
+#slider-switch-2:checked~.slider-slides .slider-pagination #line-2,
+#slider-switch-3:checked~.slider-slides .slider-pagination #line-3 {
     width: 100%;
 }
 
@@ -939,56 +732,19 @@ button {
     transition: transform 1s ease;
 }
 
-#slider-switch-1:checked ~ .slider-pagination-wrapper .slider-progress-fill {
+#slider-switch-1:checked~.slider-pagination-wrapper .slider-progress-fill {
     --progress: 0.6666;
 }
 
-#slider-switch-2:checked ~ .slider-pagination-wrapper .slider-progress-fill {
+#slider-switch-2:checked~.slider-pagination-wrapper .slider-progress-fill {
     --progress: 0.3333;
 }
 
-#slider-switch-3:checked ~ .slider-pagination-wrapper .slider-progress-fill {
+#slider-switch-3:checked~.slider-pagination-wrapper .slider-progress-fill {
     --progress: 0;
 }
 
-@media (min-width: 320px) and (max-width: 425px) {
-    #dropped-menu .menu-dropdown.layout-left-logo {
-        padding: 0 20px;
-    }
 
-    .menu-left,
-    .menu-right {
-        min-width: 120px;
-        padding: 0;
-    }
-
-    .main-menu {
-        gap: 18px;
-    }
-
-    .menu-left {
-        justify-content: center;
-        padding: 0;
-    }
-
-    .slider-number {
-        width: 30px;
-        height: 30px;
-        font-size: 26px;
-        font-weight: 400;
-    }
-
-    .slider-progress {
-        width: 3px;
-        height: 140px;
-    }
-
-    .slider-pagination-wrapper {
-        gap: 10px;
-        right: 10px;
-        top: 200px;
-    }
-}
 
 
 /* ========================= Настройка основной части ================= */
@@ -1029,9 +785,12 @@ button {
 }
 
 .body-history-img {
-    width: auto; /* ширина адаптивная */
-    max-width: 100%; /* не превышает блок */
-    height: 100%; /* тянем на всю высоту контейнера */
+    width: auto;
+        /* ширина адаптивная */
+        max-width: 100%;
+        /* не превышает блок */
+        height: 100%;
+        /* тянем на всю высоту контейнера */
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
@@ -1238,11 +997,7 @@ button {
     transform: scaleX(1.2);
 }
 
-@media (max-width: 600px) {
-    .menu-center {
-        padding: 0 20px;
-    }
-}
+
 
 
 /* About us */
@@ -1481,86 +1236,7 @@ button {
     box-shadow: 0 22px 48px rgba(8, 20, 40, 0.12);
 }
 
-/* ------------------ Адаптивность ------------------ */
-/* Планшеты: две колонки, пересчитываем "ячейку" */
-@media (max-width: 1000px) {
-    .columns-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-auto-rows: 40px;
-        /* 40px * 25 = 1000 (приближенно) */
-        gap: 14px;
-    }
 
-    /* Пересчёт span'ов (приблизительный, чтобы суммарно не выходило за 1000px) */
-    .r1 {
-        grid-column: 1;
-        grid-row: 1 / span 10;
-    }
-
-    /* ~400px */
-    .r4 {
-        grid-column: 1;
-        grid-row: 11 / span 8;
-    }
-
-    /* ~320px */
-    .r6 {
-        grid-column: 1;
-        grid-row: 19 / span 6;
-    }
-
-    /* ~240px */
-    .r2 {
-        grid-column: 2;
-        grid-row: 1 / span 15;
-    }
-
-    /* ~600px */
-    .r5 {
-        grid-column: 2;
-        grid-row: 16 / span 9;
-    }
-
-    /* ~360px */
-    .r3 {
-        grid-column: 1 / span 2;
-        grid-row: 25 / span 18;
-    }
-
-    /* делаем большой блок, займёт ширину обеих колонок при необходимости */
-    .r7 {
-        grid-column: 2;
-        grid-row: 25 / span 6;
-    }
-}
-
-/* Мобильные: одна колонка, все карточки по потоку, высота авто (удобнее для UX) */
-@media (max-width: 560px) {
-    .columns-grid {
-        grid-template-columns: 1fr;
-        grid-auto-rows: auto;
-        gap: 12px;
-        height: auto;
-    }
-
-    /* Убираем жёсткие placements */
-    .r1,
-    .r2,
-    .r3,
-    .r4,
-    .r5,
-    .r6,
-    .r7 {
-        grid-column: auto;
-        grid-row: auto;
-        min-height: unset;
-    }
-
-    .reviews-columns {
-        height: auto;
-        padding-bottom: 20px;
-    }
-}
 
 
 .reviews-columns .text {
@@ -1651,18 +1327,7 @@ button {
     z-index: 10;
 }
 
-/* Мобильное упрощение (чтобы хедер не выглядел тяжело) */
-@media (max-width: 560px) {
-    .avatar {
-        width: 40px;
-        height: 40px;
-        font-size: 14px;
-    }
 
-    .reviews-columns .text {
-        font-size: 15px;
-    }
-}
 
 .reviews-columns-wrapper {
     /* занимать доступную высоту внутри .container (убери/подгони 72px если заголовок/отступы иные) */
@@ -1711,58 +1376,7 @@ button {
 }
 
 
-@media (min-width: 741px) and (max-width: 1000px) {
-    .scroll-indicator {
-        display: inline-flex;
-        /* принудительно показываем */
-        z-index: 99999;
-        /* поверх всех карточек */
-        bottom: 12px;
-        /* корректируем позицию */
-        left: 50%;
-        transform: translateX(-50%);
-    }
-}
 
-@media (max-width: 740px) {
-    .scroll-indicator {
-        width: 36px;
-        /* уменьшенный размер */
-        height: 36px;
-        bottom: 10px;
-        /* немного выше нижнего края */
-    }
-
-    .scroll-indicator.scroll-up {
-        top: 75px;
-        /* чуть выше верхнего края */
-    }
-
-    .scroll-indicator .chev,
-    .scroll-indicator .chev-2 {
-        font-size: 16px;
-        /* уменьшаем размер стрелки */
-    }
-}
-
-@media (max-width: 443px) {
-    .scroll-indicator.scroll-up {
-        top: 110px;
-        /* прикрепляем к верхнему краю */
-    }
-
-    .scroll-indicator {
-        width: 32px;
-        /* можно ещё немного уменьшить кнопку */
-        height: 32px;
-    }
-
-    .scroll-indicator .chev,
-    .scroll-indicator .chev-2 {
-        font-size: 14px;
-        /* стрелка меньше */
-    }
-}
 
 
 .scroll-indicator.scroll-down {
@@ -1806,11 +1420,11 @@ button {
     padding: 0;
 
     background: linear-gradient(90deg,
-    #ffffff 0%,
-    #fdcbe6 25%,
-    #ffffff 50%,
-    #ffc1e2 75%,
-    #ffffff 100%);
+            #ffffff 0%,
+                #fdcbe6 25%,
+                #ffffff 50%,
+                #ffc1e2 75%,
+                #ffffff 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -1835,329 +1449,12 @@ button {
     }
 }
 
-/* --- Плавность: если нужно снизить интенсивность тени/пульсации на мобилках --- */
-@media (max-width: 740px) {
-    .gradient-run {
-        font-size: 1.9rem;
-    }
-}
 
-/* --- Тёмная тема / контрастные варианты (опционально) --- */
-@media (prefers-color-scheme: dark) {
-    .card.r13.footer-card {
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.36);
-    }
-
-    .gradient-run {
-        text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
-    }
-}
-
-/* --- Уважение к пользователям, которые отключили анимации --- */
-@media (prefers-reduced-motion: reduce) {
-    .gradient-run {
-        animation: none;
-        background-position: 50% 50%;
-        -webkit-text-fill-color: #fff;
-        /* fallback: белый текст */
-        color: #fff;
-        text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
-    }
-}
 
 .gradient-run.no-bgclip {
     background: none;
     -webkit-text-fill-color: #fff;
     color: #fff;
-}
-
-@media (max-width: 740px) {
-    .reviews-columns {
-        height: auto;
-        /* секция растягивается по содержимому */
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .reviews-container {
-        padding-left: 20px;
-        padding-right: 20px;
-    }
-
-    .section-title {
-        font-size: 2.2rem;
-        /* чуть меньше на мобильных */
-        margin-top: 30px;
-    }
-
-    .columns-grid {
-        grid-template-columns: 1fr;
-        /* одна колонка */
-        grid-auto-rows: auto;
-        gap: 12px;
-        height: auto;
-    }
-
-    /* карточки растягиваются и переставляются по потоку */
-    .r1,
-    .r2,
-    .r3,
-    .r4,
-    .r5,
-    .r6,
-    .r7,
-    .r8,
-    .r9,
-    .r10,
-    .r11,
-    .r12,
-    .r13 {
-        grid-column: auto;
-        grid-row: auto;
-        min-height: unset;
-    }
-
-    .card {
-        padding: 16px;
-        /* чуть меньше паддинг */
-        border-radius: 10px;
-    }
-
-    .reviews-columns .text {
-        font-size: 15px;
-        /* оптимально для мобильных */
-        line-height: 1.5;
-        text-align: justify;
-    }
-
-    .card-header {
-        flex-direction: row;
-        gap: 8px;
-    }
-
-    .avatar {
-        width: 36px;
-        height: 36px;
-        font-size: 13px;
-        box-shadow: 0 4px 12px rgba(43, 111, 214, 0.15);
-    }
-
-    .author-name {
-        font-size: 14px;
-    }
-
-    .meta {
-        font-size: 11px;
-        opacity: 0.85;
-    }
-
-    /* футер */
-    .footer-card {
-        padding: 20px;
-    }
-
-    .gradient-run {
-        font-size: 1.9rem;
-        /* читаемый размер текста */
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
-    }
-}
-
-/* ещё для очень маленьких экранов */
-@media (max-width: 480px) {
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .gradient-run {
-        font-size: 1.6rem;
-        padding: 25px;
-    }
-
-    .reviews-columns .text {
-        font-size: 14px;
-    }
-
-    .avatar {
-        width: 32px;
-        height: 32px;
-        font-size: 12px;
-    }
-
-    .author-name {
-        font-size: 13px;
-    }
-
-    .meta {
-        font-size: 10px;
-    }
-
-    .card {
-        padding: 14px;
-    }
-}
-
-@media (min-width: 741px) and (max-width: 1000px) {
-    .columns-grid {
-        grid-template-columns: 1fr 1fr;
-        /* две колонки равной ширины */
-        grid-auto-rows: auto;
-        /* авто-высота, чтобы контент не сжимался */
-        gap: 14px;
-    }
-
-    /* Сбрасываем фиксированные placements, чтобы карточки шли по потоку */
-    .r1,
-    .r2,
-    .r3,
-    .r4,
-    .r5,
-    .r6,
-    .r7,
-    .r8,
-    .r9,
-    .r10,
-    .r11,
-    .r12,
-    .r13 {
-        grid-column: auto;
-        grid-row: auto;
-        min-height: unset;
-    }
-
-    /* Карточки растягиваются на всю ширину колонки */
-    .card {
-        width: 100%;
-    }
-}
-
-@media (max-width: 1500px) and (min-width: 1301px) {
-    .columns-grid {
-        grid-template-columns: 300px 380px 1fr;
-        /* три равные колонки */
-        gap: 18px;
-    }
-
-
-}
-
-@media (max-width: 1300px) and (min-width: 1110px) {
-    .columns-grid {
-        grid-template-columns: 300px 380px 1fr;
-        /* три равные колонки */
-        gap: 18px;
-    }
-
-    .rating {
-        display: grid;
-        grid-template-columns: repeat(5, auto);
-        /* 5 звёзд в первом ряду */
-        grid-auto-rows: auto;
-        gap: 2px;
-        justify-content: flex-start;
-        /* выравниваем влево */
-    }
-
-    /* текст пусть немного адаптируется */
-    .reviews-columns .text {
-        font-size: 14px;
-        line-height: 1.5;
-    }
-
-    /* для безопасности — если длинный текст, разрешаем перенос */
-    .card .text {
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-    }
-
-    .author-name {
-        font-size: 14px;
-    }
-
-    .card {
-        padding: 10px;
-    }
-
-    .footer-card {
-        padding: 0;
-    }
-}
-
-@media (max-width: 1110px) {
-
-    .card {
-        padding: 10px;
-    }
-
-    .footer-card {
-        padding: 0;
-    }
-
-    .text {
-        font-size: 14px;
-    }
-
-    .rating {
-        display: grid;
-        grid-template-columns: repeat(5, auto);
-        /* 5 звёзд в первом ряду */
-        grid-auto-rows: auto;
-        gap: 2px;
-        justify-content: flex-start;
-        /* выравниваем влево */
-    }
-}
-
-@media (max-width: 1300px) {
-
-    .reviews-container {
-        padding-left: 25px;
-        padding-right: 25px;
-    }
-}
-
-@media (max-width: 1160px) {
-    .reviews-container {
-        padding-left: 25px;
-        padding-right: 25px;
-    }
-}
-
-@media (max-width: 1110px) and (min-width: 1001px) {
-    .columns-grid {
-        grid-template-columns: 230px 300px 1fr;
-        /* три равные колонки */
-        gap: 18px;
-    }
-
-    .card {
-        padding: 10px;
-    }
-
-    .text {
-        font-size: 14px;
-    }
-
-    .rating {
-        display: grid;
-        grid-template-columns: repeat(5, auto);
-        /* 5 звёзд в первом ряду */
-        grid-auto-rows: auto;
-        gap: 2px;
-        justify-content: flex-start;
-        /* выравниваем влево */
-    }
-}
-
-@media (max-width: 740px) {
-    .reviews-container {
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .review-footer-card-inner {
-        margin-bottom: 45px;
-    }
 }
 
 
@@ -2227,7 +1524,7 @@ legend.form-legend {
     padding: 0 15px;
 }
 
-fieldset > label {
+fieldset>label {
     display: block;
     font-size: 22px;
     font-weight: 500;
@@ -2469,70 +1766,6 @@ label input:focus {
     width: 100%;
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
-    .form {
-        width: 650px;
-        margin-top: 70px;
-    }
-
-    .form-fieldset {
-        width: 550px;
-    }
-
-    .form-main {
-        height: 850px;
-    }
-}
-
-@media (min-width: 425px) and (max-width: 767px) {
-    .form {
-        width: 90%;
-        margin-top: 70px;
-        height: fit-content;
-    }
-
-    .form-fieldset {
-        width: 100%;
-        height: 100%;
-    }
-
-    .form-main {
-        height: 850px;
-        padding: 0;
-    }
-
-    .form-inside {
-        width: 100%;
-    }
-}
-
-@media (min-width: 320px) and (max-width: 424px) {
-    .form {
-        width: 90%;
-        margin-top: 65px;
-        height: fit-content;
-        padding: 30px;
-    }
-
-    .form-fieldset {
-        width: 100%;
-        height: 100%;
-        padding: 20px;
-    }
-
-    .form-main {
-        height: 750px;
-        padding: 0;
-    }
-
-    .form-inside {
-        width: 100%;
-    }
-
-    .form-submit-wrap {
-        width: 70%;
-    }
-}
 
 /* ============================== Личный кабинет ========================== */
 .main-content-wrapper {
@@ -2649,13 +1882,17 @@ label input:focus {
 /* обёртка, которая ограничивает высоту и скроллит только содержимое */
 #admin-users-table {
     box-sizing: border-box;
-    padding: 12px 0; /* если нужно оставить отступы сверху/снизу */
+    padding: 12px 0;
+        /* если нужно оставить отступы сверху/снизу */
 }
 
 .admin-users-table-wrap {
-    max-height: 100%; /* не выше родителя (#admin-users-table -> .personal-account-right) */
-    overflow-y: auto; /* вертикальная прокрутка только здесь */
-    overflow-x: auto; /* и горизонтальная при узком экране */
+    max-height: 100%;
+        /* не выше родителя (#admin-users-table -> .personal-account-right) */
+        overflow-y: auto;
+        /* вертикальная прокрутка только здесь */
+        overflow-x: auto;
+        /* и горизонтальная при узком экране */
     display: block;
     box-sizing: border-box;
 }
@@ -2664,7 +1901,8 @@ label input:focus {
 .admin-users-table {
     width: 100%;
     border-collapse: collapse;
-    border-spacing: 12px 8px; /* горизонталь = 12px | вертикаль = 8px */
+    border-spacing: 12px 8px;
+        /* горизонталь = 12px | вертикаль = 8px */
     color: #ffdcb1;
     font-size: 18px;
     table-layout: fixed;
@@ -2673,22 +1911,26 @@ label input:focus {
 
 .admin-users-table th:nth-child(1),
 .admin-users-table td:nth-child(1) {
-    width: 40px; /* ID */
+    width: 40px;
+        /* ID */
 }
 
 .admin-users-table th:nth-child(2),
 .admin-users-table td:nth-child(2) {
-    width: 135px; /* Login */
+    width: 135px;
+        /* Login */
 }
 
 .admin-users-table th:nth-child(3),
 .admin-users-table td:nth-child(3) {
-    width: 260px; /* Email */
+    width: 260px;
+        /* Email */
 }
 
 .admin-users-table th:nth-child(4),
 .admin-users-table td:nth-child(4) {
-    width: 125px; /* Date */
+    width: 125px;
+        /* Date */
     text-align: center;
 }
 
@@ -2904,7 +2146,8 @@ label input:focus {
 
 .admin-users-buttons {
     display: flex;
-    gap: 10px; /* промежуток между кнопками */
+    gap: 10px;
+        /* промежуток между кнопками */
     margin-top: 10px;
     justify-content: center;
 }
@@ -2938,7 +2181,10 @@ label input:focus {
 }
 
 .admin-table th.col-res-name,
-.admin-table td.col-res-name { width: 150px; word-break: break-word;}
+.admin-table td.col-res-name {
+    width: 150px;
+    word-break: break-word;
+}
 .admin-table th.col-res-phone,
 .admin-table td.col-res-phone {
     width: 140px;
@@ -3013,133 +2259,6 @@ label input:focus {
 
 
 
-@media (min-width: 580px) and (max-width: 768px) {
-    .personal-account-left {
-        width: 150px;
-        padding: 0 10px;
-    }
-
-    .personal-account-right {
-        padding: 0 25px;
-    }
-
-    .main-content-wrapper {
-        padding-top: 40px;
-        padding-left: 0;
-        padding-right: 0;
-    }
-}
-
-@media (min-width: 375px) and (max-width: 579px) {
-    .personal-account {
-        min-width: 100%;
-    }
-
-    .personal-account-right {
-        padding: 0 5px;
-    }
-
-    .personal-account-left {
-        width: 100px;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .account-info {
-        padding: 10px;
-    }
-
-    .personal-account-data {
-        font-size: 16px;
-    }
-
-    .main-content-wrapper {
-        padding: 20px 0 20px 0;
-    }
-
-    .personal-account-btn {
-        font-size: 14px;
-        width: fit-content;
-        height: 70px;
-        padding: 10px 5px 12px 5px;
-    }
-
-    .personal-account-wrap {
-        padding-right: 0;
-    }
-
-    .personal-account-divider {
-        margin-right: 10px;
-        margin-left: 10px;
-    }
-}
-
-@media (min-width: 320px) and (max-width: 374px) {
-    .personal-account {
-        min-width: 100%;
-    }
-
-    .personal-account-right {
-        padding: 0 5px;
-    }
-
-    .personal-account-left {
-        width: 100px;
-        padding-left: 0;
-        padding-right: 0;
-    }
-
-    .account-info {
-        padding: 5px;
-    }
-
-    .personal-account-data {
-        font-size: 14px;
-    }
-
-    .main-content-wrapper {
-        padding: 20px 0 20px 0;
-    }
-
-    .personal-account-btn {
-        font-size: 14px;
-        width: fit-content;
-        height: 70px;
-        padding: 10px 5px 12px 5px;
-    }
-
-    .personal-account-wrap {
-        padding-right: 0;
-    }
-
-    .personal-account-divider {
-        margin-right: 5px;
-        margin-left: 5px;
-    }
-
-    .personal-account-welcome {
-        font-size: 24px;
-    }
-
-    .personal-account-dates-buttons {
-        gap: 5px;
-    }
-
-    .edit-account-btn,
-    .logout-account-btn {
-        padding: 5px 10px;
-    }
-
-    .user-login,
-    .user-email {
-        padding-left: 3px;
-        padding-right: 0;
-        height: 20px;
-        width: fit-content;
-    }
-}
-
-
 /* ======================== Footer ======================== */
 .footer {
     background-color: #1a1a1a;
@@ -3168,8 +2287,7 @@ label input:focus {
 .footer-media-links {
     flex: 1 1 240px;
     /* адаптивная ширина */
-    min-width: 220px;
-    max-width: 300px;
+    min-width: 250px;
 }
 
 /* Заголовки */
@@ -3279,80 +2397,84 @@ label input:focus {
 
 /* 404 card */
 .not-found {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-  min-height: calc(100vh - 200px); /* с учетом header+footer */
-  box-sizing: border-box;
-  transition: opacity .35s ease, transform .35s ease;
-  pointer-events: none;
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 20px;
+    min-height: calc(100vh - 200px);
+        /* с учетом header+footer */
+        box-sizing: border-box;
+        transition: opacity .35s ease, transform .35s ease;
+        pointer-events: none;
 }
 
 .not-found.visible {
-  pointer-events: auto;
+    pointer-events: auto;
 }
 
 .nf-card {
-  max-width: 820px;
-  width: min(92%, 820px);
-  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(250,250,250,0.98));
-  border-radius: 12px;
-  padding: 28px;
-  box-shadow: 0 8px 30px rgba(10,10,10,0.12);
-  text-align: center;
-  transform: translateY(6px);
-  opacity: 0;
-  transition: opacity .4s ease, transform .4s ease;
-  border: 1px solid rgba(0,0,0,0.06);
+    max-width: 820px;
+        width: min(92%, 820px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(250, 250, 250, 0.98));
+        border-radius: 12px;
+        padding: 28px;
+    box-shadow: 0 8px 30px rgba(10, 10, 10, 0.12);
+        text-align: center;
+        transform: translateY(6px);
+        opacity: 0;
+        transition: opacity .4s ease, transform .4s ease;
+    border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* when shown */
 .not-found.visible .nf-card {
-  transform: translateY(0);
-  opacity: 1;
+    transform: translateY(0);
+        opacity: 1;
 }
 
 .nf-illustration {
-  font-size: 48px;
-  margin-bottom: 12px;
+    font-size: 48px;
+        margin-bottom: 12px;
 }
 
 #nf-title {
-  font-size: clamp(20px, 3.4vw, 34px);
-  margin: 8px 0 6px;
-  color: #1a1a1a;
+    font-size: clamp(20px, 3.4vw, 34px);
+        margin: 8px 0 6px;
+        color: #1a1a1a;
 }
 
 .nf-desc {
-  color: #333;
-  margin-bottom: 6px;
+    color: #333;
+        margin-bottom: 6px;
 }
 
 .nf-sub {
-  color: #666;
-  margin-bottom: 18px;
-  font-size: 0.95rem;
+    color: #666;
+        margin-bottom: 18px;
+        font-size: 0.95rem;
 }
 
 /* buttons */
-.nf-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.nf-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 .btn {
-  padding: 10px 18px;
-  border-radius: 999px;
-  border: 2px solid #1a1a1a;
-  background: transparent;
-  font-weight: 700;
-  cursor: pointer;
+    padding: 10px 18px;
+        border-radius: 999px;
+        border: 2px solid #1a1a1a;
+        background: transparent;
+        font-weight: 700;
+        cursor: pointer;
 }
+
 .btn-ghost {
-  border-color: transparent;
-  color: #444;
+    border-color: transparent;
+        color: #444;
 }
-@media (max-width: 720px) {
-  .nf-card { padding: 18px; }
-  .nf-illustration { font-size: 40px; }
-}
+
 
 /* ============================ ГАЛЕРЕЯ ====================== */
 :root {
@@ -3406,7 +2528,7 @@ label input:focus {
     left: -8%;
     top: -6%;
     background: radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0) 25%),
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 35%);
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 35%);
     animation: spot-left-move 36s ease-in-out infinite alternate;
 }
 
@@ -3416,8 +2538,8 @@ label input:focus {
     right: -8%;
     bottom: -6%;
     background: radial-gradient(circle at 80% 80%,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0) 18%);
+            rgba(255, 255, 255, 1) 0%,
+                rgba(255, 255, 255, 0) 18%);
     animation: spot-right-move 42s ease-in-out infinite alternate;
 }
 
@@ -3467,33 +2589,10 @@ label input:focus {
 }
 
 /* Адаптив: уменьшаем размеры/блюр на маленьких экранах */
-@media (max-width: 1024px) {
 
-    .gallery-bg::before,
-    .gallery-bg::after {
-        filter: blur(36px);
-    }
-
-    .gallery-bg::before,
-    .gallery-bg::after {
-        width: 900px;
-        height: 420px;
-    }
-}
-
-@media (max-width: 480px) {
-
-    .gallery-bg::before,
-    .gallery-bg::after {
-        width: 600px;
-        height: 280px;
-        filter: blur(26px);
-        opacity: 0.78;
-    }
-}
 
 /* Поднимем контент поверх фоновых слоёв */
-.gallery-section > :not(.gallery-bg) {
+.gallery-section> :not(.gallery-bg) {
     position: relative;
     z-index: 3;
 }
@@ -3587,8 +2686,8 @@ label input:focus {
     position: absolute;
     inset: 0;
     background: radial-gradient(800px 300px at 25% 70%, rgba(255, 165, 60, var(--gallery-fog-opacity)), transparent 25%),
-    radial-gradient(700px 280px at 75% 30%, rgba(210, 120, 30, calc(var(--gallery-fog-opacity) - 0.04)), transparent 25%),
-    radial-gradient(900px 400px at 50% 50%, rgba(180, 80, 20, 0.08), transparent 40%);
+        radial-gradient(700px 280px at 75% 30%, rgba(210, 120, 30, calc(var(--gallery-fog-opacity) - 0.04)), transparent 25%),
+            radial-gradient(900px 400px at 50% 50%, rgba(180, 80, 20, 0.08), transparent 40%);
     filter: blur(90px);
     opacity: 0.86;
     mix-blend-mode: screen;
@@ -3638,35 +2737,6 @@ label input:focus {
     /* виньетка над правой дымкой, но оставляем чуть прозрачной */
 }
 
-/* Адаптивность: уменьшаем силу блюра и размеры на мобильных */
-@media (max-width: 1024px) {
-    .gallery-bg .b1 {
-        width: 340px;
-        height: 340px;
-    }
-
-    .gallery-bg .b4 {
-        width: 260px;
-        height: 260px;
-    }
-
-    .gallery-bg .fog-layer {
-        filter: blur(70px);
-    }
-}
-
-@media (max-width: 720px) {
-
-    .gallery-bg .b1,
-    .gallery-bg .b4 {
-        filter: blur(18px);
-    }
-
-    .gallery-bg .fog-layer {
-        filter: blur(48px);
-        opacity: 0.78;
-    }
-}
 
 .gallery-bg .fog-layer--br {
     position: absolute;
@@ -3677,8 +2747,8 @@ label input:focus {
 
     /* более контрастный, локализованный набор градиентов в правом-нижнем углу */
     background: radial-gradient(420px 180px at 86% 86%, rgba(230, 120, 40, 0.28), transparent 28%),
-    radial-gradient(620px 260px at 70% 70%, rgba(200, 100, 35, 0.18), transparent 30%),
-    radial-gradient(900px 380px at 50% 50%, rgba(140, 70, 25, 0.06), transparent 40%);
+        radial-gradient(620px 260px at 70% 70%, rgba(200, 100, 35, 0.18), transparent 30%),
+            radial-gradient(900px 380px at 50% 50%, rgba(140, 70, 25, 0.06), transparent 40%);
     /* чуть меньше блюра, чтобы локальный клубок не полностью растекался */
     filter: blur(56px);
     /* чуть плотнее, чтобы были заметны тона */
@@ -3736,10 +2806,10 @@ label input:focus {
     filter: blur(30px) saturate(1.05);
     opacity: 0.72;
     background: radial-gradient(circle at 50% 50%,
-    rgba(255, 235, 190, 0.86) 0%,
-    rgba(255, 205, 120, 0.56) 28%,
-    rgba(255, 160, 60, 0.12) 52%,
-    transparent 75%);
+            rgba(255, 235, 190, 0.86) 0%,
+                rgba(255, 205, 120, 0.56) 28%,
+                rgba(255, 160, 60, 0.12) 52%,
+                transparent 75%);
     will-change: transform, opacity;
     animation: gallery-bokeh-br-float var(--dur-br, 20s) ease-in-out infinite alternate;
 }
@@ -3767,34 +2837,14 @@ label input:focus {
     }
 }
 
-/* адаптив: подгонка размеров и блюра на планшете/мобилке */
-@media (max-width: 1024px) {
-    .gallery-bg .b6 {
-        width: 260px;
-        height: 260px;
-        right: 5%;
-        bottom: 5%;
-        filter: blur(22px);
-        opacity: 0.66;
-    }
-}
 
-@media (max-width: 480px) {
-    .gallery-bg .b6 {
-        width: 180px;
-        height: 180px;
-        right: 3.5%;
-        bottom: 4%;
-        filter: blur(16px);
-        opacity: 0.64;
-    }
-}
 
 .gallery-header {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 15px;
+    margin-top: 30px;
 }
 
 .gallery-title {
@@ -3843,7 +2893,7 @@ label input:focus {
     font-weight: 400;
     color: rgba(255, 255, 255, 0.8);
     text-shadow: 0 0 4px rgba(255, 255, 255, 0.2),
-    0 0 12px rgba(255, 200, 100, 0.15);
+        0 0 12px rgba(255, 200, 100, 0.15);
 }
 
 .gallery-ring {
@@ -4072,45 +3122,6 @@ label input:focus {
     /* Зеленый (Плей) */
 }
 
-/* Адаптив */
-@media (max-width: 1024px) {
-    .gallery-item {
-        width: 240px;
-        height: 160px;
-        left: calc(50% - 120px);
-        top: 100px;
-    }
-
-    .gallery-ring {
-        height: 350px;
-    }
-}
-
-@media (max-width: 768px) {
-    .gallery-item {
-        width: 200px;
-        height: 140px;
-        left: calc(50% - 100px);
-        top: 90px;
-    }
-
-    .gallery-ring {
-        height: 300px;
-    }
-}
-
-@media (max-width: 480px) {
-    .gallery-item {
-        width: 150px;
-        height: 110px;
-        left: calc(50% - 75px);
-        top: 80px;
-    }
-
-    .gallery-ring {
-        height: 250px;
-    }
-}
 
 
 /* Loader */
@@ -4144,7 +3155,6 @@ label input:focus {
 }
 
 .reservation-container {
-    width: 100%;
     max-width: 750px;
     padding: 45px;
     background: rgba(40, 20, 35, 0.55);
@@ -4155,7 +3165,7 @@ label input:focus {
 }
 
 .reservation-form-fieldset {
-    width: 650px;
+    max-width: 650px;
     border: 1px solid rgba(255, 200, 200, 0.18);
     border-radius: 10px;
     padding: 40px 40px 20px 40px;
@@ -4250,49 +3260,68 @@ label input:focus {
 }
 
 
-.custom-number-inline {
-    position: relative;
-    width: 120px;
-    /* ширина input + кнопки */
+.custom-number-inline input[type="number"]::-webkit-outer-spin-button,
+.custom-number-inline input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .custom-number-inline input[type="number"] {
-    padding: 10px 30px 10px 10px;
+    -moz-appearance: textfield;
+}
+.custom-number-inline {
+    position: relative;
+    display: inline-block;
+        width: 100%;
+}
+
+.input-with-buttons {
+    position: relative;
+}
+.custom-number-inline input[type="number"] {
+    width: 100%;
+        height: 45px;
+        padding: 10px 40px 10px 15px;
+        border: 1px solid rgba(255, 215, 185, 0.35);
     border-radius: 8px;
+    box-sizing: border-box;
+        font-size: 16px;
+        background: transparent;
+        color: #f8e7e8;
+        outline: none;
 }
 
-.custom-number-inline input::-webkit-outer-spin-button,
-.custom-number-inline input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-    appearance: none;
-    -moz-appearance: none;
+.custom-number-inline input[type="number"]:focus {
+    border-color: #ffcf8a;
 }
 
-/* Контейнер кнопок внутри input */
 .number-btns {
     position: absolute;
-    right: 2px;
-    top: 50%;
-    transform: translateY(-50%);
+    right: 1px;
+        top: 1px;
+        bottom: 1px;
+        width: 30px;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 4px);
-    /* немного меньше чем input, чтобы не налезало */
+    z-index: 2;
+        overflow: hidden;
+        background: transparent;
 }
 
 .number-btn {
     flex: 1;
-    width: 24px;
-    margin: 1px 0;
+    width: 100%;
+        margin: 0;
+        padding: 0;
     border: none;
-    background: rgba(0, 0, 0, 0);
-    color: #fff;
+    background: transparent;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
     font-size: 12px;
-    cursor: pointer;
-    line-height: 1;
-    padding: 0;
-    border-radius: 2px;
+    transition: background 0.2s;
 }
 
 
@@ -4404,20 +3433,6 @@ label input:focus {
     background-position: center center;
 }
 
-@media (max-width: 1200px) {
-    .menu-3d-hero {
-        background-size: 100% auto;
-        /* ширина всегда 100%, пропорции сохраняются */
-        background-position: center top;
-    }
-}
-
-@media (max-width: 768px) {
-    .menu-3d-hero {
-        background-size: 100% auto;
-        background-position: center top;
-    }
-}
 
 .menu-3d-container {
     position: relative;
@@ -4447,140 +3462,6 @@ label input:focus {
     transform: translate3d(0, 0, 0) scale(var(--menu-scale, 1));
 }
 
-/* На разных экранах уменьшаем scale */
-@media (max-width: 1200px) {
-    .menu-3d-container {
-        --menu-scale: 0.9;
-    }
-}
-
-@media (max-width: 992px) {
-    .menu-3d-container {
-        --menu-scale: 0.8;
-    }
-}
-
-@media (max-width: 768px) {
-    .menu-3d-container {
-        --menu-scale: 0.7;
-    }
-}
-
-@media (min-width: 1200px) {
-    .menu-3d-hero {
-        background-size: cover;
-        /* desktop: заполняет экран как раньше */
-        background-position: center center;
-        height: min(100vh, 820px);
-        /* можно ограничить максимальную видимую высоту, опц. */
-    }
-}
-
-/* Для среднего диапазона — используем режим, сохраняющий пропорции (не режет) */
-@media (max-width: 1200px) {
-    .menu-3d-hero {
-        /* авто-ширина, высота = 100% контейнера; это сохраняет пропорции и минимизирует обрезку */
-        background-size: auto 100%;
-        background-position: center top;
-        height: clamp(200px, 90vh, 90vh);
-        /* height остаётся из clamp() — поэтому при уменьшении ширины высота плавно уменьшается */
-    }
-
-    /* Лэйеры: задний фон не должен cover'иться, чтобы не обрезать боковые части */
-    .menu-layer {
-        background-size: contain;
-        /* contain — полностью видно изображение (могут появиться боковые полосы) */
-        background-repeat: no-repeat;
-        background-position: center top;
-    }
-}
-
-/* Для маленьких экранов — мобильный режим, компактный, текст читается хорошо */
-@media (max-width: 600px) {
-    .menu-3d-hero {
-        background-size: contain;
-        /* в мобиле обычно хочется увидеть весь кадр */
-        background-position: center top;
-        height: clamp(200px, 90vh, 90vh);
-        /* более компактная высота на телефонах */
-    }
-
-    .menu-layer {
-        background-size: contain;
-        background-position: center top;
-    }
-
-    /* уменьшаем размеры декоративных элементов */
-    .menu-smoke,
-    .menu-sun {
-        transform: translateZ(0);
-        /* убрать сильную 3D-изменчивость на мобиле */
-        width: 180px;
-        height: 120px;
-        top: 32px;
-    }
-}
-
-
-@media (max-width: 640px) {
-
-    .menu-3d-hero {
-
-        height: clamp(300px, 80vh, 80vh);
-
-        /* Мягкий переход при ресайзе */
-        transition: height .28s ease, background-size .28s ease, background-position .28s ease;
-    }
-
-    /* Текстовый блок остаётся компактным (чтобы не занимал лишнее место) */
-    .menu-3d-center {
-        max-width: 100%;
-        padding: 12px 14px;
-    }
-
-    /* Декоративные элементы — уменьшаем, чтобы не мешали картинке */
-    .menu-smoke,
-    .menu-sun {
-        width: 160px;
-        height: 100px;
-        top: 28px;
-        right: 24px;
-        /* или left для sun */
-        filter: blur(1.5px);
-        transform: translateZ(0);
-    }
-}
-
-/* Дополнительно — мелкая поправка для ещё более узких экранов */
-@media (max-width: 450px) {
-    .menu-3d-hero {
-        height: clamp(100px, 70vh, 100vh);
-        background-position: center 20%;
-    }
-
-    .menu-3d-container {
-        --menu-scale: 0.78;
-    }
-
-    .menu-3d-center {
-        padding: 10px;
-    }
-}
-
-@media (max-width: 310px) {
-    .menu-3d-hero {
-        height: clamp(100px, 70vh, 100vh);
-        background-position: center 20%;
-    }
-
-    .menu-3d-container {
-        --menu-scale: 0.78;
-    }
-
-    .menu-3d-center {
-        padding: 10px;
-    }
-}
 
 /* базовые стили слоя */
 .menu-layer {
@@ -4636,24 +3517,6 @@ label input:focus {
     margin: 0 auto;
     text-align: center;
     width: auto;
-}
-
-@media (max-width: 480px) {
-    .menu-3d-center {
-        padding: 12px;
-        background: rgba(0, 0, 0, 0.45);
-        /* чуть темнее для читаемости */
-        max-width: 94%;
-    }
-
-    .menu-3d-title {
-        font-size: clamp(24px, 7vw, 42px);
-        /* более компактный заголовок на очень маленьких экранах */
-    }
-
-    .menu-3d-sub {
-        font-size: clamp(12px, 3.6vw, 16px);
-    }
 }
 
 .menu-3d-container .menu-3d-center,
@@ -4754,73 +3617,7 @@ label input:focus {
     text-align: center;
 }
 
-/* крупные экраны — исходные размеры */
-@media (max-width: 1200px) {
-    .menu-smoke {
-        width: 336px;
-        height: 224px;
-        right: 160px;
-        /* сдвигаем ближе к центру */
-        top: 20px;
-        /* чуть ниже */
-    }
 
-    .menu-sun {
-        width: 336px;
-        height: 224px;
-        left: 20px;
-        /* чуть смещаем вправо */
-        top: 20px;
-    }
-}
-
-@media (max-width: 992px) {
-    .menu-smoke {
-        width: 294px;
-        height: 196px;
-        right: 120px;
-        top: 30px;
-    }
-
-    .menu-sun {
-        width: 294px;
-        height: 196px;
-        left: 15px;
-        top: 30px;
-    }
-}
-
-@media (max-width: 768px) {
-    .menu-smoke {
-        width: 252px;
-        height: 168px;
-        right: 80px;
-        top: 40px;
-    }
-
-    .menu-sun {
-        width: 252px;
-        height: 168px;
-        left: 10px;
-        top: 40px;
-    }
-}
-
-@media (max-width: 480px) {
-    .menu-smoke {
-        width: 210px;
-        height: 140px;
-        right: 40px;
-        top: 50px;
-    }
-
-    .menu-sun {
-        width: 210px;
-        height: 140px;
-        left: 0;
-        top: 0;
-    }
-}
 
 /* Увеличим hero, уберём background-attachment fixed */
 .menu-first-img {
@@ -4866,13 +3663,7 @@ label input:focus {
 }
 
 /* уменьшить анимации для предпочитающих reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    .menu-tile {
-        transition: none;
-        transform: none;
-        opacity: 1;
-    }
-}
+
 
 /* Заголовок — чуть больше */
 .menu-hero-title {
@@ -5054,69 +3845,7 @@ label input:focus {
     z-index: 3;
 }
 
-/* responsive */
-@media (max-width: 1000px) {
-    .menu-first-img {
-        height: 60vh;
-        min-height: 360px;
-    }
 
-    .menu-hero-title {
-        font-size: 44px;
-    }
-
-    .menu-first-food-img {
-        width: 160px;
-        height: 160px;
-    }
-
-    .menu-first-position {
-        grid-template-columns: 160px 1fr 140px;
-        padding: 18px;
-        border-radius: 12px;
-    }
-
-    .menu-button {
-        width: 110px;
-        height: 44px;
-    }
-
-    .menu-items {
-        padding: 0 10px;
-    }
-}
-
-@media (max-width: 600px) {
-    .menu-first-img {
-        height: 46vh;
-        min-height: 260px;
-    }
-
-    .menu-first-position {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        padding: 14px;
-    }
-
-    .menu-first-food-img {
-        width: 100%;
-        height: 100%;
-        border-radius: 8px;
-    }
-
-    .menu-first-meta {
-        align-items: flex-start;
-    }
-
-    .menu-button {
-        width: 46%;
-        min-width: 140px;
-    }
-
-    .menu-hero-title {
-        font-size: 28px;
-    }
-}
 
 
 /* ================================= Разделение секций ============================================= */
@@ -5174,23 +3903,7 @@ label input:focus {
 }
 
 
-/* мобильная коррекция */
-@media (max-width: 720px) {
-    .svg-divider svg {
-        height: 64px;
-    }
 
-    .wave-bottom-group {
-        transform: scale(1, -1) translateY(-64px);
-    }
-
-}
-
-@media (max-width: 400px) {
-    .body-history-img {
-        display: none;
-    }
-}
 
 .cancel-reservation-btn {
     background-color: #163557;
@@ -5283,21 +3996,21 @@ label input:focus {
 }
 
 .input-with-suffix input {
-  padding-right: 0.25rem;
-  width: 100px;
+    padding-right: 0.25rem;
+        width: 100px;
 }
 
 small {
-    display:block; 
-    color:#666; 
-    font-size:12px; 
-    margin-top:4px;
+    display: block;
+        color: #666;
+        font-size: 12px;
+        margin-top: 4px;
 }
 
 .input-with-suffix .suffix {
-  color: #333;
-  font-size: 0.95em;
-  user-select: none;
+    color: #333;
+        font-size: 0.95em;
+        user-select: none;
 }
 
 .menu-add-form__fieldset {
@@ -5396,4 +4109,1448 @@ textarea:focus {
 
 .menu-admin-button--submit:hover {
     background-color: #218838;
+}
+/* ================= SPA LINK FIXES ================= */
+
+.main-menu-button a,
+.mobile-menu-list li a,
+.footer-links ul li a,
+a.body-history-menu-button,
+a.body-button,
+a.menu-btn,
+a.gallery-btn,
+a.reservation-btn {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+}
+
+.footer-links ul li a:hover {
+    color: #ffcc00;
+}
+
+.main-menu-button a:focus,
+.mobile-menu-list li a:focus {
+    outline: none;
+}
+
+/* Адаптив */
+@media (max-width: 1024px) {
+    .gallery-bg .b1 {
+        width: 340px;
+        height: 340px;
+    }
+
+    .gallery-bg .b4 {
+        width: 260px;
+        height: 260px;
+    }
+
+    .gallery-bg .fog-layer {
+        filter: blur(70px);
+    }
+
+    .gallery-bg::before,
+    .gallery-bg::after {
+        filter: blur(36px);
+    }
+
+    .gallery-bg::before,
+    .gallery-bg::after {
+        width: 900px;
+        height: 420px;
+    }
+
+    #dropped-menu .menu-dropdown.layout-left-logo {
+        padding: 0 20px;
+    }
+
+    .menu-left,
+    .menu-right {
+        min-width: 96px;
+    }
+
+    .main-menu {
+        gap: 18px;
+    }
+
+    .menu-left {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .menu-left .logo img {
+        width: 90px;
+        height: auto;
+    }
+
+    .menu-right .login-btn {
+        padding: 8px 16px;
+    }
+
+    .menu-center {
+        display: none;
+        /* скрываем основной nav */
+    }
+
+    .menu-mobile-toggle {
+        display: flex;
+        z-index: 100000;
+        /* выше overlay */
+    }
+
+    .menu-center {
+        display: none;
+        /* скрываем desktop меню */
+    }
+
+    .menu-mobile-toggle {
+        display: flex;
+    }
+
+    .gallery-bg .b6 {
+        width: 260px;
+        height: 260px;
+        right: 5%;
+        bottom: 5%;
+        filter: blur(22px);
+        opacity: 0.66;
+    }
+
+    .menu-mobile-toggle {
+        display: flex;
+    }
+
+    .menu-center {
+        display: none;
+    }
+
+    .gallery-item {
+        width: 240px;
+        height: 160px;
+        left: calc(50% - 120px);
+        top: 100px;
+    }
+
+    .gallery-ring {
+        height: 350px;
+    }
+
+    .menu-center {
+        display: none;
+    }
+
+    .menu-center.visible .main-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .menu-mobile-toggle {
+        display: flex;
+    }
+
+    .language-btn {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .menu-smoke {
+        width: 252px;
+        height: 168px;
+        right: 80px;
+        top: 40px;
+    }
+
+    .menu-sun {
+        width: 252px;
+        height: 168px;
+        left: 10px;
+        top: 40px;
+    }
+
+    .menu-3d-container {
+        --menu-scale: 0.7;
+    }
+
+    .menu-3d-hero {
+        background-size: 100% auto;
+        background-position: center top;
+    }
+
+    #dropped-menu {
+        height: 95px;
+        /* уменьшаем высоту */
+        padding: 0 10px;
+        /* небольшой горизонтальный padding */
+    }
+
+    .gallery-item {
+        width: 200px;
+        height: 140px;
+        left: calc(50% - 100px);
+        top: 90px;
+    }
+
+    .gallery-ring {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-smoke {
+        width: 210px;
+        height: 140px;
+        right: 40px;
+        top: 50px;
+    }
+
+    .menu-sun {
+        width: 210px;
+        height: 140px;
+        left: 0;
+        top: 0;
+    }
+
+    .menu-3d-center {
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.45);
+        /* чуть темнее для читаемости */
+        max-width: 94%;
+    }
+
+    .menu-3d-title {
+        font-size: clamp(24px, 7vw, 42px);
+        /* более компактный заголовок на очень маленьких экранах */
+    }
+
+    .menu-3d-sub {
+        font-size: clamp(12px, 3.6vw, 16px);
+    }
+
+    .gallery-bg .b6 {
+        width: 180px;
+        height: 180px;
+        right: 3.5%;
+        bottom: 4%;
+        filter: blur(16px);
+        opacity: 0.64;
+    }
+
+    .gallery-bg::before,
+    .gallery-bg::after {
+        width: 600px;
+        height: 280px;
+        filter: blur(26px);
+        opacity: 0.78;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .gradient-run {
+        font-size: 1.6rem;
+        padding: 25px;
+    }
+
+    .reviews-columns .text {
+        font-size: 14px;
+    }
+
+    .avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .author-name {
+        font-size: 13px;
+    }
+
+    .meta {
+        font-size: 10px;
+    }
+
+    .card {
+        padding: 14px;
+    }
+
+    .gallery-item {
+        width: 150px;
+        height: 110px;
+        left: calc(50% - 75px);
+        top: 80px;
+    }
+
+    .gallery-ring {
+        height: 250px;
+    }
+
+    #dropped-menu {
+        height: 95px;
+        /* ещё ниже, чтобы не занимать слишком много места */
+        padding: 0 8px;
+        /* минимальные отступы */
+    }
+}
+
+@media (max-width: 800px) {
+    .language-btn .language-options {
+        left: auto;
+        right: 0;
+    }
+}
+
+@media (max-width: 720px) {
+    .svg-divider svg {
+        height: 64px;
+    }
+
+    .wave-bottom-group {
+        transform: scale(1, -1) translateY(-64px);
+    }
+
+    .nf-card {
+        padding: 18px;
+    }
+
+    .nf-illustration {
+        font-size: 40px;
+    }
+
+    .gallery-bg .b1,
+    .gallery-bg .b4 {
+        filter: blur(18px);
+    }
+
+    .gallery-bg .fog-layer {
+        filter: blur(48px);
+        opacity: 0.78;
+    }
+
+    .language-options .lang-btn {
+        padding: 6px 10px;
+        font-size: .92rem;
+    }
+}
+
+
+@media (min-width: 1024px) and (max-width: 1499px) {
+    #dropped-menu {
+        height: 96px;
+        /* чуть ниже, чем на крупных экранах */
+        padding: 0 18px;
+        background: linear-gradient(to bottom,
+                rgb(255 255 255 / 85%),
+                rgb(255 255 255 / 0%));
+        backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+    }
+
+    /* уменьшение логотипа, чтобы освободить место для меню */
+    .logo-wrap img {
+        width: 100px;
+        height: auto;
+    }
+
+    /* сужаем минимальную ширину блоков слева/справа */
+    .menu-left,
+    .menu-right {
+        min-width: 96px;
+        padding: 0 6px;
+    }
+
+    /* делаем центральное меню компактнее */
+    .menu-center {
+        display: flex;
+        justify-content: center;
+        flex: 1 1 auto;
+        margin: 0 8px;
+    }
+
+    /* общий gap между пунктами меньше */
+    .main-menu {
+        gap: 18px;
+        /* меньше чем на больших экранах */
+    }
+
+    /* общая кнопка меню — чуть компактнее */
+    .main-menu-button {
+        padding: 10px 12px;
+        font-size: 0.98rem;
+    }
+
+    /* Специально: сводим Gallery и Reservation вместе */
+    /* убираем большой gap между ними и делаем их сгруппированными */
+    .gallery-btn,
+    .reservation-btn {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    /* сокращаем расстояние именно между этими двумя элементами.
+     это делается через отрицательный margin-right у Gallery или margin-left у Reservation. */
+    .gallery-btn {
+        margin-right: 2px;
+        /* почти прилегают к следующему элементу */
+    }
+
+    .reservation-btn {
+        margin-left: 2px;
+    }
+
+    /* (Альтернатива) если ты используешь порядок <... gallery ... reservation ...>
+     и хочешь их визуально группировать — можно дать им тонкую рамку общего контейнера */
+    .main-menu .grouped {
+        display: inline-flex;
+        gap: 4px;
+        align-items: center;
+    }
+
+    /* делаем кнопку входа компактнее */
+    .login-btn {
+        padding: 8px 16px;
+        font-size: 16px;
+    }
+
+    /* подстраиваем мобильный toggle — показываем его (если хочешь мобильный overlay на этих ширинах) */
+    .menu-mobile-toggle {
+        display: none;
+        /* оставляем скрытым по умолчанию; включи ниже если хочешь overlay также для 1024-1499 */
+    }
+}
+
+
+
+@media (min-width: 320px) and (max-width: 425px) {
+    #dropped-menu .menu-dropdown.layout-left-logo {
+        padding: 0 20px;
+    }
+
+    .menu-left,
+    .menu-right {
+        min-width: 120px;
+        padding: 0;
+    }
+
+    .main-menu {
+        gap: 18px;
+    }
+
+    .menu-left {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .slider-number {
+        width: 30px;
+        height: 30px;
+        font-size: 26px;
+        font-weight: 400;
+    }
+
+    .slider-progress {
+        width: 3px;
+        height: 140px;
+    }
+
+    .slider-pagination-wrapper {
+        gap: 10px;
+        right: 10px;
+        top: 200px;
+    }
+}
+
+@media (max-width: 600px) {
+    .menu-3d-hero {
+        background-size: contain;
+        /* в мобиле обычно хочется увидеть весь кадр */
+        background-position: center top;
+        height: clamp(200px, 90vh, 90vh);
+        /* более компактная высота на телефонах */
+    }
+
+    .menu-layer {
+        background-size: contain;
+        background-position: center top;
+    }
+
+    /* уменьшаем размеры декоративных элементов */
+    .menu-smoke,
+    .menu-sun {
+        transform: translateZ(0);
+        /* убрать сильную 3D-изменчивость на мобиле */
+        width: 180px;
+        height: 120px;
+        top: 32px;
+    }
+
+    .menu-center {
+        padding: 0 20px;
+    }
+
+    .menu-first-img {
+        height: 46vh;
+        min-height: 260px;
+    }
+
+    .menu-first-position {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 14px;
+    }
+
+    .menu-first-food-img {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+    }
+
+    .menu-first-meta {
+        align-items: flex-start;
+    }
+
+    .menu-button {
+        width: 46%;
+        min-width: 140px;
+    }
+
+    .menu-hero-title {
+        font-size: 28px;
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .menu-first-img {
+        height: 60vh;
+        min-height: 360px;
+    }
+
+    .menu-hero-title {
+        font-size: 44px;
+    }
+
+    .menu-first-food-img {
+        width: 160px;
+        height: 160px;
+    }
+
+    .menu-first-position {
+        grid-template-columns: 160px 1fr 140px;
+        padding: 18px;
+        border-radius: 12px;
+    }
+
+    .menu-button {
+        width: 110px;
+        height: 44px;
+    }
+
+    .menu-items {
+        padding: 0 10px;
+    }
+
+    .columns-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 40px;
+        /* 40px * 25 = 1000 (приближенно) */
+        gap: 14px;
+    }
+
+    /* Пересчёт span'ов (приблизительный, чтобы суммарно не выходило за 1000px) */
+    .r1 {
+        grid-column: 1;
+        grid-row: 1 / span 10;
+    }
+
+    /* ~400px */
+    .r4 {
+        grid-column: 1;
+        grid-row: 11 / span 8;
+    }
+
+    /* ~320px */
+    .r6 {
+        grid-column: 1;
+        grid-row: 19 / span 6;
+    }
+
+    /* ~240px */
+    .r2 {
+        grid-column: 2;
+        grid-row: 1 / span 15;
+    }
+
+    /* ~600px */
+    .r5 {
+        grid-column: 2;
+        grid-row: 16 / span 9;
+    }
+
+    /* ~360px */
+    .r3 {
+        grid-column: 1 / span 2;
+        grid-row: 25 / span 18;
+    }
+
+    /* делаем большой блок, займёт ширину обеих колонок при необходимости */
+    .r7 {
+        grid-column: 2;
+        grid-row: 25 / span 6;
+    }
+}
+
+@media (max-width: 560px) {
+    .avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .reviews-columns .text {
+        font-size: 15px;
+    }
+
+    .columns-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        gap: 12px;
+        height: auto;
+    }
+
+    /* Убираем жёсткие placements */
+    .r1,
+    .r2,
+    .r3,
+    .r4,
+    .r5,
+    .r6,
+    .r7 {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: unset;
+    }
+
+    .reviews-columns {
+        height: auto;
+        padding-bottom: 20px;
+    }
+}
+
+
+
+@media (min-width: 741px) and (max-width: 1000px) {
+    .columns-grid {
+        grid-template-columns: 1fr 1fr;
+        /* две колонки равной ширины */
+        grid-auto-rows: auto;
+        /* авто-высота, чтобы контент не сжимался */
+        gap: 14px;
+    }
+
+    /* Сбрасываем фиксированные placements, чтобы карточки шли по потоку */
+    .r1,
+    .r2,
+    .r3,
+    .r4,
+    .r5,
+    .r6,
+    .r7,
+    .r8,
+    .r9,
+    .r10,
+    .r11,
+    .r12,
+    .r13 {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: unset;
+    }
+
+    /* Карточки растягиваются на всю ширину колонки */
+    .card {
+        width: 100%;
+    }
+
+    .scroll-indicator {
+        display: inline-flex;
+        /* принудительно показываем */
+        z-index: 99999;
+        /* поверх всех карточек */
+        bottom: 12px;
+        /* корректируем позицию */
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 740px) {
+    .reviews-container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .review-footer-card-inner {
+        margin-bottom: 45px;
+    }
+
+    .reviews-columns {
+        height: auto;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .reviews-container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+        /* чуть меньше на мобильных */
+        margin-top: 30px;
+    }
+
+    .columns-grid {
+        grid-template-columns: 1fr;
+        /* одна колонка */
+        grid-auto-rows: auto;
+        gap: 12px;
+        height: auto;
+    }
+
+    /* карточки растягиваются и переставляются по потоку */
+    .r1,
+    .r2,
+    .r3,
+    .r4,
+    .r5,
+    .r6,
+    .r7,
+    .r8,
+    .r9,
+    .r10,
+    .r11,
+    .r12,
+    .r13 {
+        grid-column: auto;
+        grid-row: auto;
+        min-height: unset;
+    }
+
+    .card {
+        padding: 16px;
+        /* чуть меньше паддинг */
+        border-radius: 10px;
+    }
+
+    .reviews-columns .text {
+        font-size: 15px;
+        /* оптимально для мобильных */
+        line-height: 1.5;
+        text-align: justify;
+    }
+
+    .card-header {
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
+        box-shadow: 0 4px 12px rgba(43, 111, 214, 0.15);
+    }
+
+    .author-name {
+        font-size: 14px;
+    }
+
+    .meta {
+        font-size: 11px;
+        opacity: 0.85;
+    }
+
+    /* футер */
+    .footer-card {
+        padding: 20px;
+    }
+
+    .gradient-run {
+        font-size: 1.9rem;
+        /* читаемый размер текста */
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+    }
+
+    .gradient-run {
+        font-size: 1.9rem;
+    }
+
+    .scroll-indicator {
+        width: 36px;
+        /* уменьшенный размер */
+        height: 36px;
+        bottom: 10px;
+        /* немного выше нижнего края */
+    }
+
+    .scroll-indicator.scroll-up {
+        top: 75px;
+        /* чуть выше верхнего края */
+    }
+
+    .scroll-indicator .chev,
+    .scroll-indicator .chev-2 {
+        font-size: 16px;
+        /* уменьшаем размер стрелки */
+    }
+}
+
+@media (max-width: 443px) {
+    .scroll-indicator.scroll-up {
+        top: 110px;
+        /* прикрепляем к верхнему краю */
+    }
+
+    .scroll-indicator {
+        width: 32px;
+        /* можно ещё немного уменьшить кнопку */
+        height: 32px;
+    }
+
+    .scroll-indicator .chev,
+    .scroll-indicator .chev-2 {
+        font-size: 14px;
+        /* стрелка меньше */
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .card.r13.footer-card {
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.36);
+    }
+
+    .gradient-run {
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .menu-mobile-toggle span {
+        transition: none;
+    }
+
+    .mobile-menu-overlay {
+        animation: none;
+    }
+
+    .menu-tile {
+        transition: none;
+        transform: none;
+        opacity: 1;
+    }
+
+    .gradient-run {
+        animation: none;
+        background-position: 50% 50%;
+        -webkit-text-fill-color: #fff;
+        /* fallback: белый текст */
+        color: #fff;
+        text-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+    }
+}
+
+
+
+
+
+@media (max-width: 1500px) and (min-width: 1301px) {
+    .columns-grid {
+        grid-template-columns: 300px 380px 1fr;
+        gap: 18px;
+    }
+
+
+}
+
+@media (max-width: 1300px) and (min-width: 1110px) {
+    .columns-grid {
+        grid-template-columns: 300px 380px 1fr;
+        /* три равные колонки */
+        gap: 18px;
+    }
+
+    .rating {
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        /* 5 звёзд в первом ряду */
+        grid-auto-rows: auto;
+        gap: 2px;
+        justify-content: flex-start;
+        /* выравниваем влево */
+    }
+
+    /* текст пусть немного адаптируется */
+    .reviews-columns .text {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    /* для безопасности — если длинный текст, разрешаем перенос */
+    .card .text {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .author-name {
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .footer-card {
+        padding: 0;
+    }
+}
+
+@media (max-width: 1110px) {
+    .columns-grid {
+        grid-template-columns: 230px 300px 1fr;
+        /* три равные колонки */
+        gap: 18px;
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .text {
+        font-size: 14px;
+    }
+
+    .rating {
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        /* 5 звёзд в первом ряду */
+        grid-auto-rows: auto;
+        gap: 2px;
+        justify-content: flex-start;
+        /* выравниваем влево */
+    }
+
+    .card {
+        padding: 10px;
+    }
+
+    .footer-card {
+        padding: 0;
+    }
+
+    .text {
+        font-size: 14px;
+    }
+
+    .rating {
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        /* 5 звёзд в первом ряду */
+        grid-auto-rows: auto;
+        gap: 2px;
+        justify-content: flex-start;
+        /* выравниваем влево */
+    }
+}
+
+@media (max-width: 1300px) {
+
+    .reviews-container {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}
+
+@media (max-width: 1160px) {
+    .reviews-container {
+        padding-left: 25px;
+        padding-right: 25px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    .form {
+        width: 650px;
+        margin-top: 70px;
+    }
+
+    .form-fieldset {
+        width: 550px;
+    }
+
+    .form-main {
+        height: 850px;
+    }
+}
+
+@media (min-width: 425px) and (max-width: 767px) {
+    .form {
+        width: 90%;
+        margin-top: 70px;
+        height: fit-content;
+    }
+
+    .form-fieldset {
+        width: 100%;
+        height: 100%;
+    }
+
+    .form-main {
+        height: 850px;
+        padding: 0;
+    }
+
+    .form-inside {
+        width: 100%;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 424px) {
+    .form {
+        width: 90%;
+        margin-top: 65px;
+        height: fit-content;
+        padding: 30px;
+    }
+
+    .form-fieldset {
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+    }
+
+    .form-main {
+        height: 750px;
+        padding: 0;
+    }
+
+    .form-inside {
+        width: 100%;
+    }
+
+    .form-submit-wrap {
+        width: 70%;
+    }
+}
+
+@media (min-width: 580px) and (max-width: 768px) {
+    .personal-account-left {
+        width: 150px;
+        padding: 0 10px;
+    }
+
+    .personal-account-right {
+        padding: 0 25px;
+    }
+
+    .main-content-wrapper {
+        padding-top: 40px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+@media (min-width: 375px) and (max-width: 579px) {
+    .personal-account {
+        min-width: 100%;
+    }
+
+    .personal-account-right {
+        padding: 0 5px;
+    }
+
+    .personal-account-left {
+        width: 100px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .account-info {
+        padding: 10px;
+    }
+
+    .personal-account-data {
+        font-size: 16px;
+    }
+
+    .main-content-wrapper {
+        padding: 20px 0 20px 0;
+    }
+
+    .personal-account-btn {
+        font-size: 14px;
+        width: fit-content;
+        height: 70px;
+        padding: 10px 5px 12px 5px;
+    }
+
+    .personal-account-wrap {
+        padding-right: 0;
+    }
+
+    .personal-account-divider {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 374px) {
+    .personal-account {
+        min-width: 100%;
+    }
+
+    .personal-account-right {
+        padding: 0 5px;
+    }
+
+    .personal-account-left {
+        width: 100px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .account-info {
+        padding: 5px;
+    }
+
+    .personal-account-data {
+        font-size: 14px;
+    }
+
+    .main-content-wrapper {
+        padding: 20px 0 20px 0;
+    }
+
+    .personal-account-btn {
+        font-size: 14px;
+        width: fit-content;
+        height: 70px;
+        padding: 10px 5px 12px 5px;
+    }
+
+    .personal-account-wrap {
+        padding-right: 0;
+    }
+
+    .personal-account-divider {
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+
+    .personal-account-welcome {
+        font-size: 24px;
+    }
+
+    .personal-account-dates-buttons {
+        gap: 5px;
+    }
+
+    .edit-account-btn,
+    .logout-account-btn {
+        padding: 5px 10px;
+    }
+
+    .user-login,
+    .user-email {
+        padding-left: 3px;
+        padding-right: 0;
+        height: 20px;
+        width: fit-content;
+    }
+}
+
+
+@media (max-width: 1200px) {
+    .menu-smoke {
+        width: 336px;
+        height: 224px;
+        right: 160px;
+        /* сдвигаем ближе к центру */
+        top: 20px;
+        /* чуть ниже */
+    }
+
+    .menu-sun {
+        width: 336px;
+        height: 224px;
+        left: 20px;
+        /* чуть смещаем вправо */
+        top: 20px;
+    }
+
+    .menu-3d-hero {
+        /* авто-ширина, высота = 100% контейнера; это сохраняет пропорции и минимизирует обрезку */
+        background-size: auto 100%;
+        background-position: center top;
+        height: clamp(200px, 90vh, 90vh);
+        /* height остаётся из clamp() — поэтому при уменьшении ширины высота плавно уменьшается */
+    }
+
+    /* Лэйеры: задний фон не должен cover'иться, чтобы не обрезать боковые части */
+    .menu-layer {
+        background-size: contain;
+        /* contain — полностью видно изображение (могут появиться боковые полосы) */
+        background-repeat: no-repeat;
+        background-position: center top;
+    }
+
+    .menu-3d-hero {
+        background-size: 100% auto;
+        background-position: center top;
+    }
+
+    .menu-3d-container {
+        --menu-scale: 0.9;
+    }
+}
+
+@media (max-width: 992px) {
+    .menu-3d-container {
+        --menu-scale: 0.8;
+    }
+}
+
+
+@media (min-width: 1200px) {
+    .menu-3d-hero {
+        background-size: cover;
+        /* desktop: заполняет экран как раньше */
+        background-position: center center;
+        height: min(100vh, 820px);
+        /* можно ограничить максимальную видимую высоту, опц. */
+    }
+}
+
+@media (max-width: 640px) {
+
+    .menu-3d-hero {
+
+        height: clamp(300px, 80vh, 80vh);
+
+        /* Мягкий переход при ресайзе */
+        transition: height .28s ease, background-size .28s ease, background-position .28s ease;
+    }
+
+    /* Текстовый блок остаётся компактным (чтобы не занимал лишнее место) */
+    .menu-3d-center {
+        max-width: 100%;
+        padding: 12px 14px;
+    }
+
+    /* Декоративные элементы — уменьшаем, чтобы не мешали картинке */
+    .menu-smoke,
+    .menu-sun {
+        width: 160px;
+        height: 100px;
+        top: 28px;
+        right: 24px;
+        /* или left для sun */
+        filter: blur(1.5px);
+        transform: translateZ(0);
+    }
+}
+
+/* Дополнительно — мелкая поправка для ещё более узких экранов */
+@media (max-width: 450px) {
+    .menu-3d-hero {
+        height: clamp(100px, 70vh, 100vh);
+        background-position: center 20%;
+    }
+
+    .menu-3d-container {
+        --menu-scale: 0.78;
+    }
+
+    .menu-3d-center {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 310px) {
+    .menu-3d-hero {
+        height: clamp(100px, 70vh, 100vh);
+        background-position: center 20%;
+    }
+
+    .menu-3d-container {
+        --menu-scale: 0.78;
+    }
+
+    .menu-3d-center {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .body-history-img {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   PRINT STYLES (Landscape, Colorful, Main Page Only)
+   ========================================================================== */
+
+@media print {
+
+    /* 1. НАСТРОЙКИ СТРАНИЦЫ */
+    @page {
+        size: landscape;
+        /* Принудительная горизонтальная ориентация */
+        margin: 1cm;
+        /* Аккуратные поля */
+    }
+
+    /* 2. СОХРАНЕНИЕ ЦВЕТА И ФОНОВ */
+    body {
+        -webkit-print-color-adjust: exact !important;
+        /* Chrome/Safari/Edge */
+        print-color-adjust: exact !important;
+        /* Firefox */
+        background-color: #fff !important;
+    }
+
+    /* 3. СКРЫВАЕМ ВСЁ ЛИШНЕЕ */
+    /* Скрываем навигацию, футер, формы, кнопки, слайдер и другие секции */
+    #dropped-menu,
+    footer,
+    .menu-mobile-toggle,
+    .slider-wrapper,
+    /* Слайдер с большими фото */
+    .slider-pagination-wrapper,
+    .scroll-indicator,
+    .login-btn,
+    .language-btn,
+    .menu-all-btn,
+    #gallery-pause-btn,
+    .zoom-container,
+    .form-main,
+    .login-form-section,
+    .personal-account,
+    button,
+    a[href^="#"]::after,
+    /* Скрываем стрелочки у ссылок-кнопок */
+
+    /* Скрываем остальные страницы, печатаем ТОЛЬКО главную */
+    .menu-all,
+    .gallery-section,
+    .reservation-section,
+    .main-content-wrapper {
+        display: none !important;
+    }
+
+    /* 4. СКРЫВАЕМ KONТЕНТНЫЕ КАРТИНКИ (теги <img>) */
+    /* Оставляем только фоновые изображения (background-image) */
+    img {
+        display: none !important;
+    }
+
+    /* 5. НАСТРОЙКА ГЛАВНОЙ СЕКЦИИ */
+    main#main {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        overflow: visible !important;
+        height: auto !important;
+    }
+
+    /* 6. ИСПРАВЛЕНИЕ ВЕРСТКИ ПОСЛЕ УДАЛЕНИЯ КАРТИНОК */
+
+    /* Секция "История" - растягиваем текст на всю ширину */
+    .body-history {
+        display: block !important;
+        /* Фон сохраняется благодаря print-color-adjust */
+    }
+
+    .body-history-left-text {
+        width: 100% !important;
+        flex: none !important;
+        max-width: 100% !important;
+        text-align: left;
+    }
+
+    .body-history-right-text {
+        display: none !important;
+        /* Пустой блок от картинки */
+    }
+
+    /* Колонки - делаем их блоками друг под другом или рядом, если влезают */
+    .columns-wrapper {
+        padding: 20px 0 !important;
+        background-image: none !important;
+        /* Убираем тяжелый фон у колонок, если нужно, или оставьте */
+        /* Если нужно оставить фон EmperorHomelay.png - удалите строку выше */
+    }
+
+    .body-all-columns {
+        display: flex !important;
+        gap: 20px !important;
+        justify-content: space-between !important;
+    }
+
+    .body-column {
+        flex: 1 !important;
+        margin: 0 !important;
+        min-height: auto !important;
+        /* Картинка внутри скрыта глобальным правилом img { display: none } */
+        /* Текст автоматически поднимется вверх */
+        border: 1px solid #ccc;
+        /* Добавляем рамку для красоты */
+    }
+
+    /* Отзывы */
+    .reviews-columns {
+        height: auto !important;
+        overflow: visible !important;
+        /* Градиентный фон сохранится */
+    }
+
+    .reviews-columns-wrapper {
+        height: auto !important;
+    }
+
+    .columns-grid {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+    }
+
+    .card {
+        page-break-inside: avoid;
+        /* Карточки не разрываются */
+        width: 30% !important;
+        /* 3 в ряд в ландшафте */
+        flex: 1 1 30% !important;
+        box-shadow: none !important;
+        border: 1px solid #ddd !important;
+    }
+
+    /* About Us - фон останется */
+    .about-us-section {
+        color: #fff !important;
+        /* Текст белый, т.к. фон темный */
+    }
+
+    .about-us-background {
+        background: rgba(0, 0, 0, 0.7) !important;
+        /* Усиливаем затемнение для читаемости */
+    }
 }

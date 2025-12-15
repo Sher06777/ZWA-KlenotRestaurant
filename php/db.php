@@ -11,8 +11,8 @@
  */
 
 $host   = getenv('DB_HOST') ?: 'localhost';
-$dbname = getenv('DB_NAME') ?: 'achilkem';
-$user   = getenv('DB_USER') ?: 'achilkem';
+$dbname = getenv('DB_NAME') ?: 'abdimshe';
+$user   = getenv('DB_USER') ?: 'abdimshe';
 $pass   = getenv('DB_PASS') ?: 'webove aplikace';
 $port   = getenv('DB_PORT') ? (int)getenv('DB_PORT') : 3306;
 

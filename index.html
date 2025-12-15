@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <base href="/~achilkem/">
+    <base href="/~abdimshe/">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,14 +56,10 @@
               id="mobile-menu-close">&times;</button>
 
             <ul class="mobile-menu-list" role="menu">
-              <li class="menu-btn" role="menuitem"
-                data-i18n="main.menu-about-us">About Us</li>
-              <li class="menu-btn" role="menuitem"
-                data-i18n="main.menu-menu">Menu</li>
-              <li class="gallery-btn" role="menuitem"
-                data-i18n="main.menu-gallery-btn">Gallery</li>
-              <li class="reservation-btn" role="menuitem"
-                data-i18n="main.menu-reservation-btn">Reservation</li>
+              <li><a href="#about-us" class="menu-btn" role="menuitem"  data-i18n="main.menu-about-us">About Us</a></li>
+              <li><a href="#menu" class="menu-btn" role="menuitem"  data-i18n="main.menu-menu">Menu</a></li>
+              <li><a href="#gallery" class="gallery-btn" role="menuitem"  data-i18n="main.menu-gallery-btn">Gallery</a></li>
+              <li><a href="#reservation" class="reservation-btn" role="menuitem"  data-i18n="main.menu-reservation-btn">Reservation</a></li>
             </ul>
 
             <div class="mobile-language" aria-label="Language selection">
@@ -83,21 +79,27 @@
         <!-- Центр: desktop меню -->
         <nav class="menu-center" aria-label="Main navigation">
           <ul class="main-menu">
-            <li class="main-menu-button"><a href="#about-us"
-                data-i18n="main.menu-about-us">About Us</a></li>
-            <li class="main-menu-button menu-btn"
-              data-i18n="main.menu-menu">Menu</li>
-            <li class="main-menu-button gallery-btn"
-              data-i18n="main.menu-gallery-btn">Gallery</li>
-            <li class="main-menu-button reservation-btn"
-              data-i18n="main.menu-reservation-btn">Reservation</li>
+            <li class="main-menu-button">
+              <a href="#about-us" data-i18n="main.menu-about-us">About Us</a>
+            </li>
+            
+            <li class="main-menu-button">
+              <a href="#menu" class="menu-btn" data-i18n="main.menu-menu" >Menu</a>
+            </li>
+            
+            <li class="main-menu-button">
+              <a href="#gallery" class="gallery-btn" data-i18n="main.menu-gallery-btn" >Gallery</a>
+            </li>
+            
+            <li class="main-menu-button">
+              <a href="#reservation" class="reservation-btn" data-i18n="main.menu-reservation-btn" >Reservation</a>
+            </li>
+
             <li class="main-menu-button language-btn">
-              <span class="lang-label"
-                data-i18n="main.menu-language-button">Language</span>
+              <span class="lang-label" data-i18n="main.menu-language-button">Language</span>
               <div class="language-options">
-                <button id="lang-cz" class="lang-btn" data-lang="cz">CZ</button>
-                <button id="lang-eng" class="lang-btn"
-                  data-lang="eng">ENG</button>
+          <button id="lang-cz" class="lang-btn" data-lang="cz">CZ</button>
+          <button id="lang-eng" class="lang-btn" data-lang="eng">ENG</button>
               </div>
             </li>
           </ul>
@@ -1353,7 +1355,7 @@
 
     <!-- =========================== MENU =========================== -->
 
-    <section class="menu-all" id="menu-all">
+    <section class="menu-all invisible " id="menu-all">
       <!-- ПАРАЛЛАКС-ИЗОБРАЖЕНИЕ (фон) -->
       <div class="menu-3d-hero" id="menu-3d-hero" aria-hidden="false"
         data-bg="img/menu-hero.jpg">
@@ -1441,13 +1443,10 @@
         <div class="footer-links">
           <h4>Explore</h4>
           <ul class="footer-links">
-            <li class="footer-button-aboutus"><a href="#about-us"
-                class="footer-button-aboutus">About Us</a></li>
-            <li><button type="button" class="menu-btn">Menu</button></li>
-            <li><button type="button"
-                class="gallery-btn">Gallery</button></li>
-            <li><button type="button"
-                class="reservation-btn">Reservations</button></li>
+            <li class="footer-button-aboutus"><a href="#about-us" class="footer-button-aboutus">About Us</a></li>
+            <li><a href="#menu"  class="menu-btn">Menu</a></li>
+            <li><a href="#gallery"  class="gallery-btn">Gallery</a></li>
+            <li><a href="#reservation"  class="reservation-btn">Reservations</a></li>
           </ul>
         </div>
 
