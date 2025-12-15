@@ -1,4 +1,4 @@
-// gallery.js — экспортируем initGallery
+
 
 export function initGallery() {
     const DRAG_SENSITIVITY = 0.4;
@@ -212,6 +212,6 @@ export function initGallery() {
     });
     mutationObserver.observe(gallerySection, { attributes: true, attributeFilter: ['class'] });
 
-    // start if visible now
+    
     checkAnimationState();
 }

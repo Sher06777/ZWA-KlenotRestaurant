@@ -348,14 +348,11 @@ export function initAdminReservations() {
               await window.CSRFManager.appendToFormData(formData);
             }
 
-            const res = await (window.CSRFManager ? window.CSRFManager.fetchWithCsrf("./php/admin_delete_reservation.php", {
-              method: "POST",
-              body: formData
-            }) : fetch("./php/admin_delete_reservation.php", {
-              method: "POST",
-              credentials: "include",
-              body: formData
-            }));
+            const res = window.CSRFManager && typeof window.CSRFManager.fetchWithCsrfRetry === 'function'
+            ? await window.CSRFManager.fetchWithCsrfRetry('./php/admin_delete_reservation.php', { method: 'POST', body: formData })
+            : await (window.CSRFManager
+                ? window.CSRFManager.fetchWithCsrf('./php/admin_delete_reservation.php', { method: 'POST', body: formData })
+                : fetch('./php/admin_delete_reservation.php', { method: 'POST', credentials: 'include', body: formData }));
 
             const data = await res.json().catch(() => ({ success: false, error: 'invalid json' }));
 

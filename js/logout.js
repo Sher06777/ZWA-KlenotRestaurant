@@ -1,5 +1,5 @@
-// auth-ui.js — управление сессией / logout / checkSession на клиенте
-// Зависимости: window.CSRFManager (опционально). Экспортирует window.AuthManager
+
+
 
 export function initAuthManager() {
   const safeCall = (fn, ...args) => { try { return fn && fn(...args); } catch (e) { console.error(e); } };
@@ -28,14 +28,15 @@ export function initAuthManager() {
         ? window.CSRFManager.appendToJson({})
         : {};
 
-      const doFetch = (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrf === 'function')
-        ? window.CSRFManager.fetchWithCsrf
-        : fetch;
+      const doFetch = (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrfRetry === 'function')
+        ? window.CSRFManager.fetchWithCsrfRetry.bind(window.CSRFManager)
+        : (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrf === 'function'
+            ? window.CSRFManager.fetchWithCsrf.bind(window.CSRFManager)
+            : fetch);
 
       const res = await (doFetch === fetch
         ? fetch('./php/logout.php', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(bodyObj) })
-        : window.CSRFManager.fetchWithCsrf('./php/logout.php', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(bodyObj) })
-      );
+        : await doFetch('./php/logout.php', { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(bodyObj) }));
 
       let data = null;
       try { data = await res.json(); } catch (_) { data = null; }
@@ -47,7 +48,7 @@ export function initAuthManager() {
 
       if (data && data.success) {
         if (window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
-          try { await window.CSRFManager.refresh(); } catch (_) { /* ignore */ }
+          try { await window.CSRFManager.refresh(); } catch (_) { }
         }
         try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}
         if (typeof window.setLoggedIn === 'function') safeCall(window.setLoggedIn, false);
@@ -96,12 +97,12 @@ export function initAuthManager() {
         if (s && s.body && s.body.loggedIn && s.body.user) {
           return { loggedIn: true, user: s.body.user };
         }
-      } catch (e) { /* ignore */ }
+      } catch (e) { }
     }
     return { loggedIn: false, user: null };
   }
 
-  // expose
+  
   window.AuthManager = {
     init,
     checkSession,
@@ -109,6 +110,6 @@ export function initAuthManager() {
     attachLogoutButton
   };
 
-  // optionally auto-attach to current logout button immediately
+  
   try { attachLogoutButton('.logout-account-btn'); } catch (_) {}
 }

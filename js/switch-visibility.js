@@ -1,4 +1,4 @@
-// switch-visibility.js
+import { hideAdminTables } from './account.js';
 export function initSwitchVisibility({ autoCheckSession = false } = {}) {
   const $ = (sel, root = document) => root ? root.querySelector(sel) : null;
   const $$ = (sel, root = document) => Array.from((root || document).querySelectorAll(sel || ''));
@@ -77,33 +77,31 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
     if (txt) el.textContent = txt;
   }
 
-  const fadeOut = (el) => {
+  const fadeOut = (el, callback) => {
     if (!el) return;
     el.style.opacity = 1;
     el.style.transition = 'opacity 0.5s ease';
     el.style.pointerEvents = 'none';
     el.style.opacity = 0;
+
     el.classList.remove('visible');
     el.classList.add('invisible');
-    try {
-      if (el === accountWrapper && el.querySelectorAll) {
-        const inner = el.querySelectorAll('.personal-account-content');
-        inner.forEach(child => { child.classList.remove('visible'); child.classList.add('invisible'); });
-      }
-    } catch (e) {}
+
+    if (callback) setTimeout(callback, 500); 
   };
 
-  function fadeIn(el) {
+  const fadeIn = (el) => {
     if (!el) return;
     el.classList.remove('invisible');
     el.classList.add('visible');
-    el.style.opacity = '0';
+    el.style.opacity = 0;
+
     requestAnimationFrame(() => {
       el.style.transition = 'opacity 0.5s ease';
-      el.style.opacity = '1';
+      el.style.opacity = 1;
       el.style.pointerEvents = 'auto';
     });
-  }
+  };
 
   window.updateLoginLabel = updateLoginLabel;
 
@@ -150,7 +148,7 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
     return () => el.removeEventListener(event, handler, opts);
   }
 
-  // DOMContentLoaded -> run init logic
+  
   (async () => {
     try {
       if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
@@ -166,15 +164,45 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
       if (loginButton) safeAdd(loginButton, 'click', async (e) => {
         e.preventDefault();
         if (isLoggedIn()) {
-          // Показываем wrapper *сначала* — чтобы initPersonalAccount видел его видимым
+          
           if (accountWrapper) showSection(accountWrapper);
 
-          // Если есть user — (попытка) обновить данные личного кабинета (идемпотентно)
+          try {
+            // Найдём контейнеры админских таблиц
+            const adminRes = document.getElementById('admin-reservations-container');
+            const adminUsers = document.getElementById('admin-users-content');
+
+            // Функция-помощник: считаем элемент "видимым" если он в документе и не display: none
+            const isVisible = (el) => !!(el && el.offsetParent !== null && getComputedStyle(el).display !== 'none');
+
+            const adminResVisible = isVisible(adminRes);
+            const adminUsersVisible = isVisible(adminUsers) && (adminUsers.innerHTML || '').trim() !== '';
+
+            if (adminResVisible || adminUsersVisible) {
+              // 1) спрячем админ-таблицы (та же логика, что у Personal Account Buttons)
+              try { if (typeof hideAdminTables === 'function') hideAdminTables(); } catch (e) { console.warn('hideAdminTables failed:', e); }
+
+              // 2) аккуратно восстановим "обычную" высоту
+              const pa = document.getElementById('personal-account');
+              if (pa) {
+                // убираем только те inline-стили, которые могли растянуть контейнер
+                pa.style.height = '800px';
+                pa.style.maxHeight = '';
+                pa.style.width = '';
+                // если нужно жёстко перекрыть внешние правила:
+                // pa.style.setProperty('height', '800px', 'important');
+              }
+            }
+          } catch (err) {
+            console.warn('personal-account restore on login click failed', err);
+          }
+
+          
           if (window.user && typeof window.initPersonalAccount === 'function') {
             try { await safeCall(window.initPersonalAccount, window.user); } catch (err) { console.warn('initPersonalAccount on profile click failed', err); }
           }
 
-          // Обновляем метку входа (например, "Account / Sign in")
+          
           await updateLoginLabel();
         } else {
           showSection(formMain);
@@ -198,10 +226,10 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
           setLoggedIn(true);
           await updateLoginLabel();
 
-          // Сначала показываем wrapper — если хотим сразу переходить в профиль после логина
+          
           if (accountWrapper) showSection(accountWrapper);
 
-          // Затем инициализируем данные личного кабинета (initPersonalAccount увидит wrapper visible)
+          
           if (user) {
             window.user = user;
             if (typeof window.initPersonalAccount === 'function') {
@@ -258,13 +286,13 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
   })();
 
   try {
-    // graceful: only attach if not already present
+    
     if (typeof window !== 'undefined') {
       if (!window.fadeIn) window.fadeIn = fadeIn;
       if (!window.fadeOut) window.fadeOut = fadeOut;
       if (!window.getTranslation) window.getTranslation = getTranslation;
       if (!window.translateElement) window.translateElement = translateElement;
-      // some legacy code used translatePersonalAccount — expose a safe no-op if not present
+      
       if (!window.translatePersonalAccount) window.translatePersonalAccount = async (root) => {
         try {
           if (!root) return;
@@ -277,13 +305,13 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
               if (txt) el.textContent = txt;
             }
           }
-        } catch (e) { /* ignore translation errors */ }
+        } catch (e) { }
       };
     }
   } catch (e) {
     console.warn('switch-visibility: failed to attach compatibility shims', e);
   }
 
-  // public API
+  
   window.switchVisibility = { showSection, set3DMenuInvisible, updateLoginLabel, makeVisible, makeInvisible };
 }
