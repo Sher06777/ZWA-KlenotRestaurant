@@ -1,5 +1,3 @@
-
-
 export function getSubmitWrapEl(signinButton) {
   if (signinButton) {
     return signinButton.closest('.form-submit-wrap') || signinButton.parentElement;
@@ -80,6 +78,40 @@ export function initSignin() {
 
   if (!signinForm) return;
 
+  // helper: choose safe fetch function that supports CSRF retry
+  const getFetcher = () => {
+    if (window.CSRFManager) {
+      if (typeof window.CSRFManager.fetchWithCsrfRetry === 'function') {
+        return window.CSRFManager.fetchWithCsrfRetry.bind(window.CSRFManager);
+      }
+      if (typeof window.CSRFManager.fetchWithCsrf === 'function') {
+        // fallback: wrap fetchWithCsrf and attempt refresh+retry on 403
+        return async (url, opts = {}) => {
+          let res = await window.CSRFManager.fetchWithCsrf(url, opts);
+          if (res && res.status === 403) {
+            try { await window.CSRFManager.refresh(); } catch (e) { /* ignore */ }
+            // ensure header/token is present
+            const retryOpts = Object.assign({}, opts);
+            retryOpts.headers = Object.assign({}, retryOpts.headers || {}, window.CSRFManager.getHeader());
+            return fetch(url, retryOpts);
+          }
+          return res;
+        };
+      }
+    }
+    // final fallback: plain fetch, but try a refresh+retry on 403
+    return async (url, opts = {}) => {
+      let res = await fetch(url, opts);
+      if (res && res.status === 403 && window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
+        try { await window.CSRFManager.refresh(); } catch (e) { /* ignore */ }
+        const retryOpts = Object.assign({}, opts);
+        retryOpts.headers = Object.assign({}, retryOpts.headers || {}, window.CSRFManager ? window.CSRFManager.getHeader() : {});
+        return fetch(url, retryOpts);
+      }
+      return res;
+    };
+  };
+
   signinForm.addEventListener('valid-form-submit', async (e) => {
     e.preventDefault?.();
 
@@ -106,11 +138,15 @@ export function initSignin() {
     let countdownTimeoutId = null;
 
     try {
-      const resp = await fetch('./php/signin.php', {
+      const fetcher = getFetcher();
+
+      const resp = await fetcher('./php/signin.php', {
         method: 'POST',
         body: formData,
         credentials: 'include'
       });
+
+      if (!resp) throw new Error('No response from server');
 
       if (resp.status === 429) {
         earlyHandled = true;
@@ -224,18 +260,15 @@ export function initSignin() {
 
           const personalEl = document.getElementById('account-wrapper') || document.querySelector('.main-content-wrapper') || document.getElementById('personal-account') || document.getElementById('account-section');
           if (personalEl) {
-            
             personalEl.classList.remove('invisible');
             personalEl.classList.add('visible');
             personalEl.style.pointerEvents = 'auto';
             personalEl.style.opacity = 1;
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            
             try { if (typeof initPersonalAccount === 'function') await initPersonalAccount(window.user); } catch (e) { console.warn('[SIGNIN] initPersonalAccount after show failed', e); }
           }
 
-          
           window.dispatchEvent(new CustomEvent('user:loggedin', { detail: window.user }));
 
           if (typeof window.onLoginOrRegister === 'function') {
