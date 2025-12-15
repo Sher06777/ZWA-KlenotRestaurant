@@ -73,8 +73,6 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
 
   const fadeOut = (el, callback) => {
     if (!el) return;
-    if (el.classList.contains('invisible')) return;
-
     el.style.opacity = 1;
     el.style.transition = 'opacity 0.5s ease';
     el.style.pointerEvents = 'none';
@@ -82,12 +80,8 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
 
     el.classList.remove('visible');
     el.classList.add('invisible');
-    try {
-      if (el === accountWrapper && el.querySelectorAll) {
-        const inner = el.querySelectorAll('.personal-account-content');
-        inner.forEach(child => { child.classList.remove('visible'); child.classList.add('invisible'); });
-      }
-    } catch (e) { }
+
+    if (callback) setTimeout(callback, 500);
   };
 
   const fadeIn = (el) => {
@@ -199,9 +193,50 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
 
   window.addEventListener('hashchange', handleRouting);
 
-  if (loginButton) safeAdd(loginButton, 'click', (e) => {
+  if (loginButton) safeAdd(loginButton, 'click', async (e) => {
     e.preventDefault();
-    window.location.hash = isLoggedIn() ? '#account' : '#signin';
+    if (isLoggedIn()) {
+      
+      if (accountWrapper) showSection(accountWrapper);
+
+      try {
+        // Найдём контейнеры админских таблиц
+        const adminRes = document.getElementById('admin-reservations-container');
+        const adminUsers = document.getElementById('admin-users-content');
+
+        // Функция-помощник: считаем элемент "видимым" если он в документе и не display: none
+        const isVisible = (el) => !!(el && el.offsetParent !== null && getComputedStyle(el).display !== 'none');
+
+        const adminResVisible = isVisible(adminRes);
+        const adminUsersVisible = isVisible(adminUsers) && (adminUsers.innerHTML || '').trim() !== '';
+
+        if (adminResVisible || adminUsersVisible) {
+          // 1) спрячем админ-таблицы (та же логика, что у Personal Account Buttons)
+          try { if (typeof hideAdminTables === 'function') hideAdminTables(); } catch (err) { console.warn('hideAdminTables failed:', err); }
+
+          // 2) аккуратно восстановим "обычную" высоту
+          const pa = document.getElementById('personal-account');
+          if (pa) {
+            // убираем только те inline-стили, которые могли растянуть контейнер
+            pa.style.height = '800px';
+            pa.style.maxHeight = '';
+            pa.style.width = '';
+          }
+        }
+      } catch (err) {
+        console.warn('personal-account restore on login click failed', err);
+      }
+
+      if (window.user && typeof window.initPersonalAccount === 'function') {
+        try { await safeCall(window.initPersonalAccount, window.user); } catch (err) { console.warn('initPersonalAccount on profile click failed', err); }
+      }
+
+      await updateLoginLabel();
+    } else {
+      showSection(formMain);
+      await updateLoginLabel();
+    }
+    set3DMenuInvisible(true);
   });
   if (regestrationButton) safeAdd(regestrationButton, 'click', (e) => {
     e.preventDefault();
@@ -223,10 +258,8 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
         safeCall(() => window.CSRFManager.init().catch(err => console.warn('CSRFManager init failed:', err)));
       }
 
-      [menuSection, gallerySection, formMain, loginFormSection, accountWrapper, reservationSection].filter(Boolean).forEach(el => {
-        el.classList.remove('visible');
-        el.classList.add('invisible');
-      });
+      if (mainContent) { fadeIn(mainContent); currentVisibleSection = mainContent; }
+      [menuSection, gallerySection, formMain, loginFormSection, accountWrapper, reservationSection].filter(Boolean).forEach(makeInvisible);
 
       try {
         if (autoCheckSession) {
@@ -249,16 +282,16 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
           setLoggedIn(true);
           await updateLoginLabel();
 
-
-          window.location.hash = '#account';
-
+          if (accountWrapper) showSection(accountWrapper);
 
           if (user) {
             window.user = user;
             if (typeof window.initPersonalAccount === 'function') {
-              try { await safeCall(window.initPersonalAccount, user); } catch (err) { console.warn('initPersonalAccount failed', err); }
+              try { await safeCall(window.initPersonalAccount, user); } catch (err) { console.warn('onLoginOrRegister initPersonalAccount failed', err); }
             }
           }
+
+          set3DMenuInvisible(true);
         };
         const prev = typeof window.onLoginOrRegister === 'function' ? window.onLoginOrRegister : null;
         window.onLoginOrRegister = async function (user) {
