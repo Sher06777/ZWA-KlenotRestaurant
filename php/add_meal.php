@@ -14,8 +14,8 @@
  *
  * @package MenuAPI
  */
-require_once __DIR__ . '/verify_csrf_token.php';
-require_once __DIR__ . '/auth.php';
+
+require_once 'auth.php';
 
 header('Content-Type: application/json; charset=utf-8');
 

@@ -15,8 +15,8 @@
  * @package Auth
  */
 
-require_once __DIR__ . '/session_init.php';
-require_once __DIR__ . '/db.php';
+require 'session_init.php';
+require 'db.php';
 
 $publicScripts = [
     'check_session.php',
@@ -33,23 +33,7 @@ if (in_array($self, $publicScripts, true)) {
 
 $currentUserId = isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : 0;
 $currentUserName = $_SESSION['user_name'] ?? null;
-$currentUserIsAdmin = 0;
-if ($currentUserId > 0) {
-    $stmtRole = $conn->prepare('SELECT `isAdmin` FROM `users` WHERE `id` = ? LIMIT 1');
-    if ($stmtRole) {
-        $stmtRole->bind_param('i', $currentUserId);
-        $stmtRole->execute();
-        $resRole = $stmtRole->get_result();
-        if ($rowRole = $resRole->fetch_assoc()) {
-            $currentUserIsAdmin = ((int)($rowRole['isAdmin'] ?? 0) === 1) ? 1 : 0;
-            $_SESSION['isAdmin'] = $currentUserIsAdmin;
-        }
-        $stmtRole->close();
-    } else {
-        error_log('auth.php: role query prepare failed: ' . $conn->error);
-        $currentUserIsAdmin = 0;
-    }
-}
+$currentUserIsAdmin = isset($_SESSION['isAdmin']) ? (int)$_SESSION['isAdmin'] : 0;
 
 if ($currentUserId <= 0) {
     http_response_code(401);

@@ -86,7 +86,7 @@ async function boot() {
     // NOTE: we intentionally DO NOT call window.onLoginOrRegister here to avoid forcing
     // a navigation to the account wrapper on page reload. We only restore user state
     // (init personal account data + update ui labels) so the UI reflects logged-in user,
-    // but the visible section remains whatever the page currently shows.
+    // but the visible section remains whatever the page currently shows (usually main).
     try {
       const res = await fetch('./php/check_session.php', { credentials: 'include' });
       const data = await res.json().catch(()=>({}));

@@ -8,10 +8,10 @@
  *
  * @package Reservations
  */
-require_once __DIR__ . '/verify_csrf_token.php';
-require_once __DIR__ . '/auth.php';
 
-$data = $GLOBALS['REQUEST_JSON_BODY'] ?? json_decode(file_get_contents('php://input'), true);
+include 'auth.php';
+
+$data = json_decode(file_get_contents('php://input'), true);
 $id = intval($data['id'] ?? 0);
 $user_id = $currentUserId;
 

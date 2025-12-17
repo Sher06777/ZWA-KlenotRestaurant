@@ -1,4 +1,4 @@
-
+// registration.js
 export function initRegistration() {
   const registerForm = document.querySelector('#register-form');
   const registerButton = document.querySelector('.form-submit-button--register');
@@ -55,12 +55,23 @@ export function initRegistration() {
       } catch (err) { console.warn('CSRF append failed for register (will still try):', err); }
 
       let resp;
-      if (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrfRetry === 'function') {
-        resp = await window.CSRFManager.fetchWithCsrfRetry('./php/register.php', { method: 'POST', body: formData });
-      } else if (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrf === 'function') {
-        resp = await window.CSRFManager.fetchWithCsrf('./php/register.php', { method: 'POST', body: formData });
+      if (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrf === 'function') {
+        resp = await window.CSRFManager.fetchWithCsrf('./php/register.php', { method: 'POST', credentials: 'include', body: formData });
       } else {
         resp = await fetch('./php/register.php', { method: 'POST', credentials: 'include', body: formData });
+      }
+
+      if (resp && resp.status === 403 && window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
+        try {
+          await window.CSRFManager.refresh();
+          formData = new FormData(registerForm);
+          await window.CSRFManager.appendToFormData(formData);
+          if (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrf === 'function') {
+            resp = await window.CSRFManager.fetchWithCsrf('./php/register.php', { method: 'POST', credentials: 'include', body: formData });
+          } else {
+            resp = await fetch('./php/register.php', { method: 'POST', credentials: 'include', body: formData });
+          }
+        } catch (err) { console.warn('Retry after CSRF refresh failed:', err); }
       }
 
       const result = await (resp && resp.json ? resp.json().catch(() => ({ success: false, error: 'invalid json' })) : Promise.resolve({ success: false, error: 'no response' }));

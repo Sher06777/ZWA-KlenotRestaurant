@@ -1,4 +1,4 @@
-
+// language-dropdown.js
 
 export function initLanguageDropdown() {
   const languageBtn = document.querySelector('.language-btn');

@@ -13,9 +13,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 
-require_once __DIR__ . '/session_init.php';
-require_once __DIR__ . '/security_headers.php';
-require_once __DIR__ . '/db.php';
+require_once 'session_init.php';
+include 'security_headers.php';
+include 'db.php';
 
 header('Content-Type: application/json; charset=utf-8');
 

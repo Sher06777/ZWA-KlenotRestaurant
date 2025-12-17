@@ -1,27 +1,6 @@
-function callAdjustAccountSectionHeight() {
-  try {
-    if (typeof adjustAccountSectionHeight === 'function') {
-      adjustAccountSectionHeight();
-      return;
-    }
-    if (typeof window !== 'undefined' && typeof window.adjustAccountSectionHeight === 'function') {
-      window.adjustAccountSectionHeight();
-      return;
-    }
+// admin-users.js — module version (exports)
 
-    import('./admin-reservations.js')
-      .then(mod => {
-        if (mod && typeof mod.adjustAccountSectionHeight === 'function') {
-          try { mod.adjustAccountSectionHeight(); } catch (e) { console.warn('adjustAccountSectionHeight dynamic call failed', e); }
-        }
-      })
-      .catch(() => { /* ignore import failure */ });
-  } catch (e) {
-    console.warn('adjustAccountSectionHeight failed', e);
-  }
-}
-
-
+/* showBlock */
 export function showBlock(blockToShow, options = {}) {
   console.log('[ADMIN] showBlock called with:', blockToShow);
   console.trace('[ADMIN] showBlock trace');
@@ -77,7 +56,7 @@ export function showBlock(blockToShow, options = {}) {
   }
 }
 
-
+/* остальные функции — просто добавляем export где нужно */
 
 export let cachedUsersPages = {};
 export let userCurrentPage = 1;
@@ -248,11 +227,10 @@ export function renderUsers(users, tableWrap) {
           await window.CSRFManager.appendToFormData(formData);
         }
 
-        const fetchResp = window.CSRFManager && typeof window.CSRFManager.fetchWithCsrfRetry === 'function'
-          ? await window.CSRFManager.fetchWithCsrfRetry('./php/admin_delete_user.php', { method: 'POST', body: formData })
-          : (window.CSRFManager
-              ? await window.CSRFManager.fetchWithCsrf('./php/admin_delete_user.php', { method: 'POST', body: formData })
-              : await fetch('./php/admin_delete_user.php', { method: 'POST', credentials: 'include', body: formData }));
+        const fetchResp = window.CSRFManager
+          ? await window.CSRFManager.fetchWithCsrf("./php/admin_delete_user.php", { method: 'POST', body: formData })
+          : await fetch("./php/admin_delete_user.php", { method: 'POST', credentials: 'include', body: formData });
+
         const resp = await fetchResp.json().catch(() => ({ success: false }));
 
         if (resp.success) {
@@ -376,7 +354,7 @@ export function initAdminPanel(user) {
     .catch(err => console.error('Ошибка проверки роли:', err));
 }
 
-
+/* initPersonalAccount for backwards compatibility with older scripts — exports available */
 export function initPersonalAccount(user) {
   const accountWrapper = document.getElementById('account-wrapper');
   if (!accountWrapper) return;
@@ -407,6 +385,19 @@ export function initPersonalAccount(user) {
       localRes.classList.remove('visible');
       localRes.classList.add('invisible');
     }
+  }
+
+  const personalAccountButtons = {
+    dates: document.querySelector('.personal-account-dates'),
+    reservation: document.querySelector('.personal-account-reservation')
+  };
+
+  if (personalAccountButtons.dates) personalAccountButtons.dates.onclick = () => showBlock(document.querySelector('.personal-account-content.dates'));
+  if (personalAccountButtons.reservation) {
+    personalAccountButtons.reservation.onclick = () => {
+      showBlock(document.querySelector('.personal-account-content.reservation'));
+      loadUserReservations(user.id);
+    };
   }
 
   initAdminPanel(user);

@@ -1,4 +1,3 @@
-import { hideAdminTables } from './account.js';
 export function initSwitchVisibility({ autoCheckSession = false } = {}) {
   const $ = (sel, root = document) => root ? root.querySelector(sel) : null;
   const $$ = (sel, root = document) => Array.from((root || document).querySelectorAll(sel || ''));
@@ -71,33 +70,31 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
     if (txt) el.textContent = txt;
   }
 
-  const fadeOut = (el, callback) => {
+  const fadeOut = (el) => {
     if (!el) return;
     el.style.opacity = 1;
     el.style.transition = 'opacity 0.5s ease';
     el.style.pointerEvents = 'none';
     el.style.opacity = 0;
-
     el.classList.remove('visible');
     el.classList.add('invisible');
 
     if (callback) setTimeout(callback, 500);
   };
 
-  const fadeIn = (el) => {
+  function fadeIn(el) {
     if (!el) return;
     if (el.classList.contains('visible') && el.style.opacity !== '0') return;
 
     el.classList.remove('invisible');
     el.classList.add('visible');
-    el.style.opacity = 0;
-
+    el.style.opacity = '0';
     requestAnimationFrame(() => {
       el.style.transition = 'opacity 0.5s ease';
-      el.style.opacity = 1;
+      el.style.opacity = '1';
       el.style.pointerEvents = 'auto';
     });
-  };
+  }
 
   window.updateLoginLabel = updateLoginLabel;
 

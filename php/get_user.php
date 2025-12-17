@@ -8,11 +8,11 @@
  * @package Auth
  */
 
-require_once __DIR__ . '/session_init.php';
+require_once 'session_init.php';
 error_reporting(0);
 ini_set('display_errors', 0);
-require_once __DIR__ . '/security_headers.php';
-require_once __DIR__ . '/db.php';
+include 'security_headers.php';
+include 'db.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {

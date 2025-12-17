@@ -9,8 +9,8 @@
  *
  * @package Reservations
  */
-require_once __DIR__ . '/verify_csrf_token.php';
-require_once __DIR__ . '/auth.php';
+
+include_once 'auth.php';
 
 if (!isset($conn)) {
     echo json_encode(['success' => false, 'error' => 'Ошибка соединения с базой.']);

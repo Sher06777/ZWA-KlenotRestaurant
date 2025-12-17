@@ -1,3 +1,5 @@
+// signin.js — module version
+
 export function getSubmitWrapEl(signinButton) {
   if (signinButton) {
     return signinButton.closest('.form-submit-wrap') || signinButton.parentElement;
@@ -260,15 +262,18 @@ export function initSignin() {
 
           const personalEl = document.getElementById('account-wrapper') || document.querySelector('.main-content-wrapper') || document.getElementById('personal-account') || document.getElementById('account-section');
           if (personalEl) {
+            // Сначала делаем wrapper видимым
             personalEl.classList.remove('invisible');
             personalEl.classList.add('visible');
             personalEl.style.pointerEvents = 'auto';
             personalEl.style.opacity = 1;
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
+            // Затем вызываем initPersonalAccount, чтобы он увидел, что wrapper уже видим
             try { if (typeof initPersonalAccount === 'function') await initPersonalAccount(window.user); } catch (e) { console.warn('[SIGNIN] initPersonalAccount after show failed', e); }
           }
 
+          // уведомляем систему — теперь wrapper уже видим и глобальные обработчики (если зарегистрированы) корректно отработают
           window.dispatchEvent(new CustomEvent('user:loggedin', { detail: window.user }));
 
           if (typeof window.onLoginOrRegister === 'function') {

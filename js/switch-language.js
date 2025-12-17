@@ -1,4 +1,4 @@
-
+// switch-language.js
 export async function initI18n() {
   const DEFAULT_LANG = 'eng';
   const STORAGE_KEY = 'site_lang';
@@ -8,7 +8,7 @@ export async function initI18n() {
   const cache = {};
 
   function getSavedLang() { try { return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG; } catch (e) { return DEFAULT_LANG; } }
-  function saveLang(lang) { try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { } }
+  function saveLang(lang) { try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* ignore */ } }
 
   async function fetchJson(path) {
     const res = await fetch(path, { cache: 'no-store' });
@@ -124,7 +124,7 @@ export async function initI18n() {
     document.querySelectorAll('.lang-cz').forEach(el => el.classList.toggle('active-i18n', activeLang === 'cz'));
   }
 
-  
+  // expose API
   window.i18n = {
     setLanguage,
     getLang: getSavedLang,
@@ -132,7 +132,7 @@ export async function initI18n() {
     _cache: cache
   };
 
-  
+  // init on call
   try {
     initLangButtons();
     const lang = getSavedLang() || DEFAULT_LANG;
