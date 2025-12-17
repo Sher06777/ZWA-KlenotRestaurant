@@ -10,7 +10,7 @@
  * @package Reservations
  */
 
-require 'auth.php';
+require_once __DIR__ . '/auth.php';
 
 $userId = $_SESSION['user_id'] ?? 0;
 if (!$userId) {
