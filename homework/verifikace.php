@@ -3,12 +3,7 @@ session_start();
 
 // Fiktivní databáze uživatelů
 $users = [
-    [
-        "id" => 1,
-        "name" => "Jan Novak",
-        // heslo je "1234"
-        "pass" => password_hash("1234", PASSWORD_DEFAULT)
-    ]
+    ["name" => "Jan"]
 ];
 
 function get_user_by_name($name)
@@ -22,30 +17,39 @@ function get_user_by_name($name)
     return null;
 }
 
-function verify($name, $pass)
-{
-    $user = get_user_by_name($name);
-    if (!$user) return false;
+// function verify($name, $pass)
+// {
+//     $user = get_user_by_name($name);
+//     if (!$user) return false;
 
-    if (password_verify($pass, $user["pass"])) {
-        return $user["id"];
-    }
-    return false;
+//     if (password_verify($pass, $user["pass"])) {
+//         return $user["id"];
+//     }
+//     return false;
+// }
+
+// if (isset($_POST["name"], $_POST["pass"])) {
+//     $name = $_POST["name"];
+//     $pass = $_POST["pass"];
+//     $user_id = verify($name, $pass);
+
+//     if ($user_id) {
+//         $_SESSION["logged"] = $user_id;
+//         header("Location: /");
+//         exit();
+//     } else {
+//         $error = "Nesprávné jméno nebo heslo.";
+//     }
+// }
+
+if (isset($_GET["user"])) {
+    $user = get_user_by_name($_GET["user"]);
+    echo ($user ? "1" : "0");
+    exit;
+} else {
+    echo "0";
 }
 
-if (isset($_POST["name"], $_POST["pass"])) {
-    $name = $_POST["name"];
-    $pass = $_POST["pass"];
-    $user_id = verify($name, $pass);
-
-    if ($user_id) {
-        $_SESSION["logged"] = $user_id;
-        header("Location: /");
-        exit();
-    } else {
-        $error = "Nesprávné jméno nebo heslo.";
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="cs">
@@ -53,26 +57,44 @@ if (isset($_POST["name"], $_POST["pass"])) {
 <head>
     <meta charset="UTF-8">
     <title>Verifikace</title>
+    <style>
+        .available {
+            border: 2px solid green;
+        }
+    </style>
 </head>
 
 <body>
+    
     <h1>Verifikace uživatele</h1>
 
-    <?php if (!empty($error)): ?>
-        <p style="color:red;"><?= $error ?></p>
-    <?php endif; ?>
-
-    <form method="post">
-        <label for="name">Jméno:</label>
+    <form>
         <input type="text" id="name" name="name" required>
         <br>
 
-        <label for="pass">Heslo:</label>
-        <input type="password" id="pass" name="pass" required>
-        <br>
-
-        <button type="submit">Přihlásit se</button>
+        
     </form>
+
+    <script>
+        let input = document.querySelector('[name="name"]');
+
+        function odpoved(e) {
+            let response = e.target.responseText.trim();
+            input.classList.toggle("available", response == "1");
+        }
+
+        function kontrola(e) {
+            let xhr = new XMLHttpRequest();
+            let url = "/~achilkem/homework/verifikace.php?user=" 
+                    + encodeURIComponent(e.target.value);
+
+            xhr.open("GET", url, true);
+            xhr.addEventListener("load", odpoved);
+            xhr.send();
+        }
+
+        input.addEventListener("blur", kontrola);
+    </script>
 </body>
 
 </html>
