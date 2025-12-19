@@ -39,17 +39,19 @@ if (!function_exists('get_csrf_token')) {
             try {
                 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
             } catch (Exception $e) {
+                // fallback — for older PHP/OpenSSL
                 $_SESSION['csrf_token'] = bin2hex(openssl_random_pseudo_bytes(32));
             }
         }
 
-        // выставляем cookie доступное JS (double-submit)
+        // Note: XSRF-TOKEN is set without HttpOnly so frontend JS can read the cookie for double-submit.
+        // This is normal for the double-submit scheme, but the cookie is accessible to javaScriptt!!!!.
         $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || ($_SERVER['SERVER_PORT'] ?? '') == 443;
         setcookie('XSRF-TOKEN', $_SESSION['csrf_token'], [
             'expires' => 0,
             'path' => '/',
             'secure' => $isHttps,
-            'httponly' => false, // JS должен уметь читать cookie
+            'httponly' => false,
             'samesite' => 'Lax'
         ]);
 

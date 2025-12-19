@@ -13,14 +13,14 @@ require_once __DIR__ . '/verify_csrf_token.php';
 require_once __DIR__ . '/auth.php';
 
 if (!isset($conn)) {
-    echo json_encode(['success' => false, 'error' => 'Ошибка соединения с базой.']);
+    echo json_encode(['success' => false, 'error' => 'Database connection error.']);
     exit;
 }
 
 if (!$currentUserId) {
     echo json_encode([
         'success' => false,
-        'error' => 'Ошибка: вы не авторизованы.'
+        'error' => 'Error: you are not authorized.'
     ]);
     exit;
 }
@@ -36,29 +36,33 @@ $createdAt = getCzechTime();
 $user_id = $currentUserId;
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo json_encode(['success' => false, 'error' => 'Неверный формат email.']); exit;
+    echo json_encode(['success' => false, 'error' => 'Invalid email format.']); exit;
 }
 
+// Phone validation: simple pattern allowing +, digits, spaces, dashes and parentheses.
+// Note: this is client/server-side convenience validation, not a guarantee of deliverability.
 if (!preg_match('/^[0-9+\s\-()]{7,20}$/u', $phone)) {
-    echo json_encode(['success' => false, 'error' => 'Неверный формат телефона.']); exit;
+    echo json_encode(['success' => false, 'error' => 'Invalid phone format.']); exit;
 }
 
+// Date validation expects YYYY-MM-DD; strtotime used as a secondary check.
 if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) || !strtotime($date)) {
-    echo json_encode(['success' => false, 'error' => 'Неверная дата.']); exit;
+    echo json_encode(['success' => false, 'error' => 'Invalid date.']); exit;
 }
 
 if (!preg_match('/^\d{2}:\d{2}$/', $time)) {
-    echo json_encode(['success' => false, 'error' => 'Неверное время.']); exit;
+    echo json_encode(['success' => false, 'error' => 'Invalid time.']); exit;
 }
 if ($people < 1 || $people > 20) {
-    echo json_encode(['success' => false, 'error' => 'Некорректное количество гостей.']); exit;
+    echo json_encode(['success' => false, 'error' => 'Invalid number of guests.']); exit;
 }
 
 if (empty($name) || empty($phone) || empty($email) || empty($date) || empty($time) || $people < 1) {
-    echo json_encode(['success' => false, 'error' => 'Пожалуйста, заполните все обязательные поля.']);
+    echo json_encode(['success' => false, 'error' => 'Please fill in all required fields.']);
     exit;
 }
 
+// Prepared statement to avoid SQL injection — types: i = int, s = string.
 $stmt = $conn->prepare("
     INSERT INTO reservations (user_id, name, phone, email, date, time, people, message, created_at)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)

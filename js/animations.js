@@ -1,7 +1,7 @@
-// animations.js — module version: exports initAnimations + helpers
+// Нет русских комментавиев
 
 export function initAnimations() {
-  // Слайдер
+  
   const slides = document.querySelectorAll('.slider-image-item');
   const progressFill = document.querySelector('.slider-progress-fill');
   const progressValues = [0.66, 0.33, 0];
@@ -37,7 +37,7 @@ export function initAnimations() {
     setInterval(nextSlide, 7000);
   }
 
-  // border animation per-button
+  
   const addBorderAnimation = (containerSelector, pathSelector) => {
     const container = document.querySelector(containerSelector);
     if(!container) return;
@@ -92,8 +92,8 @@ export function initAnimations() {
   const regDiv = document.querySelector('.form-regestration-div');
   if(regDiv) addBorderAnimation('.form-regestration-div', '.form-regestration-border-path');
 
-  // loader helpers (exported later)
-  // date/time pickers
+  
+  
   const dateInput = document.getElementById('dateInput');
   const timeInput = document.getElementById('timeInput');
   if (dateInput) {
@@ -103,7 +103,7 @@ export function initAnimations() {
     timeInput.addEventListener('click', () => { if (timeInput.showPicker) timeInput.showPicker(); });
   }
 
-  // 3D Menu
+  
   const heroWrap = document.getElementById('menu-3d-hero');
   const container = document.getElementById('menu-3d-container');
   if (heroWrap && container) {
@@ -154,7 +154,7 @@ export function initAnimations() {
   }
 }
 
-// loader helpers (exported)
+
 export function showLoader() {
   const loader = document.getElementById('loader');
   if (!loader) return;

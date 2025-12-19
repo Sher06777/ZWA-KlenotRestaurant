@@ -1,4 +1,4 @@
-// login-validation.js
+// No Russian comments
 export function initLoginValidation() {
   const loginForm = document.querySelector('.login-form');
   const loginBtn = document.querySelector('.form-submit-button--register');
@@ -19,6 +19,8 @@ export function initLoginValidation() {
     const errorEl = input.parentElement.querySelector('.error-message');
     if (errorEl) { errorEl.textContent = ''; errorEl.classList.remove('active'); }
   }
+
+  // Validate confirm password (if present) — used for registration-style forms.
   function validateConfirmPassword() {
     const passwordInput = loginForm.querySelector('input[name="password"]');
     const confirmInput = loginForm.querySelector('input[name="password_confirm"]');
@@ -63,8 +65,10 @@ export function initLoginValidation() {
       const formData = new FormData(loginForm);
       try { await window.CSRFManager?.appendToFormData(formData); } catch (err) { console.warn('CSRF append failed for login:', err); }
 
+      // Prefer CSRFManager.fetchWithCsrf when available to centralize token header handling.
       let res = await (window.CSRFManager ? window.CSRFManager.fetchWithCsrf("./php/login.php", { method: "POST", body: formData, credentials: 'include' }) : fetch("./php/login.php", { method: "POST", body: formData, credentials: 'include' }));
 
+      // Retry once after refreshing token on 403 (CSRF likely).
       if (res.status === 403) {
         await window.CSRFManager?.refresh().catch(()=>{});
         res = await (window.CSRFManager ? window.CSRFManager.fetchWithCsrf("./php/login.php", { method: "POST", body: formData, credentials: 'include' }) : fetch("./php/login.php", { method: "POST", body: formData, credentials: 'include' }));

@@ -1,4 +1,3 @@
-// registration.js
 export function initRegistration() {
   const registerForm = document.querySelector('#register-form');
   const registerButton = document.querySelector('.form-submit-button--register');
@@ -49,6 +48,7 @@ export function initRegistration() {
     try {
       let formData = new FormData(registerForm);
       try {
+        // Let CSRFManager append tokens if available (handles different CSRF schemes centrally).
         if (window.CSRFManager && typeof window.CSRFManager.appendToFormData === 'function') {
           await window.CSRFManager.appendToFormData(formData);
         }
@@ -61,6 +61,7 @@ export function initRegistration() {
         resp = await fetch('./php/register.php', { method: 'POST', credentials: 'include', body: formData });
       }
 
+      // If server returns 403 (likely CSRF), try to refresh token and retry once.
       if (resp && resp.status === 403 && window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
         try {
           await window.CSRFManager.refresh();

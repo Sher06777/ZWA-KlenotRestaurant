@@ -42,6 +42,7 @@ try {
     $total = intval($countRow['c'] ?? 0);
     $pages = $total > 0 ? (int)ceil($total / $limit) : 1;
 
+    // SELECT with LIMIT/OFFSET built via sprintf using integers.
     $sql = sprintf(
         "SELECT id, name, phone, email, date, time, people, message, user_id
          FROM reservations

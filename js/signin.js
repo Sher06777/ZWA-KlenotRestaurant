@@ -1,4 +1,4 @@
-// signin.js — module version
+// No Russian comments
 
 export function getSubmitWrapEl(signinButton) {
   if (signinButton) {
@@ -70,7 +70,7 @@ export async function autologinCheck() {
       console.log('[SIGNIN] autologin: user not logged in');
     }
   } catch (err) {
-    console.error('[SIGNIN] Ошибка при проверке сессии:', err);
+    console.error('[SIGNIN] Error while checking session:', err);
   }
 }
 
@@ -113,6 +113,7 @@ export function initSignin() {
       });
 
       if (resp.status === 429) {
+        // Rate-limited response handling (Retry-After support + on-screen countdown)
         earlyHandled = true;
         let json = null;
         try { json = await resp.json(); } catch (_) { json = { message: 'Too many attempts. Try again later.' }; }
@@ -138,7 +139,7 @@ export function initSignin() {
             return `${mm}:${ss}`;
           };
 
-          msgEl.textContent = `${message} Повтор через ${format(remaining)}.`;
+          msgEl.textContent = `${message} Retry in ${format(remaining)}.`;
           msgEl.style.display = 'block';
           msgEl.classList.remove('success');
           msgEl.classList.add('error');
@@ -148,9 +149,9 @@ export function initSignin() {
             if (remaining <= 0) {
               clearInterval(countdownIntervalId);
               countdownIntervalId = null;
-              msgEl.textContent = `${message} Попробуйте снова.`;
+              msgEl.textContent = `${message} Try again.`;
             } else {
-              msgEl.textContent = `${message} Повтор через ${format(remaining)}.`;
+              msgEl.textContent = `${message} Retry in ${format(remaining)}.`;
             }
           }, 1000);
 
@@ -177,6 +178,7 @@ export function initSignin() {
       }
 
       if (resp.status === 403) {
+        // CSRF failure case — attempt to refresh token automatically.
         let json = { success: false, message: 'Invalid CSRF token' };
         try { json = await resp.json(); } catch (e) {}
         showSubmitMessage(json.message || 'Security error. Please refresh the page.', 'error', signinButton);
@@ -185,6 +187,7 @@ export function initSignin() {
           if (window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
             await window.CSRFManager.refresh();
           } else {
+            // Fallback: call server endpoint to fetch token
             const tokenResp = await fetch('./php/get_csrf_token.php', { credentials: 'include' });
             const tok = await tokenResp.json().catch(()=>null);
             if (tok && tok.csrf_token) window.__csrf_token = tok.csrf_token;
@@ -224,18 +227,18 @@ export function initSignin() {
 
           const personalEl = document.getElementById('account-wrapper') || document.querySelector('.main-content-wrapper') || document.getElementById('personal-account') || document.getElementById('account-section');
           if (personalEl) {
-            // Сначала делаем wrapper видимым
+            
             personalEl.classList.remove('invisible');
             personalEl.classList.add('visible');
             personalEl.style.pointerEvents = 'auto';
             personalEl.style.opacity = 1;
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Затем вызываем initPersonalAccount, чтобы он увидел, что wrapper уже видим
+            
             try { if (typeof initPersonalAccount === 'function') await initPersonalAccount(window.user); } catch (e) { console.warn('[SIGNIN] initPersonalAccount after show failed', e); }
           }
 
-          // уведомляем систему — теперь wrapper уже видим и глобальные обработчики (если зарегистрированы) корректно отработают
+          
           window.dispatchEvent(new CustomEvent('user:loggedin', { detail: window.user }));
 
           if (typeof window.onLoginOrRegister === 'function') {

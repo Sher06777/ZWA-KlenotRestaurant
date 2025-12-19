@@ -16,12 +16,14 @@ $user   = getenv('DB_USER') ?: 'achilkem';
 $pass   = getenv('DB_PASS') ?: 'webove aplikace';
 $port   = getenv('DB_PORT') ? (int)getenv('DB_PORT') : 3306;
 
+// Throw exceptions on mysqli errors — handled by try/catch below.
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $conn = null;
 
 try {
     $conn = new mysqli($host, $user, $pass, $dbname, $port);
+    // Use utf8mb4 to support full Unicode (emoji etc).
     $conn->set_charset('utf8mb4');
 } catch (Throwable $e) {
     error_log('DB connection error: ' . $e->getMessage());

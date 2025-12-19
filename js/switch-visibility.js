@@ -1,4 +1,4 @@
-// switch-visibility.js
+// Нет русских комментавиев
 export function initSwitchVisibility({ autoCheckSession = false } = {}) {
   const $ = (sel, root = document) => root ? root.querySelector(sel) : null;
   const $$ = (sel, root = document) => Array.from((root || document).querySelectorAll(sel || ''));
@@ -116,16 +116,36 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
   function showSection(section) {
     const secEl = (typeof section === 'string') ? document.getElementById(section) : section;
     if (!secEl) { console.warn('[VIS] showSection: target not found', section); return; }
+
+    // If it's already the visible section, we still want to notify listeners
+    // when target is accountWrapper so inner tabs can react (e.g. show Profile details).
     if (currentVisibleSection === secEl) {
       console.log('[VIS] showSection ignored (same section):', secEl.id || secEl.className);
+      try {
+        if (secEl === accountWrapper) {
+          window.dispatchEvent(new CustomEvent('account:shown', { detail: { source: 'switch-visibility-same' } }));
+        }
+      } catch (e) {
+        console.warn('[VIS] dispatch account:shown failed on same-section', e);
+      }
       return;
     }
+
     const allSections = [mainContent, gallerySection, formMain, loginFormSection, accountWrapper, reservationSection, menuSection].filter(Boolean);
     allSections.forEach(el => {
       if (el === secEl) fadeIn(el);
       else fadeOut(el);
     });
     currentVisibleSection = secEl;
+
+    try {
+      if (secEl === accountWrapper) {
+        window.dispatchEvent(new CustomEvent('account:shown', { detail: { source: 'switch-visibility' } }));
+      }
+    } catch (e) {
+      console.warn('[VIS] dispatch account:shown failed', e);
+    }
+
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
   }
 
@@ -150,7 +170,7 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
     return () => el.removeEventListener(event, handler, opts);
   }
 
-  // DOMContentLoaded -> run init logic
+  
   (async () => {
     try {
       if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
@@ -166,15 +186,16 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
       if (loginButton) safeAdd(loginButton, 'click', async (e) => {
         e.preventDefault();
         if (isLoggedIn()) {
-          // Показываем wrapper *сначала* — чтобы initPersonalAccount видел его видимым
+          
           if (accountWrapper) showSection(accountWrapper);
+          try { window.dispatchEvent(new CustomEvent('account:shown', { detail: { source: 'login-click' } })); } catch(e) { console.warn('account:shown dispatch failed', e); }
 
-          // Если есть user — (попытка) обновить данные личного кабинета (идемпотентно)
+          
           if (window.user && typeof window.initPersonalAccount === 'function') {
             try { await safeCall(window.initPersonalAccount, window.user); } catch (err) { console.warn('initPersonalAccount on profile click failed', err); }
           }
 
-          // Обновляем метку входа (например, "Account / Sign in")
+          
           await updateLoginLabel();
         } else {
           showSection(formMain);
@@ -198,10 +219,11 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
           setLoggedIn(true);
           await updateLoginLabel();
 
-          // Сначала показываем wrapper — если хотим сразу переходить в профиль после логина
+          
           if (accountWrapper) showSection(accountWrapper);
+          try { window.dispatchEvent(new CustomEvent('account:shown', { detail: { source: 'onLoginOrRegister' } })); } catch(e) { console.warn('account:shown dispatch failed', e); }
 
-          // Затем инициализируем данные личного кабинета (initPersonalAccount увидит wrapper visible)
+          
           if (user) {
             window.user = user;
             if (typeof window.initPersonalAccount === 'function') {
@@ -258,13 +280,13 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
   })();
 
   try {
-    // graceful: only attach if not already present
+    
     if (typeof window !== 'undefined') {
       if (!window.fadeIn) window.fadeIn = fadeIn;
       if (!window.fadeOut) window.fadeOut = fadeOut;
       if (!window.getTranslation) window.getTranslation = getTranslation;
       if (!window.translateElement) window.translateElement = translateElement;
-      // some legacy code used translatePersonalAccount — expose a safe no-op if not present
+      
       if (!window.translatePersonalAccount) window.translatePersonalAccount = async (root) => {
         try {
           if (!root) return;
@@ -277,13 +299,13 @@ export function initSwitchVisibility({ autoCheckSession = false } = {}) {
               if (txt) el.textContent = txt;
             }
           }
-        } catch (e) { /* ignore translation errors */ }
+        } catch (e) { }
       };
     }
   } catch (e) {
     console.warn('switch-visibility: failed to attach compatibility shims', e);
   }
 
-  // public API
+  
   window.switchVisibility = { showSection, set3DMenuInvisible, updateLoginLabel, makeVisible, makeInvisible };
 }

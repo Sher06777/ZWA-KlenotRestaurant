@@ -1,4 +1,4 @@
-// signin-validation.js
+// No Russian comments
 export function initSigninValidation() {
   const forms = Array.from(document.querySelectorAll('form'));
   const globalErrorBox = document.getElementById('reservation-message');
@@ -81,6 +81,7 @@ export function initSigninValidation() {
       }
 
       if (isValid) {
+        // Dispatch a custom event used by signin.js to perform submission.
         const evt = new CustomEvent("valid-form-submit", { bubbles: true, cancelable: true });
         form.dispatchEvent(evt);
       } else {

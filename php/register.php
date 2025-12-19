@@ -87,6 +87,7 @@ try {
     }
     $checkStmt->close();
 
+    // Hash the password using PHP's recommended algorithm.
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     $stmt = $conn->prepare("INSERT INTO users (name, email, password, created_at) VALUES (?, ?, ?, ?)");
     if (!$stmt) throw new Exception('DB prepare failed (insert)');
@@ -95,7 +96,9 @@ try {
     $userId = $stmt->insert_id;
     $stmt->close();
 
+    // Regenerate session id on registration to reduce fixation risk.
     session_regenerate_id(true);
+    // Store sanitized/display-friendly values in session.
     $_SESSION['user_id'] = (int)$userId;
     $_SESSION['user_name'] = htmlspecialchars($login, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
     $_SESSION['user_email'] = htmlspecialchars($email, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');

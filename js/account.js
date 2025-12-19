@@ -1,6 +1,6 @@
-// account.js — module version that preserves old behavior (adapted from your working GS file)
+// Нет русских комментавиев
 
-// Cached DOM refs (like in your old file)
+
 const personalAccountSection = document.getElementById('personal-account');
 const editButton = document.querySelector('.edit-account-btn');
 const userNameEl = document.querySelector('.user-name');
@@ -18,14 +18,14 @@ const personalAccountButtons = {
 
 const logoutButton = datesContent ? datesContent.querySelector('.logout-account-btn') : null;
 
-// Try init CSRF early (best-effort) as old file did
+
 if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
   window.CSRFManager.init().catch(err => {
     console.warn('CSRFManager init failed in account.js:', err);
   });
 }
 
-// hide admin tables (same as old)
+
 function hideAdminTables() {
   const allReservations = document.getElementById("admin-reservations-container");
   const allReservationsPagination = document.getElementById("admin-reservations-pagination");
@@ -43,25 +43,25 @@ function hideAdminTables() {
   if (adminUsersPagination) adminUsersPagination.innerHTML = '';
 }
 
-// translate helper (keeps behavior)
+
 async function translatePersonalAccount(section) {
   if (!section) return;
   const elements = section.querySelectorAll('[data-i18n]');
   for (const el of elements) {
     const key = el.getAttribute('data-i18n');
-    // old code used translateElement — keep same call (translateElement exists elsewhere)
+    
     if (typeof translateElement === 'function') {
-      try { await translateElement(el, key); } catch(e) { /* ignore per-element errors */ }
+      try { await translateElement(el, key); } catch(e) { }
     }
   }
 }
 
-// show only one internal block (exactly like old)
+
 function showAccountBlock(block) {
   console.log('[ACCOUNT] showAccountBlock called ->', block && (block.className || block.id),
     { datesClass: datesContent ? Array.from(datesContent.classList) : null, reservationClass: reservationContent ? Array.from(reservationContent.classList) : null });
 
-  // на каждой итерации берём актуальные элементы (на случай, если DOM меняется динамически)
+  
   const adminUsersContent = document.getElementById('admin-users-content');
   const adminPanelEl = document.getElementById('admin-panel');
 
@@ -85,10 +85,10 @@ function showAccountBlock(block) {
     'adminPanel classes:', (document.getElementById('admin-panel') ? Array.from(document.getElementById('admin-panel').classList) : null));
 }
 
-// password mask helper
+
 function maskPassword() { return '••••••••'; }
 
-// --- initPersonalAccount (exported) — adapted from old file, same behavior ---
+
 export async function initPersonalAccount(user) {
   if (!user) {
     console.warn('[ACCOUNT] initPersonalAccount called without user');
@@ -96,12 +96,12 @@ export async function initPersonalAccount(user) {
   }
   console.log('[ACCOUNT] initPersonalAccount called with user:', user);
 
-  // --- New: ensure we know if user is admin (fetch fallback) ---
+  
   if (typeof user.isAdmin === 'undefined') {
     try {
       const resp = await fetch('./php/check_role.php', { credentials: 'include' });
       const roleData = await resp.json().catch(()=>({}));
-      // normalize response (1 or true -> true)
+      
       user.isAdmin = (roleData && (roleData.isAdmin === 1 || roleData.isAdmin === true));
       console.log('[ACCOUNT] check_role.php returned, set user.isAdmin =', user.isAdmin);
     } catch (e) {
@@ -115,11 +115,11 @@ export async function initPersonalAccount(user) {
     return;
   }
 
-  // preserve initialized-for state
+  
   window.__personalAccountInitializedFor = window.__personalAccountInitializedFor || null;
   const alreadyFor = window.__personalAccountInitializedFor;
 
-  // Update user texts (always)
+  
   const welcomeUserName = document.querySelector('.personal-account-welcome .user-name');
   if (welcomeUserName) welcomeUserName.textContent = user.name;
   const loginSpan = datesContent ? datesContent.querySelector('.user-login') : null;
@@ -141,12 +141,18 @@ export async function initPersonalAccount(user) {
     }
   }
 
-  // If already initialized for same user -> do not touch visibility
+  if (personalAccountSection) {
+    personalAccountSection.style.width = '900px';
+    personalAccountSection.style.height = '800px';
+    personalAccountSection.style.maxWidth = '90%';
+  }
+
+  
   if (alreadyFor && user.id && alreadyFor === user.id) {
     try {
       const accountWrapperEl = document.getElementById('account-wrapper');
       if (accountWrapperEl && accountWrapperEl.classList.contains('visible')) {
-        // wrapper is visible now — ensure the dates tab is shown (user expects to see profile)
+        
         try { showAccountBlock(datesContent); } catch (e) { console.warn('[ACCOUNT] showAccountBlock on re-init failed', e); }
       } else {
         console.log('[ACCOUNT] already initialized for this user id -> wrapper not visible, skipping visibility changes');
@@ -154,38 +160,38 @@ export async function initPersonalAccount(user) {
     } catch (e) {
       console.warn('[ACCOUNT] safe re-init visibility check failed', e);
     }
-    // still bail out from full re-initialization (we already did it previously)
+    
     return;
   }
 
-  // set new initialized-for marker
+  
   window.__personalAccountInitializedFor = user.id || true;
 
-  // attach logout via AuthManager if available
+  
   if (window.AuthManager && typeof window.AuthManager.attachLogoutButton === 'function') {
     try { window.AuthManager.attachLogoutButton('.logout-account-btn'); } catch (e) { console.warn('attachLogoutButton error', e); }
   }
 
-  // show personal-account section (outer wrapper visibility still controlled by switch-visibility)
+  
   personalAccountSection.classList.remove('invisible');
 
   if (user.isAdmin && adminPanelButton) {
     try {
-      // quick visual toggle
+      
       adminPanelButton.classList.remove('invisible');
       adminPanelButton.classList.add('visible');
 
-      // use existing fadeIn if available (keeps same animation semantics)
+      
       if (typeof window.fadeIn === 'function') {
-        try { window.fadeIn(adminPanelButton); } catch (e) { /* ignore */ }
+        try { window.fadeIn(adminPanelButton); } catch (e) { }
       }
     } catch (e) {
       console.warn('Failed to force-show adminPanelButton', e);
     }
   }
 
-  // IMPORTANT: follow the old behaviour — if account-wrapper already visible => show dates,
-  // otherwise keep internal tabs invisible (do NOT force visible when wrapper hidden)
+  
+  
   try {
     const accountWrapperEl = document.getElementById('account-wrapper');
     console.log('[ACCOUNT] initPersonalAccount — accountWrapper classes:', accountWrapperEl ? Array.from(accountWrapperEl.classList) : null);
@@ -208,7 +214,7 @@ export async function initPersonalAccount(user) {
     console.warn('[ACCOUNT] initPersonalAccount: safe showAccountBlock failed', err);
   }
 
-  // attach buttons for switching tabs (idempotent)
+  
   if (personalAccountButtons.dates) {
     personalAccountButtons.dates.onclick = () => showAccountBlock(datesContent);
   }
@@ -219,11 +225,11 @@ export async function initPersonalAccount(user) {
     };
   }
 
-  // admin lazy init
+  
   if (user.isAdmin) {
     try {
       if (!window.__adminInitAttempted && !window.__adminInitInProgress) {
-        // пометка, что инициализация в процессе (чтобы не гонять параллельно)
+        
         window.__adminInitInProgress = true;
 
         const finalizeSuccess = () => {
@@ -231,7 +237,7 @@ export async function initPersonalAccount(user) {
           window.__adminInitInProgress = false;
         };
 
-        // если есть глобальная функция (legacy)
+        
         if (typeof initAdminPanel === 'function') {
           try {
             initAdminPanel(user);
@@ -266,12 +272,12 @@ export async function initPersonalAccount(user) {
     }
   }
 }
-// --- initAccountModule: call this from main to attach the runtime handlers (exported) ---
+
 export function initAccountModule() {
-  // attach hideAdminTables on tab clicks (like in old file)
+  
   for (const btn of Object.values(personalAccountButtons)) {
     if (!btn) continue;
-    // guard to avoid double-binding
+    
     if (!btn.dataset.hidetabbound) {
       btn.addEventListener('click', hideAdminTables);
       btn.dataset.hidetabbound = 'true';
@@ -284,24 +290,24 @@ export function initAccountModule() {
       const adminPanelEl = document.getElementById('admin-panel');
       const adminUsersContent = document.getElementById('admin-users-content');
 
-      // 1) если модуль admin уже экспортирован глобально — предпочитаем его showBlock
+      
       try {
         if (window.admin && typeof window.admin.showBlock === 'function') {
           window.admin.showBlock(adminPanelEl, { keepParent: adminUsersContent });
           return;
         }
-      } catch (err) { /* ignore */ }
+      } catch (err) { }
 
-      // 2) если нет — динамически импортируем admin-users.js и вызываем showBlock
+      
       import('./admin-users.js').then(mod => {
         if (mod && typeof mod.showBlock === 'function') {
           mod.showBlock(adminPanelEl, { keepParent: adminUsersContent });
         } else {
-          // fallback: просто показываем панель через локальную функцию
+          
           showAccountBlock(adminPanelEl);
         }
       }).catch(() => {
-        // окончательный fallback
+        
         showAccountBlock(adminPanelEl);
       });
     });
@@ -309,7 +315,7 @@ export function initAccountModule() {
     adminPanelButton.dataset.bound = 'true';
   }
 
-  // bind edit button (idempotent)
+  
   if (editButton && !editButton.dataset.bound) {
     editButton.addEventListener('click', async () => {
       if (document.querySelector('.edit-mode')) return;
@@ -327,7 +333,7 @@ export function initAccountModule() {
         input.type = type;
         input.value = value;
         input.classList.add('edit-mode', 'user-password--styled');
-        // inline styles preserved from old file
+        
         input.style.background = 'rgba(46, 139, 87, 0.1)';
         input.style.padding = '3px 6px';
         input.style.borderRadius = '4px';
@@ -366,7 +372,7 @@ export function initAccountModule() {
       const buttonContainer = editButton.parentElement;
       editButton.style.display = 'none';
 
-      const logoutBtn = logoutButton; // cached above
+      const logoutBtn = logoutButton; 
       if (logoutBtn && logoutBtn.parentElement === buttonContainer) {
         buttonContainer.insertBefore(saveBtn, logoutBtn);
         buttonContainer.insertBefore(cancelBtn, logoutBtn);
@@ -430,7 +436,7 @@ export function initAccountModule() {
             cancelBtn.remove();
             editButton.style.display = 'inline-block';
           } else {
-            alert('Ошибка: ' + (data.message || 'Failed to update data.'));
+            alert('Error: ' + (data.message || 'Failed to update data.'));
           }
         } catch (err) {
           console.error('Failed to update data:', err);
@@ -466,11 +472,25 @@ export function initAccountModule() {
 
 try {
   if (typeof window !== 'undefined') {
-    // expose initPersonalAccount globally for legacy code (signin.js / switch-visibility expect it)
+    
     if (!window.initPersonalAccount) window.initPersonalAccount = initPersonalAccount;
-    // also expose initAccountModule just in case other legacy code wants it
+    
     if (!window.initAccountModule) window.initAccountModule = initAccountModule;
   }
 } catch (e) {
   console.warn('[ACCOUNT] failed to attach globals for legacy compatibility', e);
+}
+
+try {
+  window.addEventListener('account:shown', () => {
+    try {
+      if (typeof showAccountBlock === 'function' && datesContent) {
+        showAccountBlock(datesContent);
+      }
+    } catch (e) {
+      console.warn('[ACCOUNT] account:shown handler failed', e);
+    }
+  });
+} catch (e) {
+  console.warn('[ACCOUNT] failed to attach account:shown listener', e);
 }
