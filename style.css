@@ -45,10 +45,11 @@ main {
 }
 
 .visible {
-    opacity: 1;
-        visibility: visible;
-        position: relative;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
+    opacity: 1 !important;
+        visibility: visible !important;
+        position: relative !important;
+        transition: opacity 0.5s ease, visibility 0.5s ease !important;
+        pointer-events: auto !important;
 }
 
 

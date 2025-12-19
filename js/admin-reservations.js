@@ -1,9 +1,9 @@
-// admin-reservations.js — безопасная версия как ES module
+// Нет русских комментавиев
 
 export function adjustAccountSectionHeight() {
     const adminUsersContent = document.getElementById('admin-users-content');
     const adminReservationsContainer = document.getElementById('admin-reservations-container');
-    const defaultHeight = 950; // минимальная высота для Dashboard
+    const defaultHeight = 950; 
 
     let contentHeight = defaultHeight;
 
@@ -20,7 +20,7 @@ export function adjustAccountSectionHeight() {
 }
 
 export function initAdminReservations() {
-    // локальные элементы и состояние
+    
     const reservationContainer = document.getElementById("admin-reservations-container");
     const paginationContainer = document.getElementById("admin-reservations-pagination");
     const personalAccountRight = document.querySelector('.personal-account-right');
@@ -29,7 +29,7 @@ export function initAdminReservations() {
     const accountButtonDate = document.querySelector('.personal-account-dates');
     const accountButtonReservation = document.querySelector('.personal-account-reservation');
 
-    // IMPORTANT: get admin button from DOM here (module scope doesn't share globals)
+    
     const adminPanelButton = document.querySelector('.personal-account-admin-panel');
 
     const accountButtons = [accountButtonDate, accountButtonReservation];
@@ -38,7 +38,7 @@ export function initAdminReservations() {
     let reservationsCache = {};
     let totalPages = 1;
 
-    // UI buttons
+    
     const btnWrapper = document.createElement('div');
     btnWrapper.style.display = 'flex';
     btnWrapper.style.alignItems = 'center';
@@ -84,7 +84,7 @@ export function initAdminReservations() {
 
     accountButtons.forEach(element => {
         if (!element) return;
-        // guard to avoid double-binding (idempotent)
+        
         if (element.dataset.bound) return;
         element.addEventListener("click", () => {
             if (!accountSection) return;
@@ -106,7 +106,7 @@ export function initAdminReservations() {
         console.warn('Reservation container or its parent not found. Buttons not inserted.');
     }
 
-    // adminPanelButton binding — ensure we query it locally and bind idempotently
+    
     if (adminPanelButton && !adminPanelButton.dataset.bound) {
         adminPanelButton.addEventListener('click', () => {
             if (!accountSection || !personalAccountRight) return;
@@ -118,7 +118,7 @@ export function initAdminReservations() {
         adminPanelButton.dataset.bound = 'true';
     }
 
-    // ==== loadReservations, render, translate, pagination, delete handler ====
+    
 
     async function loadReservations(page = 1) {
         currentPage = Number.isInteger(page) ? page : parseInt(page, 10) || 1;
@@ -137,13 +137,13 @@ export function initAdminReservations() {
         try {
             const res = await fetch(`./php/admin_get_reservations.php?page=${encodeURIComponent(currentPage)}`, { credentials: "include" });
             if (!res.ok) {
-                reservationContainer.textContent = "⚠️ Ошибка загрузки";
+                reservationContainer.textContent = "⚠️ Loading error";
                 return;
             }
             const data = await res.json().catch(() => ({ success: false }));
 
             if (!data.success || !Array.isArray(data.reservations)) {
-                reservationContainer.textContent = "⚠️ Ошибка загрузки";
+                reservationContainer.textContent = "⚠️ Loading error";
                 return;
             }
 
@@ -156,7 +156,7 @@ export function initAdminReservations() {
             renderPagination(currentPage, totalPages);
         } catch (err) {
             console.error(err);
-            reservationContainer.textContent = "⚠️ Ошибка загрузки";
+            reservationContainer.textContent = "⚠️ Loading error";
         }
     }
 
@@ -175,7 +175,7 @@ export function initAdminReservations() {
 
         if (!Array.isArray(list) || list.length === 0) {
             const p = document.createElement('p');
-            p.textContent = 'Нет бронирований';
+            p.textContent = 'No reservations';
             wrapper.appendChild(p);
             return wrapper;
         }
@@ -363,17 +363,17 @@ export function initAdminReservations() {
               delete reservationsCache[currentPage];
               loadReservations(currentPage);
             } else {
-              alert("Ошибка: " + (data.error || data.message || 'Не удалось удалить'));
+              alert("Error: " + (data.error || data.message || 'Failed to delete'));
             }
 
           } catch (err) {
             console.error(err);
-            alert("Ошибка сервера при удалении резервации");
+            alert("Server error while deleting the reservation");
           }
         });
     }
 
-    // i18n change handler
+    
     document.addEventListener('i18n:changed', async () => {
         await translateControlButtons();
         if (reservationContainer && reservationContainer.style.display !== 'none') {
@@ -381,8 +381,8 @@ export function initAdminReservations() {
         }
     });
 
-    // initial translate
+    
     (async () => {
-        try { await translateControlButtons(); } catch (e) { /* ignore */ }
+        try { await translateControlButtons(); } catch (e) { }
     })();
 }

@@ -1,6 +1,5 @@
 // main.js — bootstrapper (module)
-// Подключается в HTML единственным тегом: <script type="module" src="js/main.js"></script>
-
+// Нет русских комментавиев
 import CSRFManager from './csrf.js';
 import initNotFoundHandler from './handle-404.js';
 
@@ -38,20 +37,20 @@ async function boot() {
       await CSRFManager.init();
       console.log('✅ CSRFManager initialized (token stored securely inside module).');
     } catch (err) {
-      console.warn('Не удалось получить CSRF токен при загрузке страницы:', err);
+      console.warn('Failed to retrieve the CSRF token when loading the page:', err);
     }
 
     // 2) init visibility / routing helpers (needs i18n + CSRF possibly)
     try {
-      // инициализируем переключатель видимости (восстанавливает onLoginOrRegister и слушатели)
-      initSwitchVisibility({ autoCheckSession: false }); // или true, если хотите автопроверку сессии
+
+      initSwitchVisibility({ autoCheckSession: false });
     } catch (e) { console.warn('initSwitchVisibility failed', e); }
 
     // 2.1 error-404
     try {
       initNotFoundHandler({
-        basePath: '/~abdimshe/',
-        cleanTo: '/~abdimshe/',
+        basePath: '/~achilkem/',
+        cleanTo: '/~achilkem/',
         autoClear: true
       });
     } catch (e) {

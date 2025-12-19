@@ -31,37 +31,50 @@ if (!in_array(strtoupper($method), $METHODS_TO_PROTECT, true)) {
  * @return string|null
  */
 function get_request_csrf_token() {
+    // POST field (form-data / x-www-form-urlencoded)
     if (!empty($_POST['csrf_token'])) {
         return (string)$_POST['csrf_token'];
     }
 
-    $headers = [
-        'HTTP_X_CSRF_TOKEN',
-        'HTTP_X_XSRF_TOKEN',
-        'HTTP_X_CSRF',
-    ];
-
-    foreach ($headers as $h) {
-        if (!empty($_SERVER[$h])) {
-            return (string)$_SERVER[$h];
+    // Headers — normalize names to lower-case
+    $hdrs = [];
+    if (function_exists('getallheaders')) {
+        foreach (getallheaders() as $k => $v) {
+            $hdrs[strtolower($k)] = $v;
+        }
+    } else {
+        // fallback — take headers from $_SERVER
+        foreach ($_SERVER as $k => $v) {
+            if (strpos($k, 'HTTP_') === 0) {
+                $name = strtolower(str_replace('_', '-', substr($k, 5)));
+                $hdrs[$name] = $v;
+            }
         }
     }
 
-    if (!empty($_SERVER['X-CSRF-Token'])) {
-        return (string)$_SERVER['X-CSRF-Token'];
+    // candidates — list of header names we accept
+    $candidates = ['x-csrf-token','x-xsrf-token','x-csrf-token','x-xsrf-token'];
+    foreach ($candidates as $h) {
+        if (!empty($hdrs[$h])) return (string)$hdrs[$h];
     }
 
-    if (!empty($_COOKIE['XSRF-TOKEN'])) {
-        return (string)$_COOKIE['XSRF-TOKEN'];
-    }
+    // cookie (double submit)
+    if (!empty($_COOKIE['XSRF-TOKEN'])) return (string)$_COOKIE['XSRF-TOKEN'];
 
+    // JSON body — careful: reading the stream consumes it, so store parsed body in globals
+    // Note: reading php://input will consume the stream — we save parsed body into
+    // $GLOBALS['REQUEST_JSON_BODY'] so the main script can reuse it.
     $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
     if (stripos($contentType, 'application/json') !== false) {
         $raw = file_get_contents('php://input');
         if ($raw) {
             $json = json_decode($raw, true);
-            if (is_array($json) && !empty($json['csrf_token'])) {
-                return (string)$json['csrf_token'];
+            if (is_array($json)) {
+                // Save parsed body so main script can use it
+                $GLOBALS['REQUEST_JSON_BODY'] = $json;
+                if (!empty($json['csrf_token'])) {
+                    return (string)$json['csrf_token'];
+                }
             }
         }
     }
@@ -79,18 +92,17 @@ function get_request_csrf_token() {
  * @return void
  */
 function respond_csrf_failure($msg) {
-    $new = get_csrf_token();
+    $new = get_csrf_token(); // defined in session_init.php
 
+    // Important: send the new token in both header and body — client can update its storage.
     header('X-CSRF-Token: ' . $new);
     http_response_code(403);
-
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode([
         'success' => false,
         'message' => $msg,
         'new_csrf' => $new
     ]);
-
     exit;
 }
 

@@ -1,10 +1,10 @@
-// reservation.js — безопасная версия как ES module
+// No Russian comments
 export async function initReservation() {
   const reservationForm = document.getElementById("reservation-form");
   const reservationButton = document.querySelector(".reservation-submit-btn");
   const reservationMessage = document.getElementById("reservation-message");
 
-  // guard
+  
   if (!reservationForm) {
     console.warn("reservation-form not found in DOM");
     return;
@@ -16,6 +16,7 @@ export async function initReservation() {
     if (!reservationForm) throw new Error('Form not found');
     const formData = new FormData(reservationForm);
     try {
+      // If a CSRF helper exists, let it append token to FormData (works for double-submit or body-token schemes).
       if (window.CSRFManager && typeof window.CSRFManager.appendToFormData === 'function') {
         await window.CSRFManager.appendToFormData(formData);
       }
@@ -25,12 +26,13 @@ export async function initReservation() {
     return formData;
   }
 
-  // init CSRF best-effort
+  
   if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
+    // Initialize CSRFManager in background if present (non-blocking).
     window.CSRFManager.init().catch(()=>{});
   }
 
-  // helpers for errors
+  
   function showFieldError(input, message) {
     if (!input || !input.parentElement) return;
     let errorEl = input.parentElement.querySelector('.error-message');
@@ -64,7 +66,7 @@ export async function initReservation() {
     clearGlobalMessage();
   }
 
-  // custom number +/- buttons
+  
   document.querySelectorAll('.custom-number-inline').forEach(wrapper => {
     const input = wrapper.querySelector('input[type="number"]');
     const btnUp = wrapper.querySelector('.up');
@@ -82,7 +84,7 @@ export async function initReservation() {
     });
   });
 
-  // validation on blur / input
+  
   reservationForm.querySelectorAll('input, textarea').forEach(input => {
     input.addEventListener('blur', () => {
       const value = (input.value || '').trim();
@@ -106,7 +108,7 @@ export async function initReservation() {
     input.addEventListener('input', () => clearFieldError(input));
   });
 
-  // submit handler
+  
   reservationForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearAllErrors();
@@ -153,6 +155,7 @@ export async function initReservation() {
 
     try {
       async function doFetchWithManager(formData) {
+        // Prefer CSRFManager.fetchWithCsrf if available — centralizes token handling and retry logic.
         if (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrf === 'function') {
           return window.CSRFManager.fetchWithCsrf("./php/reservation.php", { method: "POST", body: formData, credentials: "include" });
         } else {
@@ -163,6 +166,7 @@ export async function initReservation() {
       let formData = await buildReservationFormData();
       let response = await doFetchWithManager(formData);
 
+      // If initial attempt failed due to CSRF (403) and manager supports refresh, try once more after refresh.
       if (response && response.status === 403 && window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
         try {
           await window.CSRFManager.refresh();
@@ -199,7 +203,7 @@ export async function initReservation() {
     }
   });
 }
-/* ---------- START: i18n-aware reservations (uses SwitchLanguage API, no hardcoded translations) ---------- */
+
 
 function _lookupInDict(dict, keyPath) {
   if (!dict || !keyPath) return undefined;
@@ -218,7 +222,7 @@ async function _getDictSafe() {
       const lang = (typeof window.i18n.getLang === 'function') ? window.i18n.getLang() : (localStorage.getItem('site_lang') || 'eng');
       return await window.i18n._loadDict(lang).catch(()=>null);
     }
-  } catch (e) { /* ignore */ }
+  } catch (e) { }
   return null;
 }
 
@@ -226,12 +230,12 @@ export function createLabeledParagraph(labelKey, valueText, dict = null) {
   const p = document.createElement('p');
   const strong = document.createElement('strong');
 
-  // mark for i18n tooling & later global translation passes
+  
   strong.setAttribute('data-i18n', labelKey);
   p.appendChild(strong);
   p.appendChild(document.createTextNode(' '));
 
-  // set the value (user data)
+  
   if (typeof valueText !== 'string' || valueText.length === 0) {
     p.appendChild(document.createTextNode(''));
   } else {
@@ -242,7 +246,7 @@ export function createLabeledParagraph(labelKey, valueText, dict = null) {
     });
   }
 
-  // Try to translate the label immediately using provided dict (preferred)
+  
   (async () => {
     try {
       let localDict = dict;
@@ -251,8 +255,8 @@ export function createLabeledParagraph(labelKey, valueText, dict = null) {
       if (translated != null) {
         strong.textContent = String(translated) + ' ';
       } else {
-        // If no dict available, leave data-i18n for later bulk translation;
-        // as a last-resort UX fallback, put a neutral English label (very minimal)
+        
+        
         const minimalFallbacks = {
           'personal-account.name': 'Name:',
           'personal-account.phone': 'Phone:',
@@ -260,11 +264,12 @@ export function createLabeledParagraph(labelKey, valueText, dict = null) {
           'personal-account.guest': 'Guests:',
           'personal-account.comment': 'Comment:'
         };
+        // Minimal client-side fallback when translation missing.
         if (minimalFallbacks[labelKey]) strong.textContent = minimalFallbacks[labelKey] + ' ';
         else strong.textContent = labelKey + ' ';
       }
     } catch (e) {
-      // keep data-i18n attribute for global translator to pick up later
+      
       try { strong.textContent = labelKey + ' '; } catch(_) {}
     }
   })();
@@ -278,10 +283,10 @@ export async function loadUserReservations(userId, page = 1) {
   if (!container) return;
 
   container.innerHTML = '<p data-i18n="personal-account.loading">Loading your reservations...</p>';
-  // If account-level translator exists, let it translate loading text
+  
   try { if (typeof window.translatePersonalAccount === 'function') await window.translatePersonalAccount(container); } catch(e){}
 
-  // try to obtain dict once for this rendering
+  
   const dict = await _getDictSafe();
 
   try {
@@ -308,7 +313,7 @@ export async function loadUserReservations(userId, page = 1) {
       item.className = 'reservation-item';
 
       const h4 = document.createElement('h4');
-      h4.textContent = `${r.date} ${ (r.time ? 'в ' + r.time : '') }`.trim();
+      h4.textContent = `${r.date} ${ (r.time ? 'in ' + r.time : '') }`.trim();
       item.appendChild(h4);
 
       item.appendChild(createLabeledParagraph('personal-account.name', String(r.name || ''), dict));
@@ -320,7 +325,7 @@ export async function loadUserReservations(userId, page = 1) {
         item.appendChild(createLabeledParagraph('personal-account.comment', String(r.message), dict));
       }
 
-      // cancel button: set data-i18n and try to set translated label immediately
+      
       const cancelBtn = document.createElement('button');
       cancelBtn.type = 'button';
       cancelBtn.className = 'cancel-reservation-btn';
@@ -328,7 +333,7 @@ export async function loadUserReservations(userId, page = 1) {
       cancelBtn.dataset.id = Number.isFinite(rid) ? String(rid) : '';
       cancelBtn.setAttribute('data-i18n', 'personal-account.cancel');
 
-      // immediate label attempt using dict
+      
       (async () => {
         const key = 'personal-account.cancel';
         let translated = null;
@@ -336,7 +341,7 @@ export async function loadUserReservations(userId, page = 1) {
         if (translated != null) {
           cancelBtn.textContent = String(translated);
         } else {
-          // do minimal English fallback (no heavy localization in code)
+          
           cancelBtn.textContent = 'Cancel';
         }
       })();
@@ -348,11 +353,11 @@ export async function loadUserReservations(userId, page = 1) {
 
       container.appendChild(item);
 
-      // Let account-level translator translate the whole item if available
+      
       try { if (typeof window.translatePersonalAccount === 'function') await window.translatePersonalAccount(item); } catch(e){}
     }
 
-    // pagination
+    
     if (pagination) {
       pagination.innerHTML = '';
 
@@ -396,10 +401,11 @@ export async function cancelReservation(reservationId, userId) {
     return;
   }
 
-  if (!confirm('Вы уверены, что хотите отменить эту резервацию?')) return;
+  if (!confirm('Are you sure you want to cancel this reservation?')) return;
 
   try {
     if (window.CSRFManager) {
+      // Ensure CSRFManager initialized before making mutating request
       if (!window.CSRFManager.isInitialized || !window.CSRFManager.isInitialized()) {
         await window.CSRFManager.init();
       }
@@ -426,17 +432,19 @@ export async function cancelReservation(reservationId, userId) {
 
     const data = await res.json().catch(() => ({ success: false, error: 'invalid json' }));
     if (data.success) {
-      try { await loadUserReservations(userId); } catch(e){}
+      try { 
+        await loadUserReservations(userId); 
+      } catch (e) {}
     } else {
-      alert('Ошибка при отмене резервации: ' + (data.error || data.message || 'Неизвестная ошибка'));
+      alert('Error while canceling the reservation: ' + (data.error || data.message || 'Unknown error'));
     }
-  } catch (err) {
-    console.error('Ошибка при запросе cancel_reservation:', err);
-    alert('Ошибка соединения с сервером.');
+    } catch (err) {
+      console.error('Error during cancel_reservation request:', err);
+      alert('Connection error with the server.');
   }
 }
 
-// expose as globals for legacy callers (account.js expects loadUserReservations/cancelReservation)
+
 try {
   if (typeof window !== 'undefined') {
     if (!window.loadUserReservations) window.loadUserReservations = loadUserReservations;
@@ -445,5 +453,3 @@ try {
 } catch (e) {
   console.warn('Failed to attach reservation helpers to window', e);
 }
-
-/* ---------- END: i18n-aware reservations ---------- */
