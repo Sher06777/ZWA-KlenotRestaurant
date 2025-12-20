@@ -16,7 +16,7 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
 # 3) Красивые ссылки (превращаем в якоря)
-# Если человек ввел /~abdimshe/menu, мы делаем внешний редирект на /~abdimshe/#menu
+# Если человек ввел /~achilkem/menu, мы делаем внешний редирект на /~achilkem/#menu
 # Это нужно, чтобы  switch-visibility.js сразу открыл нужную секцию.
 RewriteRule ^about-us$ #about-us [NE,R=301,L]
 RewriteRule ^menu$ #menu [NE,R=301,L]
@@ -26,7 +26,7 @@ RewriteRule ^signin$ #signin [NE,R=301,L]
 RewriteRule ^account$ #account [NE,R=301,L]
 
 # 4) Обработка неизвестных путей (билеберда в URL)
-# Если пути нет (напр. /~abdimshe/unknown), отдаем index.html.
+# Если пути нет (напр. /~achilkem/unknown), отдаем index.html.
 # В этом случае URL в браузере ОСТАЕТСЯ прежним, и сработает  handle-404.js
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
