@@ -1,8 +1,8 @@
 // js/handle-404.js
 export default function initNotFoundHandler(options = {}) {
   const {
-    basePath = '/~achilkem/',
-    cleanTo = '/~achilkem/',
+    basePath = '/~abdimshe/',
+    cleanTo = '/~abdimshe/',
     autoClear = true,
     createIfMissing = true      
   } = options;

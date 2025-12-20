@@ -1953,6 +1953,11 @@ label input:focus {
     font-weight: 700;
 }
 
+#admin-reservations-container {
+    transition: opacity 0.2s ease-in-out;
+    min-height: 200px;
+}
+
 .personal-account-welcome,
 .personal-account-reservation-title {
     margin-bottom: 20px;

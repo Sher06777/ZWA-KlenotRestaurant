@@ -51,8 +51,8 @@ async function boot() {
     // 2.1 error-404
     try {
       initNotFoundHandler({
-        basePath: '/~achilkem/',
-        cleanTo: '/~achilkem/',
+        basePath: '/~abdimshe/',
+        cleanTo: '/~abdimshe/',
         autoClear: true
       });
     } catch (e) {

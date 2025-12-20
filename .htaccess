@@ -1,10 +1,10 @@
 Options -MultiViews
 RewriteEngine On
-RewriteBase /~achilkem/
+RewriteBase /~abdimshe/
 
 # 1) Если путь содержит "index.html/..." или "index.js..." → SPA
 RewriteRule ^index\.html/ index.html [L]
-RewriteCond %{REQUEST_URI} ^/~achilkem/index\.js.+ [NC]
+RewriteCond %{REQUEST_URI} ^/~abdimshe/index\.js.+ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^index\.js.+$ index.html [L]
@@ -16,7 +16,7 @@ RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
 # 3) Красивые ссылки (превращаем в якоря)
-# Если человек ввел /~achilkem/menu, мы делаем внешний редирект на /~achilkem/#menu
+# Если человек ввел /~abdimshe/menu, мы делаем внешний редирект на /~abdimshe/#menu
 # Это нужно, чтобы  switch-visibility.js сразу открыл нужную секцию.
 RewriteRule ^about-us$ #about-us [NE,R=301,L]
 RewriteRule ^menu$ #menu [NE,R=301,L]
@@ -26,11 +26,11 @@ RewriteRule ^signin$ #signin [NE,R=301,L]
 RewriteRule ^account$ #account [NE,R=301,L]
 
 # 4) Обработка неизвестных путей (билеберда в URL)
-# Если пути нет (напр. /~achilkem/unknown), отдаем index.html.
+# Если пути нет (напр. /~abdimshe/unknown), отдаем index.html.
 # В этом случае URL в браузере ОСТАЕТСЯ прежним, и сработает  handle-404.js
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.html [L]
 
 # 5) ErrorDocument
-ErrorDocument 404 /~achilkem/index.html
+ErrorDocument 404 /~abdimshe/index.html

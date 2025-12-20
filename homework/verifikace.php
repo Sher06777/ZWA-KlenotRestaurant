@@ -85,7 +85,7 @@ if (isset($_GET["user"])) {
 
         function kontrola(e) {
             let xhr = new XMLHttpRequest();
-            let url = "/~achilkem/homework/verifikace.php?user=" 
+            let url = "/~abdimshe/homework/verifikace.php?user=" 
                     + encodeURIComponent(e.target.value);
 
             xhr.open("GET", url, true);
