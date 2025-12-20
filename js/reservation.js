@@ -401,7 +401,20 @@ export async function cancelReservation(reservationId, userId) {
     return;
   }
 
-  if (!confirm('Are you sure you want to cancel this reservation?')) return;
+  // Найдём все кнопки отмены для этого id и заблокируем их,
+  // чтобы избежать множественных кликов.
+  const cancelButtons = Array.from(document.querySelectorAll('.cancel-reservation-btn'))
+    .filter(b => b.dataset && String(b.dataset.id) === String(id));
+
+  // Запомним текст кнопок чтобы восстановить при ошибке
+  const prevTexts = cancelButtons.map(b => b.textContent);
+
+  cancelButtons.forEach(b => {
+    try {
+      b.disabled = true;
+      b.textContent = 'Canceling...';
+    } catch (_) {}
+  });
 
   try {
     if (window.CSRFManager) {
@@ -432,15 +445,21 @@ export async function cancelReservation(reservationId, userId) {
 
     const data = await res.json().catch(() => ({ success: false, error: 'invalid json' }));
     if (data.success) {
-      try { 
-        await loadUserReservations(userId); 
-      } catch (e) {}
+      // Обновляем список — перерисовка уберёт удалённую резервацию.
+      try { await loadUserReservations(userId); } catch (e) { /* fallback */ }
     } else {
+      // Восстанавливаем кнопки и сообщаем об ошибке
+      cancelButtons.forEach((b, i) => {
+        try { b.disabled = false; b.textContent = prevTexts[i] || 'Cancel'; } catch(_) {}
+      });
       alert('Error while canceling the reservation: ' + (data.error || data.message || 'Unknown error'));
     }
-    } catch (err) {
-      console.error('Error during cancel_reservation request:', err);
-      alert('Connection error with the server.');
+  } catch (err) {
+    console.error('Error during cancel_reservation request:', err);
+    cancelButtons.forEach((b, i) => {
+      try { b.disabled = false; b.textContent = prevTexts[i] || 'Cancel'; } catch(_) {}
+    });
+    alert('Connection error with the server.');
   }
 }
 
