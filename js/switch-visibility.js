@@ -82,7 +82,7 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
         el.style.display = 'none';
       }
     }, 500);
-    
+
   };
 
   function fadeIn(el) {
@@ -171,7 +171,7 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     console.group('🔀 handleRouting');
     const hash = window.location.hash;
     const path = window.location.pathname;
-    const BASE_PATH = '/~achilkem/'; 
+    const BASE_PATH = '/~achilkem/';
 
     console.log('Path:', path);
     console.log('Hash:', hash);
@@ -232,16 +232,21 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
       set3DMenuInvisible(true);
     }
 
+
+    showSection(targetSection); 
+
     if (targetSection === accountWrapper && isLoggedIn()) {
-      if (!accountInitialized && typeof window.initPersonalAccount === 'function') {
+      if (typeof window.initPersonalAccount === 'function') {
         await window.initPersonalAccount(window.user);
-        accountInitialized = true;
+        if (typeof showAccountBlock === 'function') {
+          const datesContent = document.querySelector('.personal-account-content.dates');
+          showAccountBlock(datesContent);
+        }
       }
     }
 
     console.log('✅ Final showSection:', targetSection?.id || targetSection?.className);
     console.groupEnd();
-    showSection(targetSection);
 
     if (hash === '#about-us' && targetSection === mainContent) {
       setTimeout(() => {
