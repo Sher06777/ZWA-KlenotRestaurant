@@ -4,8 +4,6 @@ export function initAuthManager() {
   // Safe call wrapper to avoid throwing from optional callbacks.
   const safeCall = (fn, ...args) => { try { return fn && fn(...args); } catch (e) { console.error(e); } };
 
-  function confirmDialog(text) { return confirm(text); }
-
   // Small wrapper that returns parsed JSON body + status info.
   async function fetchJson(url, opts = {}) {
     const options = Object.assign({}, opts);
@@ -17,10 +15,7 @@ export function initAuthManager() {
   }
 
   // Logout flow that optionally uses CSRFManager to attach token and to perform fetchWithCsrf.
-  async function logoutFlow({ confirmMessage } = {}) {
-    const conf = confirmMessage || 'Do you really want to log out of your account?';
-    if (!confirmDialog(conf)) return { success: false, cancelled: true };
-
+  async function logoutFlow() {
     try {
       if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
         try { await window.CSRFManager.init(); } catch (e) { console.warn('CSRFManager init before logout failed', e); }
