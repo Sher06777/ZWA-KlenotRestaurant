@@ -4162,15 +4162,6 @@ a.reservation-btn {
     padding: 10px 0;
 }
 
-#user-reservations {
-  transition: opacity 0.18s ease;
-}
-
-#user-reservations.is-loading {
-  opacity: 0.55;
-  pointer-events: none;
-}
-
 
 @media (max-width: 1024px) {
     .gallery-bg .b1 {
@@ -5435,6 +5426,15 @@ a.reservation-btn {
     .body-history-img {
         display: none;
     }
+}
+
+#user-reservations {
+  transition: opacity 0.18s ease;
+}
+
+#user-reservations.is-loading {
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 
