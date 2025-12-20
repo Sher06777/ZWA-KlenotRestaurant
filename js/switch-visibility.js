@@ -375,7 +375,8 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
           window.user = null;
           updateLoginLabel();
           accountInitialized = false;
-          window.location.hash = '#signin';
+          window.location.hash = '';
+          history.pushState("", document.title, window.location.pathname + window.location.search);
         });
 
       }
