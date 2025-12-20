@@ -342,10 +342,6 @@ export function initAdminPanel(user) {
           fadeOut(adminUsersContent);
           const paginationEl = document.getElementById('admin-users-table-pagination');
           if (paginationEl) fadeOut(paginationEl);
-
-          setTimeout(() => {
-            try { adjustAccountSectionHeight(); } catch (e) { console.warn('adjustAccountSectionHeight failed', e); }
-          }, 520);
         });
       }
 
