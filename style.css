@@ -2596,7 +2596,7 @@ label input:focus {
     filter: blur(30px) saturate(1.05);
     opacity: 0.7;
     will-change: transform, opacity;
-    animation: gallery-bokeh-float var(--dur, 20s) ease-in-out infinite alternate;
+
 }
 
 /* вариации bokeh — размеры и позиции */
@@ -2649,28 +2649,6 @@ label input:focus {
     opacity: 0.68;
 }
 
-/* лёгкая анимация плавного качания для bokeh */
-@keyframes gallery-bokeh-float {
-    0% {
-        transform: translateY(0) translateX(0) scale(1);
-    }
-
-    25% {
-        transform: translateY(-8px) translateX(6px) scale(1.02);
-    }
-
-    50% {
-        transform: translateY(0) translateX(0) scale(1);
-    }
-
-    75% {
-        transform: translateY(6px) translateX(-6px) scale(0.99);
-    }
-
-    100% {
-        transform: translateY(0) translateX(0) scale(1);
-    }
-}
 
 /* ===== Анимированная дымка / Fog layer ===== */
 .gallery-bg .fog-layer {
@@ -2813,31 +2791,9 @@ label input:focus {
             rgba(255, 160, 60, 0.12) 52%,
             transparent 75%);
     will-change: transform, opacity;
-    animation: gallery-bokeh-br-float var(--dur-br, 20s) ease-in-out infinite alternate;
 }
 
-/* небольшая вариация анимации, чтобы движение не совпадало с левым bokeh */
-@keyframes gallery-bokeh-br-float {
-    0% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.66;
-    }
 
-    30% {
-        transform: translate(-10px, -6px) scale(1.02);
-        opacity: 0.72;
-    }
-
-    60% {
-        transform: translate(8px, 10px) scale(0.99);
-        opacity: 0.68;
-    }
-
-    100% {
-        transform: translate(0, 0) scale(1);
-        opacity: 0.66;
-    }
-}
 
 
 
@@ -5533,8 +5489,6 @@ a.reservation-btn {
         display: none;
     }
 
-    /* --- Глобальный сброс для всей ширины --- */
-    /* --- Глобальный сброс для всей ширины --- */
     html,
     body,
     .columns-section,
@@ -5547,19 +5501,15 @@ a.reservation-btn {
         display: block !important;
     }
 
-    /* --- Настройка блока с ограничением высоты --- */
     .body-column {
         display: grid !important;
-        /* 40% под фото, 60% под текст (согласно вашему запросу на уменьшение ширины картинки) */
         grid-template-columns: 40% 60% !important;
 
         width: 100vw !important;
         max-width: none !important;
 
-        /* УСТАНОВКА ВЫСОТЫ */
         max-height: 325px !important;
         min-height: 325px !important;
-        /* Если нужно, чтобы все блоки были строго одной высоты */
 
         box-sizing: border-box !important;
         padding: 0 !important;
@@ -5568,26 +5518,21 @@ a.reservation-btn {
         background-color: rgba(255, 255, 255, 0.8) !important;
         align-items: stretch !important;
         overflow: hidden !important;
-        /* Обрезает текст, если он превышает 325px */
     }
 
-    /* --- Картинка слева: теперь она всегда 325px в высоту --- */
     .body-column img {
         grid-column: 1 !important;
         grid-row: 1 / span 2 !important;
 
         width: 100% !important;
         height: 325px !important;
-        /* Фиксируем высоту картинки под блок */
         object-fit: cover !important;
-        /* Сохраняет пропорции фото, обрезая лишнее */
 
         display: block !important;
         margin: 0 !important;
         filter: grayscale(100%);
     }
 
-    /* --- Текстовый контент справа --- */
     .body-column h3 {
         grid-column: 2 !important;
         margin: 15px 25px 5px 25px !important;
@@ -5598,12 +5543,10 @@ a.reservation-btn {
     .body-column p {
         grid-column: 2 !important;
         margin: 0 25px 15px 25px !important;
-        /* Возвращаем чуть более свободный интервал, так как 325px — это достаточно много места */
         line-height: 1.4 !important;
         font-size: 1rem !important;
     }
 
-    /* --- Скрываем кнопки --- */
     .body-column a {
         display: none !important;
     }
