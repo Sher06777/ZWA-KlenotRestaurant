@@ -1,4 +1,4 @@
-// language-dropdown.js
+// Нет русских комментавиев
 
 export function initLanguageDropdown() {
   const languageBtn = document.querySelector('.language-btn');

@@ -13,9 +13,9 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
 
-require_once 'session_init.php';
-include 'security_headers.php';
-include 'db.php';
+require_once __DIR__ . '/session_init.php';
+require_once __DIR__ . '/security_headers.php';
+require_once __DIR__ . '/db.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -45,6 +45,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 $maxAttempts = 8;
 $lockTime = 300;
 
+// Brute-force protection: counting failed attempts in session.
+// Note: this is a simple protection; in production store limits per IP/user in DB/cache.
 if (!isset($_SESSION['failed_login_attempts'])) $_SESSION['failed_login_attempts'] = 0;
 if (!isset($_SESSION['last_failed_login'])) $_SESSION['last_failed_login'] = 0;
 
@@ -77,6 +79,7 @@ try {
     $result = $stmt->get_result();
 
     if ($result->num_rows === 0) {
+        // Do not reveal which part is wrong — return a generic error.
         $_SESSION['failed_login_attempts']++;
         $_SESSION['last_failed_login'] = time();
         $stmt->close();
@@ -102,10 +105,11 @@ try {
         exit;
     }
 
+    // Successful authentication — reset counters and regenerate session id.
     unset($_SESSION['failed_login_attempts']);
     unset($_SESSION['last_failed_login']);
 
-    session_regenerate_id(true);
+    session_regenerate_id(true); // protection against session fixation
     $_SESSION['user_id'] = (int)$user['id'];
     $_SESSION['user_name'] = $user['name'];
     $_SESSION['user_email'] = $user['email'];

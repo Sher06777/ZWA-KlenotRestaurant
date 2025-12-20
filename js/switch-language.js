@@ -1,4 +1,4 @@
-// switch-language.js
+// No Russian comments
 export async function initI18n() {
   const DEFAULT_LANG = 'eng';
   const STORAGE_KEY = 'site_lang';
@@ -8,7 +8,7 @@ export async function initI18n() {
   const cache = {};
 
   function getSavedLang() { try { return localStorage.getItem(STORAGE_KEY) || DEFAULT_LANG; } catch (e) { return DEFAULT_LANG; } }
-  function saveLang(lang) { try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* ignore */ } }
+  function saveLang(lang) { try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { } }
 
   async function fetchJson(path) {
     const res = await fetch(path, { cache: 'no-store' });
@@ -45,6 +45,8 @@ export async function initI18n() {
     if (text == null) return;
     try {
       const firstSpan = el.querySelector && el.querySelector('span');
+      // If element has a child <span> and uses data-i18n, replace only the first span text.
+      // This preserves surrounding markup in complex buttons/labels.
       if (firstSpan && el.hasAttribute('data-i18n')) {
         firstSpan.textContent = text;
         return;
@@ -112,6 +114,7 @@ export async function initI18n() {
       btn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); const chosen = btn.getAttribute('data-lang'); if (chosen) setLanguage(chosen); } });
     });
 
+    // legacy class hooks — keep for backwards compatibility
     document.querySelectorAll('.lang-eng').forEach(btn => btn.addEventListener('click', (e)=>{ e.preventDefault(); setLanguage('en'); }));
     document.querySelectorAll('.lang-cz').forEach(btn => btn.addEventListener('click', (e)=>{ e.preventDefault(); setLanguage('cz'); }));
 
@@ -124,7 +127,7 @@ export async function initI18n() {
     document.querySelectorAll('.lang-cz').forEach(el => el.classList.toggle('active-i18n', activeLang === 'cz'));
   }
 
-  // expose API
+  
   window.i18n = {
     setLanguage,
     getLang: getSavedLang,
@@ -132,7 +135,7 @@ export async function initI18n() {
     _cache: cache
   };
 
-  // init on call
+  
   try {
     initLangButtons();
     const lang = getSavedLang() || DEFAULT_LANG;

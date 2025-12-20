@@ -7,7 +7,7 @@
  *
  * @package UserAPI
  */
-
+require_once __DIR__ . '/verify_csrf_token.php'; // CSRF middleware — important that it's called BEFORE reading/processing the body
 require_once __DIR__ . '/auth.php';
 
 header('Content-Type: application/json; charset=utf-8');
@@ -54,6 +54,7 @@ if (!preg_match('/^[\p{L}\p{N}_\.\-]+$/u', $login)) {
 }
 
 try {
+    // Check email uniqueness — separate query excluding the current user.
     $checkStmt = $conn->prepare("SELECT id FROM users WHERE email = ? AND id <> ?");
     if (!$checkStmt) {
         error_log('update_user: prepare (check email) failed: ' . $conn->error);
@@ -80,6 +81,7 @@ try {
 
 try {
     if ($newPassword !== '') {
+        // If a new password is provided — hash it and update together with other fields.
         $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
         $stmt = $conn->prepare("UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?");
         if (!$stmt) {
@@ -90,6 +92,7 @@ try {
         }
         $stmt->bind_param('sssi', $login, $email, $passwordHash, $currentUserId);
     } else {
+        // Without password change — only name and email.
         $stmt = $conn->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
         if (!$stmt) {
             error_log('update_user: prepare (update without password) failed: ' . $conn->error);
@@ -110,6 +113,7 @@ try {
 
     $stmt->close();
 
+    // Update session values — useful so frontend sees changes immediately.
     $_SESSION['user_name'] = $login;
     $_SESSION['user_email'] = $email;
 

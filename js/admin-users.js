@@ -1,6 +1,6 @@
-// admin-users.js — module version (exports)
+// Нет русских комментавиев
 
-/* showBlock */
+
 export function showBlock(blockToShow, options = {}) {
   console.log('[ADMIN] showBlock called with:', blockToShow);
   console.trace('[ADMIN] showBlock trace');
@@ -34,10 +34,30 @@ export function showBlock(blockToShow, options = {}) {
   const blocksToAnimate = allBlocks.filter(block => !options.keepParent || block !== options.keepParent);
   const total = blocksToAnimate.length;
 
+  const safeAdjustAccountHeight = () => {
+    try {
+      if (typeof adjustAccountSectionHeight === 'function') {
+        adjustAccountSectionHeight();
+        return;
+      }
+      if (typeof window !== 'undefined' && typeof window.adjustAccountSectionHeight === 'function') {
+        window.adjustAccountSectionHeight();
+        return;
+      }
+      // Fallback: lightly reset minHeight so layout can reflow (non-destructive).
+      const acc = document.getElementById('account-wrapper');
+      if (acc) {
+        acc.style.minHeight = '';
+      }
+    } catch (e) {
+      console.warn('adjustAccountSectionHeight failed', e);
+    }
+  };
+
   const onAnimDone = () => {
     animationsCompleted++;
     if (animationsCompleted === total) {
-      try { adjustAccountSectionHeight(); } catch (e) { console.warn('adjustAccountSectionHeight failed', e); }
+      safeAdjustAccountHeight();
     }
   };
 
@@ -52,11 +72,11 @@ export function showBlock(blockToShow, options = {}) {
   });
 
   if (total === 0) {
-    try { adjustAccountSectionHeight(); } catch (e) { console.warn('adjustAccountSectionHeight failed', e); }
+    safeAdjustAccountHeight();
   }
 }
 
-/* остальные функции — просто добавляем export где нужно */
+
 
 export let cachedUsersPages = {};
 export let userCurrentPage = 1;
@@ -136,7 +156,7 @@ export function renderUsers(users, tableWrap) {
 
   const thead = document.createElement('thead');
   const headRow = document.createElement('tr');
-  ['ID', 'Login', 'Email', 'Удалить?'].forEach((h, idx) => {
+  ['ID', 'Login', 'Email', 'Delete?'].forEach((h, idx) => {
     const th = document.createElement('th');
     if (idx === 3) th.setAttribute('data-i18n', 'admin.delete');
     th.textContent = h;
@@ -241,7 +261,7 @@ export function renderUsers(users, tableWrap) {
         }
       } catch (err) {
         console.error('Error deleting user:', err);
-        alert("Server error при удалении пользователя");
+        alert("Server error while deleting the user");
       }
     });
 
@@ -351,10 +371,10 @@ export function initAdminPanel(user) {
       if (datesBtn) datesBtn.addEventListener('click', () => showBlock(document.querySelector('.personal-account-content.dates')));
       if (reservationBtn) reservationBtn.addEventListener('click', () => showBlock(document.querySelector('.personal-account-content.reservation')));
     })
-    .catch(err => console.error('Ошибка проверки роли:', err));
+    .catch(err => console.error('Role validation error:', err));
 }
 
-/* initPersonalAccount for backwards compatibility with older scripts — exports available */
+
 export function initPersonalAccount(user) {
   const accountWrapper = document.getElementById('account-wrapper');
   if (!accountWrapper) return;

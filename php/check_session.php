@@ -12,8 +12,8 @@
  * @package Auth
  */
 
-require 'session_init.php';
-require 'db.php';
+require_once __DIR__ . '/session_init.php';
+require_once __DIR__ . '/db.php';
 header('Content-Type: application/json; charset=utf-8');
 
 $response = [
@@ -32,9 +32,11 @@ if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
         $row = $result->fetch_assoc() ?: [];
         $stmt->close();
 
+        // We fetch the password hash only to compute/display a mask — never return the hash to client.
         $password = $row['password'] ?? '';
         $password_mask = '••••••••';
 
+        // Escape values before serializing to JSON to reduce XSS risk when frontend renders raw.
         $name  = htmlspecialchars($row['name'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         $email = htmlspecialchars($row['email'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
@@ -46,6 +48,7 @@ if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id'])) {
             'password_mask' => $password_mask
         ];
     } else {
+        // Keep server logs useful for debugging; client receives generic response.
         error_log('check_session prepare failed: ' . $conn->error);
     }
 }

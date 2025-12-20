@@ -8,10 +8,9 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
   const formMain = document.querySelector('.form-main');
   const loginFormSection = document.querySelector('.login-form-section');
   const accountWrapper = document.getElementById('account-wrapper');
-  const reservationSection = document.getElementById('reservation-section');
-  const menuSection = document.querySelector('.menu-all');
-  const menuImg3D = document.querySelector('.menu-3d-hero');
-  const loginButton = document.querySelector('.login-btn');
+  const personalAccount = document.getElementById('personal-account');
+  const header = document.getElementById('dropped-menu');
+  const footer = document.querySelector('footer');
   const logo = document.querySelector('.logo');
   const regestrationButton = document.querySelector('.form-regestration-div');
 
@@ -54,8 +53,10 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
   async function updateLoginLabel() {
     const loginTextEl = document.querySelector('.login-btn .login-text');
     if (!loginTextEl) return;
+
     const key = isLoggedIn() ? 'main.menu-account-short' : 'main.menu-signin-button';
     loginTextEl.setAttribute('data-i18n', key);
+
     const txt = await getTranslation(key);
     if (txt) loginTextEl.textContent = txt;
   }
@@ -69,8 +70,6 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
 
   const fadeOut = (el) => {
     if (!el) return;
-    if (el.classList.contains('invisible')) return;
-
     el.style.opacity = 1;
     el.style.transition = 'opacity 0.5s ease';
     el.style.pointerEvents = 'none';
@@ -112,10 +111,23 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
   window.setLoggedIn = setLoggedIn;
   window.isLoggedIn = isLoggedIn;
 
-  function showSection(sectionIdOrEl) {
-    const secEl = (typeof sectionIdOrEl === 'string') ? document.getElementById(sectionIdOrEl) : sectionIdOrEl;
-    if (!secEl) return;
-    if (currentVisibleSection === secEl) return;
+  function showSection(section) {
+    const secEl = (typeof section === 'string') ? document.getElementById(section) : section;
+    if (!secEl) { console.warn('[VIS] showSection: target not found', section); return; }
+
+    // If it's already the visible section, we still want to notify listeners
+    // when target is accountWrapper so inner tabs can react (e.g. show Profile details).
+    if (currentVisibleSection === secEl) {
+      console.log('[VIS] showSection ignored (same section):', secEl.id || secEl.className);
+      try {
+        if (secEl === accountWrapper) {
+          window.dispatchEvent(new CustomEvent('account:shown', { detail: { source: 'switch-visibility-same' } }));
+        }
+      } catch (e) {
+        console.warn('[VIS] dispatch account:shown failed on same-section', e);
+      }
+      return;
+    }
 
     const allSections = [
       mainContent,
@@ -134,7 +146,16 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     });
 
     currentVisibleSection = secEl;
-    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { }
+
+    try {
+      if (secEl === accountWrapper) {
+        window.dispatchEvent(new CustomEvent('account:shown', { detail: { source: 'switch-visibility' } }));
+      }
+    } catch (e) {
+      console.warn('[VIS] dispatch account:shown failed', e);
+    }
+
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
   }
 
   function set3DMenuInvisible(value) {
@@ -151,6 +172,7 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
 
   function makeVisible(el) { if (!el) return; el.classList.remove('invisible'); el.classList.add('visible'); currentVisibleSection = el; }
   function makeInvisible(el) { if (!el) return; el.classList.remove('visible'); el.classList.add('invisible'); if (currentVisibleSection === el) currentVisibleSection = null; }
+
   function safeAdd(el, event, handler, opts) {
     if (!el || typeof handler !== 'function') return null;
     el.addEventListener(event, handler, opts);
@@ -275,19 +297,33 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
   });
   [mainContent, gallerySection, formMain, loginFormSection, accountWrapper, reservationSection].filter(Boolean).forEach(el => safeAdd(el, 'click', () => set3DMenuInvisible(true)));
 
+      if (loginButton) safeAdd(loginButton, 'click', async (e) => {
+        e.preventDefault();
+        if (isLoggedIn()) {
+          
+          if (accountWrapper) showSection(accountWrapper);
+          try { window.dispatchEvent(new CustomEvent('account:shown', { detail: { source: 'login-click' } })); } catch(e) { console.warn('account:shown dispatch failed', e); }
 
+          
+          if (window.user && typeof window.initPersonalAccount === 'function') {
+            try { await safeCall(window.initPersonalAccount, window.user); } catch (err) { console.warn('initPersonalAccount on profile click failed', err); }
+          }
 
-
-  (async () => {
-    try {
-      if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
-        safeCall(() => window.CSRFManager.init().catch(err => console.warn('CSRFManager init failed:', err)));
-      }
-
-      [menuSection, gallerySection, formMain, loginFormSection, accountWrapper, reservationSection].filter(Boolean).forEach(el => {
-        el.classList.remove('visible');
-        el.classList.add('invisible');
+          
+          await updateLoginLabel();
+        } else {
+          showSection(formMain);
+          await updateLoginLabel();
+        }
+        set3DMenuInvisible(true);
       });
+
+      reservationBtn.forEach(btn => safeAdd(btn, 'click', (e) => { e.stopPropagation(); e.preventDefault(); showSection(reservationSection); set3DMenuInvisible(true); }));
+
+      menuBtn.forEach(btn => safeAdd(btn, 'click', async (e) => {
+        e.stopPropagation(); e.preventDefault(); showSection(menuSection); set3DMenuInvisible(false);
+        if (typeof window.loadMenu === 'function') { try { await window.loadMenu(); } catch (err) { console.warn('loadMenu failed:', err); } }
+      }));
 
       try {
         if (autoCheckSession) {
@@ -360,13 +396,29 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
         const prev = typeof window.onLoginOrRegister === 'function' ? window.onLoginOrRegister : null;
         window.onLoginOrRegister = async function (user) {
           try { if (typeof prev === 'function') safeCall(prev, user); } catch (e) { console.warn(e); }
-          try { await handler(user); } catch (e) { console.warn('handler error', e); }
+          try { await handler(user); } catch (e) { console.warn('onLoginOrRegister handler error', e); }
         };
         if (window.__AUTH_READY__ && window.user) {
           safeCall(window.onLoginOrRegister, window.user);
         }
         window.__switchVisibilityRegisteredOnLogin = true;
       }
+
+      try {
+        if (autoCheckSession) {
+          const res = await fetch('./php/check_session.php', { credentials: 'include' });
+          const data = await (res.json().catch(() => ({})));
+          if (data.loggedIn && data.user) {
+            const user = { id: data.user.id || data.user.user_id || null, name: data.user.name || '', email: data.user.email || '' };
+            window.user = user;
+            if (typeof window.initPersonalAccount === 'function') safeCall(window.initPersonalAccount, user);
+            setLoggedIn(true);
+            await updateLoginLabel();
+            showSection(mainContent);
+            window._autoLoginDone = true;
+          }
+        }
+      } catch (err) { console.error('[check_session] error', err); }
 
       if (window.AuthManager && typeof window.AuthManager.attachLogoutButton === 'function') {
         try { window.AuthManager.attachLogoutButton('.logout-account-btn'); } catch (e) { }
@@ -380,6 +432,17 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
 
       }
 
+      const aboutUsLink = document.querySelector('a[href="#about-us"]');
+      const aboutUsSection = document.getElementById('about-us');
+      if (aboutUsLink && aboutUsSection) {
+        safeAdd(aboutUsLink, 'click', async (e) => {
+          e.preventDefault();
+          showSection(mainContent);
+          set3DMenuInvisible(true);
+          await new Promise(r => setTimeout(r, 600));
+          aboutUsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
 
 
 
@@ -395,15 +458,33 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
   }
 
   try {
+    
     if (typeof window !== 'undefined') {
       if (!window.fadeIn) window.fadeIn = fadeIn;
       if (!window.fadeOut) window.fadeOut = fadeOut;
       if (!window.getTranslation) window.getTranslation = getTranslation;
       if (!window.translateElement) window.translateElement = translateElement;
-      if (!window.translatePersonalAccount) window.translatePersonalAccount = async (root) => { };
+      
+      if (!window.translatePersonalAccount) window.translatePersonalAccount = async (root) => {
+        try {
+          if (!root) return;
+          const els = root.querySelectorAll && root.querySelectorAll('[data-i18n]');
+          if (!els) return;
+          for (const el of els) {
+            const key = el.getAttribute && el.getAttribute('data-i18n');
+            if (key && typeof window.getTranslation === 'function') {
+              const txt = await window.getTranslation(key);
+              if (txt) el.textContent = txt;
+            }
+          }
+        } catch (e) { }
+      };
     }
-  } catch (e) { }
+  } catch (e) {
+    console.warn('switch-visibility: failed to attach compatibility shims', e);
+  }
 
+  
   window.switchVisibility = { showSection, set3DMenuInvisible, updateLoginLabel, makeVisible, makeInvisible };
 
 } 

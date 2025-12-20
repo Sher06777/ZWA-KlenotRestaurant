@@ -1,6 +1,7 @@
-// gallery.js — экспортируем initGallery
+// No Russian comments
 
 export function initGallery() {
+    // Configurable constants for animation and interaction.
     const DRAG_SENSITIVITY = 0.4;
     const INERTIA_DAMPING = 0.98;
     const BASE_AUTOROTATE_SPEED = 0.05;
@@ -18,10 +19,11 @@ export function initGallery() {
     const zoomNext = document.getElementById("zoom-next");
 
     if (!gallerySection || !ring || !items.length || !zoom || !zoomPrev || !zoomNext) {
-        console.warn("Галерея или ее компоненты (включая #zoom-prev/next) не найдены.");
+        console.warn("Gallery or its components were not found.");
         return;
     }
 
+    // Visual state
     let radius = 450;
     const total = items.length;
     const itemData = [];
@@ -46,6 +48,7 @@ export function initGallery() {
         };
     }
 
+    // Adjust radius for responsive layout
     const updateRadius = () => {
         const w = window.innerWidth;
         if (w <= 480) radius = 230;
@@ -56,6 +59,7 @@ export function initGallery() {
     updateRadius();
     window.addEventListener("resize", debounce(updateRadius));
 
+    // Collect initial item data (src/alt for zoom).
     items.forEach((item, i) => {
         const angle = (i / total) * 360;
         const img = item.querySelector("img");
@@ -67,6 +71,7 @@ export function initGallery() {
         });
     });
 
+    // Main animation loop — uses requestAnimationFrame for smooth motion.
     function animate() {
         animationFrameId = requestAnimationFrame(animate);
         if (isPaused) { velocity = 0; }
@@ -87,6 +92,7 @@ export function initGallery() {
             const rad = totalAngle * RAD_FACTOR;
             const x = roundTo(radius * Math.sin(rad));
             const z = roundTo(radius * Math.cos(rad));
+            // CSS transform uses translate3d for GPU acceleration.
             itemInfo.el.style.transform = `translate3d(${x}px, 0, ${z}px)`;
         });
     }
@@ -107,6 +113,7 @@ export function initGallery() {
         else stopAnimation();
     }
 
+    // Drag interaction handlers: update rotation and velocity.
     const startDrag = (x) => {
         isDragging = true;
         autoRotate = false;
@@ -130,6 +137,7 @@ export function initGallery() {
     ring.addEventListener("touchmove", e => { if (e.touches) { e.preventDefault(); moveDrag(e.touches[0].clientX); } }, { passive: false });
     ring.addEventListener("touchend", endDrag);
 
+    // Zoom handlers: show image/description with a short fade.
     const showZoomedImage = (index) => {
         if (index < 0 || index >= total) return;
         const item = itemData[index];
@@ -153,6 +161,7 @@ export function initGallery() {
         }, ZOOM_TRANSITION_DURATION);
     };
 
+    // Attach click on items to open zoom.
     itemData.forEach((itemInfo, index) => {
         itemInfo.el.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -178,6 +187,7 @@ export function initGallery() {
         showZoomedImage(prevIndex);
     });
 
+    // Keyboard navigation: when zoom visible, navigate images; otherwise nudge rotation.
     window.addEventListener("keydown", (e) => {
         if (zoom.classList.contains("visible")) {
             if (e.key === "ArrowRight") { e.preventDefault(); const nextIndex = (currentZoomIndex + 1) % total; showZoomedImage(nextIndex); }
@@ -195,10 +205,11 @@ export function initGallery() {
             isPaused = !isPaused;
             autoRotate = !isPaused;
             pauseBtn.classList.toggle('is-paused', isPaused);
-            pauseBtn.setAttribute("aria-label", isPaused ? "Возобновить анимацию" : "Приостановить анимацию");
+            pauseBtn.setAttribute("aria-label", isPaused ? "Resume animation" : "Pause animation");
         });
     }
 
+    // IntersectionObserver to stop animation when element not visible in viewport.
     const galleryObserver = new IntersectionObserver((entries) => {
         const entry = entries[0];
         isIntersecting = entry.isIntersecting;
@@ -206,12 +217,13 @@ export function initGallery() {
     }, { threshold: 0 });
     galleryObserver.observe(gallerySection);
 
+    // MutationObserver to detect CSS visibility toggles (class changes).
     const mutationObserver = new MutationObserver((mutations) => {
         isVisible = !gallerySection.classList.contains('invisible');
         checkAnimationState();
     });
     mutationObserver.observe(gallerySection, { attributes: true, attributeFilter: ['class'] });
 
-    // start if visible now
+    // Start/stop based on initial visibility.
     checkAnimationState();
 }

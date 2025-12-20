@@ -1,11 +1,12 @@
-// auth-ui.js — управление сессией / logout / checkSession на клиенте
-// Зависимости: window.CSRFManager (опционально). Экспортирует window.AuthManager
+// No Russian comments
 
 export function initAuthManager() {
+  // Safe call wrapper to avoid throwing from optional callbacks.
   const safeCall = (fn, ...args) => { try { return fn && fn(...args); } catch (e) { console.error(e); } };
 
   function confirmDialog(text) { return confirm(text); }
 
+  // Small wrapper that returns parsed JSON body + status info.
   async function fetchJson(url, opts = {}) {
     const options = Object.assign({}, opts);
     options.credentials = options.credentials || 'include';
@@ -15,6 +16,7 @@ export function initAuthManager() {
     return { ok: res.ok, status: res.status, body: json, raw: res };
   }
 
+  // Logout flow that optionally uses CSRFManager to attach token and to perform fetchWithCsrf.
   async function logoutFlow({ confirmMessage } = {}) {
     const conf = confirmMessage || 'Do you really want to log out of your account?';
     if (!confirmDialog(conf)) return { success: false, cancelled: true };
@@ -46,8 +48,9 @@ export function initAuthManager() {
       }
 
       if (data && data.success) {
+        // On success clear storages and update UI; refresh CSRF if available.
         if (window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
-          try { await window.CSRFManager.refresh(); } catch (_) { /* ignore */ }
+          try { await window.CSRFManager.refresh(); } catch (_) { }
         }
         try { localStorage.clear(); sessionStorage.clear(); } catch (e) {}
         if (typeof window.setLoggedIn === 'function') safeCall(window.setLoggedIn, false);
@@ -73,6 +76,7 @@ export function initAuthManager() {
     }
   }
 
+  // Attach click handler to logout button (idempotent attach).
   function attachLogoutButton(selector = '.logout-account-btn') {
     const btn = document.querySelector(selector);
     if (!btn) return;
@@ -81,7 +85,7 @@ export function initAuthManager() {
       e.preventDefault();
       const result = await logoutFlow();
       if (result && !result.success && !result.cancelled) {
-        alert('Ошибка при выходе: ' + (result.error && result.error.message ? result.error.message : 'Server error'));
+        alert('Error during logout: ' + (result.error && result.error.message ? result.error.message : 'Server error'));
       }
     });
     btn.dataset.authAttach = 'true';
@@ -96,12 +100,11 @@ export function initAuthManager() {
         if (s && s.body && s.body.loggedIn && s.body.user) {
           return { loggedIn: true, user: s.body.user };
         }
-      } catch (e) { /* ignore */ }
+      } catch (e) { }
     }
     return { loggedIn: false, user: null };
   }
 
-  // expose
   window.AuthManager = {
     init,
     checkSession,
@@ -109,6 +112,6 @@ export function initAuthManager() {
     attachLogoutButton
   };
 
-  // optionally auto-attach to current logout button immediately
+  // Auto attach if button exists on load.
   try { attachLogoutButton('.logout-account-btn'); } catch (_) {}
 }

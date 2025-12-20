@@ -99,8 +99,8 @@ export default function initNotFoundHandler(options = {}) {
     const tTitle = await safeTranslate('error.404.title', '404 — Page not found');
     const tHome = await safeTranslate('error.404.home', 'Go home');
     const tBack = await safeTranslate('error.404.back', 'Back');
-    const tDesc = await safeTranslate('error.404.desc', 'Извините, страница не найдена.');
-    const tSub = await safeTranslate('error.404.sub', 'Вы можете вернуться на главную.');
+    const tDesc = await safeTranslate('error.404.desc', 'Sorry, the requested page was not found.');
+    const tSub = await safeTranslate('error.404.sub', 'Address cleaned - you can return to home.');
 
     if (title) title.textContent = tTitle;
     if (homeBtn) homeBtn.textContent = tHome;

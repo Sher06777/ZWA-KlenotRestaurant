@@ -9,7 +9,7 @@
  */
 
 declare(strict_types=1);
-
+require_once __DIR__ . '/verify_csrf_token.php';
 require_once __DIR__ . '/auth.php';
 header('Content-Type: application/json; charset=utf-8');
 
@@ -34,6 +34,7 @@ if ($userIdToDelete <= 0) {
     exit;
 }
 
+// Prevent admin from deleting their own account accidentally.
 if ($userIdToDelete === (int)$currentUserId) {
     http_response_code(400);
     echo json_encode(['success' => false, 'error' => 'Cannot delete your own account']);
@@ -41,6 +42,7 @@ if ($userIdToDelete === (int)$currentUserId) {
 }
 
 try {
+    // Ensure the user exists before attempting deletion.
     $stmtCheck = $conn->prepare("SELECT id FROM users WHERE id = ?");
     if (!$stmtCheck) throw new Exception('DB prepare failed: ' . $conn->error);
     $stmtCheck->bind_param("i", $userIdToDelete);
@@ -64,6 +66,7 @@ try {
     if ($affected > 0) {
         echo json_encode(['success' => true]);
     } else {
+        // If affected rows is 0, treat as not found (concurrent delete).
         http_response_code(404);
         echo json_encode(['success' => false, 'error' => 'User not found']);
     }

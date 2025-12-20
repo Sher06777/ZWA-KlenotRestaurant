@@ -1,68 +1,17 @@
-// menu.safe.js — безопасная версия menu.js для SPA + i18n
+// Normalize a key for comparison/searching (lowercase, remove non-alphanumerics).
 
-let menuData = {};
-let currentFilter = 'all';
-let currentLang = 'eng';
-window.MenuStorage = { data: {} };
-
-// Helpers
-function normKey(s) {
-  if (!s && s !== 0) return '';
-  return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
-}
-function pickLocalizedText(field, lang) {
-  if (field == null) return '';
-  if (typeof field === 'object') {
-    return field[lang] || field.eng || field.cz || Object.values(field)[0] || '';
-  }
-  return String(field);
-}
-function pickLanguageFromI18n() {
-  if (window.i18n && typeof window.i18n.getLang === 'function') {
-    const raw = window.i18n.getLang();
-    if (!raw) return 'eng';
-    const k = raw.toLowerCase();
-    if (k === 'en') return 'eng';
-    if (k === 'cz') return 'cz';
-    return raw;
-  }
-  return currentLang || 'eng';
-}
-
-// Safety: sanitize image src to avoid javascript: URIs, allow same-origin & http/https
-function sanitizeImageSrc(src) {
-  if (!src) return '';
-  try {
-    // Use document.baseURI (includes any base path like /~achilkem/)
-    const base = (typeof document !== 'undefined' && document.baseURI) ? document.baseURI : window.location.href;
-    const url = new URL(src, base);
-
-    // Only allow http/https and same origin (or same-host path)
-    const protocol = url.protocol;
-    if ((protocol === 'http:' || protocol === 'https:')) {
-      // Accept same-origin or paths that resolve under the same host
-      if (url.origin === location.origin) {
-        return url.href;
-      }
-      // Optional: allow same-host with different origin (rare) — skip for security
-    }
-  } catch (e) {
-    // invalid URL -> return empty
-  }
-  return '';
-}
-
-// Init / load
 export async function initMenu() {
   let menuData = {};
   let currentFilter = 'all';
   let currentLang = 'eng';
   window.MenuStorage = { data: {} };
 
+  // Normalize a key for comparison/searching (lowercase, remove non-alphanumerics).
   function normKey(s) {
     if (!s && s !== 0) return '';
     return String(s).toLowerCase().replace(/[^a-z0-9]+/g, '');
   }
+  // Pick localized text from a field that may be either a string or an object {eng:..., cz:...}.
   function pickLocalizedText(field, lang) {
     if (field == null) return '';
     if (typeof field === 'object') {
@@ -70,6 +19,7 @@ export async function initMenu() {
     }
     return String(field);
   }
+  // Pick localized text from a field that may be either a string or an object {eng:..., cz:...}.
   function pickLanguageFromI18n() {
     if (window.i18n && typeof window.i18n.getLang === 'function') {
       const raw = window.i18n.getLang();
@@ -82,6 +32,8 @@ export async function initMenu() {
     return currentLang || 'eng';
   }
 
+  // Sanitize image src — allow only http(s) and same-origin absolute/relative URLs.
+  // Returns empty string when URL is unsafe.
   function sanitizeImageSrc(src) {
     if (!src) return '';
     try {
@@ -96,7 +48,7 @@ export async function initMenu() {
     } catch (e) {}
     return '';
   }
-
+  // Load menu JSON (no-store to avoid caching during development), then render.
   async function loadMenuData() {
     try {
       const res = await fetch('data/menu.json', { cache: 'no-store' });
@@ -110,7 +62,7 @@ export async function initMenu() {
       console.error('menu.js initMenu error:', err);
     }
   }
-
+  // Render menu items into .menu-items using a <template>.
   function renderMenu(data, lang = 'eng', filter = 'all') {
     const container = document.querySelector('.menu-items');
     if (!container) {
@@ -141,6 +93,7 @@ export async function initMenu() {
         if (article) article.dataset.category = categoryKey;
 
         if (img) {
+          // only set src when safe (same-origin); otherwise omit to avoid mixed-origin issues.
           const safeSrc = sanitizeImageSrc(item.image || '');
           if (safeSrc) img.setAttribute('src', safeSrc);
           else img.removeAttribute('src');
@@ -156,6 +109,7 @@ export async function initMenu() {
     });
   }
 
+  // Prepare filter buttons: replace nodes to remove attached listeners, attach fresh ones.
   function setupMenuFilters() {
     const buttons = Array.from(document.querySelectorAll('.menu-button'));
     if (!buttons.length) return;
@@ -168,6 +122,7 @@ export async function initMenu() {
       currentFilter = mapFilterToCategory((buttons[0] && buttons[0].dataset.filter) || 'all');
     }
 
+    // Replace elements to remove any previously bound event listeners (clean slate).
     buttons.forEach(btn => {
       const parent = btn.parentNode;
       if (!parent) return;
@@ -189,6 +144,7 @@ export async function initMenu() {
     });
   }
 
+  // Map a filter value (label) to an existing category key in data, with normalization and fallbacks.
   function mapFilterToCategory(filterValue) {
     if (!filterValue) return 'all';
     if (filterValue === 'all') return 'all';
@@ -202,6 +158,7 @@ export async function initMenu() {
     return filterValue;
   }
 
+  // Re-render when language changes via i18n event.
   window.addEventListener('i18n:changed', (e) => {
     const lang = (e && e.detail && e.detail.lang) ? e.detail.lang : pickLanguageFromI18n();
     currentLang = (lang === 'en') ? 'eng' : lang;
@@ -210,8 +167,9 @@ export async function initMenu() {
     }
   });
 
+  // Add-item dialog wiring (minimal validation + image handling).
   const dialog = document.getElementById("add-item-dialog");
-  if (!dialog) return; // nothing to wire
+  if (!dialog) return; 
 
   const openBtn = document.getElementById("menu-show-add-item-btn");
   const dialogContent = dialog.querySelector(".menu-add-dialog-content");
@@ -235,9 +193,10 @@ export async function initMenu() {
   let currentFileExtension = ".jpg";
   let currentFileObject = null;
 
+  // Calculate next id using pattern "prefix.number" where prefix is from first item or 1.
   function calculateNextId(categoryKey) {
     const items = menuData[categoryKey] || [];
-    // prefix fallback to 1
+    
     let prefix = 1;
     if (items.length > 0 && typeof items[0].id === 'string') {
       const p = parseInt(items[0].id.split(".")[0], 10);
@@ -280,7 +239,8 @@ export async function initMenu() {
     updateFileName();
   });
 
-  // Drag & drop (guards for missing elements)
+  
+  // Drag & drop + file input handling.
   if (dropZone && fileInput) {
     dropZone.addEventListener("click", () => fileInput.click());
     fileInput.addEventListener("change", (e) => handleFiles(e.target.files));
@@ -298,7 +258,7 @@ export async function initMenu() {
   function handleFiles(files) {
     if (!files || files.length === 0) return;
     const file = files[0];
-    // basic client checks: size limit (e.g. 5MB) and mime type prefix
+    
     const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
       alert('File is too large (max 5MB).');
@@ -328,7 +288,7 @@ export async function initMenu() {
     updateFileName();
   }
 
-  // modal controls
+  
   if (openBtn) openBtn.addEventListener("click", () => {
     const currentCat = categorySelect.value;
     idField.value = calculateNextId(currentCat);
@@ -338,18 +298,18 @@ export async function initMenu() {
   });
   if (closeBtn) closeBtn.addEventListener("click", () => dialog.classList.add("menu-modal-hidden"));
 
-  // НЕ закрываем модал по клику вне content (удалили обработчик).
-  // Закрытие только по Escape (и крестик).
+  
+  
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" || e.key === "Esc") {
-      // закрываем только если диалог открыт
+      
       if (dialog && !dialog.classList.contains('menu-modal-hidden')) {
         dialog.classList.add('menu-modal-hidden');
       }
     }
   });
 
-  // Validate filename server-safe
+  
   function isValidFilename(name) {
     return /^[A-Za-z0-9._-]+$/.test(name);
   }
@@ -357,7 +317,7 @@ export async function initMenu() {
   const priceInput = document.getElementById('item-price');
   const weightInput = document.getElementById('item-weight');
 
-  // универсальная функция: вставляет очищенный текст (только цифры) в текущую позицию каретки
+  // Helpers to enforce digits-only behavior with caret preservation.
   function insertOnlyDigitsAtCaret(el, text) {
     const cleaned = (text || '').replace(/[^\d]+/g, '');
     try {
@@ -365,7 +325,7 @@ export async function initMenu() {
       const end = typeof el.selectionEnd === 'number' ? el.selectionEnd : el.value.length;
 
       if (typeof el.setRangeText === 'function') {
-        el.setRangeText(cleaned, start, end, 'end'); // вставить и поместить курсор после вставки
+        el.setRangeText(cleaned, start, end, 'end'); 
         el.selectionStart = el.selectionEnd = start + cleaned.length;
       } else {
         const val = el.value || '';
@@ -374,62 +334,62 @@ export async function initMenu() {
       }
       el.dispatchEvent(new Event('input', { bubbles: true }));
     } catch (err) {
-      // fallback: просто оставить только цифры во всём значении
+      // Fallback: strip non-digits globally.
       el.value = (el.value || '').replace(/[^\d]+/g, '');
       el.dispatchEvent(new Event('input', { bubbles: true }));
     }
   }
 
-  // обработчик input: немедленная очистка любых недопустимых символов
+  
   function onlyDigitsInputHandler(e) {
     const el = e.target;
     const old = el.value || '';
     const cleaned = old.replace(/[^\d]+/g, '');
     if (cleaned !== old) {
-      // сохраняем позицию курсора относительно конца очищённой строки
+      // Try to approximate caret position after cleaning.
       const pos = (el.selectionStart || 0) - (old.length - cleaned.length);
       el.value = cleaned;
-      // корректируем позицию курсора в допустимые границы
+      
       const newPos = Math.max(0, Math.min(el.value.length, pos));
       try { el.setSelectionRange(newPos, newPos); } catch(_) {}
       el.dispatchEvent(new Event('input', { bubbles: true }));
     }
   }
 
-  // на keydown разрешаем управляющие клавиши, запрещаем ввод букв/знаков с клавиатуры
+  
   function onlyDigitsKeydownHandler(e) {
-    // разрешённые: цифры и numpad цифры (0-9), навигация и combo клавиши
-    // но проще: если это Ctrl/Meta/Alt сочетание — разрешаем (копирование и т.д.)
+    
+    // Allow navigation + control keys; block other non-digit keys.
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     const allowedKeys = [
       'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
       'Home', 'End', 'Tab', 'Enter'
     ];
     if (allowedKeys.indexOf(e.key) !== -1) return;
-    // цифры 0-9
+    
     if (/^[0-9]$/.test(e.key)) return;
-    // otherwise prevent
+    
     e.preventDefault();
   }
 
-  // paste — используем insertOnlyDigitsAtCaret
+  
   function onlyDigitsPasteHandler(e) {
     e.preventDefault();
     const text = (e.clipboardData || window.clipboardData).getData('text') || '';
     insertOnlyDigitsAtCaret(e.target, text);
   }
 
-  // attach listeners (если элементы присутствуют)
+  
   if (priceInput) {
-    // use input (handles typing + IME fallback), keydown (filters non-digit keys), paste
+    
     priceInput.addEventListener('input', onlyDigitsInputHandler);
     priceInput.addEventListener('keydown', onlyDigitsKeydownHandler);
     priceInput.addEventListener('paste', onlyDigitsPasteHandler);
 
-    // optional: ещё жестче — убираем возможный ведущий ноль при потере фокуса
+    // Trim leading zeros on blur.
     priceInput.addEventListener('blur', () => {
       if (priceInput.value === '') return;
-      // удалим ведущие нули (оставим хотя бы '0' если поле пусто)
+      
       priceInput.value = priceInput.value.replace(/^0+(?=\d)/, '');
     });
   }
@@ -445,13 +405,13 @@ export async function initMenu() {
     });
   }
 
-  // Submit form (add meal)
+  // Submit handler — builds FormData, appends CSRF, and posts to add_meal.php.
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.textContent = "Сохранение...";
+      submitBtn.textContent = "Saving...";
     }
 
     const category = categorySelect.value;
@@ -459,7 +419,7 @@ export async function initMenu() {
 
     if (!isValidFilename(finalFileName)) {
       alert('Invalid file name.');
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Сохранить"; }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Save"; }
       return;
     }
 
@@ -468,7 +428,7 @@ export async function initMenu() {
     if (weightInput && weightInput.value !== '') {
       const parsedW = parseFloat(String(weightInput.value).replace(',', '.'));
       if (Number.isFinite(parsedW) && parsedW >= 0) {
-        // если хочешь целые — Math.round(parsedW)
+        
         rawWeight = String(parsedW) + ' g';
       }
     }
@@ -503,7 +463,7 @@ export async function initMenu() {
     formData.append('imageName', finalFileName);
     if (currentFileObject) formData.append('imageFile', currentFileObject);
 
-    // CSRF: ensure manager exists and is initialized
+    // Ensure CSRF token appended when CSRFManager is available.
     try {
       if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
         try { await window.CSRFManager.init(); } catch (e) { console.warn('CSRF init failed:', e); }
@@ -525,12 +485,12 @@ export async function initMenu() {
         credentials: 'include'
       });
 
-      // prefer JSON
+      
       let result;
       try {
         result = await response.json();
       } catch (err) {
-        // fallback: try text parse
+        
         const text = await response.text();
         try { result = JSON.parse(text); } catch (e) { throw new Error('Invalid JSON from server'); }
       }
@@ -546,14 +506,14 @@ export async function initMenu() {
         if (dropText) dropText.style.display = "block";
         currentFileObject = null;
       } else {
-        alert("❌ Ошибка сервера: " + (result && result.message ? result.message : 'Unknown'));
+        alert("❌ Server error: " + (result && result.message ? result.message : 'Unknown'));
       }
 
     } catch (error) {
-      console.error('Ошибка JS при отправке add_meal:', error);
+      console.error('JS error while sending add_meal:', error);
       alert('Server error — see console.');
     } finally {
-      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Сохранить"; }
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = "Save"; }
     }
   });
   loadMenuData();

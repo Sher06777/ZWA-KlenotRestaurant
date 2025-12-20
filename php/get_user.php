@@ -8,11 +8,11 @@
  * @package Auth
  */
 
-require_once 'session_init.php';
+require_once __DIR__ . '/session_init.php';
 error_reporting(0);
 ini_set('display_errors', 0);
-include 'security_headers.php';
-include 'db.php';
+require_once __DIR__ . '/security_headers.php';
+require_once __DIR__ . '/db.php';
 header('Content-Type: application/json');
 
 if (!isset($_SESSION['user_id'])) {
@@ -20,6 +20,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Escape values for safe JSON output. Prevents XSS when front-end renders :).
 $name  = htmlspecialchars($_SESSION['user_name'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 $email = htmlspecialchars($_SESSION['user_email'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 
