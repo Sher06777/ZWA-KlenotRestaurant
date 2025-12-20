@@ -24,6 +24,7 @@ import { initMobileMenu } from './mobile/menu-dropdown.js';
 
 async function boot() {
   window.__UI_READY = false;
+  window.__AUTH_READY__ = false;
   try {
     // 0) i18n early (so data-i18n translations resolved before UI inits)
     try {
@@ -42,8 +43,7 @@ async function boot() {
 
     // 2) init visibility / routing helpers (needs i18n + CSRF possibly)
     try {
-
-      initSwitchVisibility({ autoCheckSession: false });
+      initSwitchVisibility({ autoCheckSession: true }); 
     } catch (e) { console.warn('initSwitchVisibility failed', e); }
 
     // 2.1 error-404
@@ -86,37 +86,37 @@ async function boot() {
     // a navigation to the account wrapper on page reload. We only restore user state
     // (init personal account data + update ui labels) so the UI reflects logged-in user,
     // but the visible section remains whatever the page currently shows (usually main).
-    try {
-      const res = await fetch('./php/check_session.php', { credentials: 'include' });
-      const data = await res.json().catch(()=>({}));
-      if (data && data.loggedIn && data.user) {
-        window.user = data.user;
+    // try {
+    //   const res = await fetch('./php/check_session.php', { credentials: 'include' });
+    //   const data = await res.json().catch(()=>({}));
+    //   if (data && data.loggedIn && data.user) {
+    //     window.user = data.user;
 
-        // initialize personal account data (idempotent) but DO NOT trigger navigation
-        try {
-          // prefer the named export if available
-          const { initPersonalAccount } = await import('./account.js').catch(() => ({}));
-          if (typeof initPersonalAccount === 'function') {
-            await initPersonalAccount(window.user);
-          }
-        } catch (e) {
-          console.warn('fallback initPersonalAccount failed', e);
-        }
+    //     // initialize personal account data (idempotent) but DO NOT trigger navigation
+    //     try {
+    //       // prefer the named export if available
+    //       const { initPersonalAccount } = await import('./account.js').catch(() => ({}));
+    //       if (typeof initPersonalAccount === 'function') {
+    //         await initPersonalAccount(window.user);
+    //       }
+    //     } catch (e) {
+    //       console.warn('fallback initPersonalAccount failed', e);
+    //     }
 
-        // mark as logged in for other UI helpers and update login label
-        try {
-          if (typeof window.setLoggedIn === 'function') window.setLoggedIn(true);
-          if (typeof window.updateLoginLabel === 'function') await window.updateLoginLabel();
-        } catch (e) {
-          console.warn('Failed to set loggedIn/updateLoginLabel after autologin:', e);
-        }
+    //     // mark as logged in for other UI helpers and update login label
+    //     try {
+    //       if (typeof window.setLoggedIn === 'function') window.setLoggedIn(true);
+    //       if (typeof window.updateLoginLabel === 'function') await window.updateLoginLabel();
+    //     } catch (e) {
+    //       console.warn('Failed to set loggedIn/updateLoginLabel after autologin:', e);
+    //     }
 
-        // set internal flag so any handlers that check it know autologin was performed
-        window._autoLoginDone = true;
-      }
-    } catch (err) {
-      console.warn('check_session failed', err);
-    }
+    //     // set internal flag so any handlers that check it know autologin was performed
+    //     window._autoLoginDone = true;
+    //   }
+    // } catch (err) {
+    //   console.warn('check_session failed', err);
+    // }
     // 9) attach any dynamic UI that needs user state / session
     try {
       if (window.AuthManager && typeof window.AuthManager.attachLogoutButton === 'function') {

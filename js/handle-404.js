@@ -1,12 +1,9 @@
-// Нет русских комментавиев
-
-
-
+// js/handle-404.js
 export default function initNotFoundHandler(options = {}) {
   const {
-    basePath = '/~achilkem/',   
-    cleanTo = '/~achilkem/',    
-    autoClear = true,           
+    basePath = '/~abdimshe/',
+    cleanTo = '/~abdimshe/',
+    autoClear = true,
     createIfMissing = true      
   } = options;
 
@@ -14,19 +11,15 @@ export default function initNotFoundHandler(options = {}) {
   const BASE = ensureSlash(basePath);
   const CLEAN_TO = ensureSlash(cleanTo);
 
-  
-    const looksLikeAsset = p => /\.(?:js|mjs|css|html|c|png|jpg|jpeg|gif|webp|ico|ttf|woff2?)$/i.test(p);
+  const looksLikeAsset = p => /\.(?:js|mjs|css|html|c|png|jpg|jpeg|gif|webp|ico|ttf|woff2?)$/i.test(p);
 
-  
   async function safeTranslate(key, fallback) {
     try {
       if (typeof window.getTranslation === 'function') {
         const v = await window.getTranslation(key);
         if (v) return String(v);
       }
-    } catch (e) {
-      
-    }
+    } catch (e) { }
     return fallback || '';
   }
 
@@ -39,16 +32,15 @@ export default function initNotFoundHandler(options = {}) {
   }
 
   function createNotFoundNode() {
-    
     const ex = document.getElementById('not-found');
     if (ex) return ex;
 
     const section = document.createElement('section');
     section.id = 'not-found';
     section.className = 'not-found invisible';
+    section.style.display = 'none';
     section.setAttribute('role', 'alert');
     section.setAttribute('aria-hidden', 'true');
-    section.setAttribute('aria-labelledby', 'nf-title');
 
     const wrapper = document.createElement('div');
     wrapper.className = 'nf-card';
@@ -56,26 +48,22 @@ export default function initNotFoundHandler(options = {}) {
 
     const ill = document.createElement('div');
     ill.className = 'nf-illustration';
-    ill.setAttribute('aria-hidden', 'true');
-    
     ill.textContent = '🚧';
 
     const title = document.createElement('h1');
     title.id = 'nf-title';
-    title.textContent = '404 — Page not found';
+    title.textContent = '404';
 
     const desc = document.createElement('p');
     desc.className = 'nf-desc';
-    desc.textContent = 'Sorry, the requested page was not found.';
 
     const sub = document.createElement('p');
     sub.className = 'nf-sub';
-    sub.textContent = 'The address will be cleared, you can return to the home page.';
 
     const actions = document.createElement('div');
     actions.className = 'nf-actions';
 
-    const homeBtn = createButton('Go to home', 'btn nf-home');
+    const homeBtn = createButton('Home', 'btn nf-home');
     homeBtn.id = 'nf-home';
 
     const backBtn = createButton('Back', 'btn btn-ghost nf-back');
@@ -83,16 +71,13 @@ export default function initNotFoundHandler(options = {}) {
 
     actions.appendChild(homeBtn);
     actions.appendChild(backBtn);
-
     wrapper.appendChild(ill);
     wrapper.appendChild(title);
     wrapper.appendChild(desc);
     wrapper.appendChild(sub);
     wrapper.appendChild(actions);
-
     section.appendChild(wrapper);
 
-    
     const footer = document.querySelector('footer');
     if (footer && footer.parentNode) {
       footer.parentNode.insertBefore(section, footer);
@@ -103,23 +88,6 @@ export default function initNotFoundHandler(options = {}) {
     return section;
   }
 
-  function showNotFound(section) {
-    if (!section) return;
-    section.classList.remove('invisible');
-    section.classList.add('visible');
-    section.setAttribute('aria-hidden', 'false');
-    
-    const card = section.querySelector('.nf-card');
-    if (card) card.focus();
-  }
-
-  function hideNotFound(section) {
-    if (!section) return;
-    section.classList.remove('visible');
-    section.classList.add('invisible');
-    section.setAttribute('aria-hidden', 'true');
-  }
-
   async function localizeNode(section) {
     if (!section) return;
     const title = section.querySelector('#nf-title');
@@ -128,190 +96,101 @@ export default function initNotFoundHandler(options = {}) {
     const desc = section.querySelector('.nf-desc');
     const sub = section.querySelector('.nf-sub');
 
-    try {
-      const tTitle = await safeTranslate('error.404.title', '404 — Page not found');
-      const tHome = await safeTranslate('error.404.home', 'Go home');
-      const tBack = await safeTranslate('error.404.back', 'Back');
-      const tDesc = await safeTranslate('error.404.desc', 'Sorry, the requested page was not found.');
-      const tSub = await safeTranslate('error.404.sub', 'Address cleaned - you can return to home.');
+    const tTitle = await safeTranslate('error.404.title', '404 — Page not found');
+    const tHome = await safeTranslate('error.404.home', 'Go home');
+    const tBack = await safeTranslate('error.404.back', 'Back');
+    const tDesc = await safeTranslate('error.404.desc', 'Sorry, the requested page was not found.');
+    const tSub = await safeTranslate('error.404.sub', 'Address cleaned - you can return to home.');
 
-      if (title) title.textContent = tTitle;
-      if (homeBtn) homeBtn.textContent = tHome;
-      if (backBtn) backBtn.textContent = tBack;
-      if (desc) desc.textContent = tDesc;
-      if (sub) sub.textContent = tSub;
-    } catch (e) {
-      
-    }
+    if (title) title.textContent = tTitle;
+    if (homeBtn) homeBtn.textContent = tHome;
+    if (backBtn) backBtn.textContent = tBack;
+    if (desc) desc.textContent = tDesc;
+    if (sub) sub.textContent = tSub;
   }
 
-  
-  
+  function showNotFound(section) {
+    if (!section) return;
+    if (typeof window.fadeIn === 'function') {
+      window.fadeIn(section);
+    } else {
+      section.style.display = 'flex';
+      section.classList.remove('invisible');
+      section.classList.add('visible');
+    }
+    section.setAttribute('aria-hidden', 'false');
+  }
+
   function hideAppSectionsGracefully() {
-    
-    const selectors = [
-      '#main',
-      '.menu-all',
-      '#account-wrapper',
-      '#reservation-section',
-      '#gallery-section',
-      '.form-main',
-      '.login-form-section'
-    ];
-
-    
-    if (window.switchVisibility && typeof window.switchVisibility.makeInvisible === 'function') {
-      for (const sel of selectors) {
-        try {
-          const el = document.querySelector(sel);
-          if (el) {
-            try {
-              window.switchVisibility.makeInvisible(el);
-            } catch (e) {
-              
-              el.classList.remove('visible');
-              el.classList.add('invisible');
-            }
-          }
-        } catch (e) { }
-      }
-      
-      if (typeof window.switchVisibility.set3DMenuInvisible === 'function') {
-        try { window.switchVisibility.set3DMenuInvisible(true); } catch (e) {}
-      }
-      return;
-    }
-
-    
-    const fadeOut = window.fadeOut;
-    for (const sel of selectors) {
-      try {
-        const el = document.querySelector(sel);
-        if (!el) continue;
-        if (typeof fadeOut === 'function') {
-          try { fadeOut(el); } catch (e) { el.classList.remove('visible'); el.classList.add('invisible'); }
-        } else {
-          el.classList.remove('visible');
-          el.classList.add('invisible');
-        }
-      } catch (e) {}
-    }
-
-    
-    try {
-      if (window.menu3D && typeof window.menu3D.stop === 'function') window.menu3D.stop();
-    } catch (e) {}
+    const selectors = ['#main', '.menu-all', '#account-wrapper', '#reservation-section', '#gallery-section', '.form-main', '.login-form-section'];
+    selectors.forEach(sel => {
+      const el = document.querySelector(sel);
+      if (el && typeof window.fadeOut === 'function') window.fadeOut(el);
+      else if (el) { el.classList.add('invisible'); el.style.display = 'none'; }
+    });
   }
 
   async function handleOnce() {
     const path = decodePathSafe(location.pathname || '/');
-    if (path === BASE) return;               
-    if (looksLikeAsset(path)) return;        
 
     const section = document.getElementById('not-found') || (createIfMissing ? createNotFoundNode() : null);
     if (!section) return;
 
-    
     await localizeNode(section);
 
-    
-    hideAppSectionsGracefully();
-
-    
     const homeBtn = section.querySelector('#nf-home');
     const backBtn = section.querySelector('#nf-back');
 
     if (homeBtn && !homeBtn._bound) {
-      homeBtn.addEventListener('click', async (e) => {
+      homeBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        
-        hideNotFound(section);
 
-        
+        history.pushState("", document.title, CLEAN_TO);
+
         if (window.switchVisibility && typeof window.switchVisibility.showSection === 'function') {
-          try {
-            
-            const mainEl = document.getElementById('main') || 'main';
-            window.switchVisibility.showSection(mainEl);
-          } catch (err) {
-            
-            window.location.href = CLEAN_TO;
-          }
+          const mainEl = document.getElementById('main');
+          window.switchVisibility.showSection(mainEl);
         } else {
-          
-          try {
-            
-            history.replaceState({}, document.title, CLEAN_TO);
-            
-            const mainEl = document.getElementById('main');
-            if (mainEl) {
-              mainEl.classList.remove('invisible');
-              mainEl.classList.add('visible');
-            } else {
-              
-              window.location.href = CLEAN_TO;
-            }
-          } catch (err) {
-            window.location.href = CLEAN_TO;
-          }
+          window.location.hash = '';
         }
-      }, { passive: true });
+      });
       homeBtn._bound = true;
     }
 
     if (backBtn && !backBtn._bound) {
       backBtn.addEventListener('click', (e) => {
         e.preventDefault();
-        hideNotFound(section);
         if (history.length > 1) {
-          try { history.back(); } catch (err) { window.location.href = CLEAN_TO; }
+          history.back();
         } else {
-          
-          if (window.switchVisibility && typeof window.switchVisibility.showSection === 'function') {
-            try { window.switchVisibility.showSection(document.getElementById('main') || 'main'); } catch (e) { window.location.href = CLEAN_TO; }
-          } else {
-            window.location.href = CLEAN_TO;
-          }
+          homeBtn.click();
         }
-      }, { passive: true });
+      });
       backBtn._bound = true;
     }
 
-    
-    showNotFound(section);
-
-    
-    if (autoClear) {
-      try {
-        history.replaceState({}, document.title, CLEAN_TO);
-        
-        document.title = (await safeTranslate('error.404.title', '404 — Not found')) || document.title;
-      } catch (err) {
-        console.warn('handle404.replaceState failed', err);
-      }
+    if (autoClear && path !== BASE && !looksLikeAsset(path)) {
+      setTimeout(() => {
+        if (window.location.pathname !== BASE) {
+          history.replaceState("", document.title, CLEAN_TO);
+        }
+      }, 2000);
     }
   }
 
   function decodePathSafe(p) {
     try {
-      return decodeURIComponent(p || '/').replace(/\s+/g, ' ').trim().replace(/\/+$/, '/') ;
+      return decodeURIComponent(p || '/').replace(/\/+$/, '/');
     } catch (e) {
       return (p || '/');
     }
   }
 
-  
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => { setTimeout(handleOnce, 0); }, { once: true });
+    document.addEventListener('DOMContentLoaded', () => setTimeout(handleOnce, 50), { once: true });
   } else {
-    
-    setTimeout(handleOnce, 0);
+    setTimeout(handleOnce, 50);
   }
 
-  
-  return {
-    init: handleOnce,
-    base: BASE,
-    cleanTo: CLEAN_TO
-  };
+  return { init: handleOnce };
 }

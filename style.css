@@ -11,10 +11,10 @@ body {
 
 body {
     display: flex;
-        flex-direction: column;
-        min-height: 100vh;
-        margin: 0;
-        font-family: "Montserrat Alternates", sans-serif !important;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    font-family: "Montserrat Alternates", sans-serif !important;
 }
 
 
@@ -24,32 +24,31 @@ html {
 
 main {
     flex: 1;
-        overflow: hidden;
-        transition: opacity 0.45s ease, max-height 0.45s ease, visibility 0s linear 0.45s;
+    overflow: hidden;
+    transition: opacity 0.45s ease, max-height 0.45s ease, visibility 0s linear 0.45s;
 }
 
 
 .invisible {
     opacity: 0;
-        visibility: hidden;
-        position: fixed;
-        left: 0;
-        top: 0;
-        max-width: 0;
-        max-height: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
-        pointer-events: none;
+    visibility: hidden;
+    position: fixed;
+    left: 0;
+    top: 0;
+    max-width: 0;
+    max-height: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    pointer-events: none;
 }
 
 .visible {
-    opacity: 1 !important;
-        visibility: visible !important;
-        position: relative !important;
-        transition: opacity 0.5s ease, visibility 0.5s ease !important;
-        pointer-events: auto !important;
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 
@@ -63,24 +62,24 @@ button {
 
 #dropped-menu {
     position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 120px;
-        font-family: "Montserrat Alternates", serif !important;
-        font-size: 18px;
-        font-weight: bold;
-        z-index: 9999;
-        display: flex;
-        align-items: center;
-        color: #fff;
-        background: linear-gradient(to bottom,
-                rgb(255 255 255 / 75%),
-                rgb(255 255 255 / 0%));
-        backdrop-filter: blur(6px);
-        transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
-        padding: 0;
-        box-sizing: border-box;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    font-family: "Montserrat Alternates", serif !important;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background: linear-gradient(to bottom,
+            rgb(255 255 255 / 75%),
+            rgb(255 255 255 / 0%));
+    backdrop-filter: blur(6px);
+    transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Эффект блюра для хэдера */
@@ -776,11 +775,11 @@ button {
 
 .body-history-img {
     width: auto;
-        /* ширина адаптивная */
-        max-width: 100%;
-        /* не превышает блок */
-        height: 100%;
-        /* тянем на всю высоту контейнера */
+    /* ширина адаптивная */
+    max-width: 100%;
+    /* не превышает блок */
+    height: 100%;
+    /* тянем на всю высоту контейнера */
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
@@ -1411,10 +1410,10 @@ button {
 
     background: linear-gradient(90deg,
             #ffffff 0%,
-                #fdcbe6 25%,
-                #ffffff 50%,
-                #ffc1e2 75%,
-                #ffffff 100%);
+            #fdcbe6 25%,
+            #ffffff 50%,
+            #ffc1e2 75%,
+            #ffffff 100%);
     background-size: 200% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -1786,7 +1785,8 @@ label input:focus {
     align-items: center;
     width: 900px;
     max-width: 90%;
-    height: 800px;
+    min-height: 800px;
+    height: auto;
     background: rgba(0, 40, 80, 0.65);
     backdrop-filter: blur(8px);
     border-radius: 12px;
@@ -1849,15 +1849,14 @@ label input:focus {
 
 .personal-account-right {
     flex: 1;
-    height: 95%;
+    height: auto;
+    margin-bottom: 20px;
     display: flow;
     text-align: justify;
     background: rgba(0, 30, 70, 0.25);
-    border-radius: 10px;
-    padding-top: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding: 20px;
     position: relative;
+    border-radius: 12px;
 }
 
 .admin {
@@ -1873,16 +1872,16 @@ label input:focus {
 #admin-users-table {
     box-sizing: border-box;
     padding: 12px 0;
-        /* если нужно оставить отступы сверху/снизу */
+    /* если нужно оставить отступы сверху/снизу */
 }
 
 .admin-users-table-wrap {
     max-height: 100%;
-        /* не выше родителя (#admin-users-table -> .personal-account-right) */
-        overflow-y: auto;
-        /* вертикальная прокрутка только здесь */
-        overflow-x: auto;
-        /* и горизонтальная при узком экране */
+    /* не выше родителя (#admin-users-table -> .personal-account-right) */
+    overflow-y: auto;
+    /* вертикальная прокрутка только здесь */
+    overflow-x: auto;
+    /* и горизонтальная при узком экране */
     display: block;
     box-sizing: border-box;
 }
@@ -1892,7 +1891,7 @@ label input:focus {
     width: 100%;
     border-collapse: collapse;
     border-spacing: 12px 8px;
-        /* горизонталь = 12px | вертикаль = 8px */
+    /* горизонталь = 12px | вертикаль = 8px */
     color: #ffdcb1;
     font-size: 18px;
     table-layout: fixed;
@@ -1902,25 +1901,25 @@ label input:focus {
 .admin-users-table th:nth-child(1),
 .admin-users-table td:nth-child(1) {
     width: 40px;
-        /* ID */
+    /* ID */
 }
 
 .admin-users-table th:nth-child(2),
 .admin-users-table td:nth-child(2) {
     width: 135px;
-        /* Login */
+    /* Login */
 }
 
 .admin-users-table th:nth-child(3),
 .admin-users-table td:nth-child(3) {
     width: 260px;
-        /* Email */
+    /* Email */
 }
 
 .admin-users-table th:nth-child(4),
 .admin-users-table td:nth-child(4) {
     width: 125px;
-        /* Date */
+    /* Date */
     text-align: center;
 }
 
@@ -2137,7 +2136,7 @@ label input:focus {
 .admin-users-buttons {
     display: flex;
     gap: 10px;
-        /* промежуток между кнопками */
+    /* промежуток между кнопками */
     margin-top: 10px;
     justify-content: center;
 }
@@ -2175,6 +2174,7 @@ label input:focus {
     width: 150px;
     word-break: break-word;
 }
+
 .admin-table th.col-res-phone,
 .admin-table td.col-res-phone {
     width: 140px;
@@ -2388,14 +2388,14 @@ label input:focus {
 /* 404 card */
 .not-found {
     display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 40px 20px;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
     min-height: calc(100vh - 200px);
-        /* с учетом header+footer */
-        box-sizing: border-box;
-        transition: opacity .35s ease, transform .35s ease;
-        pointer-events: none;
+    /* с учетом header+footer */
+    box-sizing: border-box;
+    transition: opacity .35s ease, transform .35s ease;
+    pointer-events: none;
 }
 
 .not-found.visible {
@@ -2404,44 +2404,44 @@ label input:focus {
 
 .nf-card {
     max-width: 820px;
-        width: min(92%, 820px);
+    width: min(92%, 820px);
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(250, 250, 250, 0.98));
-        border-radius: 12px;
-        padding: 28px;
+    border-radius: 12px;
+    padding: 28px;
     box-shadow: 0 8px 30px rgba(10, 10, 10, 0.12);
-        text-align: center;
-        transform: translateY(6px);
-        opacity: 0;
-        transition: opacity .4s ease, transform .4s ease;
+    text-align: center;
+    transform: translateY(6px);
+    opacity: 0;
+    transition: opacity .4s ease, transform .4s ease;
     border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* when shown */
 .not-found.visible .nf-card {
     transform: translateY(0);
-        opacity: 1;
+    opacity: 1;
 }
 
 .nf-illustration {
     font-size: 48px;
-        margin-bottom: 12px;
+    margin-bottom: 12px;
 }
 
 #nf-title {
     font-size: clamp(20px, 3.4vw, 34px);
-        margin: 8px 0 6px;
-        color: #1a1a1a;
+    margin: 8px 0 6px;
+    color: #1a1a1a;
 }
 
 .nf-desc {
     color: #333;
-        margin-bottom: 6px;
+    margin-bottom: 6px;
 }
 
 .nf-sub {
     color: #666;
-        margin-bottom: 18px;
-        font-size: 0.95rem;
+    margin-bottom: 18px;
+    font-size: 0.95rem;
 }
 
 /* buttons */
@@ -2451,18 +2451,19 @@ label input:focus {
     justify-content: center;
     flex-wrap: wrap;
 }
+
 .btn {
     padding: 10px 18px;
-        border-radius: 999px;
-        border: 2px solid #1a1a1a;
-        background: transparent;
-        font-weight: 700;
-        cursor: pointer;
+    border-radius: 999px;
+    border: 2px solid #1a1a1a;
+    background: transparent;
+    font-weight: 700;
+    cursor: pointer;
 }
 
 .btn-ghost {
     border-color: transparent;
-        color: #444;
+    color: #444;
 }
 
 
@@ -2529,7 +2530,7 @@ label input:focus {
     bottom: -6%;
     background: radial-gradient(circle at 80% 80%,
             rgba(255, 255, 255, 1) 0%,
-                rgba(255, 255, 255, 0) 18%);
+            rgba(255, 255, 255, 0) 18%);
     animation: spot-right-move 42s ease-in-out infinite alternate;
 }
 
@@ -2677,12 +2678,12 @@ label input:focus {
     inset: 0;
     background: radial-gradient(800px 300px at 25% 70%, rgba(255, 165, 60, var(--gallery-fog-opacity)), transparent 25%),
         radial-gradient(700px 280px at 75% 30%, rgba(210, 120, 30, calc(var(--gallery-fog-opacity) - 0.04)), transparent 25%),
-            radial-gradient(900px 400px at 50% 50%, rgba(180, 80, 20, 0.08), transparent 40%);
+        radial-gradient(900px 400px at 50% 50%, rgba(180, 80, 20, 0.08), transparent 40%);
     filter: blur(90px);
     opacity: 0.86;
     mix-blend-mode: screen;
     will-change: transform, opacity;
-    animation: gallery-fog-drift 70s ease-in-out infinite alternate;
+    /* animation: gallery-fog-drift 70s ease-in-out infinite alternate; */
     transform-origin: center;
 }
 
@@ -2738,7 +2739,7 @@ label input:focus {
     /* более контрастный, локализованный набор градиентов в правом-нижнем углу */
     background: radial-gradient(420px 180px at 86% 86%, rgba(230, 120, 40, 0.28), transparent 28%),
         radial-gradient(620px 260px at 70% 70%, rgba(200, 100, 35, 0.18), transparent 30%),
-            radial-gradient(900px 380px at 50% 50%, rgba(140, 70, 25, 0.06), transparent 40%);
+        radial-gradient(900px 380px at 50% 50%, rgba(140, 70, 25, 0.06), transparent 40%);
     /* чуть меньше блюра, чтобы локальный клубок не полностью растекался */
     filter: blur(56px);
     /* чуть плотнее, чтобы были заметны тона */
@@ -2746,7 +2747,18 @@ label input:focus {
     mix-blend-mode: screen;
     will-change: transform, opacity;
     transform-origin: center;
-    animation: gallery-fog-drift-br 72s ease-in-out infinite alternate;
+    /* animation: gallery-fog-drift-br 72s ease-in-out infinite alternate; */
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
 }
 
 /* Анимация — немного короче, чтобы фаза отличалась от основного слоя */
@@ -2797,9 +2809,9 @@ label input:focus {
     opacity: 0.72;
     background: radial-gradient(circle at 50% 50%,
             rgba(255, 235, 190, 0.86) 0%,
-                rgba(255, 205, 120, 0.56) 28%,
-                rgba(255, 160, 60, 0.12) 52%,
-                transparent 75%);
+            rgba(255, 205, 120, 0.56) 28%,
+            rgba(255, 160, 60, 0.12) 52%,
+            transparent 75%);
     will-change: transform, opacity;
     animation: gallery-bokeh-br-float var(--dur-br, 20s) ease-in-out infinite alternate;
 }
@@ -3257,28 +3269,30 @@ label input:focus {
 }
 
 .custom-number-inline input[type="number"] {
-    -moz-appearance: textfield;
+    appearance: textfield;
 }
+
 .custom-number-inline {
     position: relative;
     display: inline-block;
-        width: 100%;
+    width: 100%;
 }
 
 .input-with-buttons {
     position: relative;
 }
+
 .custom-number-inline input[type="number"] {
     width: 100%;
-        height: 45px;
-        padding: 10px 40px 10px 15px;
-        border: 1px solid rgba(255, 215, 185, 0.35);
+    height: 45px;
+    padding: 10px 40px 10px 15px;
+    border: 1px solid rgba(255, 215, 185, 0.35);
     border-radius: 8px;
     box-sizing: border-box;
-        font-size: 16px;
-        background: transparent;
-        color: #f8e7e8;
-        outline: none;
+    font-size: 16px;
+    background: transparent;
+    color: #f8e7e8;
+    outline: none;
 }
 
 .custom-number-inline input[type="number"]:focus {
@@ -3288,28 +3302,28 @@ label input:focus {
 .number-btns {
     position: absolute;
     right: 1px;
-        top: 1px;
-        bottom: 1px;
-        width: 30px;
+    top: 1px;
+    bottom: 1px;
+    width: 30px;
     display: flex;
     flex-direction: column;
     z-index: 2;
-        overflow: hidden;
-        background: transparent;
+    overflow: hidden;
+    background: transparent;
 }
 
 .number-btn {
     flex: 1;
     width: 100%;
-        margin: 0;
-        padding: 0;
+    margin: 0;
+    padding: 0;
     border: none;
     background: transparent;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
     font-size: 12px;
     transition: background 0.2s;
 }
@@ -3464,6 +3478,10 @@ label input:focus {
     justify-content: center;
 }
 
+.menu-layer.layer-1 {
+    background-image: url('img/albert-YYZU0Lo1uXE-unsplash.jpg');
+}
+
 /* Z-offsets: чем больше translateZ, тем ближе к зрителю */
 .layer-1 {
     transform: translateZ(-60px) scale(1.06);
@@ -3585,6 +3603,7 @@ label input:focus {
     z-index: 2000;
     mix-blend-mode: screen;
     filter: blur(2px);
+    background-image: url('img/png-klev-club-x8uq-p-legkii-dim-png-9.png')
 }
 
 .menu-sun {
@@ -3600,6 +3619,7 @@ label input:focus {
     z-index: 2000;
     mix-blend-mode: screen;
     filter: blur(2px);
+    background-image: url('img/png-klev-club-882g-p-bliki-solntsa-png-22.png')
 }
 
 .menu-admin-controls {
@@ -3964,9 +3984,29 @@ label input:focus {
 /* === СТИЛИ ФОРМЫ === */
 .menu-add-form__field {
     margin-bottom: 15px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    background: #f0f0f0;
+    cursor: not-allowed;
+    color: #555;
+}
+
+.menu-add-form__field label {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.menu-add-form__field input {
+    background: #f9f9f9;
+}
+
+.menu-add-form__field small {
+    color: #888;
+    font-size: 11px;
+    display: block;
+    margin-top: 4px;
 }
 
 .menu-add-form__group {
@@ -3987,20 +4027,21 @@ label input:focus {
 
 .input-with-suffix input {
     padding-right: 0.25rem;
-        width: 100px;
+    width: 100px;
 }
 
 small {
     display: block;
-        color: #666;
-        font-size: 12px;
-        margin-top: 4px;
+    color: #666;
+    font-size: 12px;
+    margin-top: 4px;
 }
 
 .input-with-suffix .suffix {
     color: #333;
-        font-size: 0.95em;
-        user-select: none;
+    font-size: 0.95em;
+    user-select: none;
+    margin-left: 6px;
 }
 
 .menu-add-form__fieldset {
@@ -4014,6 +4055,10 @@ small {
     font-weight: 600;
     color: #666;
     padding: 0 5px;
+}
+
+#preview-img {
+    display: none;
 }
 
 label {
@@ -4100,6 +4145,7 @@ textarea:focus {
 .menu-admin-button--submit:hover {
     background-color: #218838;
 }
+
 /* ================= SPA LINK FIXES ================= */
 
 .main-menu-button a,
@@ -4125,6 +4171,41 @@ a.reservation-btn {
 .main-menu-button a:focus,
 .mobile-menu-list li a:focus {
     outline: none;
+}
+
+.personal-account-content.invisible,
+#admin-panel.invisible,
+#admin-users-content.invisible {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.main-menu-button {
+    padding: 0;
+}
+
+.main-menu-button:last-child {
+    padding: 12px 16px;
+}
+
+.main-menu-button a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 12px 16px;
+    text-align: center;
+}
+
+.mobile-menu-list li {
+    padding: 0;
+}
+
+.mobile-menu-list li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px 0;
 }
 
 /* Адаптив */
@@ -5395,152 +5476,218 @@ a.reservation-btn {
     }
 }
 
-/* ==========================================================================
-   PRINT STYLES (Landscape, Colorful, Main Page Only)
-   ========================================================================== */
+
 
 @media print {
 
-    /* 1. НАСТРОЙКИ СТРАНИЦЫ */
-    @page {
-        size: landscape;
-        /* Принудительная горизонтальная ориентация */
-        margin: 1cm;
-        /* Аккуратные поля */
+    #gallery-section,
+    #zoom,
+    #signin-section,
+    #login-section,
+    #account-wrapper,
+    #reservation-section,
+    #menu-all,
+    #not-found {
+        display: none !important;
     }
 
-    /* 2. СОХРАНЕНИЕ ЦВЕТА И ФОНОВ */
+    html,
     body {
-        -webkit-print-color-adjust: exact !important;
-        /* Chrome/Safari/Edge */
-        print-color-adjust: exact !important;
-        /* Firefox */
-        background-color: #fff !important;
-    }
-
-    /* 3. СКРЫВАЕМ ВСЁ ЛИШНЕЕ */
-    /* Скрываем навигацию, футер, формы, кнопки, слайдер и другие секции */
-    #dropped-menu,
-    footer,
-    .menu-mobile-toggle,
-    .slider-wrapper,
-    /* Слайдер с большими фото */
-    .slider-pagination-wrapper,
-    .scroll-indicator,
-    .login-btn,
-    .language-btn,
-    .menu-all-btn,
-    #gallery-pause-btn,
-    .zoom-container,
-    .form-main,
-    .login-form-section,
-    .personal-account,
-    button,
-    a[href^="#"]::after,
-    /* Скрываем стрелочки у ссылок-кнопок */
-
-    /* Скрываем остальные страницы, печатаем ТОЛЬКО главную */
-    .menu-all,
-    .gallery-section,
-    .reservation-section,
-    .main-content-wrapper {
-        display: none !important;
-    }
-
-    /* 4. СКРЫВАЕМ KONТЕНТНЫЕ КАРТИНКИ (теги <img>) */
-    /* Оставляем только фоновые изображения (background-image) */
-    img {
-        display: none !important;
-    }
-
-    /* 5. НАСТРОЙКА ГЛАВНОЙ СЕКЦИИ */
-    main#main {
         display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        overflow: visible !important;
-        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+
+        background: #fff !important;
+        color: #000 !important;
+
+        font-family: "Times New Roman", serif;
+        font-size: 12pt;
+        line-height: 1.5;
     }
 
-    /* 6. ИСПРАВЛЕНИЕ ВЕРСТКИ ПОСЛЕ УДАЛЕНИЯ КАРТИНОК */
+    @page {
+        size: A4;
+        margin: 15mm;
+    }
 
-    /* Секция "История" - растягиваем текст на всю ширину */
-    .body-history {
+    header {
         display: block !important;
-        /* Фон сохраняется благодаря print-color-adjust */
+        position: static !important;
+        margin-bottom: 25px !important;
     }
 
-    .body-history-left-text {
+    main {
+        display: block !important;
         width: 100% !important;
-        flex: none !important;
-        max-width: 100% !important;
-        text-align: left;
+    }
+
+    .slider-wrapper {
+        display: none !important;
+    }
+
+    .body-history-all-text button {
+        display: none;
     }
 
     .body-history-right-text {
-        display: none !important;
-        /* Пустой блок от картинки */
+        display: none;
     }
 
-    /* Колонки - делаем их блоками друг под другом или рядом, если влезают */
-    .columns-wrapper {
-        padding: 20px 0 !important;
-        background-image: none !important;
-        /* Убираем тяжелый фон у колонок, если нужно, или оставьте */
-        /* Если нужно оставить фон EmperorHomelay.png - удалите строку выше */
-    }
-
+    /* --- Глобальный сброс для всей ширины --- */
+    /* --- Глобальный сброс для всей ширины --- */
+    html,
+    body,
+    .columns-section,
+    .columns-wrapper,
     .body-all-columns {
-        display: flex !important;
-        gap: 20px !important;
-        justify-content: space-between !important;
-    }
-
-    .body-column {
-        flex: 1 !important;
         margin: 0 !important;
-        min-height: auto !important;
-        /* Картинка внутри скрыта глобальным правилом img { display: none } */
-        /* Текст автоматически поднимется вверх */
-        border: 1px solid #ccc;
-        /* Добавляем рамку для красоты */
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: none !important;
+        display: block !important;
     }
 
-    /* Отзывы */
-    .reviews-columns {
-        height: auto !important;
-        overflow: visible !important;
-        /* Градиентный фон сохранится */
+    /* --- Настройка блока с ограничением высоты --- */
+    .body-column {
+        display: grid !important;
+        /* 40% под фото, 60% под текст (согласно вашему запросу на уменьшение ширины картинки) */
+        grid-template-columns: 40% 60% !important;
+
+        width: 100vw !important;
+        max-width: none !important;
+
+        /* УСТАНОВКА ВЫСОТЫ */
+        max-height: 325px !important;
+        min-height: 325px !important;
+        /* Если нужно, чтобы все блоки были строго одной высоты */
+
+        box-sizing: border-box !important;
+        padding: 0 !important;
+        margin-bottom: 12px !important;
+
+        background-color: rgba(255, 255, 255, 0.8) !important;
+        align-items: stretch !important;
+        overflow: hidden !important;
+        /* Обрезает текст, если он превышает 325px */
+    }
+
+    /* --- Картинка слева: теперь она всегда 325px в высоту --- */
+    .body-column img {
+        grid-column: 1 !important;
+        grid-row: 1 / span 2 !important;
+
+        width: 100% !important;
+        height: 325px !important;
+        /* Фиксируем высоту картинки под блок */
+        object-fit: cover !important;
+        /* Сохраняет пропорции фото, обрезая лишнее */
+
+        display: block !important;
+        margin: 0 !important;
+        filter: grayscale(100%);
+    }
+
+    /* --- Текстовый контент справа --- */
+    .body-column h3 {
+        grid-column: 2 !important;
+        margin: 15px 25px 5px 25px !important;
+        font-size: 1.25rem !important;
+        line-height: 1.2 !important;
+    }
+
+    .body-column p {
+        grid-column: 2 !important;
+        margin: 0 25px 15px 25px !important;
+        /* Возвращаем чуть более свободный интервал, так как 325px — это достаточно много места */
+        line-height: 1.4 !important;
+        font-size: 1rem !important;
+    }
+
+    /* --- Скрываем кнопки --- */
+    .body-column a {
+        display: none !important;
+    }
+
+
+   .reviews-columns {
+        height: auto !important;     
+        background: none !important; 
+        position: static !important;
+    }
+
+    .reviews-container {
+        height: auto !important;      
+        padding: 0 !important;
+        margin: 0 !important;
+        display: block !important;    
+    }
+
+    .section-title {
+        color: #000 !important;
+        margin-bottom: 30px !important;
+        page-break-after: avoid;
     }
 
     .reviews-columns-wrapper {
-        height: auto !important;
-    }
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;     
+        overflow: visible !important;    }
 
     .columns-grid {
-        display: flex !important;
-        flex-wrap: wrap !important;
-        gap: 10px !important;
+        display: block !important;   
+        width: 100% !important;
+    }
+
+    .gallery-bg, 
+    .scroll-indicator, 
+    .footer-card, 
+    .reviews-footer-text,
+    .scroll-up,
+    .scroll-down,
+    .bokeh,
+    .fog-layer {
+        display: none !important;
     }
 
     .card {
-        page-break-inside: avoid;
-        /* Карточки не разрываются */
-        width: 30% !important;
-        /* 3 в ряд в ландшафте */
-        flex: 1 1 30% !important;
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 25px !important;
+        padding: 15px !important;
+        
+        background: #fff !important;
+        border: 1px solid #eee !important;
+        border-radius: 0 !important;
+        
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+    
         box-shadow: none !important;
-        border: 1px solid #ddd !important;
     }
 
-    /* About Us - фон останется */
-    .about-us-section {
-        color: #fff !important;
-        /* Текст белый, т.к. фон темный */
+    .star.filled {
+        color: #000 !important;
+        print-color-adjust: exact; 
     }
 
-    .about-us-background {
-        background: rgba(0, 0, 0, 0.7) !important;
-        /* Усиливаем затемнение для читаемости */
+    .avatar img {
+        filter: grayscale(100%) !important;
+        border: 1px solid #eee; }
+    
+
+    footer,
+    footer * {
+        display: block !important;
+    }
+
+    footer {
+        margin-top: 30px !important;
+        padding-top: 15px !important;
+        border-top: 2px solid #000 !important;
+    }
+
+    .footer-media-links {
+        display: none !important;
     }
 }
