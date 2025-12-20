@@ -5716,3 +5716,13 @@ a.reservation-btn {
     visibility: visible !important;
   }
 }
+
+
+#user-reservations {
+  transition: opacity 0.18s ease;
+}
+
+#user-reservations.is-loading {
+  opacity: 0.55;
+  pointer-events: none;
+}

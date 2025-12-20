@@ -282,117 +282,98 @@ export async function loadUserReservations(userId, page = 1) {
   const pagination = document.getElementById('user-reservations-pagination');
   if (!container) return;
 
-  container.innerHTML = '<p data-i18n="personal-account.loading">Loading your reservations...</p>';
-  
-  try { if (typeof window.translatePersonalAccount === 'function') await window.translatePersonalAccount(container); } catch(e){}
+  // Мягкий визуальный feedback
+  container.classList.add('is-loading');
 
-  
-  const dict = await _getDictSafe();
+  // Блокируем пагинацию
+  const buttons = pagination ? pagination.querySelectorAll('button') : [];
+  buttons.forEach(b => b.disabled = true);
 
   try {
-    const resp = await fetch(`./php/get_user_reservations.php?page=${encodeURIComponent(page)}`, {
-      method: 'GET',
+    const resp = await fetch(`./php/get_user_reservations.php?page=${page}`, {
       credentials: 'include'
     });
 
-    const data = await resp.json().catch(() => ({ success: false, reservations: [] }));
-    container.innerHTML = '';
+    const data = await resp.json();
 
-    if (!data.success || !Array.isArray(data.reservations) || data.reservations.length === 0) {
-      container.innerHTML = '<p class="empty-reservations" data-i18n="personal-account.no-reservations">You have no active reservations.</p>';
-      try { if (typeof window.translatePersonalAccount === 'function') await window.translatePersonalAccount(container); } catch(e){}
-      if (pagination) pagination.innerHTML = '';
+    // Небольшая задержка = плавность (НЕ обязательно, но UX лучше)
+    await new Promise(r => requestAnimationFrame(r));
+
+    if (!data.success || !data.reservations?.length) {
+      container.innerHTML =
+        '<p class="empty-reservations">You have no active reservations.</p>';
       return;
     }
 
-    const currentPage = data.page || 1;
-    const totalPages = data.totalPages || 1;
+    const dict = await _getDictSafe().catch(() => null);
+
+    const frag = document.createDocumentFragment();
 
     for (const r of data.reservations) {
       const item = document.createElement('div');
       item.className = 'reservation-item';
 
       const h4 = document.createElement('h4');
-      h4.textContent = `${r.date} ${ (r.time ? 'in ' + r.time : '') }`.trim();
+      h4.textContent = `${r.date} ${r.time ? 'in ' + r.time : ''}`;
       item.appendChild(h4);
 
-      item.appendChild(createLabeledParagraph('personal-account.name', String(r.name || ''), dict));
-      item.appendChild(createLabeledParagraph('personal-account.phone', String(r.phone || ''), dict));
-      item.appendChild(createLabeledParagraph('personal-account.email', String(r.email || ''), dict));
-      item.appendChild(createLabeledParagraph('personal-account.guest', String(r.people || ''), dict));
+      item.appendChild(createLabeledParagraph('personal-account.name', r.name, dict));
+      item.appendChild(createLabeledParagraph('personal-account.phone', r.phone, dict));
+      item.appendChild(createLabeledParagraph('personal-account.email', r.email, dict));
+      item.appendChild(createLabeledParagraph('personal-account.guest', r.people, dict));
 
-      if (r.message && String(r.message).trim().length > 0) {
-        item.appendChild(createLabeledParagraph('personal-account.comment', String(r.message), dict));
+      if (r.message) {
+        item.appendChild(createLabeledParagraph('personal-account.comment', r.message, dict));
       }
 
-      
       const cancelBtn = document.createElement('button');
-      cancelBtn.type = 'button';
       cancelBtn.className = 'cancel-reservation-btn';
-      const rid = Number(r.id);
-      cancelBtn.dataset.id = Number.isFinite(rid) ? String(rid) : '';
-      cancelBtn.setAttribute('data-i18n', 'personal-account.cancel');
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.onclick = () => cancelReservation(r.id, userId);
 
-      
-      (async () => {
-        const key = 'personal-account.cancel';
-        let translated = null;
-        try { translated = _lookupInDict(dict, key); } catch(e){}
-        if (translated != null) {
-          cancelBtn.textContent = String(translated);
-        } else {
-          
-          cancelBtn.textContent = 'Cancel';
-        }
-      })();
-
-      cancelBtn.addEventListener('click', () => {
-        try { if (typeof window.cancelReservation === 'function') window.cancelReservation(cancelBtn.dataset.id, userId); else cancelReservation(cancelBtn.dataset.id, userId); } catch(e){}
-      });
       item.appendChild(cancelBtn);
-
-      container.appendChild(item);
-
-      
-      try { if (typeof window.translatePersonalAccount === 'function') await window.translatePersonalAccount(item); } catch(e){}
+      frag.appendChild(item);
     }
 
-    
+    // МОМЕНТ ПОДМЕНЫ — незаметный
+    container.replaceChildren(frag);
+
+    // Пагинация
     if (pagination) {
       pagination.innerHTML = '';
 
       const prev = document.createElement('button');
       prev.textContent = '←';
-      prev.disabled = currentPage <= 1;
-      prev.onclick = () => loadUserReservations(userId, currentPage - 1);
+      prev.disabled = data.page <= 1;
+      prev.onclick = () => loadUserReservations(userId, data.page - 1);
       pagination.appendChild(prev);
 
-      const maxButtons = 3;
-      let start = Math.max(1, currentPage - 1);
-      let end = Math.min(totalPages, start + maxButtons - 1);
-      if (end - start < maxButtons - 1) start = Math.max(1, end - maxButtons + 1);
-
-      for (let i = start; i <= end; i++) {
+      for (let i = 1; i <= data.totalPages; i++) {
         const btn = document.createElement('button');
         btn.textContent = i;
-        if (i === currentPage) btn.className = 'active-page';
+        if (i === data.page) btn.classList.add('active-page');
         btn.onclick = () => loadUserReservations(userId, i);
         pagination.appendChild(btn);
       }
 
       const next = document.createElement('button');
       next.textContent = '→';
-      next.disabled = currentPage >= totalPages;
-      next.onclick = () => loadUserReservations(userId, currentPage + 1);
+      next.disabled = data.page >= data.totalPages;
+      next.onclick = () => loadUserReservations(userId, data.page + 1);
       pagination.appendChild(next);
     }
 
-  } catch (err) {
-    console.error('loadUserReservations error', err);
-    container.innerHTML = '<p class="empty-reservations" data-i18n="personal-account.error-loading">Error loading reservations.</p>';
-    try { if (typeof window.translatePersonalAccount === 'function') await window.translatePersonalAccount(container); } catch(e){}
+  } catch (e) {
+    console.error(e);
+  } finally {
+    // Возвращаем нормальный вид
+    requestAnimationFrame(() => {
+      container.classList.remove('is-loading');
+      buttons.forEach(b => b.disabled = false);
+    });
   }
 }
+
 
 export async function cancelReservation(reservationId, userId) {
   const id = parseInt(reservationId, 10);
@@ -462,6 +443,7 @@ export async function cancelReservation(reservationId, userId) {
     alert('Connection error with the server.');
   }
 }
+
 
 
 try {
