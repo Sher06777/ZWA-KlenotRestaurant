@@ -229,50 +229,31 @@ async function _getDictSafe() {
 export function createLabeledParagraph(labelKey, valueText, dict = null) {
   const p = document.createElement('p');
   const strong = document.createElement('strong');
-
-  
   strong.setAttribute('data-i18n', labelKey);
-  p.appendChild(strong);
-  p.appendChild(document.createTextNode(' '));
 
+  // 1. Получаем перевод сразу (без ожидания внутри функции)
+  const translated = _lookupInDict(dict, labelKey);
   
-  if (typeof valueText !== 'string' || valueText.length === 0) {
-    p.appendChild(document.createTextNode(''));
-  } else {
-    const parts = valueText.split(/\r?\n/);
+  // Фолбэки, если словаря нет или ключ не найден
+  const fallbacks = {
+    'personal-account.name': 'Name:',
+    'personal-account.phone': 'Phone:',
+    'personal-account.email': 'Email:',
+    'personal-account.guest': 'Guests:',
+    'personal-account.comment': 'Comment:'
+  };
+
+  strong.textContent = (translated || fallbacks[labelKey] || labelKey) + ' ';
+  p.appendChild(strong);
+
+  // 2. Добавляем само значение
+  if (valueText) {
+    const parts = String(valueText).split(/\r?\n/);
     parts.forEach((part, idx) => {
       p.appendChild(document.createTextNode(part));
       if (idx < parts.length - 1) p.appendChild(document.createElement('br'));
     });
   }
-
-  
-  (async () => {
-    try {
-      let localDict = dict;
-      if (!localDict) localDict = await _getDictSafe();
-      const translated = _lookupInDict(localDict, labelKey);
-      if (translated != null) {
-        strong.textContent = String(translated) + ' ';
-      } else {
-        
-        
-        const minimalFallbacks = {
-          'personal-account.name': 'Name:',
-          'personal-account.phone': 'Phone:',
-          'personal-account.email': 'Email:',
-          'personal-account.guest': 'Guests:',
-          'personal-account.comment': 'Comment:'
-        };
-        // Minimal client-side fallback when translation missing.
-        if (minimalFallbacks[labelKey]) strong.textContent = minimalFallbacks[labelKey] + ' ';
-        else strong.textContent = labelKey + ' ';
-      }
-    } catch (e) {
-      
-      try { strong.textContent = labelKey + ' '; } catch(_) {}
-    }
-  })();
 
   return p;
 }
@@ -282,10 +263,10 @@ export async function loadUserReservations(userId, page = 1) {
   const pagination = document.getElementById('user-reservations-pagination');
   if (!container) return;
 
-  // Мягкий визуальный feedback
+  container.style.minHeight = container.offsetHeight + 'px';
   container.classList.add('is-loading');
+  container.style.opacity = '0.6';
 
-  // Блокируем пагинацию
   const buttons = pagination ? pagination.querySelectorAll('button') : [];
   buttons.forEach(b => b.disabled = true);
 
@@ -293,19 +274,14 @@ export async function loadUserReservations(userId, page = 1) {
     const resp = await fetch(`./php/get_user_reservations.php?page=${page}`, {
       credentials: 'include'
     });
-
     const data = await resp.json();
 
-    // Небольшая задержка = плавность (НЕ обязательно, но UX лучше)
-    await new Promise(r => requestAnimationFrame(r));
+    const dict = await _getDictSafe().catch(() => null);
 
     if (!data.success || !data.reservations?.length) {
-      container.innerHTML =
-        '<p class="empty-reservations">You have no active reservations.</p>';
+      container.innerHTML = '<p class="empty-reservations">You have no active reservations.</p>';
       return;
     }
-
-    const dict = await _getDictSafe().catch(() => null);
 
     const frag = document.createDocumentFragment();
 
@@ -327,18 +303,16 @@ export async function loadUserReservations(userId, page = 1) {
       }
 
       const cancelBtn = document.createElement('button');
-      cancelBtn.className = 'cancel-reservation-btn';
-      cancelBtn.textContent = 'Cancel';
+      cancelBtn.className = 'cancel-reservation-btn edit-account-btn';
+      cancelBtn.textContent = 'Cancel'; 
       cancelBtn.onclick = () => cancelReservation(r.id, userId);
 
       item.appendChild(cancelBtn);
       frag.appendChild(item);
     }
 
-    // МОМЕНТ ПОДМЕНЫ — незаметный
     container.replaceChildren(frag);
 
-    // Пагинация
     if (pagination) {
       pagination.innerHTML = '';
 
@@ -364,13 +338,17 @@ export async function loadUserReservations(userId, page = 1) {
     }
 
   } catch (e) {
-    console.error(e);
+    console.error('Failed to load reservations:', e);
   } finally {
-    // Возвращаем нормальный вид
-    requestAnimationFrame(() => {
-      container.classList.remove('is-loading');
-      buttons.forEach(b => b.disabled = false);
-    });
+    container.classList.remove('is-loading');
+    container.style.opacity = '1';
+    container.style.minHeight = '';
+    
+    if (typeof adjustAccountSectionHeight === 'function') {
+      adjustAccountSectionHeight();
+    }
+    
+    buttons.forEach(b => b.disabled = false);
   }
 }
 
@@ -382,12 +360,9 @@ export async function cancelReservation(reservationId, userId) {
     return;
   }
 
-  // Найдём все кнопки отмены для этого id и заблокируем их,
-  // чтобы избежать множественных кликов.
   const cancelButtons = Array.from(document.querySelectorAll('.cancel-reservation-btn'))
     .filter(b => b.dataset && String(b.dataset.id) === String(id));
 
-  // Запомним текст кнопок чтобы восстановить при ошибке
   const prevTexts = cancelButtons.map(b => b.textContent);
 
   cancelButtons.forEach(b => {
@@ -399,7 +374,6 @@ export async function cancelReservation(reservationId, userId) {
 
   try {
     if (window.CSRFManager) {
-      // Ensure CSRFManager initialized before making mutating request
       if (!window.CSRFManager.isInitialized || !window.CSRFManager.isInitialized()) {
         await window.CSRFManager.init();
       }
