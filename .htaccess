@@ -2,32 +2,35 @@ Options -MultiViews
 RewriteEngine On
 RewriteBase /~abdimshe/
 
-# -------------------------------------------------------
 # 1) Если путь содержит "index.html/..." или "index.js..." → SPA
-RewriteRule ^index\.html/ /~abdimshe/index.html [L]
+RewriteRule ^index\.html/ index.html [L]
 RewriteCond %{REQUEST_URI} ^/~abdimshe/index\.js.+ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^index\.js.+$ /~abdimshe/index.html [L]
+RewriteRule ^index\.js.+$ index.html [L]
 
-# -------------------------------------------------------
-# 2) Существующие файлы/директории → отдаём напрямую
+# 2) Существующие файлы и папки (важно для PHP, изображений и JS-модулей)
+# Это правило позволяет ./php/check_session.php и js/*.js работать напрямую
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# -------------------------------------------------------
-# 3) Любые пути, которые выглядят как файл с расширением → показываем 404 (index.html)
-RewriteCond %{REQUEST_URI} \.[a-z0-9]{1,6}$ [NC]
-RewriteRule ^ /~abdimshe/index.html [L]
+# 3) Красивые ссылки (превращаем в якоря)
+# Если человек ввел /~abdimshe/menu, мы делаем внешний редирект на /~abdimshe/#menu
+# Это нужно, чтобы  switch-visibility.js сразу открыл нужную секцию.
+RewriteRule ^about-us$ #about-us [NE,R=301,L]
+RewriteRule ^menu$ #menu [NE,R=301,L]
+RewriteRule ^gallery$ #gallery [NE,R=301,L]
+RewriteRule ^reservation$ #reservation [NE,R=301,L]
+RewriteRule ^signin$ #signin [NE,R=301,L]
+RewriteRule ^account$ #account [NE,R=301,L]
 
-# -------------------------------------------------------
-# 4) SPA fallback → все остальные маршруты на index.html
-RewriteCond %{REQUEST_URI} ^/~abdimshe [NC]
+# 4) Обработка неизвестных путей (билеберда в URL)
+# Если пути нет (напр. /~abdimshe/unknown), отдаем index.html.
+# В этом случае URL в браузере ОСТАЕТСЯ прежним, и сработает  handle-404.js
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ /~abdimshe/index.html [L]
+RewriteRule . index.html [L]
 
-# -------------------------------------------------------
-# 5) ErrorDocument на всякий случай
+# 5) ErrorDocument
 ErrorDocument 404 /~abdimshe/index.html

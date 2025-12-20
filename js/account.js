@@ -61,7 +61,6 @@ function showAccountBlock(block) {
   console.log('[ACCOUNT] showAccountBlock called ->', block && (block.className || block.id),
     { datesClass: datesContent ? Array.from(datesContent.classList) : null, reservationClass: reservationContent ? Array.from(reservationContent.classList) : null });
 
-  // на каждой итерации берём актуальные элементы (на случай, если DOM меняется динамически)
   const adminUsersContent = document.getElementById('admin-users-content');
   const adminPanelEl = document.getElementById('admin-panel');
 
@@ -90,6 +89,11 @@ function maskPassword() { return '••••••••'; }
 
 // --- initPersonalAccount (exported) — adapted from old file, same behavior ---
 export async function initPersonalAccount(user) {
+  if (!window.isLoggedIn?.()) {
+  console.warn('[ACCOUNT] blocked — not logged in');
+  return;
+}
+
   if (!user) {
     console.warn('[ACCOUNT] initPersonalAccount called without user');
     return;
