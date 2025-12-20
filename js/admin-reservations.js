@@ -1,22 +1,34 @@
 // Нет русских комментавиев
 
 export function adjustAccountSectionHeight() {
-    const adminUsersContent = document.getElementById('admin-users-content');
-    const adminReservationsContainer = document.getElementById('admin-reservations-container');
-    const defaultHeight = 950; 
+  const adminUsersContent = document.getElementById('admin-users-content');
+  const adminReservationsContainer = document.getElementById('admin-reservations-container');
+  const accountSection = document.getElementById('personal-account');
+  const defaultHeight = 950;
 
-    let contentHeight = defaultHeight;
+  if (!accountSection) return;
 
-    if (adminUsersContent && adminUsersContent.offsetParent !== null) {
-        contentHeight = Math.max(contentHeight, adminUsersContent.offsetHeight + 200);
-    }
+  // Сбрасываем inline height, чтобы браузер мог корректно переложить элементы.
+  accountSection.style.height = 'auto';
+  accountSection.style.minHeight = '';
 
-    if (adminReservationsContainer && adminReservationsContainer.offsetParent !== null) {
-        contentHeight = Math.max(contentHeight, adminReservationsContainer.offsetHeight + 200);
-    }
+  // Даем браузеру применить изменения layout — безопасная пауза.
+  // (в большинстве случаев можно обойтись без setTimeout, но здесь ставим маленькую паузу)
+  // Мы не блокируем — просто измеряем текущий layout.
+  let maxChildHeight = 0;
+  const children = [adminUsersContent, adminReservationsContainer].filter(Boolean);
 
-    const accountSection = document.getElementById('personal-account');
-    if (accountSection) accountSection.style.height = contentHeight + 'px';
+  for (const c of children) {
+    // Если элемент скрыт (display:none / offsetParent === null) — пропускаем.
+    if (c.offsetParent === null) continue;
+    // scrollHeight учитывает весь контент (включая прокручиваемую высоту).
+    const h = c.scrollHeight || c.offsetHeight || 0;
+    maxChildHeight = Math.max(maxChildHeight, h);
+  }
+
+  const contentHeight = Math.max(defaultHeight, maxChildHeight + 200);
+  // Используем minHeight — это предотвращает ситуацию, когда дочерний блок выше родителя.
+  accountSection.style.minHeight = contentHeight + 'px';
 }
 
 export function initAdminReservations() {
@@ -74,14 +86,18 @@ export function initAdminReservations() {
     });
 
     hideAllBtn.addEventListener('click', () => {
-        if (!reservationContainer) return;
-        reservationContainer.style.display = 'none';
-        if (paginationContainer) paginationContainer.innerHTML = '';
-        hideAllBtn.style.marginBottom = '50px';
-        showAllBtn.style.marginBottom = '50px';
-        adjustAccountSectionHeight();
-    });
+    if (!reservationContainer) return;
+    reservationContainer.style.display = 'none';
+    if (paginationContainer) paginationContainer.innerHTML = '';
+    hideAllBtn.style.marginBottom = '50px';
+    showAllBtn.style.marginBottom = '50px';
 
+    // Ждём окончания возможной анимации (в проекте fadeOut ~500ms)
+    // чтобы расчёт высоты был корректным.
+    setTimeout(() => {
+        adjustAccountSectionHeight();
+    }, 520);
+    });
     accountButtons.forEach(element => {
         if (!element) return;
         
