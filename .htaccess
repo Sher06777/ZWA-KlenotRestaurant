@@ -1,6 +1,6 @@
 Options -MultiViews
 RewriteEngine On
-RewriteBase /~achilkem/
+RewriteBase /~abdimshe/
 
 # 1) Если путь содержит "index.html/..." или "index.js..." → SPA
 RewriteRule ^index\.html/ index.html [L]
