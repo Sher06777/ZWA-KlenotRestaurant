@@ -1,10 +1,9 @@
-// js/handle-404.js
 export default function initNotFoundHandler(options = {}) {
   const {
     basePath = '/~abdimshe/',
     cleanTo = '/~abdimshe/',
     autoClear = true,
-    createIfMissing = true      
+    createIfMissing = true
   } = options;
 
   const ensureSlash = p => (p && p.endsWith('/') ? p : (p || '/') + '/');
@@ -88,6 +87,7 @@ export default function initNotFoundHandler(options = {}) {
     return section;
   }
 
+  // localize the 404 node with i18n if available
   async function localizeNode(section) {
     if (!section) return;
     const title = section.querySelector('#nf-title');
@@ -107,27 +107,6 @@ export default function initNotFoundHandler(options = {}) {
     if (backBtn) backBtn.textContent = tBack;
     if (desc) desc.textContent = tDesc;
     if (sub) sub.textContent = tSub;
-  }
-
-  function showNotFound(section) {
-    if (!section) return;
-    if (typeof window.fadeIn === 'function') {
-      window.fadeIn(section);
-    } else {
-      section.style.display = 'flex';
-      section.classList.remove('invisible');
-      section.classList.add('visible');
-    }
-    section.setAttribute('aria-hidden', 'false');
-  }
-
-  function hideAppSectionsGracefully() {
-    const selectors = ['#main', '.menu-all', '#account-wrapper', '#reservation-section', '#gallery-section', '.form-main', '.login-form-section'];
-    selectors.forEach(sel => {
-      const el = document.querySelector(sel);
-      if (el && typeof window.fadeOut === 'function') window.fadeOut(el);
-      else if (el) { el.classList.add('invisible'); el.style.display = 'none'; }
-    });
   }
 
   async function handleOnce() {

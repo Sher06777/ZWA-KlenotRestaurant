@@ -1,4 +1,3 @@
-// Нет русских комментавиев
 export function initReviews() {
   const wrapper = document.querySelector('.reviews-columns-wrapper');
   if (!wrapper) return;

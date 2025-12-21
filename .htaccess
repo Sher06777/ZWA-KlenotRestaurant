@@ -2,22 +2,19 @@ Options -MultiViews
 RewriteEngine On
 RewriteBase /~abdimshe/
 
-# 1) Если путь содержит "index.html/..." или "index.js..." → SPA
+# 1) If request targets "index.html/..." or "index.js..." — treat as SPA and serve index.html
 RewriteRule ^index\.html/ index.html [L]
 RewriteCond %{REQUEST_URI} ^/~abdimshe/index\.js.+ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^index\.js.+$ index.html [L]
 
-# 2) Существующие файлы и папки (важно для PHP, изображений и JS-модулей)
-# Это правило позволяет ./php/check_session.php и js/*.js работать напрямую
+# 2) Serve existing files and directories directly (needed for PHP, images, JS modules)
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# 3) Красивые ссылки (превращаем в якоря)
-# Если человек ввел /~abdimshe/menu, мы делаем внешний редирект на /~abdimshe/#menu
-# Это нужно, чтобы  switch-visibility.js сразу открыл нужную секцию.
+# 3) Pretty routes → redirect to hash routes so client-side router opens the correct section
 RewriteRule ^about-us$ #about-us [NE,R=301,L]
 RewriteRule ^menu$ #menu [NE,R=301,L]
 RewriteRule ^gallery$ #gallery [NE,R=301,L]
@@ -25,12 +22,10 @@ RewriteRule ^reservation$ #reservation [NE,R=301,L]
 RewriteRule ^signin$ #signin [NE,R=301,L]
 RewriteRule ^account$ #account [NE,R=301,L]
 
-# 4) Обработка неизвестных путей (билеберда в URL)
-# Если пути нет (напр. /~abdimshe/unknown), отдаем index.html.
-# В этом случае URL в браузере ОСТАЕТСЯ прежним, и сработает  handle-404.js
+# 4) Unknown (non-file/non-dir) paths → serve index.html (keep URL); client-side 404 handler will run
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.html [L]
 
-# 5) ErrorDocument
-ErrorDocument 404 /~abdimshe/index.html
+# 5) Custom 404 handler (falls back to SPA)
+ErrorDocument 404 /~achilkem/index.html

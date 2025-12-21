@@ -1,5 +1,3 @@
-// No Russian comments
-
 export function initAuthManager() {
   // Safe call wrapper to avoid throwing from optional callbacks.
   const safeCall = (fn, ...args) => { try { return fn && fn(...args); } catch (e) { console.error(e); } };

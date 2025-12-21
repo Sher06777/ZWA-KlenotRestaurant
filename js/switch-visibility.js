@@ -1,6 +1,5 @@
 export function initSwitchVisibility({ autoCheckSession = true } = {}) {
-  const $ = (sel, root = document) => root ? root.querySelector(sel) : null;
-  const $$ = (sel, root = document) => Array.from((root || document).querySelectorAll(sel || ''));
+  // Safe caller
   const safeCall = (fn, ...args) => { try { return fn && fn(...args); } catch (e) { console.error(e); } };
 
   const mainContent = document.getElementById('main');
@@ -18,6 +17,7 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
   let currentVisibleSection = null;
   let accountInitialized = false;
 
+  // ensure user:loggedin handler bound once
   if (!window.__switchVisibilityBoundUserEvent) {
     window.addEventListener('user:loggedin', async (ev) => {
       try {
@@ -31,6 +31,7 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     window.__switchVisibilityBoundUserEvent = true;
   }
 
+  // load translation dictionary and lookup by dot-path
   async function getTranslation(key) {
     try {
       const lang = (window.i18n && typeof window.i18n.getLang === 'function')
@@ -67,6 +68,7 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     if (txt) el.textContent = txt;
   }
 
+  // fade helpers — kept intentionally simple and relied upon by other modules
   const fadeOut = (el) => {
   if (!el || el.style.display === 'none') return;
 
@@ -80,12 +82,12 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     el.style.display = 'none';
     el.classList.remove('visible');
     el.classList.add('invisible');
-  }, 500);
-};
-
-const fadeIn = (el) => {
-  if (!el) return;
-  clearTimeout(el.fadeTimeout); 
+    setTimeout(() => {
+      if (el.classList.contains('invisible')) {
+        el.style.display = 'none';
+      }
+    }, 500);
+  };
 
   el.style.display = ''; 
   el.classList.remove('invisible');
@@ -101,7 +103,6 @@ const fadeIn = (el) => {
   window.updateLoginLabel = updateLoginLabel;
 
   let loggedIn = false;
-  // let justLoggedOut = false;
   let isInitialLoad = true;
   function setLoggedIn(status) { loggedIn = !!status; }
   function isLoggedIn() { return !!loggedIn; }
@@ -111,6 +112,7 @@ const fadeIn = (el) => {
   window.setLoggedIn = setLoggedIn;
   window.isLoggedIn = isLoggedIn;
 
+  // show a top-level section and hide others
   function showSection(sectionIdOrEl) {
     const secEl = (typeof sectionIdOrEl === 'string') ? document.getElementById(sectionIdOrEl) : sectionIdOrEl;
     if (!secEl) return;
@@ -128,14 +130,36 @@ const fadeIn = (el) => {
     ].filter(Boolean);
 
     allSections.forEach(el => {
-      if (el === secEl) fadeIn(el);
-      else fadeOut(el);
+      if (el === secEl) {
+        // show target section (do not change fadeIn implementation)
+        fadeIn(el);
+      } else {
+        // hide others
+        fadeOut(el);
+
+        // when hiding account wrapper ensure all inner personal-account-content
+        // are set to invisible so no inner block remains erroneously marked visible
+        try {
+          if (el === accountWrapper && accountWrapper instanceof Element) {
+            const inner = accountWrapper.querySelectorAll('.personal-account-content');
+            inner.forEach(ch => {
+              ch.classList.remove('visible');
+              ch.classList.add('invisible');
+              // make sure element does not affect layout; safe fallback
+              try { ch.style.display = 'none'; } catch (_) {}
+            });
+          }
+        } catch (err) {
+          console.warn('showSection: failed to sanitize account inner blocks', err);
+        }
+      }
     });
 
     currentVisibleSection = secEl;
     try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { }
   }
 
+  // toggle 3D menu visibility
   function set3DMenuInvisible(value) {
     if (!menuImg3D) return;
     if (value) {
@@ -231,8 +255,7 @@ const fadeIn = (el) => {
       set3DMenuInvisible(true);
     }
 
-
-    showSection(targetSection); 
+    showSection(targetSection);
 
     if (targetSection === accountWrapper && isLoggedIn()) {
       if (typeof window.initPersonalAccount === 'function') {
@@ -279,15 +302,13 @@ const fadeIn = (el) => {
   });
   [mainContent, gallerySection, formMain, loginFormSection, accountWrapper, reservationSection].filter(Boolean).forEach(el => safeAdd(el, 'click', () => set3DMenuInvisible(true)));
 
-
-
-
   (async () => {
     try {
       if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
         safeCall(() => window.CSRFManager.init().catch(err => console.warn('CSRFManager init failed:', err)));
       }
 
+      // start with top-level sections hidden
       [menuSection, gallerySection, formMain, loginFormSection, accountWrapper, reservationSection].filter(Boolean).forEach(el => {
         el.classList.remove('visible');
         el.classList.add('invisible');
@@ -300,7 +321,6 @@ const fadeIn = (el) => {
             const res = await fetch('./php/check_session.php', {
               credentials: 'include'
             });
-
 
             const data = await res.json().catch(() => ({}));
 
@@ -335,14 +355,12 @@ const fadeIn = (el) => {
             console.log('🔐 check_session: FINALLY');
             console.log('authChecked -> true');
             console.log('isInitialLoad -> false');
-
           }
         }
 
       } catch (err) {
         console.error('[check_session] error', err);
       }
-
 
       if (!window.__switchVisibilityRegisteredOnLogin) {
         const handler = async (user) => {
@@ -382,11 +400,7 @@ const fadeIn = (el) => {
           window.location.hash = '';
           history.pushState("", document.title, window.location.pathname + window.location.search);
         });
-
       }
-
-
-
 
     } catch (err) {
       console.warn('switch-visibility init failed', err);
@@ -410,5 +424,4 @@ const fadeIn = (el) => {
   } catch (e) { }
 
   window.switchVisibility = { showSection, set3DMenuInvisible, updateLoginLabel, makeVisible, makeInvisible };
-
-} 
+}

@@ -1,10 +1,7 @@
-// Нет русских комментавиев
-
+// Admin users / admin panel helpers.
 
 export function showBlock(blockToShow, options = {}) {
-  console.log('[ADMIN] showBlock called with:', blockToShow);
-  console.trace('[ADMIN] showBlock trace');
-
+  // Accept string keys for convenience (maps to DOM selectors)
   if (typeof blockToShow === 'string') {
     const key = blockToShow.toLowerCase();
     if (key === 'dates' || key === 'datescontent' || key === 'personal-account-content.dates') {
@@ -19,7 +16,6 @@ export function showBlock(blockToShow, options = {}) {
   }
 
   if (!blockToShow || !(blockToShow instanceof Element)) {
-    console.log('[ADMIN] showBlock: blockToShow is falsy or not an Element — skipping.');
     return;
   }
 
@@ -30,6 +26,7 @@ export function showBlock(blockToShow, options = {}) {
     document.getElementById('admin-panel')
   ].filter(Boolean);
 
+  // Adjust account height after animations complete
   let animationsCompleted = 0;
   const blocksToAnimate = allBlocks.filter(block => !options.keepParent || block !== options.keepParent);
   const total = blocksToAnimate.length;
@@ -44,11 +41,8 @@ export function showBlock(blockToShow, options = {}) {
         window.adjustAccountSectionHeight();
         return;
       }
-      // Fallback: lightly reset minHeight so layout can reflow (non-destructive).
       const acc = document.getElementById('account-wrapper');
-      if (acc) {
-        acc.style.minHeight = '';
-      }
+      if (acc) acc.style.minHeight = '';
     } catch (e) {
       console.warn('adjustAccountSectionHeight failed', e);
     }
@@ -75,8 +69,6 @@ export function showBlock(blockToShow, options = {}) {
     safeAdjustAccountHeight();
   }
 }
-
-
 
 export let cachedUsersPages = {};
 export let userCurrentPage = 1;
@@ -373,7 +365,6 @@ export function initAdminPanel(user) {
     })
     .catch(err => console.error('Role validation error:', err));
 }
-
 
 export function initPersonalAccount(user) {
   const accountWrapper = document.getElementById('account-wrapper');

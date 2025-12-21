@@ -1,5 +1,6 @@
-// Нет русских комментавиев
-
+/* Account / personal area logic
+   - showAccountBlock uses existing fadeIn/fadeOut helpers (do not alter those).
+*/
 
 const personalAccountSection = document.getElementById('personal-account');
 const editButton = document.querySelector('.edit-account-btn');
@@ -9,7 +10,6 @@ const datesContent = personalAccountSection ? personalAccountSection.querySelect
 const reservationContent = personalAccountSection ? personalAccountSection.querySelector('.personal-account-content.reservation') : null;
 
 const adminPanelButton = document.querySelector('.personal-account-admin-panel');
-const adminPanelSection = document.getElementById('admin-panel');
 
 const personalAccountButtons = {
   dates: personalAccountSection ? personalAccountSection.querySelector('.personal-account-dates') : null,
@@ -18,18 +18,21 @@ const personalAccountButtons = {
 
 const logoutButton = datesContent ? datesContent.querySelector('.logout-account-btn') : null;
 
-
 if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
   window.CSRFManager.init().catch(err => {
     console.warn('CSRFManager init failed in account.js:', err);
   });
 }
 
-
+/* Remove admin tables and clear risky inline styles that may persist when switching tabs.
+   This prevents leftover positioned elements affecting layout after transitions. */
 function hideAdminTables() {
   const allReservations = document.getElementById("admin-reservations-container");
   const allReservationsPagination = document.getElementById("admin-reservations-pagination");
-  if (allReservations) allReservations.style.display = 'none';
+  if (allReservations) {
+    allReservations.style.display = 'none';
+    try { allReservations.innerHTML = ''; } catch(e) {}
+  }
   if (allReservationsPagination) allReservationsPagination.innerHTML = '';
 
   const adminUsersTableWrap = document.querySelector('#admin-users-table .admin-users-table-wrap');
@@ -39,24 +42,34 @@ function hideAdminTables() {
   if (adminUsersTableWrap) {
     adminUsersTableWrap.innerHTML = '';
     try { delete adminUsersTableWrap.dataset.listenerAdded; } catch(e){}
+    ['position','left','top','transform','width','height','minHeight','display'].forEach(k => { try { adminUsersTableWrap.style[k] = ''; } catch(_){} });
   }
   if (adminUsersPagination) adminUsersPagination.innerHTML = '';
+
+  if (adminUsersContent) {
+    adminUsersContent.classList.remove('visible');
+    adminUsersContent.classList.add('invisible');
+    adminUsersContent.style.display = 'none';
+    ['position','left','top','transform','width','height','minHeight'].forEach(k => { try { adminUsersContent.style[k] = ''; } catch(_){} });
+  }
 }
 
-
+/* Translate elements with data-i18n using translateElement if available. */
 async function translatePersonalAccount(section) {
   if (!section) return;
   const elements = section.querySelectorAll('[data-i18n]');
   for (const el of elements) {
     const key = el.getAttribute('data-i18n');
-    
     if (typeof translateElement === 'function') {
       try { await translateElement(el, key); } catch(e) { }
     }
   }
 }
 
-
+/* Show/hide sub-blocks inside personal-account.
+   - Uses global fadeIn/fadeOut helpers (keeps animation behaviour unchanged).
+   - Performs a non-invasive cleanup of inline styles after fadeOut completes to avoid layout artifacts.
+   - Keeps operations defensive (try/catch) to avoid breaking page flow. */
 function showAccountBlock(block) {
   console.log('[ACCOUNT] showAccountBlock called ->', block && (block.className || block.id),
     { datesClass: datesContent ? Array.from(datesContent.classList) : null, reservationClass: reservationContent ? Array.from(reservationContent.classList) : null });
@@ -66,16 +79,104 @@ function showAccountBlock(block) {
 
   const blocks = [datesContent, reservationContent, adminUsersContent, adminPanelEl].filter(Boolean);
 
+  // Helper: remove risky temporary inline styles
+  const clearTempStyles = (el) => {
+    if (!el || !el.style) return;
+    ['position','left','top','right','bottom','transform','width','height','minHeight','maxHeight','display'].forEach(k => {
+      try { el.style[k] = ''; } catch(_) {}
+    });
+  };
+
+  // Helper: change absolutely positioned children with no offsets back into flow
+  const fixAbsoluteChildren = (el) => {
+    if (!el) return;
+    try {
+      const children = Array.from(el.querySelectorAll('*'));
+      children.forEach(ch => {
+        const cs = getComputedStyle(ch);
+        if (cs.position === 'absolute') {
+          const leftAuto = cs.left === 'auto' || cs.left === '';
+          const topAuto = cs.top === 'auto' || cs.top === '';
+          const rightAuto = cs.right === 'auto' || cs.right === '';
+          const bottomAuto = cs.bottom === 'auto' || cs.bottom === '';
+          if (leftAuto && topAuto && rightAuto && bottomAuto) {
+            try { ch.style.position = 'static'; } catch(_) {}
+          }
+        }
+      });
+    } catch (_) {}
+  };
+
+  // Schedule non-invasive cleanup shortly after fadeOut animation should be complete.
+  const scheduleCleanup = (el) => {
+    if (!el) return;
+    setTimeout(() => {
+      if (!el.classList.contains('visible')) {
+        try {
+          clearTempStyles(el);
+          const children = Array.from(el.querySelectorAll('[style]'));
+          children.forEach(ch => {
+            ['position','left','top','right','bottom','transform','width','height','minHeight','maxHeight'].forEach(k => {
+              try { ch.style[k] = ''; } catch(_) {}
+            });
+          });
+          fixAbsoluteChildren(el);
+          try { el.style.display = 'none'; } catch(_) {}
+        } catch (e) {
+          console.warn('[ACCOUNT] scheduled cleanup error', e);
+        }
+      }
+    }, 650); // a little longer than fadeOut duration (0.5s)
+  };
+
+  // Prepare the block to be shown: clear risky inline styles so it flows correctly.
+  if (block) {
+    clearTempStyles(block);
+    fixAbsoluteChildren(block);
+    try { block.style.display = ''; } catch(_) {}
+  }
+
   blocks.forEach(el => {
     if (!el) return;
+
     if (el === block) {
-      el.classList.remove('invisible');
-      el.classList.add('visible');
+      // Show target block (preserve existing fadeIn implementation)
+      if (typeof window.fadeIn === 'function') {
+        try { window.fadeIn(el); } catch (e) { el.classList.remove('invisible'); el.classList.add('visible'); el.style.display = ''; }
+      } else {
+        el.classList.remove('invisible');
+        el.classList.add('visible');
+        el.style.display = '';
+      }
+
+      // Remove leftover inline positions on shown block
+      ['left','top','transform','position','width','height','minHeight','maxHeight'].forEach(k => { try { el.style[k] = ''; } catch(_){} });
+      fixAbsoluteChildren(el);
+
     } else {
-      el.classList.remove('visible');
-      el.classList.add('invisible');
+      // Hide other blocks (preserve existing fadeOut implementation)
+      if (typeof window.fadeOut === 'function') {
+        try { window.fadeOut(el); } catch (e) { el.classList.remove('visible'); el.classList.add('invisible'); setTimeout(()=>{ el.style.display = 'none'; }, 520); }
+      } else {
+        el.classList.remove('visible');
+        el.classList.add('invisible');
+        setTimeout(()=>{ el.style.display = 'none'; }, 520);
+      }
+
+      // Schedule cleanup to remove any leftover inline styles after animation
+      scheduleCleanup(el);
     }
   });
+
+  // Reset any fixed sizing on the parent account container so layout can return to normal.
+  try {
+    const accountSection = document.getElementById('personal-account');
+    if (accountSection) {
+      accountSection.style.height = '';
+      accountSection.style.minHeight = '';
+      accountSection.style.width = '';
+    }
+  } catch (e) { /* silent */ }
 
   console.log('[ACCOUNT] showAccountBlock done. datesContent classes:',
     datesContent ? Array.from(datesContent.classList) : null,
@@ -84,15 +185,16 @@ function showAccountBlock(block) {
     'adminPanel classes:', (document.getElementById('admin-panel') ? Array.from(document.getElementById('admin-panel').classList) : null));
 }
 
-
 function maskPassword() { return '••••••••'; }
 
-
+/* initPersonalAccount: populate simple fields and wire tab buttons.
+   - Keeps idempotency: avoids re-initializing if already done for the same user.
+*/
 export async function initPersonalAccount(user) {
   if (!window.isLoggedIn?.()) {
-  console.warn('[ACCOUNT] blocked — not logged in');
-  return;
-}
+    console.warn('[ACCOUNT] blocked — not logged in');
+    return;
+  }
 
   if (!user) {
     console.warn('[ACCOUNT] initPersonalAccount called without user');
@@ -100,12 +202,10 @@ export async function initPersonalAccount(user) {
   }
   console.log('[ACCOUNT] initPersonalAccount called with user:', user);
 
-  
   if (typeof user.isAdmin === 'undefined') {
     try {
       const resp = await fetch('./php/check_role.php', { credentials: 'include' });
       const roleData = await resp.json().catch(()=>({}));
-      
       user.isAdmin = (roleData && (roleData.isAdmin === 1 || roleData.isAdmin === true));
       console.log('[ACCOUNT] check_role.php returned, set user.isAdmin =', user.isAdmin);
     } catch (e) {
@@ -119,11 +219,9 @@ export async function initPersonalAccount(user) {
     return;
   }
 
-  
   window.__personalAccountInitializedFor = window.__personalAccountInitializedFor || null;
   const alreadyFor = window.__personalAccountInitializedFor;
 
-  
   const welcomeUserName = document.querySelector('.personal-account-welcome .user-name');
   if (welcomeUserName) welcomeUserName.textContent = user.name;
   const loginSpan = datesContent ? datesContent.querySelector('.user-login') : null;
@@ -151,12 +249,10 @@ export async function initPersonalAccount(user) {
     personalAccountSection.style.maxWidth = '90%';
   }
 
-  
   if (alreadyFor && user.id && alreadyFor === user.id) {
     try {
       const accountWrapperEl = document.getElementById('account-wrapper');
       if (accountWrapperEl && accountWrapperEl.classList.contains('visible')) {
-        
         try { showAccountBlock(datesContent); } catch (e) { console.warn('[ACCOUNT] showAccountBlock on re-init failed', e); }
       } else {
         console.log('[ACCOUNT] already initialized for this user id -> wrapper not visible, skipping visibility changes');
@@ -164,28 +260,21 @@ export async function initPersonalAccount(user) {
     } catch (e) {
       console.warn('[ACCOUNT] safe re-init visibility check failed', e);
     }
-    
     return;
   }
 
-  
   window.__personalAccountInitializedFor = user.id || true;
 
-  
   if (window.AuthManager && typeof window.AuthManager.attachLogoutButton === 'function') {
     try { window.AuthManager.attachLogoutButton('.logout-account-btn'); } catch (e) { console.warn('attachLogoutButton error', e); }
   }
 
-  
   personalAccountSection.classList.remove('invisible');
 
   if (user.isAdmin && adminPanelButton) {
     try {
-      
       adminPanelButton.classList.remove('invisible');
       adminPanelButton.classList.add('visible');
-
-      
       if (typeof window.fadeIn === 'function') {
         try { window.fadeIn(adminPanelButton); } catch (e) { }
       }
@@ -194,8 +283,6 @@ export async function initPersonalAccount(user) {
     }
   }
 
-  
-  
   try {
     const accountWrapperEl = document.getElementById('account-wrapper');
     console.log('[ACCOUNT] initPersonalAccount — accountWrapper classes:', accountWrapperEl ? Array.from(accountWrapperEl.classList) : null);
@@ -218,7 +305,6 @@ export async function initPersonalAccount(user) {
     console.warn('[ACCOUNT] initPersonalAccount: safe showAccountBlock failed', err);
   }
 
-  
   if (personalAccountButtons.dates) {
     personalAccountButtons.dates.onclick = () => showAccountBlock(datesContent);
   }
@@ -229,11 +315,9 @@ export async function initPersonalAccount(user) {
     };
   }
 
-  
   if (user.isAdmin) {
     try {
       if (!window.__adminInitAttempted && !window.__adminInitInProgress) {
-        
         window.__adminInitInProgress = true;
 
         const finalizeSuccess = () => {
@@ -241,7 +325,6 @@ export async function initPersonalAccount(user) {
           window.__adminInitInProgress = false;
         };
 
-        
         if (typeof initAdminPanel === 'function') {
           try {
             initAdminPanel(user);
@@ -278,10 +361,8 @@ export async function initPersonalAccount(user) {
 }
 
 export function initAccountModule() {
-  
   for (const btn of Object.values(personalAccountButtons)) {
     if (!btn) continue;
-    
     if (!btn.dataset.hidetabbound) {
       btn.addEventListener('click', hideAdminTables);
       btn.dataset.hidetabbound = 'true';
@@ -294,7 +375,6 @@ export function initAccountModule() {
       const adminPanelEl = document.getElementById('admin-panel');
       const adminUsersContent = document.getElementById('admin-users-content');
 
-      
       try {
         if (window.admin && typeof window.admin.showBlock === 'function') {
           window.admin.showBlock(adminPanelEl, { keepParent: adminUsersContent });
@@ -302,16 +382,13 @@ export function initAccountModule() {
         }
       } catch (err) { }
 
-      
       import('./admin-users.js').then(mod => {
         if (mod && typeof mod.showBlock === 'function') {
           mod.showBlock(adminPanelEl, { keepParent: adminUsersContent });
         } else {
-          
           showAccountBlock(adminPanelEl);
         }
       }).catch(() => {
-        
         showAccountBlock(adminPanelEl);
       });
     });
@@ -319,7 +396,6 @@ export function initAccountModule() {
     adminPanelButton.dataset.bound = 'true';
   }
 
-  
   if (editButton && !editButton.dataset.bound) {
     editButton.addEventListener('click', async () => {
       if (document.querySelector('.edit-mode')) return;
@@ -337,7 +413,7 @@ export function initAccountModule() {
         input.type = type;
         input.value = value;
         input.classList.add('edit-mode', 'user-password--styled');
-        
+
         input.style.background = 'rgba(46, 139, 87, 0.1)';
         input.style.padding = '3px 6px';
         input.style.borderRadius = '4px';
@@ -376,7 +452,7 @@ export function initAccountModule() {
       const buttonContainer = editButton.parentElement;
       editButton.style.display = 'none';
 
-      const logoutBtn = logoutButton; 
+      const logoutBtn = logoutButton;
       if (logoutBtn && logoutBtn.parentElement === buttonContainer) {
         buttonContainer.insertBefore(saveBtn, logoutBtn);
         buttonContainer.insertBefore(cancelBtn, logoutBtn);
@@ -476,9 +552,7 @@ export function initAccountModule() {
 
 try {
   if (typeof window !== 'undefined') {
-    
     if (!window.initPersonalAccount) window.initPersonalAccount = initPersonalAccount;
-    
     if (!window.initAccountModule) window.initAccountModule = initAccountModule;
   }
 } catch (e) {

@@ -1,4 +1,3 @@
-// No Russian comments
 export function initSigninValidation() {
   const forms = Array.from(document.querySelectorAll('form'));
   const globalErrorBox = document.getElementById('reservation-message');

@@ -1,5 +1,3 @@
-// No Russian comments
-
 // Client-side CSRF manager:
 // - fetches token from server endpoint (assumed to return { csrf_token })
 // - keeps token in module variable and exposes helpers to attach token to requests/forms

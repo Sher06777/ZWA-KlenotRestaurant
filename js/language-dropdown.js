@@ -1,5 +1,3 @@
-// Нет русских комментавиев
-
 export function initLanguageDropdown() {
   const languageBtn = document.querySelector('.language-btn');
   if (!languageBtn) return;
