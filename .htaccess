@@ -1,10 +1,10 @@
 Options -MultiViews
 RewriteEngine On
-RewriteBase /~achilkem/
+RewriteBase /~abdimshe/
 
 # 1) If request targets "index.html/..." or "index.js..." — treat as SPA and serve index.html
 RewriteRule ^index\.html/ index.html [L]
-RewriteCond %{REQUEST_URI} ^/~achilkem/index\.js.+ [NC]
+RewriteCond %{REQUEST_URI} ^/~abdimshe/index\.js.+ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^index\.js.+$ index.html [L]

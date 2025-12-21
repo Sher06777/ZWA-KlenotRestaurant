@@ -38,7 +38,7 @@ async function boot() {
       await CSRFManager.init();
       console.log('✅ CSRFManager initialized (token stored securely inside module).');
     } catch (err) {
-      console.warn('Не удалось получить CSRF токен при загрузке страницы:', err);
+      console.warn('Failed to retrieve the CSRF token when loading the page:', err);
     }
 
     // 2) routing/visibility helpers (needs i18n/CSRF status)
@@ -49,8 +49,8 @@ async function boot() {
     // 2.1) simple not-found handler
     try {
       initNotFoundHandler({
-        basePath: '/~achilkem/',
-        cleanTo: '/~achilkem/',
+        basePath: '/~abdimshe/',
+        cleanTo: '/~abdimshe/',
         autoClear: true
       });
     } catch (e) { console.warn('initNotFoundHandler failed', e); }

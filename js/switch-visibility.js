@@ -70,13 +70,16 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
 
   // fade helpers — kept intentionally simple and relied upon by other modules
   const fadeOut = (el) => {
-    if (!el) return;
-    if (el.classList.contains('invisible')) return;
+  if (!el || el.style.display === 'none') return;
 
-    el.style.opacity = 1;
-    el.style.transition = 'opacity 0.5s ease';
-    el.style.pointerEvents = 'none';
-    el.style.opacity = 0;
+  clearTimeout(el.fadeTimeout); 
+
+  el.style.transition = 'opacity 0.5s ease';
+  el.style.opacity = '0';
+  el.style.pointerEvents = 'none';
+
+  el.fadeTimeout = setTimeout(() => {
+    el.style.display = 'none';
     el.classList.remove('visible');
     el.classList.add('invisible');
     setTimeout(() => {
@@ -86,19 +89,16 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     }, 500);
   };
 
-  function fadeIn(el) {
-    if (!el) return;
-    el.style.display = '';
-    if (el.classList.contains('visible') && el.style.opacity !== '0') return;
-    el.classList.remove('invisible');
-    el.classList.add('visible');
-    el.style.opacity = '0';
-    requestAnimationFrame(() => {
-      el.style.transition = 'opacity 0.5s ease';
-      el.style.opacity = '1';
-      el.style.pointerEvents = 'auto';
-    });
-  }
+  el.style.display = ''; 
+  el.classList.remove('invisible');
+  el.classList.add('visible');
+
+  requestAnimationFrame(() => {
+    el.style.transition = 'opacity 0.5s ease';
+    el.style.opacity = '1';
+    el.style.pointerEvents = 'auto';
+  });
+};
 
   window.updateLoginLabel = updateLoginLabel;
 
@@ -194,7 +194,7 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     console.group('🔀 handleRouting');
     const hash = window.location.hash;
     const path = window.location.pathname;
-    const BASE_PATH = '/~achilkem/';
+    const BASE_PATH = '/~abdimshe/';
 
     console.log('Path:', path);
     console.log('Hash:', hash);

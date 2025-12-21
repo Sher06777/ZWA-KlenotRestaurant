@@ -228,10 +228,10 @@ async function _getDictSafe() {
 export function createLabeledParagraph(labelKey, valueText, dict = null) {
   const p = document.createElement('p');
   const strong = document.createElement('strong');
+  strong.setAttribute('data-i18n', labelKey);
 
   strong.setAttribute('data-i18n', labelKey);
   p.appendChild(strong);
-  p.appendChild(document.createTextNode(' '));
 
   if (typeof valueText !== 'string' || valueText.length === 0) {
     p.appendChild(document.createTextNode(''));
@@ -284,6 +284,7 @@ export async function loadUserReservations(userId, page = 1) {
     const resp = await fetch(`./php/get_user_reservations.php?page=${page}`, {
       credentials: 'include'
     });
+    const data = await resp.json();
 
     const data = await resp.json();
 
@@ -360,6 +361,7 @@ export async function loadUserReservations(userId, page = 1) {
     });
   }
 }
+
 
 export async function cancelReservation(reservationId, userId) {
   const id = parseInt(reservationId, 10);
