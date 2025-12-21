@@ -72,7 +72,6 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
   const fadeOut = (el) => {
     if (!el) return;
     if (el.classList.contains('invisible')) {
-      // 🔒 гарантируем, что invisible = не в layout
       el.style.display = 'none';
       return;
     }
@@ -81,7 +80,6 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     el.style.transition = 'opacity 0.5s ease';
     el.style.pointerEvents = 'none';
 
-    // 👇 КЛЮЧЕВОЕ ИЗМЕНЕНИЕ
     el.style.position = 'absolute';
     el.style.left = '-9999px';
 
