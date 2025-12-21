@@ -70,35 +70,47 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
 
   // fade helpers — kept intentionally simple and relied upon by other modules
   const fadeOut = (el) => {
-  if (!el || el.style.display === 'none') return;
+    if (!el) return;
+    if (el.classList.contains('invisible')) {
+      // 🔒 гарантируем, что invisible = не в layout
+      el.style.display = 'none';
+      return;
+    }
 
-  clearTimeout(el.fadeTimeout); 
+    el.style.opacity = 1;
+    el.style.transition = 'opacity 0.5s ease';
+    el.style.pointerEvents = 'none';
 
-  el.style.transition = 'opacity 0.5s ease';
-  el.style.opacity = '0';
-  el.style.pointerEvents = 'none';
+    // 👇 КЛЮЧЕВОЕ ИЗМЕНЕНИЕ
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
 
-  el.fadeTimeout = setTimeout(() => {
-    el.style.display = 'none';
+    el.style.opacity = 0;
     el.classList.remove('visible');
     el.classList.add('invisible');
+
     setTimeout(() => {
       if (el.classList.contains('invisible')) {
         el.style.display = 'none';
+        el.style.position = '';
+        el.style.left = '';
       }
     }, 500);
   };
 
-  el.style.display = ''; 
-  el.classList.remove('invisible');
-  el.classList.add('visible');
-
-  requestAnimationFrame(() => {
-    el.style.transition = 'opacity 0.5s ease';
-    el.style.opacity = '1';
-    el.style.pointerEvents = 'auto';
-  });
-};
+  function fadeIn(el) {
+    if (!el) return;
+    el.style.display = '';
+    if (el.classList.contains('visible') && el.style.opacity !== '0') return;
+    el.classList.remove('invisible');
+    el.classList.add('visible');
+    el.style.opacity = '0';
+    requestAnimationFrame(() => {
+      el.style.transition = 'opacity 0.5s ease';
+      el.style.opacity = '1';
+      el.style.pointerEvents = 'auto';
+    });
+  }
 
   window.updateLoginLabel = updateLoginLabel;
 
@@ -194,7 +206,7 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     console.group('🔀 handleRouting');
     const hash = window.location.hash;
     const path = window.location.pathname;
-    const BASE_PATH = '/~abdimshe/';
+    const BASE_PATH = '/~achilkem/';
 
     console.log('Path:', path);
     console.log('Hash:', hash);
