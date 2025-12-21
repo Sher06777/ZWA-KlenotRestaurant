@@ -1,5 +1,5 @@
-// No Russian comments
 export async function initI18n() {
+  // lightweight i18n loader: fetch JSON per language, apply to DOM attributes
   const DEFAULT_LANG = 'eng';
   const STORAGE_KEY = 'site_lang';
   const TRANSLATIONS_BASE = 'i18n/';
@@ -45,8 +45,7 @@ export async function initI18n() {
     if (text == null) return;
     try {
       const firstSpan = el.querySelector && el.querySelector('span');
-      // If element has a child <span> and uses data-i18n, replace only the first span text.
-      // This preserves surrounding markup in complex buttons/labels.
+      // if element uses data-i18n but has inner <span>, replace that span only
       if (firstSpan && el.hasAttribute('data-i18n')) {
         firstSpan.textContent = text;
         return;
@@ -127,7 +126,7 @@ export async function initI18n() {
     document.querySelectorAll('.lang-cz').forEach(el => el.classList.toggle('active-i18n', activeLang === 'cz'));
   }
 
-  
+  // expose minimal API to the global window
   window.i18n = {
     setLanguage,
     getLang: getSavedLang,
@@ -135,7 +134,6 @@ export async function initI18n() {
     _cache: cache
   };
 
-  
   try {
     initLangButtons();
     const lang = getSavedLang() || DEFAULT_LANG;

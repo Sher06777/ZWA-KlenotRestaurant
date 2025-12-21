@@ -1,5 +1,4 @@
-// No Russian comments
-
+// small helpers for signin UI and autologin
 export function getSubmitWrapEl(signinButton) {
   if (signinButton) {
     return signinButton.closest('.form-submit-wrap') || signinButton.parentElement;
@@ -113,7 +112,7 @@ export function initSignin() {
       });
 
       if (resp.status === 429) {
-        // Rate-limited response handling (Retry-After support + on-screen countdown)
+        // rate-limited: show countdown and re-enable later
         earlyHandled = true;
         let json = null;
         try { json = await resp.json(); } catch (_) { json = { message: 'Too many attempts. Try again later.' }; }
@@ -178,7 +177,7 @@ export function initSignin() {
       }
 
       if (resp.status === 403) {
-        // CSRF failure case — attempt to refresh token automatically.
+        // CSRF failure: try refresh and inform user
         let json = { success: false, message: 'Invalid CSRF token' };
         try { json = await resp.json(); } catch (e) {}
         showSubmitMessage(json.message || 'Security error. Please refresh the page.', 'error', signinButton);
@@ -187,7 +186,6 @@ export function initSignin() {
           if (window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
             await window.CSRFManager.refresh();
           } else {
-            // Fallback: call server endpoint to fetch token
             const tokenResp = await fetch('./php/get_csrf_token.php', { credentials: 'include' });
             const tok = await tokenResp.json().catch(()=>null);
             if (tok && tok.csrf_token) window.__csrf_token = tok.csrf_token;
@@ -227,18 +225,15 @@ export function initSignin() {
 
           const personalEl = document.getElementById('account-wrapper') || document.querySelector('.main-content-wrapper') || document.getElementById('personal-account') || document.getElementById('account-section');
           if (personalEl) {
-            
             personalEl.classList.remove('invisible');
             personalEl.classList.add('visible');
             personalEl.style.pointerEvents = 'auto';
             personalEl.style.opacity = 1;
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            
             try { if (typeof initPersonalAccount === 'function') await initPersonalAccount(window.user); } catch (e) { console.warn('[SIGNIN] initPersonalAccount after show failed', e); }
           }
 
-          
           window.dispatchEvent(new CustomEvent('user:loggedin', { detail: window.user }));
 
           if (typeof window.onLoginOrRegister === 'function') {

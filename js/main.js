@@ -1,5 +1,5 @@
-// main.js — bootstrapper (module)
-// Подключается в HTML единственным тегом: <script type="module" src="js/main.js"></script>
+// main.js — application bootstrap (module)
+// Loaded in HTML as: <script type="module" src="js/main.js"></script>
 
 import CSRFManager from './csrf.js';
 import initNotFoundHandler from './handle-404.js';
@@ -27,14 +27,13 @@ async function boot() {
   window.__UI_READY = false;
   window.__AUTH_READY__ = false;
   try {
-    // 0) i18n early (so data-i18n translations resolved before UI inits)
+    // 0) i18n — initial load so elements with data-i18n can be resolved early
     try {
-      await initI18n(); // returns a promise that resolves after initial load
+      await initI18n(); // resolves after initial dictionary load
       console.log('✅ i18n initialized');
     } catch (e) { console.warn('initI18n failed', e); }
 
-
-    // 1) init CSRF early (best-effort)
+    // 1) init CSRF early (best-effort; not fatal)
     try {
       await CSRFManager.init();
       console.log('✅ CSRFManager initialized (token stored securely inside module).');
@@ -42,34 +41,31 @@ async function boot() {
       console.warn('Не удалось получить CSRF токен при загрузке страницы:', err);
     }
 
-    // 2) init visibility / routing helpers (needs i18n + CSRF possibly)
+    // 2) routing/visibility helpers (needs i18n/CSRF status)
     try {
-      // инициализируем переключатель видимости (восстанавливает onLoginOrRegister и слушатели)
-      initSwitchVisibility({ autoCheckSession: true }); // или true, если хотите автопроверку сессии
+      initSwitchVisibility({ autoCheckSession: true });
     } catch (e) { console.warn('initSwitchVisibility failed', e); }
 
-    // 2.1 error-404
+    // 2.1) simple not-found handler
     try {
       initNotFoundHandler({
         basePath: '/~achilkem/',
         cleanTo: '/~achilkem/',
         autoClear: true
       });
-    } catch (e) {
-      console.warn('initNotFoundHandler failed', e);
-    }
+    } catch (e) { console.warn('initNotFoundHandler failed', e); }
 
-    // 3) init visual/animations
+    // 3) visual helpers / animations
     try { initAnimations(); } catch (e) { console.warn('initAnimations failed', e); }
 
-    // 4) small UI modules / controls
+    // 4) UI components (safe best-effort inits)
     try { initLanguageDropdown(); } catch (e) { console.warn('initLanguageDropdown failed', e); }
     try { initMenu(); } catch (e) { console.warn('initMenu failed', e); }
     try { initGallery(); } catch (e) { console.warn('initGallery failed', e); }
     try { initReviews(); } catch (e) { console.warn('initReviews failed', e); }
     try { initMobileMenu(); } catch (e) { console.warn('initMobileMenu failed', e); }
 
-    // 5) auth/ui modules
+    // 5) auth & admin related modules
     try { initAuthManager(); } catch (e) { console.warn('initAuthManager failed', e); }
     try { initAdminReservations(); } catch (e) { console.warn('initAdminReservations failed', e); }
 
@@ -83,7 +79,7 @@ async function boot() {
     try { initRegistration(); } catch (e) { console.warn('initRegistration failed', e); }
     try { initLoginValidation(); } catch (e) { console.warn('initLoginValidation failed', e); }
 
-    // 8) final check session + autologin (single source of truth)
+    // 8) attach logout if available
     try {
       if (window.AuthManager && typeof window.AuthManager.attachLogoutButton === 'function') {
         window.AuthManager.attachLogoutButton && window.AuthManager.attachLogoutButton('.logout-account-btn');

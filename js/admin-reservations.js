@@ -1,4 +1,5 @@
-// Нет русских комментавиев
+// Admin reservations — helper to render admin reservation table and controls.
+
 
 export function adjustAccountSectionHeight() {
   const adminUsersContent = document.getElementById('admin-users-content');
@@ -8,31 +9,25 @@ export function adjustAccountSectionHeight() {
 
   if (!accountSection) return;
 
-  // Сбрасываем inline height, чтобы браузер мог корректно переложить элементы.
+  // Reset inline height so browser can recalculate layout.
   accountSection.style.height = 'auto';
   accountSection.style.minHeight = '';
 
-  // Даем браузеру применить изменения layout — безопасная пауза.
-  // (в большинстве случаев можно обойтись без setTimeout, но здесь ставим маленькую паузу)
-  // Мы не блокируем — просто измеряем текущий layout.
+  // Compute maximum relevant child height (skip hidden elements).
   let maxChildHeight = 0;
   const children = [adminUsersContent, adminReservationsContainer].filter(Boolean);
 
   for (const c of children) {
-    // Если элемент скрыт (display:none / offsetParent === null) — пропускаем.
-    if (c.offsetParent === null) continue;
-    // scrollHeight учитывает весь контент (включая прокручиваемую высоту).
+    if (c.offsetParent === null) continue; // element hidden via display:none or not in flow
     const h = c.scrollHeight || c.offsetHeight || 0;
     maxChildHeight = Math.max(maxChildHeight, h);
   }
 
   const contentHeight = Math.max(defaultHeight, maxChildHeight + 200);
-  // Используем minHeight — это предотвращает ситуацию, когда дочерний блок выше родителя.
   accountSection.style.minHeight = contentHeight + 'px';
 }
 
 export function initAdminReservations() {
-    
     const reservationContainer = document.getElementById("admin-reservations-container");
     const paginationContainer = document.getElementById("admin-reservations-pagination");
     const personalAccountRight = document.querySelector('.personal-account-right');
@@ -41,7 +36,6 @@ export function initAdminReservations() {
     const accountButtonDate = document.querySelector('.personal-account-dates');
     const accountButtonReservation = document.querySelector('.personal-account-reservation');
 
-    
     const adminPanelButton = document.querySelector('.personal-account-admin-panel');
 
     const accountButtons = [accountButtonDate, accountButtonReservation];
@@ -50,7 +44,7 @@ export function initAdminReservations() {
     let reservationsCache = {};
     let totalPages = 1;
 
-    
+    // simple control wrapper for show/hide all buttons
     const btnWrapper = document.createElement('div');
     btnWrapper.style.display = 'flex';
     btnWrapper.style.alignItems = 'center';
@@ -86,21 +80,20 @@ export function initAdminReservations() {
     });
 
     hideAllBtn.addEventListener('click', () => {
-    if (!reservationContainer) return;
-    reservationContainer.style.display = 'none';
-    if (paginationContainer) paginationContainer.innerHTML = '';
-    hideAllBtn.style.marginBottom = '50px';
-    showAllBtn.style.marginBottom = '50px';
+      if (!reservationContainer) return;
+      reservationContainer.style.display = 'none';
+      if (paginationContainer) paginationContainer.innerHTML = '';
+      hideAllBtn.style.marginBottom = '50px';
+      showAllBtn.style.marginBottom = '50px';
 
-    // Ждём окончания возможной анимации (в проекте fadeOut ~500ms)
-    // чтобы расчёт высоты был корректным.
-    setTimeout(() => {
-        adjustAccountSectionHeight();
-    }, 520);
+      // Wait for possible fadeOut (520ms) before recalculating heights.
+      setTimeout(() => {
+          adjustAccountSectionHeight();
+      }, 520);
     });
+
     accountButtons.forEach(element => {
         if (!element) return;
-        
         if (element.dataset.bound) return;
         element.addEventListener("click", () => {
             if (!accountSection) return;
@@ -114,7 +107,6 @@ export function initAdminReservations() {
     if (reservationContainer && reservationContainer.parentElement) {
         btnWrapper.appendChild(showAllBtn);
         btnWrapper.appendChild(hideAllBtn);
-
         reservationContainer.parentElement.insertBefore(btnWrapper, reservationContainer);
         if (paginationContainer) reservationContainer.parentElement.insertBefore(paginationContainer, reservationContainer);
         reservationContainer.style.display = 'none';
@@ -122,7 +114,6 @@ export function initAdminReservations() {
         console.warn('Reservation container or its parent not found. Buttons not inserted.');
     }
 
-    
     if (adminPanelButton && !adminPanelButton.dataset.bound) {
         adminPanelButton.addEventListener('click', () => {
             if (!accountSection || !personalAccountRight) return;
@@ -134,8 +125,9 @@ export function initAdminReservations() {
         adminPanelButton.dataset.bound = 'true';
     }
 
-    
-
+    /* Load reservations (with simple client-side caching).
+       - Renders table and pagination when data arrives.
+    */
     async function loadReservations(page = 1) {
         currentPage = Number.isInteger(page) ? page : parseInt(page, 10) || 1;
         if (!reservationContainer) return;
@@ -389,7 +381,6 @@ export function initAdminReservations() {
         });
     }
 
-    
     document.addEventListener('i18n:changed', async () => {
         await translateControlButtons();
         if (reservationContainer && reservationContainer.style.display !== 'none') {
@@ -397,7 +388,6 @@ export function initAdminReservations() {
         }
     });
 
-    
     (async () => {
         try { await translateControlButtons(); } catch (e) { }
     })();

@@ -1,5 +1,3 @@
-// No Russian comments
-
 export function initGallery() {
     // Configurable constants for animation and interaction.
     const DRAG_SENSITIVITY = 0.4;

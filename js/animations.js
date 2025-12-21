@@ -1,5 +1,3 @@
-// Нет русских комментавиев
-
 export function initAnimations() {
   
   const slides = document.querySelectorAll('.slider-image-item');

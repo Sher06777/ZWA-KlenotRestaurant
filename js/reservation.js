@@ -1,10 +1,10 @@
-// No Russian comments
+// Reservation form: validation, CSRF-aware submit, list loading and canceling.
+
 export async function initReservation() {
   const reservationForm = document.getElementById("reservation-form");
   const reservationButton = document.querySelector(".reservation-submit-btn");
   const reservationMessage = document.getElementById("reservation-message");
 
-  
   if (!reservationForm) {
     console.warn("reservation-form not found in DOM");
     return;
@@ -12,11 +12,11 @@ export async function initReservation() {
 
   const MAX_NAME = 100, MAX_PHONE = 30, MAX_EMAIL = 254, MAX_MESSAGE = 100, MIN_PEOPLE = 1, MAX_PEOPLE = 20;
 
+  // Build FormData and let CSRFManager append token if available
   async function buildReservationFormData() {
     if (!reservationForm) throw new Error('Form not found');
     const formData = new FormData(reservationForm);
     try {
-      // If a CSRF helper exists, let it append token to FormData (works for double-submit or body-token schemes).
       if (window.CSRFManager && typeof window.CSRFManager.appendToFormData === 'function') {
         await window.CSRFManager.appendToFormData(formData);
       }
@@ -26,13 +26,12 @@ export async function initReservation() {
     return formData;
   }
 
-  
+  // initialize CSRF manager non-blocking if present
   if (window.CSRFManager && typeof window.CSRFManager.init === 'function') {
-    // Initialize CSRFManager in background if present (non-blocking).
     window.CSRFManager.init().catch(()=>{});
   }
 
-  
+  // field-level error UI helpers
   function showFieldError(input, message) {
     if (!input || !input.parentElement) return;
     let errorEl = input.parentElement.querySelector('.error-message');
@@ -66,7 +65,7 @@ export async function initReservation() {
     clearGlobalMessage();
   }
 
-  
+  // small custom number controls wiring
   document.querySelectorAll('.custom-number-inline').forEach(wrapper => {
     const input = wrapper.querySelector('input[type="number"]');
     const btnUp = wrapper.querySelector('.up');
@@ -84,7 +83,7 @@ export async function initReservation() {
     });
   });
 
-  
+  // inline validation on blur/input
   reservationForm.querySelectorAll('input, textarea').forEach(input => {
     input.addEventListener('blur', () => {
       const value = (input.value || '').trim();
@@ -108,7 +107,7 @@ export async function initReservation() {
     input.addEventListener('input', () => clearFieldError(input));
   });
 
-  
+  // submit handler with CSRF-aware retry and friendly UX
   reservationForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearAllErrors();
@@ -155,7 +154,7 @@ export async function initReservation() {
 
     try {
       async function doFetchWithManager(formData) {
-        // Prefer CSRFManager.fetchWithCsrf if available — centralizes token handling and retry logic.
+        // Prefer CSRFManager.fetchWithCsrf if available
         if (window.CSRFManager && typeof window.CSRFManager.fetchWithCsrf === 'function') {
           return window.CSRFManager.fetchWithCsrf("./php/reservation.php", { method: "POST", body: formData, credentials: "include" });
         } else {
@@ -166,7 +165,7 @@ export async function initReservation() {
       let formData = await buildReservationFormData();
       let response = await doFetchWithManager(formData);
 
-      // If initial attempt failed due to CSRF (403) and manager supports refresh, try once more after refresh.
+      // retry once after CSRF refresh if 403 and manager supports refresh
       if (response && response.status === 403 && window.CSRFManager && typeof window.CSRFManager.refresh === 'function') {
         try {
           await window.CSRFManager.refresh();
@@ -204,7 +203,7 @@ export async function initReservation() {
   });
 }
 
-
+// small helpers used when showing user reservations
 function _lookupInDict(dict, keyPath) {
   if (!dict || !keyPath) return undefined;
   const parts = String(keyPath).split('.');
@@ -230,12 +229,10 @@ export function createLabeledParagraph(labelKey, valueText, dict = null) {
   const p = document.createElement('p');
   const strong = document.createElement('strong');
 
-  
   strong.setAttribute('data-i18n', labelKey);
   p.appendChild(strong);
   p.appendChild(document.createTextNode(' '));
 
-  
   if (typeof valueText !== 'string' || valueText.length === 0) {
     p.appendChild(document.createTextNode(''));
   } else {
@@ -246,7 +243,7 @@ export function createLabeledParagraph(labelKey, valueText, dict = null) {
     });
   }
 
-  
+  // async attempt to fill translation (or use minimal fallback)
   (async () => {
     try {
       let localDict = dict;
@@ -255,8 +252,6 @@ export function createLabeledParagraph(labelKey, valueText, dict = null) {
       if (translated != null) {
         strong.textContent = String(translated) + ' ';
       } else {
-        
-        
         const minimalFallbacks = {
           'personal-account.name': 'Name:',
           'personal-account.phone': 'Phone:',
@@ -264,12 +259,10 @@ export function createLabeledParagraph(labelKey, valueText, dict = null) {
           'personal-account.guest': 'Guests:',
           'personal-account.comment': 'Comment:'
         };
-        // Minimal client-side fallback when translation missing.
         if (minimalFallbacks[labelKey]) strong.textContent = minimalFallbacks[labelKey] + ' ';
         else strong.textContent = labelKey + ' ';
       }
     } catch (e) {
-      
       try { strong.textContent = labelKey + ' '; } catch(_) {}
     }
   })();
@@ -282,10 +275,8 @@ export async function loadUserReservations(userId, page = 1) {
   const pagination = document.getElementById('user-reservations-pagination');
   if (!container) return;
 
-  // Мягкий визуальный feedback
   container.classList.add('is-loading');
 
-  // Блокируем пагинацию
   const buttons = pagination ? pagination.querySelectorAll('button') : [];
   buttons.forEach(b => b.disabled = true);
 
@@ -296,7 +287,6 @@ export async function loadUserReservations(userId, page = 1) {
 
     const data = await resp.json();
 
-    // Небольшая задержка = плавность (НЕ обязательно, но UX лучше)
     await new Promise(r => requestAnimationFrame(r));
 
     if (!data.success || !data.reservations?.length) {
@@ -335,10 +325,8 @@ export async function loadUserReservations(userId, page = 1) {
       frag.appendChild(item);
     }
 
-    // МОМЕНТ ПОДМЕНЫ — незаметный
     container.replaceChildren(frag);
 
-    // Пагинация
     if (pagination) {
       pagination.innerHTML = '';
 
@@ -366,14 +354,12 @@ export async function loadUserReservations(userId, page = 1) {
   } catch (e) {
     console.error(e);
   } finally {
-    // Возвращаем нормальный вид
     requestAnimationFrame(() => {
       container.classList.remove('is-loading');
       buttons.forEach(b => b.disabled = false);
     });
   }
 }
-
 
 export async function cancelReservation(reservationId, userId) {
   const id = parseInt(reservationId, 10);
@@ -382,12 +368,10 @@ export async function cancelReservation(reservationId, userId) {
     return;
   }
 
-  // Найдём все кнопки отмены для этого id и заблокируем их,
-  // чтобы избежать множественных кликов.
+  // find cancel buttons for this id and lock them to avoid duplicate clicks
   const cancelButtons = Array.from(document.querySelectorAll('.cancel-reservation-btn'))
     .filter(b => b.dataset && String(b.dataset.id) === String(id));
 
-  // Запомним текст кнопок чтобы восстановить при ошибке
   const prevTexts = cancelButtons.map(b => b.textContent);
 
   cancelButtons.forEach(b => {
@@ -399,7 +383,6 @@ export async function cancelReservation(reservationId, userId) {
 
   try {
     if (window.CSRFManager) {
-      // Ensure CSRFManager initialized before making mutating request
       if (!window.CSRFManager.isInitialized || !window.CSRFManager.isInitialized()) {
         await window.CSRFManager.init();
       }
@@ -426,10 +409,8 @@ export async function cancelReservation(reservationId, userId) {
 
     const data = await res.json().catch(() => ({ success: false, error: 'invalid json' }));
     if (data.success) {
-      // Обновляем список — перерисовка уберёт удалённую резервацию.
       try { await loadUserReservations(userId); } catch (e) { /* fallback */ }
     } else {
-      // Восстанавливаем кнопки и сообщаем об ошибке
       cancelButtons.forEach((b, i) => {
         try { b.disabled = false; b.textContent = prevTexts[i] || 'Cancel'; } catch(_) {}
       });
@@ -443,8 +424,6 @@ export async function cancelReservation(reservationId, userId) {
     alert('Connection error with the server.');
   }
 }
-
-
 
 try {
   if (typeof window !== 'undefined') {
