@@ -204,7 +204,7 @@ export function initSwitchVisibility({ autoCheckSession = true } = {}) {
     console.group('🔀 handleRouting');
     const hash = window.location.hash;
     const path = window.location.pathname;
-    const BASE_PATH = '/~achilkem/';
+    const BASE_PATH = '/~base/';
 
     console.log('Path:', path);
     console.log('Hash:', hash);

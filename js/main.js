@@ -49,8 +49,8 @@ async function boot() {
     // 2.1) simple not-found handler
     try {
       initNotFoundHandler({
-        basePath: '/~abdimshe/',
-        cleanTo: '/~abdimshe/',
+        basePath: '/~base/',
+        cleanTo: '/~base/',
         autoClear: true
       });
     } catch (e) { console.warn('initNotFoundHandler failed', e); }

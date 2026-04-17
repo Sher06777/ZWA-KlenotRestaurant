@@ -1,7 +1,7 @@
 export default function initNotFoundHandler(options = {}) {
   const {
-    basePath = '/~abdimshe/',
-    cleanTo = '/~abdimshe/',
+    basePath = '/~base/',
+    cleanTo = '/~base/',
     autoClear = true,
     createIfMissing = true
   } = options;
