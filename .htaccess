@@ -1,10 +1,10 @@
 Options -MultiViews
 RewriteEngine On
-RewriteBase /~achilkem/
+RewriteBase /~base/
 
 # 1) If request targets "index.html/..." or "index.js..." — treat as SPA and serve index.html
 RewriteRule ^index\.html/ index.html [L]
-RewriteCond %{REQUEST_URI} ^/~achilkem/index\.js.+ [NC]
+RewriteCond %{REQUEST_URI} ^/~base/index\.js.+ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^index\.js.+$ index.html [L]
@@ -28,4 +28,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . index.html [L]
 
 # 5) Custom 404 handler (falls back to SPA)
-ErrorDocument 404 /~achilkem/index.html
+ErrorDocument 404 /~base/index.html
